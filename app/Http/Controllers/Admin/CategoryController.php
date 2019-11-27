@@ -18,8 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        //dd($categories);
-
+      
         return view('admin.category.index', compact('categories'));
     }
 
@@ -40,8 +39,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request->all();
-
         $this->validate($request, [
           'name' => 'required|unique:categories|max:255',
           'color' => 'required',

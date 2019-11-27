@@ -20,7 +20,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::orderBy('id', 'desc')->paginate(5);
-        //dd($products);
+        
         return view('admin.product.index', compact('products'));
     }
 
@@ -32,7 +32,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::orderBy('id', 'desc')->lists('name', 'id');
-        //dd($categories);
+
         return view('admin.product.create', compact('categories'));
     }
 
@@ -98,7 +98,6 @@ class ProductController extends Controller
         $product->fill($request->all());
         $product->slug = str_slug($request->get('name'));
         $product->visible = $request->has('visible') ? 1 : 0;
-        
         $updated = $product->save();
         
         $message = $updated ? 'Producto actualizado correctamente!' : 'El Producto NO pudo actualizarse!';

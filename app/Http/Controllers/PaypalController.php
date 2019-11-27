@@ -196,10 +196,4 @@ class PaypalController extends BaseController
 			'order_id' => $order_id
 		]);
 	}
-
-
-
-
-
-
 }

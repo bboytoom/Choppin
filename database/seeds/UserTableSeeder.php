@@ -14,26 +14,26 @@ class UserTableSeeder extends Seeder
     {
         $data = array(
 			[
-				'name' 		=> 'Oved', 
-				'last_name' => 'FiSo', 
-				'email' 	=> 'ovedfs@gmail.com', 
-				'user' 		=> 'ovedfs',
-				'password' 	=> \Hash::make('123456'),
+				'name' 		=> 'tomas', 
+				'last_name' => 'rosber', 
+				'email' 	=> 'thomasrosber@gmail.com', 
+				'user' 		=> 'tomas',
+				'password' 	=> \Hash::make('admin123'),
 				'type' 		=> 'admin',
 				'active' 	=> 1,
-				'address' 	=> 'San Cosme 290, Cuauhtemoc, D.F.',
+				'address' 	=> 'iztapalapa',
 				'created_at'=> new DateTime,
 				'updated_at'=> new DateTime
 			],
 			[
-				'name' 		=> 'Adela', 
-				'last_name' => 'Torres', 
-				'email' 	=> 'adela@correo.com', 
-				'user' 		=> 'adela',
+				'name' 		=> 'miguel', 
+				'last_name' => 'molina', 
+				'email' 	=> 'miguel@correo.com', 
+				'user' 		=> 'migue',
 				'password' 	=> \Hash::make('123456'),
 				'type' 		=> 'user',
 				'active' 	=> 1,
-				'address' 	=> 'Tonala 321, Jalisco',
+				'address' 	=> 'neza',
 				'created_at'=> new DateTime,
 				'updated_at'=> new DateTime
 			],

@@ -10,7 +10,6 @@ class Order extends Model
 
 	protected $fillable = ['subtotal', 'shipping', 'user_id'];
 
-	// Relation with User
 	public function user()
 	{
 	    return $this->belongsTo('App\User');
