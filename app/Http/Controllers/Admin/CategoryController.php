@@ -40,15 +40,13 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-          'name' => 'required|unique:categories|max:255',
-          'color' => 'required',
+          'name' => 'required|unique:categories|max:255'
         ]);
         
         $category = Category::create([
             'name' => $request->get('name'),
             'slug' => str_slug($request->get('name')),
-            'description' => $request->get('description'),
-            'color' => $request->get('color')
+            'description' => $request->get('description')
         ]);
         
         $message = $category ? 'Categoría agregada correctamente!' : 'La Categoría NO pudo agregarse!';
@@ -87,13 +85,11 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $this->validate($request, [
-          'name' => 'required|max:255',
-          'color' => 'required',
+          'name' => 'required|max:255'
         ]);
 
         $category->fill($request->all());
         $category->slug = str_slug($request->get('name'));
-        
         $updated = $category->save();
         
         $message = $updated ? 'Categoría actualizada correctamente!' : 'La Categoría NO pudo actualizarse!';
