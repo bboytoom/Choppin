@@ -5,8 +5,8 @@
     <section class="row">
         <div class="col-md-12">
             <h1>
-                <i class="fa fa-shopping-cart"></i>
-                CATEGORÍAS <small>[Editar categoría]</small>
+                <i class="fa fa-shopping-cart"></i> CATEGORÍAS 
+                <small>[Editar categoría]</small>
             </h1>
         </div>
 

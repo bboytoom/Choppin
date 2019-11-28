@@ -5,8 +5,7 @@
 	<section class="row">
 		<div class="col-md-12">
 			<h1>
-				<i class="fa fa-shopping-cart"></i>
-				CATEGORÍAS 
+				<i class="fa fa-shopping-cart"></i> CATEGORÍAS 
 				<a href="{{ route('admin.category.create') }}" class="btn btn-warning">
 				<i class="fa fa-plus-circle"></i> Categoría</a>
 			</h1>
