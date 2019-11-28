@@ -3,33 +3,55 @@
 @section('content')
 	
 	<section class="row">
-		<div class="con-md-4">
+		<div class="col-md-7 text-center">
 			<img src="{{ $product->image }}" class="productimg__elem">
 		</div>
 
-		<div class="con-md-4">
-			<p>
-				{{ $product->name }}
-			</p>
-			<p>
-				Precio: ${{ number_format($product->price,2) }}
-			</p>
-			<p>
-				{{ $product->description }}
-			</p>
+		<div class="col-md-5">
+			<div class="row">
+				<div class="col-md-12">
+					<h3>
+						{{ $product->name }}
+					</h3>
+				</div>
 
+				<div class="col-md-12 mt-3 border-bottom">
+					<h5>
+						Precio: ${{ number_format($product->price,2) }}
+					</h5>
+				</div>
+
+				<div class="col-md-12 mt-5">
+					<a class="btn btn-dark btn-lg" href="{{ route('cart-add', $product->slug) }}">
+						<i class="fas fa-shopping-cart"></i> La quiero
+					</a>
+				</div>
+			</div>
 		</div>
 
-		<div class="con-md-4">
-			<a href="{{ route('cart-add', $product->slug) }}">
-				La quiero <i class="fa fa-cart-plus fa-2x"></i>
-			</a>
-		</div>
-
-		<div class="col-md 12">
-			<a class="" href="{{ route('home') }}">
-				Regresar
-			</a>
+		<div class="col-md-12 mt-5">
+			<div class="row">
+				<div class="col-4">
+					<div class="list-group" id="list-tab" role="tablist">
+						<a class="list-group-item list-group-item-action list-group-item-dark active" id="list-description-list" data-toggle="list" href="#list-description" role="tab" aria-controls="description">
+							Descripcion
+						</a>
+						<a class="list-group-item list-group-item-action list-group-item-dark" id="list-caracteries-list" data-toggle="list" href="#list-caracteries" role="tab" aria-controls="caracteries">
+							Caracteristicas
+						</a>
+					</div>
+				</div>
+				<div class="col-8">
+					<div class="tab-content mt-3" id="nav-tabContent">
+						<div class="tab-pane fade show active" id="list-description" role="tabpanel" aria-labelledby="list-description-list">
+							{{ $product->description }}
+						</div>
+						<div class="tab-pane fade" id="list-caracteries" role="tabpanel" aria-labelledby="list-caracteries-list">
+							Caracteristicas del producto
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 	

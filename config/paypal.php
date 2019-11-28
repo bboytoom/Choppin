@@ -1,8 +1,8 @@
 <?php
 return array(
     // set your paypal credential
-    'client_id' => 'AWEYnTdqRR1OcEVpn23gywpcDSzpWAcWbg669_zZaGM_M_2FOipFw5VRWMlYNLEtqu0PyyvK0Rj54QJc',
-    'secret' => 'ENj1HnNF3o9ToY9kOcpTHmcwGLvkpV2JXRjZrMohWIeg4FAyRrUt46du3yUnRvlagpAvCxXpJhpRh-7q',
+    'client_id' => 'AUz6JPQ8XtsE3hhh0gXSgbchzaRjQ8oL-KAd19aH_SJQc63uqtTToX5Kl6SQ1THQlzpZg1wn243TYtD1',
+    'secret' => 'ED0VbT0JILNoa4gPIuS5UqlMFksHObc7-DVBowDPmLuW-ckLXzk4dzoP1LjFQr-X5YMDBBxIzw9eG_f9',
 
     /**
      * SDK configuration 
