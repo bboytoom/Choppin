@@ -43,7 +43,8 @@ class UserController extends Controller
     {
         $data = [
             'name'          => $request->get('name'),
-            'last_name'     => $request->get('last_name'),
+            'father_surname'     => $request->get('father_surname'),
+            'mother_surname'     => $request->get('mother_surname'),
             'email'         => $request->get('email'),
             'password'      => $request->get('password'),
             'type'          => $request->get('type'),
@@ -91,14 +92,16 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name'      => 'required|max:100',
-            'last_name' => 'required|max:100',
+            'father_surname' => 'required|max:100',
+            'mother_surname' => 'max:100',
             'email'     => 'required|email',
             'password'  => ($request->get('password') != "") ? 'required|confirmed' : "",
             'type'      => 'required|in:user,admin',
         ]);
         
         $user->name = $request->get('name');
-        $user->last_name = $request->get('last_name');
+        $user->father_surname = $request->get('father_surname');
+        $user->mother_surname = $request->get('mother_surname');
         $user->email = $request->get('email');
         $user->type = $request->get('type');
         $user->address = $request->get('address');

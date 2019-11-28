@@ -15,7 +15,8 @@ class UserTableSeeder extends Seeder
         $data = array(
 			[
 				'name' 		=> 'tomas', 
-				'last_name' => 'rosber', 
+				'father_surname' => 'rosas', 
+				'mother_surname' => 'bermudez', 
 				'email' 	=> 'thomasrosber@gmail.com', 
 				'password' 	=> \Hash::make('admin123'),
 				'type' 		=> 'admin',
@@ -26,7 +27,8 @@ class UserTableSeeder extends Seeder
 			],
 			[
 				'name' 		=> 'miguel', 
-				'last_name' => 'molina', 
+				'father_surname' => 'molina', 
+				'mother_surname' => 'alfaro', 
 				'email' 	=> 'miguel@correo.com', 
 				'password' 	=> \Hash::make('123456'),
 				'type' 		=> 'user',

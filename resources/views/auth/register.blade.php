@@ -3,7 +3,7 @@
 @section('content')
 	
 	<section class="row justify-content-md-center">
-		<div class="col-md-12">
+		<div class="col-md-7">
 			@include('store.partials.errors')
 		</div>
 
@@ -23,8 +23,13 @@
 						</div>
 
 						<div class="form-group">
-							<label for="last_name">Apellidos</label>
-							<input id="last_name" class="form-control" type="text" name="last_name" value="{{ old('last_name') }}" placeholder="Apellidos">
+							<label for="father_surname">Apellido paterno</label>
+							<input id="father_surname" class="form-control" type="text" name="father_surname" value="{{ old('father_surname') }}" placeholder="Apellido paterno">
+						</div>
+
+						<div class="form-group">
+							<label for="mother_surname">Apellido materno</label>
+							<input id="mother_surname" class="form-control" type="text" name="mother_surname" value="{{ old('mother_surname') }}" placeholder="Apellido materno">
 						</div>
 
 						<div class="form-group">
@@ -44,7 +49,7 @@
 
 						<div class="form-group">
 							<label for="adrress">Dirección</label>
-							<textarea id="adrress" class="form-control" name="address" placeholder="Direccion">
+							<textarea id="adrress" class="form-control" name="address" rows="4" placeholder="Direccion">
 								{{ old('address') }}
 							</textarea>
 						</div>

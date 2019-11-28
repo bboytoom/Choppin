@@ -20,7 +20,8 @@
                             <th>Editar</th>
                             <th>Eliminar</th>
                             <th>Nombre</th>
-                            <th>Apellidos</th>
+                            <th>Apellido paterno</th>
+                            <th>Apellido materno</th>
                             <th>Correo</th>
                             <th>Tipo</th>
                             <th>Activo</th>
@@ -43,7 +44,8 @@
         							{!! Form::close() !!}
                                 </td>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ $user->last_name }}</td>
+                                <td>{{ $user->father_surname }}</td>
+                                <td>{{ $user->mother_surname }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->type }}</td>
                                 <td>{{ $user->active == 1 ? "Si" : "No" }}</td>

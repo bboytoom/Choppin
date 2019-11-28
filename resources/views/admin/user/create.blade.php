@@ -32,23 +32,38 @@
                                         'class'=>'form-control',
                                         'placeholder' => 'Ingresa el nombre...',
                                         'autofocus' => 'autofocus',
-                                        //'required' => 'required'
+                                        'required' => 'required'
                                     )
                                 ) 
                             !!}
                         </div>
                         
                         <div class="form-group">
-                            <label for="last_name">Apellidos:</label>
+                            <label for="father_surname">Apellidos paterno</label>
                             
                             {!! 
                                 Form::text(
-                                    'last_name', 
+                                    'father_surname', 
                                     null, 
                                     array(
                                         'class'=>'form-control',
-                                        'placeholder' => 'Ingresa los apellidos...',
-                                        //'required' => 'required'
+                                        'placeholder' => 'Ingresa el apellido paterno',
+                                        'required' => 'required'
+                                    )
+                                ) 
+                            !!}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mother_surname">Apellido materno</label>
+                            
+                            {!! 
+                                Form::text(
+                                    'mother_surname', 
+                                    null, 
+                                    array(
+                                        'class'=>'form-control',
+                                        'placeholder' => 'Ingresa el apellido materno',
                                     )
                                 ) 
                             !!}
@@ -64,7 +79,7 @@
                                     array(
                                         'class'=>'form-control',
                                         'placeholder' => 'Ingresa el correo...',
-                                        //'required' => 'required'
+                                        'required' => 'required'
                                     )
                                 ) 
                             !!}
@@ -78,7 +93,7 @@
                                     'password', 
                                     array(
                                         'class'=>'form-control',
-                                        //'required' => 'required'
+                                        'required' => 'required'
                                     )
                                 ) 
                             !!}
@@ -92,7 +107,7 @@
                                     'password_confirmation',
                                     array(
                                         'class'=>'form-control',
-                                        //'required' => 'required'
+                                        'required' => 'required'
                                     )
                                 ) 
                             !!}
