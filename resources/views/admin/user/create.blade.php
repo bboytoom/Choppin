@@ -69,23 +69,7 @@
                                 ) 
                             !!}
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="user">Usuario:</label>
-                            
-                            {!! 
-                                Form::text(
-                                    'user', 
-                                    null, 
-                                    array(
-                                        'class'=>'form-control',
-                                        'placeholder' => 'Ingresa el nombre de usuario...',
-                                        //'required' => 'required'
-                                    )
-                                ) 
-                            !!}
-                        </div>
-                        
+                      
                         <div class="form-group">
                             <label for="password">Password:</label>
                             

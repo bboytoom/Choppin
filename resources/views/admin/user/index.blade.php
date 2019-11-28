@@ -21,7 +21,6 @@
                             <th>Eliminar</th>
                             <th>Nombre</th>
                             <th>Apellidos</th>
-                            <th>Usuario</th>
                             <th>Correo</th>
                             <th>Tipo</th>
                             <th>Activo</th>
@@ -45,7 +44,6 @@
                                 </td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->last_name }}</td>
-                                <td>{{ $user->user }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->type }}</td>
                                 <td>{{ $user->active == 1 ? "Si" : "No" }}</td>

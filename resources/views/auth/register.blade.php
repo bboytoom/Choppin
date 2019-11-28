@@ -33,11 +33,6 @@
 						</div>
 
 						<div class="form-group">
-							<label for="user">Usuario</label>
-							<input id="user" class="form-control" type="text" name="user" value="{{ old('user') }}" placeholder="Usuario">
-						</div>
-
-						<div class="form-group">
 							<label for="password">Contraseña</label>
 							<input id="password" class="form-control" type="password" name="password" placeholder="Contraseña">
 						</div>

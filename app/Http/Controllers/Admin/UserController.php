@@ -45,7 +45,6 @@ class UserController extends Controller
             'name'          => $request->get('name'),
             'last_name'     => $request->get('last_name'),
             'email'         => $request->get('email'),
-            'user'          => $request->get('user'),
             'password'      => $request->get('password'),
             'type'          => $request->get('type'),
             'active'        => $request->has('active') ? 1 : 0,
@@ -94,7 +93,6 @@ class UserController extends Controller
             'name'      => 'required|max:100',
             'last_name' => 'required|max:100',
             'email'     => 'required|email',
-            'user'      => 'required|min:4|max:20',
             'password'  => ($request->get('password') != "") ? 'required|confirmed' : "",
             'type'      => 'required|in:user,admin',
         ]);
@@ -102,7 +100,6 @@ class UserController extends Controller
         $user->name = $request->get('name');
         $user->last_name = $request->get('last_name');
         $user->email = $request->get('email');
-        $user->user = $request->get('user');
         $user->type = $request->get('type');
         $user->address = $request->get('address');
         $user->active = $request->has('active') ? 1 : 0;
