@@ -36,6 +36,11 @@ Route::get('product/{slug}', [
 	'uses' => 'StoreController@show'
 ]);
 
+Route::get('category/{category_id}', [
+	'as' => 'category-product',
+	'uses' => 'CategoriesController@index'
+]);
+
 // Carrito -------------
 
 Route::get('cart/show', [

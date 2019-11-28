@@ -2,57 +2,81 @@
 
 @section('content')
 	
+	<section class="row">
+		<div class="col-md-12">
+			<h2>
+				Detalle del pedido
+			</h2>
+		</div>
 
-	<h1>Detalle del pedido</h1>
+		<div class="col-md-12">
+			<h3>
+				Datos del usuario
+			</h3>
 
+			<table class="table table-striped">
+				<tbody>
+					<tr>
+						<td>Nombre:</td>
+						<td>{{ Auth::user()->name . " " . Auth::user()->last_name }}</td>
+					</tr>
+					<tr>
+						<td>Usuario:</td>
+						<td>{{ Auth::user()->user }}</td>
+					</tr>
+					<tr>
+						<td>Correo:</td>
+						<td>{{ Auth::user()->email }}</td>
+					</tr>
+					<tr>
+						<td>Dirección:</td>
+						<td>{{ Auth::user()->address }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
-	<h3>Datos del usuario</h3>
-		
-	<table>
-		<tr>
-			<td>Nombre:</td><td>{{ Auth::user()->name . " " . Auth::user()->last_name }}</td>
-		</tr>
-		<tr>
-			<td>Usuario:</td><td>{{ Auth::user()->user }}</td>
-		</tr>
-		<tr>
-			<td>Correo:</td><td>{{ Auth::user()->email }}</td>
-		</tr>
-		<tr>
-			<td>Dirección:</td><td>{{ Auth::user()->address }}</td>
-		</tr>
-	</table>
-	
-	<h3>Datos del pedido</h3>
-	
-	<table>
-		<tr>
-			<th>Producto</th>
-			<th>Precio</th>
-			<th>Cantidad</th>
-			<th>Subtotal</th>
-		</tr>
-		
-		@foreach($cart as $item)
-			<tr>
-				<td>{{ $item->name }}</td>
-				<td>${{ number_format($item->price,2) }}</td>
-				<td>{{ $item->quantity }}</td>
-				<td>${{ number_format($item->price * $item->quantity,2) }}</td>
-			</tr>
-		@endforeach
-	</table>
+		<div class="col-md-12">
+			<h3>
+				Datos del pedido
+			</h3>
 
-		<h3>
-			Total: ${{ number_format($total, 2) }}	
-		</h3>
-	
-		<a href="{{ route('cart-show') }}" >
-			Regresar
-		</a>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Producto</th>
+						<th scope="col">Precio</th>
+						<th scope="col">Cantidad</th>
+						<th scope="col">Subtotal</th>
+					</tr>
+				</thead>
 
-		<a href="{{ route('payment') }}" >
-			Pagar con paypal
-		</a>
+				<tbody>
+					@foreach($cart as $item)
+						<tr>
+							<td>{{ $item->name }}</td>
+							<td>${{ number_format($item->price,2) }}</td>
+							<td>{{ $item->quantity }}</td>
+							<td>${{ number_format($item->price * $item->quantity,2) }}</td>
+						</tr>
+					@endforeach
+				</tbody>
+			</table>
 
-@stop
+			<h3>
+				Total: ${{ number_format($total, 2) }}	
+			</h3>
+		</div>
+
+		<div class="col-md-12">
+			<a href="{{ route('cart-show') }}" >
+				Regresar
+			</a>
+
+			<a href="{{ route('payment') }}" >
+				Pagar con paypal
+			</a>
+		</div>
+	</section>
+
+@endsection

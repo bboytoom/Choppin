@@ -1,29 +1,43 @@
 @extends('store.template')
 
 @section('content')
+	
+	<section class="row">
+		
+		@include('store.partials.categories')
 
-	@include('store.partials.slider')
-
-	@foreach($products as $product)
-		<div class=" ">
-			<h3>
-				{{ $product->name }}
-			</h3>
-			<img src="{{ $product->image }}">
-			<div class="">
-				<p>{{ $product->extract }}</p>
-				<h3>
-					Precio: ${{ number_format($product->price,2) }}
-				</h3>
-					
-				<a class="" href="{{ route('cart-add', $product->slug) }}">
-					La quiero
-				</a>
-				<a class="" href="{{ route('product-detail', $product->slug) }}">
-					Leer mas
-				</a>
+		<div class="col-md-9">
+			<div class="row">
+				@foreach($products as $product)
+					<div class="col-md-4 mt-3">
+						<div class="card">
+							<div class="card-header">
+								<h5>
+									{{ $product->name }}
+								</h5>
+							</div>
+							<img src="{{ $product->image }}" class="card-img-top producstimg__elem" alt="">
+							<div class="card-body">
+								<h6>
+									Precio: <strong>${{ number_format($product->price,2) }}</strong>
+								</h6>
+								<p class="card-text">
+									{{ $product->extract }}
+								</p>
+							</div>
+							<div class="card-footer text-center">
+								<a href="{{ route('cart-add', $product->slug) }}" class="btn btn-dark">
+									Comprar
+								</a>
+								<a href="{{ route('product-detail', $product->slug) }}" class="btn btn-dark">
+									Leer más
+								</a>
+							</div>
+						</div>
+					</div>
+				@endforeach
 			</div>
 		</div>
-	@endforeach
-	
-@stop
+	</section>
+
+@endsection

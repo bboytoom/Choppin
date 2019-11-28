@@ -2,23 +2,35 @@
 
 @section('content')
 	
-	<h1>Detalle del producto</h1>
+	<section class="row">
+		<div class="con-md-4">
+			<img src="{{ $product->image }}" class="productimg__elem">
+		</div>
 
-	<img src="{{ $product->image }}">
+		<div class="con-md-4">
+			<p>
+				{{ $product->name }}
+			</p>
+			<p>
+				Precio: ${{ number_format($product->price,2) }}
+			</p>
+			<p>
+				{{ $product->description }}
+			</p>
+
+		</div>
+
+		<div class="con-md-4">
+			<a href="{{ route('cart-add', $product->slug) }}">
+				La quiero <i class="fa fa-cart-plus fa-2x"></i>
+			</a>
+		</div>
+
+		<div class="col-md 12">
+			<a class="" href="{{ route('home') }}">
+				Regresar
+			</a>
+		</div>
+	</section>
 	
-	<h3>{{ $product->name }}</h3>
-	
-	{{ $product->description }}
-	<h3>
-		Precio: ${{ number_format($product->price,2) }}
-	</h3>
-				
-	<a href="{{ route('cart-add', $product->slug) }}">
-		La quiero <i class="fa fa-cart-plus fa-2x"></i>
-	</a>
-
-	<a class="" href="{{ route('home') }}">
-		Regresar
-	</a>
-
-@stop
+@endsection

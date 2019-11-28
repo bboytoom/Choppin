@@ -1,4 +1,17 @@
-body
-{
+.producstimg__elem{
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
 
+.productimg__elem{
+    width: 200px;
+}
+
+.imgcarrito__elem{
+    width: 100px;
+}
+
+.categorias--mdf{
+    padding-left: .70em;
 }

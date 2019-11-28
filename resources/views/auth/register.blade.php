@@ -1,51 +1,62 @@
 @extends('store.template')
 
 @section('content')
-	<h1>Registrarse</h1>
 	
-	@include('store.partials.errors')
-
-	<form method="POST" action="/auth/register">
-		{!! csrf_field() !!}
-
-		<div>
-			<label for="name">Nombre</label>
-			<input class="form-control" type="text" name="name" value="{{ old('name') }}">
+	<section class="row">
+		<div class="col-md-12">
+			@include('store.partials.errors')
 		</div>
 
-		<div>
-			<label for="last_name">Apellidos</label>
-			<input class="form-control" type="text" name="last_name" value="{{ old('last_name') }}">
-		</div>
+		<div class="col-md-12">
+			<h2>
+				Registrarse
+			</h2>
 
-		<div>
-			<label for="email">Correo</label>
-			<input class="form-control" type="email" name="email" value="{{ old('email') }}">
-		</div>
+			<form method="POST" action="/auth/register">
+				{!! csrf_field() !!}
 
-		<div>
-			<label for="user">Usuario</label>
-			<input class="form-control" type="text" name="user" value="{{ old('user') }}">
-		</div>
+				<div class="form-group">
+					<label for="name">Nombre</label>
+					<input id="name" class="form-control" type="text" name="name" value="{{ old('name') }}" placeholder="Nombre">
+				</div>
 
-		<div>
-			<label for="password">Password</label>
-			<input class="form-control" type="password" name="password">
-		</div>
+				<div class="form-group">
+					<label for="last_name">Apellidos</label>
+					<input id="last_name" class="form-control" type="text" name="last_name" value="{{ old('last_name') }}" placeholder="Apellidos">
+				</div>
 
-		<div>
-			<label for="password_confirmation">Confirmar Password</label>
-			<input class="form-control" type="password" name="password_confirmation">
-		</div>
+				<div class="form-group">
+					<label for="email">Correo electronico</label>
+					<input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" placeholder="Correo electronico">
+				</div>
 
-		<div>
-			<label for="adrress">Dirección</label>
-			<textarea class="form-control" name="address">{{ old('address') }}</textarea>
-		</div>
+				<div class="form-group">
+					<label for="user">Usuario</label>
+					<input id="user" class="form-control" type="text" name="user" value="{{ old('user') }}" placeholder="Usuario">
+				</div>
 
-		<div>
-			<button class="btn btn-primary" type="submit">Crear cuenta</button>
-		</div>
-	</form>
+				<div class="form-group">
+					<label for="password">Contraseña</label>
+					<input id="password" class="form-control" type="password" name="password" placeholder="Contraseña">
+				</div>
 
-@stop
+				<div class="form-group">
+					<label for="password_confirmation">Confirmar contraseña</label>
+					<input id="password_confirmation" class="form-control" type="password" name="password_confirmation" placeholder="Contraseña">
+				</div>
+
+				<div class="form-group">
+					<label for="adrress">Dirección</label>
+					<textarea id="adrress" class="form-control" name="address" placeholder="Direccion">
+						{{ old('address') }}
+					</textarea>
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Registrarme</button>
+				</div>
+			</form>
+		</div>
+	</section>
+
+@endsection

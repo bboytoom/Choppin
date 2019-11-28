@@ -1,31 +1,40 @@
 @extends('store.template')
 
 @section('content')
+
+	<section class="row">
+		<div class="col-md-12">
+			@include('store.partials.errors')
+		</div>
+
+		<div class="col-md-12">
+			<h2>
+				Iniciar sesión
+			</h2>
 	
-	<h1>Iniciar sesión</h1>
-		
-	@include('store.partials.errors')
+			<form method="POST" action="/auth/login">
+				{!! csrf_field() !!}
 
-	<form method="POST" action="/auth/login">
-		{!! csrf_field() !!}
+				<div class="form-group">
+					<label for="email">Correo electronico</label>
+					<input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" placeholder="hola@correo.com">
+				</div>
 
-		<div>
-			<label for="email">Email</label>
-			<input type="email" name="email" value="{{ old('email') }}">
+				<div class="form-group">
+					<label for="password">Contraseña</label>
+					<input id="password" class="form-control" type="password" name="password" placeholder="*******">
+				</div>
+
+				<div class="form-group form-check">
+					<input id="remember" class="form-check-input" type="checkbox" name="remember"> 
+					<label class="form-check-label" for="remember">Recuerdame</label>
+				</div>
+
+				<div class="form-group">
+					 <button type="submit" class="btn btn-primary">Ingresar</button>
+				</div>
+			</form>
 		</div>
-
-		<div>
-			<label for="password">Password</label>
-			<input type="password" name="password" id="password">
-		</div>
-
-		<div>
-			<input type="checkbox" name="remember"> Remember Me
-		</div>
-
-		<div>
-			<button type="submit">Login</button>
-		</div>
-	</form>
-				
-@stop
+	</section>
+			
+@endsection

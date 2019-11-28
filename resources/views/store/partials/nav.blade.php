@@ -1,9 +1,24 @@
-<nav>
-    <a href="{{ route('home') }}">logo</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{ route('home') }}">Logo</a>
 
-    <a href="{{ route('cart-show') }}">
-          carrito
-    </a>
-       
-    @include('store.partials.menu-user')
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('home') }}">
+                    <i class="fas fa-home"></i> Inicio 
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('cart-show') }}">
+                    <i class="fas fa-shopping-cart"></i> Mi carrito
+                </a>
+            </li>
+
+            @include('store.partials.menu-user')
+        </ul>
+    </div>
 </nav>
