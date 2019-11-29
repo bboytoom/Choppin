@@ -26,7 +26,7 @@ class CreateOrderItemsTable extends Migration
                   ->references('id')
                   ->on('orders')
                   ->onDelete('cascade');
-            //$table->timestamps();
+            $table->timestamps();
         });
     }
 
