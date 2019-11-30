@@ -25,11 +25,6 @@ Route::bind('user', function($user){
     return App\User::find($user);
 });
 
-// User dependency injection
-Route::bind('units', function($unidad){
-    return App\Unidades::find($unidad);
-});
-
 Route::get('/', [
 	'as' => 'home',
 	'uses' => 'StoreController@index'
@@ -132,7 +127,22 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'adm
 
 	Route::resource('category', 'CategoryController');
 
-	Route::resource('units', 'UnitsController');
+	Route::resource('characteristics', 'CharastecController');
+
+	Route::get('characteristics/create/{id}', [
+	    'as' => 'admin.characteristics.create',
+	    'uses' => 'CharastecController@create'
+	]);
+
+	Route::delete('characteristics/destroy/{id}/{product_id}', [
+		'as' => 'admin.characteristics.destroy',
+	    'uses' => 'CharastecController@destroy'
+	]);
+
+	Route::put('characteristics/update/{id}/{product_id}', [
+		'as' => 'admin.characteristics.update',
+	    'uses' => 'CharastecController@update'
+	]);
 
 	Route::resource('product', 'ProductController');
 

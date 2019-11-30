@@ -8,7 +8,8 @@ class Caracteristica extends Model
 {
     protected $table = 'productos_caracteristicas';
 	protected $fillable = ['producto_id', 'caracteristica', 'descripcion'];
-
+    public $timestamps = false;
+    
     public function products()
     {
         return $this->belongsTo('App\Product');

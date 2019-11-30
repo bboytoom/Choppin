@@ -35,11 +35,9 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::orderBy('id', 'desc')->lists('name', 'id');
-        $unidades = Unidades::orderBy('id', 'desc')->lists('unidad', 'id');
-
+        
         return view('admin.product.create', [
-            'categories' => $categories,
-            'unidades' => $unidades
+            'categories' => $categories
         ]);
     }
 
@@ -59,8 +57,7 @@ class ProductController extends Controller
             'price' => $request->get('price'),
             'image' => $request->get('image'),
             'visible' => $request->has('visible') ? 1 : 0,
-            'category_id' => $request->get('category_id'),
-            'unidad_id' => $request->get('category_id')
+            'category_id' => $request->get('category_id')
         ];
 
         $product = Product::create($data);
@@ -90,11 +87,9 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::orderBy('id', 'desc')->lists('name', 'id');
-        $unidades = Unidades::orderBy('id', 'desc')->lists('unidad', 'id');
-
+        
         return view('admin.product.edit', [
             'categories' => $categories,
-            'unidades' => $unidades,
             'product' => $product
         ]);
     }

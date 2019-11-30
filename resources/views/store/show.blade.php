@@ -26,7 +26,7 @@
 
 				<div class="col-md-12 mt-4">
 					<h5>
-						Precio: ${{ number_format($product->price,2) }} {{ $unidades->contraccion }}
+						Precio: ${{ number_format($product->price,2) }}
 					</h5>
 				</div>
 
@@ -56,7 +56,21 @@
 							{{ $product->description }}
 						</div>
 						<div class="tab-pane fade" id="list-caracteries" role="tabpanel" aria-labelledby="list-caracteries-list">
-							Caracteristicas del producto
+							
+							<table class="table table-borderless">
+								<thead>
+									<th scope="col">Caracteristica</th>
+									<th scope="col">Descripcion</th>
+								</thead>
+								<tbody>
+									@foreach ($caracteristicas as $caracteristica)
+										<tr>
+											<td>{{ $caracteristica->caracteristica }}</td>
+											<td>{{ $caracteristica->descripcion }}</td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>

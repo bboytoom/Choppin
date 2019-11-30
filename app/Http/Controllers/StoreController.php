@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Category;
-use App\Unidades;
+use App\Caracteristica;
 
 class StoreController extends Controller
 {
@@ -25,12 +25,12 @@ class StoreController extends Controller
     {
     	$product = Product::where('slug', $slug)->first();
         $categoria = Category::find($product->category_id);
-        $unidades = Unidades::find($product->unidad_id);
-
+        $caracteristicas = Caracteristica::where('producto_id', $product->id)->get();
+        
     	return view('store.show', [
             'product' => $product,
             'categoria' => $categoria,
-            'unidades' => $unidades
+            'caracteristicas' => $caracteristicas
         ]);
     }
 }
