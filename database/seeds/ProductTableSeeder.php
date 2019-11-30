@@ -24,8 +24,7 @@ class ProductTableSeeder extends Seeder
 				'created_at' => new DateTime,
 				'updated_at' => new DateTime,
 				'category_id' => 1,
-				'unidad_id'	 => 1,
-				'presentacion_id' => 1
+				'unidad_id'	 => 1
 			],
 			[
 				'name' => 'Playera 2',
@@ -38,8 +37,7 @@ class ProductTableSeeder extends Seeder
 				'created_at' => new DateTime,
 				'updated_at' => new DateTime,
 				'category_id' => 1,
-				'unidad_id' => 1,
-				'presentacion_id' => 1
+				'unidad_id' => 1
 			]
 		);
 

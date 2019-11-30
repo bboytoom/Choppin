@@ -14,7 +14,6 @@
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item" href="{{ route('admin.category.index') }}">Categorias</a>
 					<a class="dropdown-item" href="{{ route('admin.units.index') }}">Unidades</a>
-					<a class="dropdown-item" href="#">Presentaciones</a>
 				</div>
 			</li>
 
