@@ -9,6 +9,7 @@ use App\Http\Requests\SaveProductRequest;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Category;
+use App\Unidades;
 
 class ProductController extends Controller
 {
@@ -20,8 +21,10 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::orderBy('id', 'desc')->paginate(5);
-        
-        return view('admin.product.index', compact('products'));
+       
+        return view('admin.product.index', [
+            'products' => $products
+        ]);
     }
 
     /**
@@ -32,8 +35,12 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::orderBy('id', 'desc')->lists('name', 'id');
+        $unidades = Unidades::orderBy('id', 'desc')->lists('unidad', 'id');
 
-        return view('admin.product.create', compact('categories'));
+        return view('admin.product.create', [
+            'categories' => $categories,
+            'unidades' => $unidades
+        ]);
     }
 
     /**
@@ -45,14 +52,15 @@ class ProductController extends Controller
     public function store(SaveProductRequest $request)
     {
         $data = [
-            'name'          => $request->get('name'),
-            'slug'          => str_slug($request->get('name')),
-            'description'   => $request->get('description'),
-            'extract'       => $request->get('extract'),
-            'price'         => $request->get('price'),
-            'image'         => $request->get('image'),
-            'visible'       => $request->has('visible') ? 1 : 0,
-            'category_id'   => $request->get('category_id')
+            'name' => $request->get('name'),
+            'slug' => str_slug($request->get('name')),
+            'description' => $request->get('description'),
+            'extract' => $request->get('extract'),
+            'price' => $request->get('price'),
+            'image' => $request->get('image'),
+            'visible' => $request->has('visible') ? 1 : 0,
+            'category_id' => $request->get('category_id'),
+            'unidad_id' => $request->get('category_id')
         ];
 
         $product = Product::create($data);
@@ -82,8 +90,13 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::orderBy('id', 'desc')->lists('name', 'id');
+        $unidades = Unidades::orderBy('id', 'desc')->lists('unidad', 'id');
 
-        return view('admin.product.edit', compact('categories', 'product'));
+        return view('admin.product.edit', [
+            'categories' => $categories,
+            'unidades' => $unidades,
+            'product' => $product
+        ]);
     }
 
     /**

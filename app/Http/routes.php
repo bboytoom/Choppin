@@ -25,6 +25,10 @@ Route::bind('user', function($user){
     return App\User::find($user);
 });
 
+// User dependency injection
+Route::bind('units', function($unidad){
+    return App\Unidades::find($unidad);
+});
 
 Route::get('/', [
 	'as' => 'home',
@@ -127,6 +131,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'adm
 	});
 
 	Route::resource('category', 'CategoryController');
+
+	Route::resource('units', 'UnitsController');
 
 	Route::resource('product', 'ProductController');
 

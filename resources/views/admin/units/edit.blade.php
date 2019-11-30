@@ -5,8 +5,8 @@
     <section class="row">
         <div class="col-md-12">
             <h1>
-                <i class="fa fa-shopping-cart"></i> CATEGORÍAS 
-                <small>[Editar categoría]</small>
+                <i class="fa fa-shopping-cart"></i> UNIDADES 
+                <small>[Editar unidades]</small>
             </h1>
         </div>
 
@@ -15,22 +15,22 @@
                 @include('admin.partials.errors')
             @endif
 
-            {!! Form::model($category, array('route' => array('admin.category.update', $category))) !!}
+            {!! Form::model($unidad, array('route' => array('admin.units.update', $unidad))) !!}
                 <input type="hidden" name="_method" value="PUT">
 
                 <div class="form-group">
-                    <label for="name">Nombre:</label>
-                    {!! Form::text('name', null, array( 'class'=>'form-control', 'placeholder' => 'Nombre de la categoria')) !!}
+                    <label for="unidad">Unidad:</label>
+                    {!! Form::text('unidad', null, array( 'class'=>'form-control', 'placeholder' => 'Unidad del producto')) !!}
                 </div>
 
                 <div class="form-group">
-                    <label for="description">Descripción:</label>
-                    {!! Form::textarea('description', null, array('class'=>'form-control', 'rows'=>'4', 'placeholder' => 'Agrega una descripcion')) !!}
+                    <label for="contraccion">Contraccion:</label>
+                    {!! Form::text('contraccion', null, array('class'=>'form-control', 'placeholder' => 'Contraccion de la unidad')) !!}
                 </div>
 
                 <div class="form-group text-right">
                     {!! Form::submit('Actualizar', array('class'=>'btn btn-primary')) !!}
-                    <a href="{{ route('admin.category.index') }}" class="btn btn-warning">Cancelar</a>
+                    <a href="{{ route('admin.units.index') }}" class="btn btn-warning">Cancelar</a>
                 </div>
 
             {!! Form::close() !!}

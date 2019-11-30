@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unidades extends Model
 {
-    protected $table = 'Unidades';
+    protected $table = 'unidades';
+    
     protected $fillable = ['unidad', 'contraccion'];
 }

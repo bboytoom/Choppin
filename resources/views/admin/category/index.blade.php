@@ -23,23 +23,23 @@
 				</thead>
 				<tbody>
 					@foreach($categories as $category)
-					<tr>
-						<td>
-							<a href="{{ route('admin.category.edit', $category) }}" class="btn btn-primary">
-								<i class="fas fa-edit"></i>
-							</a>
-						</td>
-						<td>
-							{!! Form::open(['route' => ['admin.category.destroy', $category]]) !!}
-								<input type="hidden" name="_method" value="DELETE">
-								<button onClick="return confirm('Eliminar registro?')" class="btn btn-danger">
-									<i class="fas fa-trash-alt"></i>
-								</button>
-							{!! Form::close() !!}
-						</td>
-						<td>{{ $category->name }}</td>
-						<td>{{ $category->description }}</td>
-					</tr>
+						<tr>
+							<td>
+								<a href="{{ route('admin.category.edit', $category) }}" class="btn btn-primary">
+									<i class="fas fa-edit"></i>
+								</a>
+							</td>
+							<td>
+								{!! Form::open(['route' => ['admin.category.destroy', $category]]) !!}
+									<input type="hidden" name="_method" value="DELETE">
+									<button onClick="return confirm('Eliminar registro?')" class="btn btn-danger">
+										<i class="fas fa-trash-alt"></i>
+									</button>
+								{!! Form::close() !!}
+							</td>
+							<td>{{ $category->name }}</td>
+							<td>{{ $category->description }}</td>
+						</tr>
 					@endforeach
 				</tbody>
 			</table>

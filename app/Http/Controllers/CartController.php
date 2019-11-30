@@ -20,7 +20,10 @@ class CartController extends Controller
     	$cart = \Session::get('cart');
     	$total = $this->total();
         
-    	return view('store.cart', compact('cart', 'total'));
+        return view('store.cart', [
+            'cart' => $cart,
+            'total' => $total
+         ]);
     }
 
     public function add(Product $product)
@@ -83,6 +86,9 @@ class CartController extends Controller
         $cart = \Session::get('cart');
         $total = $this->total();
 
-        return view('store.order-detail', compact('cart', 'total'));
+        return view('store.order-detail', [
+            'cart' => $cart,
+            'total' => $total
+        ]);
     }
 }

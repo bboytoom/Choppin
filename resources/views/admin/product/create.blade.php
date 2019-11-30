@@ -43,6 +43,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="control-label" for="unidad_id">Unidades</label>
+                    {!! Form::select('unidad_id', $unidades, null, ['class' => 'form-control']) !!}
+                </div>
+
+                <div class="form-group">
                     <label for="image">Imagen:</label>
                     {!! Form::text('image', null, array('class'=>'form-control', 'placeholder' => 'Imagen del producto')) !!}
                 </div>

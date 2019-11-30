@@ -3,21 +3,30 @@
 @section('content')
 	
 	<section class="row">
-		<div class="col-md-7 text-center">
+		<div class="col-md-12 mb-4">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Home</a></li>
+					<li class="breadcrumb-item active" aria-current="page">{{ $categoria->name }}</li>
+				</ol>
+			</nav>
+		</div>
+
+		<div class="col-md-8 text-center">
 			<img src="{{ $product->image }}" class="productimg__elem">
 		</div>
 
-		<div class="col-md-5">
+		<div class="col-md-4">
 			<div class="row">
-				<div class="col-md-12">
-					<h3>
+				<div class="col-md-12 border-bottom">
+					<h4>
 						{{ $product->name }}
-					</h3>
+					</h4>
 				</div>
 
-				<div class="col-md-12 mt-3 border-bottom">
+				<div class="col-md-12 mt-4">
 					<h5>
-						Precio: ${{ number_format($product->price,2) }}
+						Precio: ${{ number_format($product->price,2) }} {{ $unidades->contraccion }}
 					</h5>
 				</div>
 
