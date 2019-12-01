@@ -8,25 +8,31 @@
 	<div class="collapse navbar-collapse justify-content-end" id="navbaradmin">
 		<ul class="navbar-nav">
 			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fas fa-list-alt"></i> Catalogos
+				<a class="nav-link dropdown-toggle" href="#" id="navbartienda" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fas fa-store"></i> Tienda
 				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="{{ route('admin.category.index') }}">Categorias</a>
-					<a class="dropdown-item" href="{{ route('admin.units.index') }}">Unidades</a>
+				<div class="dropdown-menu" aria-labelledby="navbartienda">
+					<a class="dropdown-item" href="#">Informacion</a>
+					<a class="dropdown-item" href="#">Galeria</a>
 				</div>
 			</li>
 
-			<li class="nav-item">
-				<a class="nav-link" href="{{ route('admin.product.index') }}">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbaproductos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i class="fas fa-shopping-cart"></i> Productos
 				</a>
+				<div class="dropdown-menu" aria-labelledby="navbaproductos">
+					<a class="dropdown-item" href="{{ route('admin.product.index') }}">Articulos</a>
+					<a class="dropdown-item" href="{{ route('admin.category.index') }}">Categorias</a>
+				</div>
 			</li>
+
 			<li class="nav-item">
 				<a class="nav-link" href="{{ route('admin.order.index') }}">
 					<i class="fab fa-algolia"></i> Pedidos 
 				</a>
 			</li>
+
 			<li class="nav-item">
 				<a class="nav-link" href="{{ route('admin.user.index') }}">
 					<i class="fas fa-users"></i> Usuarios

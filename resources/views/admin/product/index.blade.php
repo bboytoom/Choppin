@@ -47,7 +47,7 @@
                                     </button>
                                 {!! Form::close() !!}
                             </td>
-                            <td><img src="{{ $product->image }}" width="40"></td>
+                            <td><img src="{{'/products_img/'.$product->image }}" width="40"></td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->category->name }}</td>
                             <td>${{ number_format($product->price,2) }}</td>

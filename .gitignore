@@ -1,4 +1,5 @@
 /vendor
 /node_modules
+products_img/
 Homestead.yaml
 .env

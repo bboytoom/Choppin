@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Http\Requests;
 use App\Http\Requests\SaveProductRequest;
@@ -49,13 +50,20 @@ class ProductController extends Controller
      */
     public function store(SaveProductRequest $request)
     {
+        if($request->file('image'))
+        {
+            $path = public_path().'/products_img/';
+            $nameImage = $request->file('image')->getClientOriginalName();
+            $request->file('image')->move($path, $nameImage);
+        }
+
         $data = [
             'name' => $request->get('name'),
             'slug' => str_slug($request->get('name')),
             'description' => $request->get('description'),
             'extract' => $request->get('extract'),
             'price' => $request->get('price'),
-            'image' => $request->get('image'),
+            'image' => $nameImage,
             'visible' => $request->has('visible') ? 1 : 0,
             'category_id' => $request->get('category_id')
         ];
@@ -103,8 +111,16 @@ class ProductController extends Controller
      */
     public function update(SaveProductRequest $request, Product $product)
     {
+        if($request->file('image'))
+        {
+            $path = public_path().'/products_img/';
+            $nameImage = $request->file('image')->getClientOriginalName();
+            $request->file('image')->move($path, $nameImage);
+        }
+
         $product->fill($request->all());
         $product->slug = str_slug($request->get('name'));
+        $product->image = $nameImage;
         $product->visible = $request->has('visible') ? 1 : 0;
         $updated = $product->save();
         

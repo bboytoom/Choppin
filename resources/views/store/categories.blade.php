@@ -16,7 +16,7 @@
 									{{ $item->name }}
 								</h5>
 							</div>
-							<img src="{{ $item->image }}" class="card-img-top producstimg__elem" alt="">
+							<img src="{{ '/products_img/'.$item->image }}" class="card-img-top producstimg__elem" alt="">
 							<div class="card-body">
 								<h6>
 									Precio: <strong>${{ number_format($item->price,2) }}</strong>

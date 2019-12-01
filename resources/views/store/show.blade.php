@@ -13,7 +13,7 @@
 		</div>
 
 		<div class="col-md-8 text-center">
-			<img src="{{ $product->image }}" class="productimg__elem">
+			<img src="{{ '/products_img/'.$product->image }}" class="productimg__elem">
 		</div>
 
 		<div class="col-md-4">

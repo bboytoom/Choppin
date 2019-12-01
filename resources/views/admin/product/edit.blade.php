@@ -15,7 +15,7 @@
                 @include('admin.partials.errors')
             @endif
 
-            {!! Form::model($product, array('route' => array('admin.product.update', $product->slug))) !!}
+            {!! Form::model($product, array('route' => array('admin.product.update', $product->slug), 'files' => true)) !!}
 
                 <input type="hidden" name="_method" value="PUT">
 
@@ -46,9 +46,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="image">Imagen:</label>
-
-                    {!! Form::text('image', null, array('class'=>'form-control', 'placeholder' => 'imagen',))!!}
+                    {!! Form::label('image', 'Imagen') !!}
+                    {!! Form::file('image') !!}
                 </div>
 
                 <div class="form-group">
