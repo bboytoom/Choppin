@@ -4,6 +4,15 @@
 
     <section class="row">
 
+		<div class="col-md-12 mb-4">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
+					<li class="breadcrumb-item active" aria-current="page">{{ $category_name->name  }}</li>
+				</ol>
+			</nav>
+		</div>
+
         @include('store.partials.categories')
 
         <div class="col-md-9">

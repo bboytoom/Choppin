@@ -9,15 +9,18 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use App\Category;
 use App\Caracteristica;
+use App\PhotosGallery;
 
 class StoreController extends Controller
 {
     public function index()
     {
     	$products = Product::all();
+        $galeria = PhotosGallery::all();
         
     	return view('store.index', [
-            'products' => $products
+            'products' => $products,
+            'galeria' => $galeria
          ]);
     }
 

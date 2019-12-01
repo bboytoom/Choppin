@@ -1,9 +1,11 @@
 @extends('store.template')
 
 @section('content')
-	
+
+	@include('store.partials.slider')
+
 	<section class="row">
-		
+
 		@include('store.partials.categories')
 
 		<div class="col-md-9">

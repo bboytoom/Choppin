@@ -25,6 +25,11 @@ Route::bind('user', function($user){
     return App\User::find($user);
 });
 
+// User dependency injection
+Route::bind('photogallery', function($gallery){
+    return App\PhotosGallery::find($gallery);
+});
+
 Route::get('/', [
 	'as' => 'home',
 	'uses' => 'StoreController@index'
@@ -126,6 +131,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'adm
 	});
 
 	Route::resource('category', 'CategoryController');
+
+	Route::resource('photogallery', 'PhotoGalleryController');
 
 	Route::resource('characteristics', 'CharastecController');
 

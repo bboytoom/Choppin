@@ -13,7 +13,7 @@
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbartienda">
 					<a class="dropdown-item" href="#">Informacion</a>
-					<a class="dropdown-item" href="#">Galeria</a>
+					<a class="dropdown-item" href="{{ route('admin.photogallery.index') }}">Galeria</a>
 				</div>
 			</li>
 

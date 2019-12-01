@@ -11,11 +11,5 @@
                 </a>
             </li>
         @endforeach
-
-        <li class="list-group-item categorias--mdf">
-            <a class="text-secondary" href="{{ route('home') }}">
-                <i class="fas fa-arrow-left"></i>
-            </a>
-        </li>
     </ul>
 </div>
