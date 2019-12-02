@@ -14,13 +14,8 @@ class CategoryTableSeeder extends Seeder
     {
         $data = array(
 			[
-				'name' => 'Categoria uno', 
-				'slug' => 'catuno', 
-				'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, perferendis!'
-			],
-			[
-				'name' => 'Categoria dos', 
-				'slug' => 'catdos', 
+				'name' => 'Camisas', 
+				'slug' => 'camisa', 
 				'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, perferendis!'
 			]
 		);

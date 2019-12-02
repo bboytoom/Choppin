@@ -37,4 +37,14 @@ $(document).ready(function(){
         	'json'
         );
 	});
+
+    $('#products').DataTable({
+        ordering:  false,
+        searching: false,
+        lengthChange: false,
+        pageLength: 4,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json'
+        }
+    });
 });

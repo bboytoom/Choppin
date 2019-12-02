@@ -21,7 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id', 'desc')->paginate(5);
+        $products = Product::all();
        
         return view('admin.product.index', [
             'products' => $products
@@ -56,6 +56,10 @@ class ProductController extends Controller
             $nameImage = $request->file('image')->getClientOriginalName();
             $request->file('image')->move($path, $nameImage);
         }
+        else
+        {
+            $nameImage = 'default.jpg';
+        }
 
         $data = [
             'name' => $request->get('name'),
@@ -70,9 +74,7 @@ class ProductController extends Controller
 
         $product = Product::create($data);
 
-        $message = $product ? 'Producto agregado correctamente!' : 'El producto NO pudo agregarse!';
-        
-        return redirect()->route('admin.product.index')->with('message', $message);
+        return redirect()->route('admin.product.index');
     }
 
     /**
@@ -111,11 +113,19 @@ class ProductController extends Controller
      */
     public function update(SaveProductRequest $request, Product $product)
     {
+        
+        $nameImage = null;
+
         if($request->file('image'))
         {
             $path = public_path().'/products_img/';
             $nameImage = $request->file('image')->getClientOriginalName();
             $request->file('image')->move($path, $nameImage);
+        }
+        else
+        {
+            $ImagenActual = Product::find($product->id);
+            $nameImage = $ImagenActual->image;
         }
 
         $product->fill($request->all());
@@ -124,9 +134,7 @@ class ProductController extends Controller
         $product->visible = $request->has('visible') ? 1 : 0;
         $updated = $product->save();
         
-        $message = $updated ? 'Producto actualizado correctamente!' : 'El Producto NO pudo actualizarse!';
-        
-        return redirect()->route('admin.product.index')->with('message', $message);
+        return redirect()->route('admin.product.index');
     }
 
     /**
@@ -139,8 +147,6 @@ class ProductController extends Controller
     {
         $deleted = $product->delete();
         
-        $message = $deleted ? 'Producto eliminado correctamente!' : 'El producto NO pudo eliminarse!';
-        
-        return redirect()->route('admin.product.index')->with('message', $message);
+        return redirect()->route('admin.product.index');
     }
 }

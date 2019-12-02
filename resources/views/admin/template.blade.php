@@ -9,6 +9,7 @@
 		<meta name="author" content="SoyToom!!">
 	
 		<link rel="stylesheet" href="{{ asset('css/sb-admin-2.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
 		<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 	</head>
@@ -39,7 +40,7 @@
 			<footer class="sticky-footer bg-white">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; Your Website 2019</span>
+						<span>Copyright &copy; SoyToom!!! 2019</span>
 					</div>
 				</div>
 			</footer>
@@ -60,6 +61,8 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 		<script src="{{ asset('js/jquery.easing.min.js') }}"></script>
+		<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+		<script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
 		<script src="{{ asset('js/sb-admin-2.js') }}"></script>
 		<script src="{{ asset('js/admin.js') }}"></script>
 	</body>

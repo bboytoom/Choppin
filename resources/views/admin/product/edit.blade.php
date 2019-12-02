@@ -10,18 +10,31 @@
                 @include('admin.partials.errors')
             @endif
 
-            {!! Form::model($product, array('route' => array('admin.product.update', $product->slug), 'files' => true)) !!}
+            {!! Form::model($product, array('route' => array('admin.product.update', $product->slug), 'files' => true,)) !!}
 
                 <input type="hidden" name="_method" value="PUT">
 
-                <div class="form-group">
-                    <label class="control-label" for="category_id">Categoría</label>
-                    {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
-                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Nombre:</label>
+                            {!! Form::text('name', null, array( 'class'=>'form-control', 'placeholder' => 'Nombre de producto')) !!}
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <label for="name">Nombre:</label>
-                    {!! Form::text('name', null, array( 'class'=>'form-control', 'placeholder' => 'Nombre de producto')) !!}
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="price">Precio:</label>
+                            {!! Form::text('price', null, array('class'=>'form-control', 'placeholder' => 'Precio del producto',)) !!}
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label" for="category_id">Categoría</label>
+                            {!! Form::select('category_id', $categories, null, ['class' => 'custom-select']) !!}
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -34,25 +47,36 @@
                     {!! Form::textarea('description', null, array('class'=>'form-control', 'rows'=>'4', 'placeholder' => 'Descripcion')) !!}
                 </div>
 
-                <div class="form-group">
-                    <label for="price">Precio:</label>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="custom-file">
+                            <input id="image" type="file" class="custom-file-input" name="image">
+                            <label class="custom-file-label" for="image" data-browse="Cargar">Seleccionar Archivo</label>
+                        </div>        
+                    </div>
 
-                    {!! Form::text('price', null, array('class'=>'form-control', 'placeholder' => 'Precio del producto',)) !!}
+                    <div class="col-md-6 text-right">
+                        <div class="custom-control custom-switch">
+                            <input id="visible" type="checkbox" class="custom-control-input" name="visible" {{ $product->visible == 1 ? "checked='checked'" : '' }}>
+                            <label class="custom-control-label" for="visible">Estatus</label>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    {!! Form::label('image', 'Imagen') !!}
-                    {!! Form::file('image') !!}
-                </div>
+                <div class="form-group text-right mt-5">
+                    <a href="{{ route('admin.product.index') }}" class="btn btn-info btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-arrow-left"></i>
+                        </span>
+                        <span class="text">Cancelar</span>
+                    </a>
 
-                <div class="form-group">
-                    <label for="visible">Visible:</label>
-                    <input type="checkbox" name="visible" {{ $product->visible == 1 ? "checked='checked'" : '' }}>
-                </div>
-
-                <div class="form-group text-right">
-                    {!! Form::submit('Actualizar', array('class'=>'btn btn-primary')) !!}
-                    <a href="{{ route('admin.product.index') }}" class="btn btn-warning">Cancelar</a>
+                    <button type="submit" class="btn btn-danger btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                        <span class="text">Actualizar</span>
+                    </button>
                 </div>
 
             {!! Form::close() !!}
