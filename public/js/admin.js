@@ -19,7 +19,6 @@ $(document).ready(function(){
         	path,
         	data,
         	function(data){
-        		//console.log(response);
         		table.html("");
         		
                 for(var i=0; i<data.length; i++){
@@ -37,8 +36,5 @@ $(document).ready(function(){
         	},
         	'json'
         );
-
 	});
-
-
 });

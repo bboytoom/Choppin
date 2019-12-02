@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <section class="row">
+    <section >
         dashboard
     </section>
 
