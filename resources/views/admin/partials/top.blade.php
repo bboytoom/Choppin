@@ -29,6 +29,12 @@
             </div>
         </li>
 
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="{{ route('home') }}" role="button">
+				<i class="fas fa-store"></i>
+			</a>
+        </li>
+
         <div class="topbar-divider d-none d-sm-block"></div>
 
         <!-- Nav Item - User Information -->

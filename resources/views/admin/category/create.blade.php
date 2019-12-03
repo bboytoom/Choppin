@@ -10,7 +10,7 @@
                 @include('admin.partials.errors')
             @endif
                     
-            {!! Form::open(['route'=>'admin.category.store']) !!}
+            {!! Form::open(['route'=>'admin.category.store', 'autocomplete' => 'off']) !!}
                 
                 <div class="form-group">
                     <label for="name">Nombre:</label>

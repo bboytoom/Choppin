@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 use App\Http\Requests;
+use App\Http\Requests\SaveGalleryRequest;
 use App\Http\Controllers\Controller;
 use App\PhotosGallery;
 
@@ -41,12 +42,8 @@ class PhotoGalleryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveGalleryRequest $request)
     {
-        $this->validate($request, [
-          'title' => 'required|max:100',
-        ]);
-
         if($request->file('image'))
         {
             $path = public_path().'/gallery_img/';
@@ -62,10 +59,8 @@ class PhotoGalleryController extends Controller
         ];
 
         $gallery = PhotosGallery::create($data);
-        
-        $message = $gallery ? 'Imagen agregada correctamente!' : 'La imagen NO pudo agregarse!';
-        
-        return redirect()->route('admin.photogallery.index')->with('message', $message);
+  
+        return redirect()->route('admin.photogallery.index');
     }
 
     /**
@@ -99,13 +94,9 @@ class PhotoGalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PhotosGallery $gallery)
+    public function update(SaveGalleryRequest $request, PhotosGallery $gallery)
     {
         $nameImage = null;
-
-        $this->validate($request, [
-          'title' => 'required|max:100',
-        ]);
 
         if($request->file('image'))
         {
@@ -124,9 +115,7 @@ class PhotoGalleryController extends Controller
         $gallery->status = $request->has('status') ? 1 : 0;
         $updated = $gallery->save();
         
-        $message = $updated ? 'Imagen actualizado correctamente!' : 'El imagen NO pudo actualizarse!';
-        
-        return redirect()->route('admin.photogallery.index')->with('message', $message);
+        return redirect()->route('admin.photogallery.index');
     }
 
     /**
@@ -139,8 +128,6 @@ class PhotoGalleryController extends Controller
     {
         $deleted = $gallery->delete();
         
-        $message = $deleted ? 'Imagen eliminada correctamente!' : 'La imagen NO pudo eliminarse!';
-        
-        return redirect()->route('admin.photogallery.index')->with('message', $message);
+        return redirect()->route('admin.photogallery.index');
     }
 }

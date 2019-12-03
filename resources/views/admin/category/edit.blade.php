@@ -10,7 +10,7 @@
                 @include('admin.partials.errors')
             @endif
 
-            {!! Form::model($category, array('route' => array('admin.category.update', $category))) !!}
+            {!! Form::model($category, array('route' => array('admin.category.update', $category), 'autocomplete' => 'off')) !!}
                 <input type="hidden" name="_method" value="PUT">
 
                 <div class="form-group">

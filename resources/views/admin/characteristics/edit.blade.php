@@ -10,7 +10,7 @@
                 @include('admin.partials.errors')
             @endif
 
-            {!! Form::model($caracteristica, array('route' => array('admin.characteristics.update', $caracteristica->id, $caracteristica->producto_id))) !!}
+            {!! Form::model($caracteristica, array('route' => array('admin.characteristics.update', $caracteristica->id, $caracteristica->producto_id), 'autocomplete' => 'off')) !!}
                 <input type="hidden" name="_method" value="PUT">
                 
                 <div class="row">

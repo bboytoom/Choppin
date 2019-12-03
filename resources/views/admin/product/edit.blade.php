@@ -10,7 +10,7 @@
                 @include('admin.partials.errors')
             @endif
 
-            {!! Form::model($product, array('route' => array('admin.product.update', $product->slug), 'files' => true,)) !!}
+            {!! Form::model($product, array('route' => array('admin.product.update', $product->slug), 'files' => true, 'autocomplete' => 'off')) !!}
 
                 <input type="hidden" name="_method" value="PUT">
 
