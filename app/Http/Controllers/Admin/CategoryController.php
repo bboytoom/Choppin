@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\SaveCategoriesRequest;
 use App\Http\Controllers\Controller;
 use App\Category;
 
@@ -39,21 +40,15 @@ class CategoryController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(SaveCategoriesRequest $request)
     {
-        $this->validate($request, [
-          'name' => 'required|unique:categories|max:255'
-        ]);
-        
         $category = Category::create([
             'name' => $request->get('name'),
             'slug' => str_slug($request->get('name')),
             'description' => $request->get('description')
         ]);
-        
-        $message = $category ? 'Categoría agregada correctamente!' : 'La Categoría NO pudo agregarse!';
-        
-        return redirect()->route('admin.category.index')->with('message', $message);
+
+        return redirect()->route('admin.category.index');
     }
 
     /**
@@ -86,19 +81,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, Category $category)
+    public function update(SaveCategoriesRequest $request, Category $category)
     {
-        $this->validate($request, [
-          'name' => 'required|max:255'
-        ]);
-
         $category->fill($request->all());
         $category->slug = str_slug($request->get('name'));
         $updated = $category->save();
-        
-        $message = $updated ? 'Categoría actualizada correctamente!' : 'La Categoría NO pudo actualizarse!';
-        
-        return redirect()->route('admin.category.index')->with('message', $message);
+      
+        return redirect()->route('admin.category.index');
     }
 
     /**
@@ -110,9 +99,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $deleted = $category->delete();
-        
-        $message = $deleted ? 'Categoría eliminada correctamente!' : 'La Categoría NO pudo eliminarse!';
-        
-        return redirect()->route('admin.category.index')->with('message', $message);
+
+        return redirect()->route('admin.category.index');
     }
 }
