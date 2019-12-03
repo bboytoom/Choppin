@@ -19,7 +19,7 @@
                 <h4 class="text-center">No cuentas con artículos</h4>                
             @else
                 <div class="table-responsive">
-                    <table id="products" class="table table-bordered" width="100%" cellspacing="0">
+                    <table id="products" class="table table-bordered table-hover" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th class="text-center">Imagen</th>

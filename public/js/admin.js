@@ -38,7 +38,7 @@ $(document).ready(function(){
         );
 	});
 
-    $('#products').DataTable({
+    $('#products, #caracteristicas').DataTable({
         ordering:  false,
         searching: false,
         lengthChange: false,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\SaveCharastecRequest;
 use App\Http\Controllers\Controller;
 use App\Caracteristica;
 
@@ -28,22 +29,15 @@ class CharastecController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveCharastecRequest $request)
     {
-        $this->validate($request, [
-            'caracteristica' => 'required|max:50',
-            'descripcion' => 'required'
-        ]);
-
         $caracteristica = Caracteristica::create([
             'producto_id' => $request->get('producto_id'),
             'caracteristica' => $request->get('caracteristica'),
             'descripcion' => $request->get('descripcion')
         ]);
 
-        $message = $caracteristica ? 'Caracteristica agregada correctamente!' : 'La caracteristica NO pudo agregarse!';
-
-        return redirect()->route('admin.characteristics.show', $request->get('producto_id'))->with('message', $message);
+        return redirect()->route('admin.characteristics.show', $request->get('producto_id'));
     }
 
     /**
@@ -84,21 +78,14 @@ class CharastecController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, $producto_id)
+    public function update(SaveCharastecRequest $request, $id, $producto_id)
     {
-        $this->validate($request, [
-            'caracteristica' => 'required|max:50',
-            'descripcion' => 'required'
-        ]);
-
         $carac = Caracteristica::find($id);
         $carac->caracteristica = $request->get('caracteristica');
         $carac->descripcion = $request->get('descripcion');
         $carac->save();
        
-        $message = $carac ? 'Caracteristica actualizada correctamente!' : 'La caracteristica NO pudo actualizarse!';
-        
-        return redirect()->route('admin.characteristics.show', $producto_id)->with('message', $message);
+        return redirect()->route('admin.characteristics.show', $producto_id);
     }
 
     /**
@@ -111,8 +98,6 @@ class CharastecController extends Controller
     {        
         $deleted = Caracteristica::where('id', $id)->delete();
 
-        $message = $deleted ? 'Caracteristica eliminada correctamente!' : 'La caracteristica NO pudo eliminarse!';
-        
-        return redirect()->route('admin.characteristics.show', $product_id)->with('message', $message);
+        return redirect()->route('admin.characteristics.show', $product_id);
     }
 }

@@ -7,7 +7,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             @if (count($errors) > 0)
-                 @include('admin.partials.errors')
+                @include('admin.partials.errors')
             @endif
                     
             {!! Form::open(['route'=>'admin.product.store', 'files' => true, 'autocomplete' => 'off']) !!}
@@ -73,7 +73,7 @@
                         <span class="icon text-white-50">
                             <i class="fas fa-exclamation-triangle"></i>
                         </span>
-                        <span class="text">Crear</span>
+                        <span class="text">Guardar</span>
                     </button>
                 </div>
 
