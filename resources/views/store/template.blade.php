@@ -29,7 +29,7 @@
 		
 		@include('store.partials.nav')
 
-		<main class="container mt-4">
+		<main class="container">
 			@yield('content')
 		</main>
 

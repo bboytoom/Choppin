@@ -4,7 +4,7 @@
 
 	@include('store.partials.slider')
 
-	<section class="row">
+	<section class="row mt-4">
 
 		@include('store.partials.categories')
 

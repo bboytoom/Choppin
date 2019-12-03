@@ -2,7 +2,7 @@
 
 @section('content')
 
-	<section class="row">
+	<section class="row mt-4">
 		<div class="col-md-12">
 			@include('store.partials.errors')
 		</div>
