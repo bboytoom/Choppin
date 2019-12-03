@@ -15,7 +15,7 @@ class StoreController extends Controller
 {
     public function index()
     {
-    	$products = Product::all();
+    	$products = Product::all()->random(6);
         $galeria = PhotosGallery::all();
         
     	return view('store.index', [

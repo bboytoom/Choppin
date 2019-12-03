@@ -18,9 +18,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('name')->paginate(5);
-        //dd($users);
-        return view('admin.user.index', compact('users'));
+        $users = User::all();
+
+        return view('admin.user.index', [
+            'users' => $users
+        ]);
     }
 
     /**
@@ -53,10 +55,8 @@ class UserController extends Controller
         ];
 
         $user = User::create($data);
-
-        $message = $user ? 'Usuario agregado correctamente!' : 'El usuario NO pudo agregarse!';
         
-        return redirect()->route('admin.user.index')->with('message', $message);
+        return redirect()->route('admin.user.index');
     }
 
     /**
@@ -78,7 +78,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.user.edit', compact('user'));
+        return view('admin.user.edit', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -111,9 +113,7 @@ class UserController extends Controller
         
         $updated = $user->save();
         
-        $message = $updated ? 'Usuario actualizado correctamente!' : 'El Usuario NO pudo actualizarse!';
-        
-        return redirect()->route('admin.user.index')->with('message', $message);
+        return redirect()->route('admin.user.index');
     }
 
     /**
@@ -126,8 +126,6 @@ class UserController extends Controller
     {
         $deleted = $user->delete();
         
-        $message = $deleted ? 'Usuario eliminado correctamente!' : 'El Usuario NO pudo eliminarse!';
-        
-        return redirect()->route('admin.user.index')->with('message', $message);
+        return redirect()->route('admin.user.index');
     }
 }

@@ -24,10 +24,10 @@ class SaveUserRequest extends Request
     public function rules()
     {
         return [
-            'name'      => 'required|max:100',
-            'last_name' => 'required|max:100',
+            'name'      => 'required|max:50|min:3',
+            'father_surname' => 'required|max:30|min:4',
+            'mother_surname' => 'max:30|min:4',
             'email'     => 'required|email|unique:users',
-            'user'      => 'required|unique:users|min:4|max:20',
             'password'  => 'required|confirmed',
             'type'      => 'required|in:user,admin'
         ];
