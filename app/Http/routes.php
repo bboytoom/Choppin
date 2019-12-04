@@ -1,34 +1,25 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+//Rutas de modelos
 
 Route::bind('product', function($slug){
 	return App\Product::where('slug', $slug)->first();
 });
 
-// Category dependency injection
 Route::bind('category', function($category){
     return App\Category::find($category);
 });
 
-// User dependency injection
 Route::bind('user', function($user){
     return App\User::find($user);
 });
 
-// User dependency injection
 Route::bind('photogallery', function($gallery){
     return App\PhotosGallery::find($gallery);
 });
+
+
+//rutas publicas
 
 Route::get('/', [
 	'as' => 'home',
@@ -45,7 +36,7 @@ Route::get('category/{category_id}', [
 	'uses' => 'CategoriesController@index'
 ]);
 
-// Carrito -------------
+// Carrito 
 
 Route::get('cart/show', [
 	'as' => 'cart-show',
@@ -79,7 +70,8 @@ Route::get('order-detail', [
 ]);
 
 
-// Authentication routes...
+// Authentication routes
+
 Route::get('auth/login', [
 	'as' => 'login-get',
 	'uses' => 'Auth\AuthController@getLogin'
@@ -95,7 +87,9 @@ Route::get('auth/logout', [
 	'uses' => 'Auth\AuthController@getLogout'
 ]);
 
-// Registration routes...
+
+// Registration routes
+
 Route::get('auth/register', [
 	'as' => 'register-get',
 	'uses' => 'Auth\AuthController@getRegister'
@@ -106,15 +100,17 @@ Route::post('auth/register', [
 	'uses' => 'Auth\AuthController@postRegister'
 ]);
 
-// Paypal
 
 // Enviamos nuestro pedido a PayPal
+
 Route::get('payment', array(
 	'as' => 'payment',
 	'uses' => 'PaypalController@postPayment',
 ));
 
+
 // Después de realizar el pago Paypal redirecciona a esta ruta
+
 Route::get('payment/status', array(
 	'as' => 'payment.status',
 	'uses' => 'PaypalController@getPaymentStatus',
@@ -125,7 +121,6 @@ Route::get('payment/status', array(
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'admin'], function()
 {
-
 	Route::get('home', function(){
 		return view('admin.home');
 	});
@@ -134,7 +129,14 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'adm
 
 	Route::resource('photogallery', 'PhotoGalleryController');
 
-	Route::resource('characteristics', 'CharastecController');
+	Route::resource('product', 'ProductController');
+
+	Route::resource('user', 'UserController');
+
+
+	// Caracteristicas del producto
+
+	Route::resource('characteristics', 'CharastecController', ['only' => ['show', 'store']]);
 
 	Route::get('characteristics/create/{id}', [
 	    'as' => 'admin.characteristics.create',
@@ -151,9 +153,17 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'adm
 	    'uses' => 'CharastecController@update'
 	]);
 
-	Route::resource('product', 'ProductController');
 
-	Route::resource('user', 'UserController');
+	// Direcciones de envio para el usuario
+
+	Route::resource('envios', 'UserEnvioController', ['except' => ['create', 'index']]);
+
+	Route::get('envios/create/{user_id}', [
+	    'as' => 'admin.envios.create',
+	    'uses' => 'UserEnvioController@create'
+	]);
+
+	//Rutas de la orden
 
 	Route::get('orders', [
 		'as' => 'admin.order.index',

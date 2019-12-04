@@ -5,6 +5,11 @@
     <h1 class="h3 mb-2 text-gray-800 mb-4">Editar usuarios</h1>
 
     <div class="card shadow mb-4">
+        <div class="card-header py-3 text-right">
+            <a href="{{ route('admin.envios.show', $user->id) }}" class="btn btn-primary btn-circle btn-sm">
+                <i class="fas fa-map-marked-alt"></i>
+            </a>
+        </div>
         <div class="card-body">
             @if (count($errors) > 0)
                 @include('admin.partials.errors')
