@@ -57,7 +57,7 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('admin.characteristics.show', $product->id) }}" class="btn btn-info btn-circle">
+                                        <a href="{{ route('admin.characteristics.show', $product->id) }}" class="btn btn-secondary btn-sm">
                                             <i class="fas fa-info-circle"></i>
                                         </a>
                                     </td>
