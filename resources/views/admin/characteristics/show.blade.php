@@ -46,7 +46,7 @@
                                         </a>
                                     </td>
                                     <td class="text-center">
-                                        {!! Form::open(['route' => ['admin.characteristics.destroy', $caracteristica->id, $producto_id ]]) !!}
+                                        {!! Form::open(['route' => ['admin.characteristics.destroy', $caracteristica->id]]) !!}
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" onClick="return confirm('Eliminar registro?')" class="btn btn-danger btn-circle">
                                                 <i class="fas fa-trash-alt"></i>

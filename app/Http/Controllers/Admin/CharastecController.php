@@ -16,10 +16,10 @@ class CharastecController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create($producto_id)
     {
         return view('admin.characteristics.create', [
-            'producto_id' => $id
+            'producto_id' => $producto_id
         ]);
     }
 
@@ -78,14 +78,14 @@ class CharastecController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SaveCharastecRequest $request, $id, $producto_id)
+    public function update(SaveCharastecRequest $request, $id)
     {
         $carac = Caracteristica::find($id);
         $carac->caracteristica = $request->get('caracteristica');
         $carac->descripcion = $request->get('descripcion');
         $carac->save();
        
-        return redirect()->route('admin.characteristics.show', $producto_id);
+        return redirect()->route('admin.characteristics.show', $carac->producto_id);
     }
 
     /**
@@ -94,10 +94,10 @@ class CharastecController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, $product_id)
+    public function destroy($id)
     {        
         $deleted = Caracteristica::where('id', $id)->delete();
 
-        return redirect()->route('admin.characteristics.show', $product_id);
+        return redirect()->back();
     }
 }

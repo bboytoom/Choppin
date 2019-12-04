@@ -136,21 +136,11 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'adm
 
 	// Caracteristicas del producto
 
-	Route::resource('characteristics', 'CharastecController', ['only' => ['show', 'store']]);
+	Route::resource('characteristics', 'CharastecController', ['except' => ['create', 'index']]);
 
 	Route::get('characteristics/create/{id}', [
 	    'as' => 'admin.characteristics.create',
 	    'uses' => 'CharastecController@create'
-	]);
-
-	Route::delete('characteristics/destroy/{id}/{product_id}', [
-		'as' => 'admin.characteristics.destroy',
-	    'uses' => 'CharastecController@destroy'
-	]);
-
-	Route::put('characteristics/update/{id}/{product_id}', [
-		'as' => 'admin.characteristics.update',
-	    'uses' => 'CharastecController@update'
 	]);
 
 
@@ -162,6 +152,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'adm
 	    'as' => 'admin.envios.create',
 	    'uses' => 'UserEnvioController@create'
 	]);
+
 
 	//Rutas de la orden
 
