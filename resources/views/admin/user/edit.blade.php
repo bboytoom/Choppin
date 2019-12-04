@@ -43,14 +43,14 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="email">Correo electronico:</label>
                             {!! Form::text('email', null, array( 'class'=>'form-control', 'placeholder' => 'Correo electronico', 'required' => 'required')) !!}
                         </div>
                     </div>
 
-                    <div class="col-md-6 text-center">
+                    <div class="col-md-4 text-center">
                         <label>Tipo del usuario:</label>
                         <br>
                         <div class="custom-control custom-radio custom-control-inline">
@@ -62,18 +62,15 @@
                             <label class="custom-control-label" for="admin">Administrador</label>
                         </div>
                     </div>
+
+                    <div class="col-md-4 text-center">
+                        <div class="custom-control custom-switch mt-4 mb-5 ">
+                            <input id="active" type="checkbox" class="custom-control-input" name="active" {{ $user->active == 1 ? "checked='checked'" : '' }}>
+                            <label class="custom-control-label" for="active">Estatus</label>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="address">Dirección:</label>
-                    {!! Form::textarea( 'address', null, array('class'=>'form-control', 'rows'=>'4', 'placeholder' => 'Direccion del usuario')) !!}
-                </div>
-
-                <div class="custom-control custom-switch mt-4 mb-5 text-right">
-                    <input id="active" type="checkbox" class="custom-control-input" name="active" {{ $user->active == 1 ? "checked='checked'" : '' }}>
-                    <label class="custom-control-label" for="active">Estatus</label>
-                </div>
-                
                 <hr>
 
                 <fieldset>

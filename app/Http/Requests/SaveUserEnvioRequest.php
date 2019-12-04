@@ -31,7 +31,7 @@ class SaveUserEnvioRequest extends Request
             'municipio' => 'required|max:150|min:8',
             'estado' => 'required|max:100|min:4',
             'pais' => 'required|max:50|min:4',
-            'codigo_postal' => 'required|max:7|min:5'
+            'codigo_postal' => 'required|max:7|min:5|numeric'
         ];
     }
 }

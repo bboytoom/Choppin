@@ -41,7 +41,7 @@ class UserEnvioController extends Controller
             'estado' => $request->get('estado'),
             'pais' => $request->get('pais'),
             'codigo_postal' => $request->get('codigo_postal'),
-            'status' => $request->get('status')
+            'status' => $request->get('status') ? 1 : 0
         ]);
 
         return redirect()->route('admin.envios.show', $request->get('user_id'));
@@ -96,7 +96,7 @@ class UserEnvioController extends Controller
         $envios->estado = $request->get('estado');
         $envios->pais = $request->get('pais');
         $envios->codigo_postal = $request->get('codigo_postal');
-        $envios->status = $request->get('status');
+        $envios->status = $request->get('status') ? 1 : 0;
         $envios->save();
        
         return redirect()->route('admin.envios.show', $envios->user_id);

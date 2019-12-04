@@ -23,7 +23,8 @@ class CreateUserEnvioTable extends Migration
             $table->string('municipio', 150);
             $table->string('estado', 100);
             $table->string('pais', 50);
-            $table->unsignedInteger('codigo_postal');
+            $table->string('codigo_postal');
+            $table->boolean('status');
         });
     }
 

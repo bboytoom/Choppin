@@ -48,10 +48,9 @@ class UserController extends Controller
             'father_surname'     => $request->get('father_surname'),
             'mother_surname'     => $request->get('mother_surname'),
             'email'         => $request->get('email'),
-            'password'      => $request->get('password'),
+            'password'      => \Hash::make($request->get('password')),
             'type'          => $request->get('type'),
-            'active'        => $request->has('active') ? 1 : 0,
-            'address'       => $request->get('address')
+            'active'        => $request->has('active') ? 1 : 0
         ];
 
         $user = User::create($data);
@@ -106,10 +105,10 @@ class UserController extends Controller
         $user->mother_surname = $request->get('mother_surname');
         $user->email = $request->get('email');
         $user->type = $request->get('type');
-        $user->address = $request->get('address');
         $user->active = $request->has('active') ? 1 : 0;
         
-        if($request->get('password') != "") $user->password = $request->get('password');
+        if($request->get('password') != "") 
+            $user->password = \Hash::make($request->get('password'));
         
         $updated = $user->save();
         

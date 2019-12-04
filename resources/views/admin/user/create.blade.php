@@ -54,11 +54,6 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="address">Dirección:</label>
-                    {!! Form::textarea('address', null, array( 'class'=>'form-control', 'rows'=>'4', 'placeholder' => 'Direccion')) !!}
-                </div>
-
                 <div class="row mt-5">
                     <div class="col-md-6 ">
                         <label>Tipo del usuario:</label>
@@ -74,14 +69,13 @@
                     </div>
 
                     <div class="col-md-6">
-                        <div class="custom-control custom-switch mt-4 mb-5 text-right">
+                        <div class="custom-control custom-switch mt-4 mb-5">
                             <input id="active" type="checkbox" class="custom-control-input" name="active" checked>
                             <label class="custom-control-label" for="active">Estatus</label>
                         </div>
                     </div>
                 </div>
 
-                
                 <div class="form-group text-right mt-5">
                     <a href="{{ route('admin.user.index') }}" class="btn btn-info btn-icon-split">
                         <span class="icon text-white-50">

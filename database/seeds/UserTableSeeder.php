@@ -15,13 +15,12 @@ class UserTableSeeder extends Seeder
         $data = array(
 			[
 				'name' 		=> 'tomas', 
-				'father_surname' => 'rosas', 
-				'mother_surname' => 'bermudez', 
-				'email' 	=> 'thomasrosber@gmail.com', 
+				'father_surname' => 'paterno', 
+				'mother_surname' => 'materno', 
+				'email' 	=> 'toom@gcorreo.com', 
 				'password' 	=> \Hash::make('admin123'),
 				'type' 		=> 'admin',
 				'active' 	=> 1,
-				'address' 	=> 'iztapalapa',
 				'created_at'=> new DateTime,
 				'updated_at'=> new DateTime
 			],
@@ -33,7 +32,6 @@ class UserTableSeeder extends Seeder
 				'password' 	=> \Hash::make('123456'),
 				'type' 		=> 'user',
 				'active' 	=> 1,
-				'address' 	=> 'neza',
 				'created_at'=> new DateTime,
 				'updated_at'=> new DateTime
 			],
