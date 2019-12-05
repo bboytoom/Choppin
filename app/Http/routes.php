@@ -23,50 +23,50 @@ Route::bind('photogallery', function($gallery){
 
 Route::get('/', [
 	'as' => 'home',
-	'uses' => 'StoreController@index'
+	'uses' => 'Store\StoreController@index'
 ]);
 
 Route::get('product/{slug}', [
 	'as' => 'product-detail',
-	'uses' => 'StoreController@show'
+	'uses' => 'Store\StoreController@show'
 ]);
 
 Route::get('category/{category_id}', [
 	'as' => 'category-product',
-	'uses' => 'CategoriesController@index'
+	'uses' => 'Store\CategoriesController@index'
 ]);
 
 // Carrito 
 
 Route::get('cart/show', [
 	'as' => 'cart-show',
-	'uses' => 'CartController@show'
+	'uses' => 'Store\CartController@show'
 ]);
 
 Route::get('cart/add/{product}', [
 	'as' => 'cart-add',
-	'uses' => 'CartController@add'
+	'uses' => 'Store\CartController@add'
 ]);
 
 Route::get('cart/delete/{product}',[
 	'as' => 'cart-delete',
-	'uses' => 'CartController@delete'
+	'uses' => 'Store\CartController@delete'
 ]);
 
 Route::get('cart/trash', [
 	'as' => 'cart-trash',
-	'uses' => 'CartController@trash'
+	'uses' => 'Store\CartController@trash'
 ]);
 
 Route::get('cart/update/{product}/{quantity}', [
 	'as' => 'cart-update',
-	'uses' => 'CartController@update'
+	'uses' => 'Store\CartController@update'
 ]);
 
 Route::get('order-detail', [
 	'middleware' => 'auth:user',
 	'as' => 'order-detail',
-	'uses' => 'CartController@orderDetail'
+	'uses' => 'Store\CartController@orderDetail'
 ]);
 
 
@@ -105,7 +105,7 @@ Route::post('auth/register', [
 
 Route::get('payment', array(
 	'as' => 'payment',
-	'uses' => 'PaypalController@postPayment',
+	'uses' => 'Store\PaypalController@postPayment',
 ));
 
 
@@ -113,7 +113,7 @@ Route::get('payment', array(
 
 Route::get('payment/status', array(
 	'as' => 'payment.status',
-	'uses' => 'PaypalController@getPaymentStatus',
+	'uses' => 'Store\PaypalController@getPaymentStatus',
 ));
 
 
