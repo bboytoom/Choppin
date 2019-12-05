@@ -35,23 +35,9 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="email">Correo:</label>
-                        {!! Form::text('email', null, array('class'=>'form-control', 'placeholder' => 'Correo electronico', 'required' => 'required')) !!}
-                    </div>
-
-                    <div class="col-md-4">
-                        <label for="password">Password:</label>
-                        {!! Form::password('password', array('class'=>'form-control', 'required' => 'required', 'placeholder' => 'Contraseña')) !!}
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="confirm_password">Confirmar Password:</label>
-                            {!! Form::password('password_confirmation', array('class'=>'form-control', 'required' => 'required', 'placeholder' => 'Contraseña')) !!}
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="email">Correo electronico:</label>
+                    {!! Form::text('email', null, array('class'=>'form-control', 'placeholder' => 'Correo electronico', 'required' => 'required')) !!}
                 </div>
 
                 <div class="row mt-5">

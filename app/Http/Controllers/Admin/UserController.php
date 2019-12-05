@@ -43,30 +43,17 @@ class UserController extends Controller
      */
     public function store(SaveUserRequest $request)
     {
-        $data = [
-            'name'          => $request->get('name'),
-            'father_surname'     => $request->get('father_surname'),
-            'mother_surname'     => $request->get('mother_surname'),
-            'email'         => $request->get('email'),
-            'password'      => \Hash::make($request->get('password')),
-            'type'          => $request->get('type'),
-            'active'        => $request->has('active') ? 1 : 0
-        ];
-
-        $user = User::create($data);
+        User::create([
+            'name' => $request->get('name'),
+            'father_surname' => $request->get('father_surname'),
+            'mother_surname' => $request->get('mother_surname'),
+            'email' => $request->get('email'),
+            'password' => \Hash::make('@Usuario2907'),
+            'type' => $request->get('type'),
+            'active' => $request->has('active') ? 1 : 0
+        ]);
         
         return redirect()->route('admin.user.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show(User $user)
-    {
-        return $user;
     }
 
     /**
@@ -89,27 +76,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, User $user)
+    public function update(SaveUserRequest $request, User $user)
     {
-        $this->validate($request, [
-            'name'      => 'required|max:100',
-            'father_surname' => 'required|max:100',
-            'mother_surname' => 'max:100',
-            'email'     => 'required|email',
-            'password'  => ($request->get('password') != "") ? 'required|confirmed' : "",
-            'type'      => 'required|in:user,admin',
-        ]);
-        
         $user->name = $request->get('name');
         $user->father_surname = $request->get('father_surname');
         $user->mother_surname = $request->get('mother_surname');
         $user->email = $request->get('email');
         $user->type = $request->get('type');
         $user->active = $request->has('active') ? 1 : 0;
-        
-        if($request->get('password') != "") 
-            $user->password = \Hash::make($request->get('password'));
-        
         $updated = $user->save();
         
         return redirect()->route('admin.user.index');

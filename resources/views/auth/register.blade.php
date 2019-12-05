@@ -47,13 +47,6 @@
 							<input id="password_confirmation" class="form-control" type="password" name="password_confirmation" placeholder="Contraseña">
 						</div>
 
-						<div class="form-group">
-							<label for="adrress">Dirección</label>
-							<textarea id="adrress" class="form-control" name="address" rows="4" placeholder="Direccion">
-								{{ old('address') }}
-							</textarea>
-						</div>
-
 						<div class="form-group text-right mt-4">
 							<button type="submit" class="btn btn-dark"> 
 								<i class="far fa-file-alt"></i> Registrarme

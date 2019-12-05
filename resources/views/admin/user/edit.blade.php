@@ -66,28 +66,6 @@
                     </div>
                 </div>
 
-                <hr>
-
-                <fieldset>
-                    <legend>Cambiar password:</legend>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="password">Nuevo Password:</label>
-                                {!! Form::password( 'password', array('class'=>'form-control', 'placeholder' => 'Nueva contraseña')) !!}
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="confirm_password">Confirmar Nuevo Password:</label>
-                                {!! Form::password('password_confirmation', array('class'=>'form-control', 'placeholder' => 'Nueva contraseña')) !!}
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-
                 <div class="form-group text-right mt-5">
                     <a href="{{ route('admin.user.index') }}" class="btn btn-info btn-icon-split">
                         <span class="icon text-white-50">

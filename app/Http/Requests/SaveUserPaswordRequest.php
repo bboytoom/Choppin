@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class SaveUserRequest extends Request
+class SaveUserPaswordRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,7 @@ class SaveUserRequest extends Request
     public function rules()
     {
         return [
-            'name'      => 'required|max:50|min:3',
-            'father_surname' => 'required|max:30|min:4',
-            'mother_surname' => 'max:30|min:4',
-            'email'     => 'required|email|unique:users',
-            'type'      => 'required|in:user,admin'
+            'password'  => 'required|confirmed|min:8'
         ];
     }
 }

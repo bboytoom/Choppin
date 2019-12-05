@@ -131,7 +131,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'adm
 
 	Route::resource('product', 'ProductController');
 
-	Route::resource('user', 'UserController');
+	Route::resource('user', 'UserController', ['except' => ['show']]);
+
+	Route::resource('password', 'UserPasswordController', ['only' => ['edit', 'update']]);
 
 
 	// Caracteristicas del producto
@@ -170,6 +172,5 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'adm
 	    'as' => 'admin.order.destroy',
 	    'uses' => 'OrderController@destroy'
 	]);
-
 });
 

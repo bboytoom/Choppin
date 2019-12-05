@@ -47,7 +47,7 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <a href="#" class="btn btn-secondary btn-sm">
+                                        <a href="{{ route('admin.password.edit', $user->id) }}" class="btn btn-secondary btn-sm">
                                             <i class="fas fa-lock"></i>
                                         </a>
 
