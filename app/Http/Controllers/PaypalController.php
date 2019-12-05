@@ -19,8 +19,8 @@ use PayPal\Api\ExecutePayment;
 use PayPal\Api\PaymentExecution;
 use PayPal\Api\Transaction;
 
-use App\Order;
-use App\OrderItem;
+use App\Models\Order;
+use App\Models\OrderItem;
 
 class PaypalController extends BaseController
 {

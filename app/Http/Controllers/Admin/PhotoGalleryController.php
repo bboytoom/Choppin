@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests;
 use App\Http\Requests\SaveGalleryRequest;
 use App\Http\Controllers\Controller;
-use App\PhotosGallery;
+use App\Models\PhotosGallery;
 
 class PhotoGalleryController extends Controller
 {

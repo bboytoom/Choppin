@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\SaveCategoriesRequest;
 use App\Http\Controllers\Controller;
-use App\Category;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -44,11 +44,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     // Relation with Orders
     public function orders()
     {
-        return $this->hasMany('App\Order');
+        return $this->hasMany('App\Models\Order');
     }
 
     public function usersenvio()
     {
-        return $this->hasMany('App\UserEnvios');
+        return $this->hasMany('App\Models\UserEnvios');
     }
 }

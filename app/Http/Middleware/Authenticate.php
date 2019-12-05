@@ -34,17 +34,23 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->guest()) {
-            if ($request->ajax()) {
+        if ($this->auth->guest()) 
+        {
+            if ($request->ajax()) 
+            {
                 return response('Unauthorized.', 401);
-            } else {
+            } 
+            else 
+            {
                 return redirect()->guest('auth/login');
             }
         }
 
-        if($request->path() == 'order-detail') return $next($request);
+        if($request->path() == 'order-detail') 
+            return $next($request);
         
-        if(auth()->user()->type != 'admin'){
+        if(auth()->user()->type != 'admin')
+        {
             $message = 'Permiso denegado: Solo los administradores pueden entrar a esta sección';
             return redirect()->route('home')->with('message', $message);
         }

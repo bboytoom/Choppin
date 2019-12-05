@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\SaveCharastecRequest;
 use App\Http\Controllers\Controller;
-use App\Caracteristica;
+use App\Models\Caracteristica;
 
 class CharastecController extends Controller
 {

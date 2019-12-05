@@ -3,19 +3,19 @@
 //Rutas de modelos
 
 Route::bind('product', function($slug){
-	return App\Product::where('slug', $slug)->first();
+	return App\Models\Product::where('slug', $slug)->first();
 });
 
 Route::bind('category', function($category){
-    return App\Category::find($category);
+    return App\Models\Category::find($category);
 });
 
 Route::bind('user', function($user){
-    return App\User::find($user);
+    return App\Models\User::find($user);
 });
 
 Route::bind('photogallery', function($gallery){
-    return App\PhotosGallery::find($gallery);
+    return App\Models\PhotosGallery::find($gallery);
 });
 
 
@@ -173,4 +173,3 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'adm
 	    'uses' => 'OrderController@destroy'
 	]);
 });
-

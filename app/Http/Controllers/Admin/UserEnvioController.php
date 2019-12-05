@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\SaveUserEnvioRequest;
 use App\Http\Controllers\Controller;
-use App\UserEnvios;
+use App\Models\UserEnvios;
 
 class UserEnvioController extends Controller
 {

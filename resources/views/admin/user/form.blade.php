@@ -81,6 +81,6 @@
         <span class="icon text-white-50">
             <i class="fas fa-exclamation-triangle"></i>
         </span>
-        <span class="text">Actualizar</span>
+        <span class="text">Guardar</span>
     </button>
 </div>

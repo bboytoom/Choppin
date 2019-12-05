@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests;
 use App\Http\Requests\SaveProductRequest;
 use App\Http\Controllers\Controller;
-use App\Product;
-use App\Category;
-use App\Unidades;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Unidades;
 
 class ProductController extends Controller
 {

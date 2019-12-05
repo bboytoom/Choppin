@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Product;
-use App\Category;
-use App\Caracteristica;
-use App\PhotosGallery;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Caracteristica;
+use App\Models\PhotosGallery;
 
 class StoreController extends Controller
 {
