@@ -76,18 +76,7 @@ class ProductController extends Controller
 
         return redirect()->route('admin.product.index');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show(Product $product)
-    {
-        return $product;
-    }
-
+    
     /**
      * Show the form for editing the specified resource.
      *

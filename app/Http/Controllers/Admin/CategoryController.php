@@ -51,16 +51,6 @@ class CategoryController extends Controller
         return redirect()->route('admin.category.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show(Category $category)
-    {
-        return $category;
-    }
 
     /**
      * Show the form for editing the specified resource.

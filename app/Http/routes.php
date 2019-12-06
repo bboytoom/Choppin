@@ -72,7 +72,17 @@ Route::get('payment', 'Store\PaypalController@postPayment')->name('payment');
 Route::get('payment/status', 'Store\PaypalController@getPaymentStatus')->name('payment.status');
 
 
-// ADMIN -------------
+// PERFIL
+
+Route::group(['namespace' => 'Perfil', 'prefix' => 'perfil'], function()
+{
+	Route::get('home', function(){
+		return view('perfil.home');
+	});
+});
+
+
+// ADMIN
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'admin'], function()
 {
@@ -80,11 +90,17 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'adm
 		return view('admin.home');
 	});
 
-	Route::resource('category', 'CategoryController');
+	Route::resource('category', 'CategoryController', ['except' => [
+		'show'
+	]]);
 
-	Route::resource('photogallery', 'PhotoGalleryController');
+	Route::resource('photogallery', 'PhotoGalleryController', ['except' => [
+		'show'
+	]]);
 
-	Route::resource('product', 'ProductController');
+	Route::resource('product', 'ProductController', ['except' => [
+		'show'
+	]]);
 
 	Route::resource('user', 'UserController', ['except' => [
 		'show'
