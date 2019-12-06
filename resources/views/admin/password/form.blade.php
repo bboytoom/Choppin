@@ -2,14 +2,14 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="password">Nuevo Password:</label>
-            {!! Form::password( 'password', array('class'=>'form-control', 'placeholder' => 'Nueva contraseña')) !!}
+            <input type="password" id="password" class="form-control" name="password" placeholder="Nueva contraseña" value="">
         </div>
     </div>
 
     <div class="col-md-6">
         <div class="form-group">
             <label for="confirm_password">Confirmar Nuevo Password:</label>
-            {!! Form::password('password_confirmation', array('class'=>'form-control', 'placeholder' => 'Nueva contraseña')) !!}
+            <input type="password" id="password_confirmation" class="form-control" name="password_confirmation" placeholder="Nueva contraseña" value="">
         </div>
     </div>
 </div>

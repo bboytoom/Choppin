@@ -1,11 +1,11 @@
 <div class="form-group">
     <label for="name">Nombre:</label>
-    {!! Form::text('name', null, array('class'=>'form-control', 'placeholder' => 'Nombre')) !!}
+    <input type="text" id="name" class="form-control" name="name" placeholder="Nombre" value="{{ isset($category->name) ? $category->name : old('name') }}">
 </div>
 
 <div class="form-group">
     <label for="description">Descripción:</label>
-    {!! Form::textarea('description', null, array('class'=>'form-control', 'rows'=>'4', 'placeholder' => 'Agrega una descripcion')) !!}
+    <textarea id="description" class="form-control" name="description" rows="4" placeholder="Agrega una descripcion">{{ isset($category->description) ? $category->description : old('description') }}</textarea>
 </div>
 
 <div class="form-group text-right mt-5">

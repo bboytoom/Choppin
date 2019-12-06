@@ -10,12 +10,12 @@
                 @include('admin.partials.errors')
             @endif
 
-            {!! Form::open(['route'=>'admin.characteristics.store', 'autocomplete' => 'off']) !!}
-                <input type="hidden" name="producto_id" value="{{ $producto_id }}">
-                
-                @include('admin.characteristics.form')
+            <form action="{{ route('admin.characteristics.store') }}" method="POST" autocomplete="off">
+                {{ csrf_field() }}
 
-            {!! Form::close() !!}
+                <input type="hidden" name="producto_id" value="{{ $producto_id }}">
+                @include('admin.characteristics.form')
+            </form>
         </div>
     </div>
 

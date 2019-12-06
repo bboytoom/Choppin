@@ -2,42 +2,42 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="calle_uno">Calle uno:</label>
-            {!! Form::text('calle_uno', null, array('class'=>'form-control', 'placeholder' => 'Calle uno')) !!}
+            <input type="text" id="calle_uno" class="form-control" name="calle_uno" placeholder="Calle uno" value="{{ isset($envios->calle_uno) ? $envios->calle_uno : old('calle_uno') }}">
         </div>
     </div>
 
     <div class="col-md-6">
         <div class="form-group">
             <label for="calle_dos">Calle uno:</label>
-            {!! Form::text('calle_dos', null, array('class'=>'form-control', 'placeholder' => 'Calle dos')) !!}
+            <input type="text" id="calle_dos" class="form-control" name="calle_dos" placeholder="Calle dos" value="{{ isset($envios->calle_dos) ? $envios->calle_dos : old('calle_dos') }}">
         </div>
     </div>
 </div>
 
 <div class="form-group">
     <label for="direccion">Direccion:</label>
-    {!! Form::text('direccion', null, array('class'=>'form-control', 'placeholder' => 'Direccion')) !!}
+    <input type="text" id="direccion" class="form-control" name="direccion" placeholder="Direccion" value="{{ isset($envios->direccion) ? $envios->direccion : old('direccion') }}">
 </div>
 
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
             <label for="colonia">Colonia:</label>
-            {!! Form::text('colonia', null, array('class'=>'form-control', 'placeholder' => 'Colonia')) !!}
+            <input type="text" id="colonia" class="form-control" name="colonia" placeholder="Colonia" value="{{ isset($envios->colonia) ? $envios->colonia : old('colonia') }}">
         </div>
     </div>
 
     <div class="col-md-4">
         <div class="form-group">
             <label for="municipio">Municipio:</label>
-            {!! Form::text('municipio', null, array('class'=>'form-control', 'placeholder' => 'Municipio')) !!}
+            <input type="text" id="municipio" class="form-control" name="municipio" placeholder="Municipio" value="{{ isset($envios->municipio) ? $envios->municipio : old('municipio') }}">
         </div>
     </div>
 
     <div class="col-md-4">
         <div class="form-group">
             <label for="estado">Estado:</label>
-            {!! Form::text('estado', null, array('class'=>'form-control', 'placeholder' => 'Estado')) !!}
+            <input type="text" id="estado" class="form-control" name="estado" placeholder="Estado" value="{{ isset($envios->estado) ? $envios->estado : old('estado') }}">
         </div>
     </div>
 </div>
@@ -46,14 +46,14 @@
     <div class="col-md-4">
         <div class="form-group">
             <label for="pais">Pais:</label>
-            {!! Form::text('pais', null, array('class'=>'form-control', 'placeholder' => 'Pais')) !!}
+            <input type="text" id="pais" class="form-control" name="pais" placeholder="Pais" value="{{ isset($envios->pais) ? $envios->pais : old('pais') }}">
         </div>
     </div>
 
     <div class="col-md-4">
         <div class="form-group">
             <label for="codigo_postal">Codigo postal:</label>
-            {!! Form::text('codigo_postal', null, array('class'=>'form-control', 'placeholder' => 'Codigo postal')) !!}
+            <input type="text" id="codigo_postal" class="form-control" name="codigo_postal" placeholder="Codigo postal" value="{{ isset($envios->codigo_postal) ? $envios->codigo_postal : old('codigo_postal') }}">
         </div>
     </div>
 

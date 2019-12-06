@@ -9,12 +9,12 @@
             @if (count($errors) > 0)
                 @include('admin.partials.errors')
             @endif
-                    
-            {!! Form::open(['route'=>'admin.photogallery.store', 'files' => true, 'autocomplete' => 'off']) !!}
+            
+            <form action="{{ route('admin.photogallery.store') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
+                {{ csrf_field() }}
                 
                 @include('admin.photogallery.form')
-
-            {!! Form::close() !!}
+            </form>
         </div>
     </div>
 

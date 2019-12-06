@@ -24,7 +24,7 @@ class SaveCategoriesRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|unique:categories|max:30'
+            'name' => 'required|min:4|max:30'
         ];
     }
 }

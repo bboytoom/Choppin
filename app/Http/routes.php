@@ -21,47 +21,23 @@ Route::bind('photogallery', function($gallery){
 
 //rutas publicas
 
-Route::get('/', [
-	'as' => 'home',
-	'uses' => 'Store\StoreController@index'
-]);
+Route::get('/', 'Store\StoreController@index')->name('home');
 
-Route::get('product/{slug}', [
-	'as' => 'product-detail',
-	'uses' => 'Store\StoreController@show'
-]);
+Route::get('product/{slug}', 'Store\StoreController@show')->name('product-detail');
 
-Route::get('category/{category_id}', [
-	'as' => 'category-product',
-	'uses' => 'Store\CategoriesController@index'
-]);
+Route::get('category/{category_id}', 'Store\CategoriesController@index')->name('category-product');
 
 // Carrito 
 
-Route::get('cart/show', [
-	'as' => 'cart-show',
-	'uses' => 'Store\CartController@show'
-]);
+Route::get('cart/show', 'Store\CartController@show')->name('cart-show');
 
-Route::get('cart/add/{product}', [
-	'as' => 'cart-add',
-	'uses' => 'Store\CartController@add'
-]);
+Route::get('cart/add/{product}', 'Store\CartController@add')->name('cart-add');
 
-Route::get('cart/delete/{product}',[
-	'as' => 'cart-delete',
-	'uses' => 'Store\CartController@delete'
-]);
+Route::get('cart/delete/{product}', 'Store\CartController@delete')->name('cart-delete');
 
-Route::get('cart/trash', [
-	'as' => 'cart-trash',
-	'uses' => 'Store\CartController@trash'
-]);
+Route::get('cart/trash', 'Store\CartController@trash')->name('cart-trash');
 
-Route::get('cart/update/{product}/{quantity}', [
-	'as' => 'cart-update',
-	'uses' => 'Store\CartController@update'
-]);
+Route::get('cart/update/{product}/{quantity}', 'Store\CartController@update')->name('cart-update');
 
 Route::get('order-detail', [
 	'middleware' => 'auth:user',
@@ -72,49 +48,28 @@ Route::get('order-detail', [
 
 // Authentication routes
 
-Route::get('auth/login', [
-	'as' => 'login-get',
-	'uses' => 'Auth\AuthController@getLogin'
-]);
+Route::get('auth/login', 'Auth\AuthController@getLogin')->name('login-get');
 
-Route::post('auth/login', [
-	'as' => 'login-post',
-	'uses' => 'Auth\AuthController@postLogin'
-]);
+Route::post('auth/login', 'Auth\AuthController@postLogin')->name('login-post');
 
-Route::get('auth/logout', [
-	'as' => 'logout',
-	'uses' => 'Auth\AuthController@getLogout'
-]);
+Route::get('auth/logout', 'Auth\AuthController@getLogout')->name('logout');
 
 
 // Registration routes
 
-Route::get('auth/register', [
-	'as' => 'register-get',
-	'uses' => 'Auth\AuthController@getRegister'
-]);
+Route::get('auth/register', 'Auth\AuthController@getRegister')->name('register-get');
 
-Route::post('auth/register', [
-	'as' => 'register-post',
-	'uses' => 'Auth\AuthController@postRegister'
-]);
+Route::post('auth/register', 'Auth\AuthController@postRegister')->name('register-post');
 
 
 // Enviamos nuestro pedido a PayPal
 
-Route::get('payment', array(
-	'as' => 'payment',
-	'uses' => 'Store\PaypalController@postPayment',
-));
+Route::get('payment', 'Store\PaypalController@postPayment')->name('payment');
 
 
 // Después de realizar el pago Paypal redirecciona a esta ruta
 
-Route::get('payment/status', array(
-	'as' => 'payment.status',
-	'uses' => 'Store\PaypalController@getPaymentStatus',
-));
+Route::get('payment/status', 'Store\PaypalController@getPaymentStatus')->name('payment.status');
 
 
 // ADMIN -------------
@@ -131,45 +86,39 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'adm
 
 	Route::resource('product', 'ProductController');
 
-	Route::resource('user', 'UserController', ['except' => ['show']]);
+	Route::resource('user', 'UserController', ['except' => [
+		'show'
+	]]);
 
-	Route::resource('password', 'UserPasswordController', ['only' => ['edit', 'update']]);
+	Route::resource('password', 'UserPasswordController', ['only' => [
+		'edit', 'update'
+	]]);
 
 
 	// Caracteristicas del producto
 
-	Route::resource('characteristics', 'CharastecController', ['except' => ['create', 'index']]);
+	Route::resource('characteristics', 'CharastecController', ['except' => [
+		'create', 'index'
+	]]);
 
-	Route::get('characteristics/create/{id}', [
-	    'as' => 'admin.characteristics.create',
-	    'uses' => 'CharastecController@create'
-	]);
+	Route::get('characteristics/create/{id}', 'CharastecController@create')->name('admin.characteristics.create');
 
 
 	// Direcciones de envio para el usuario
 
-	Route::resource('envios', 'UserEnvioController', ['except' => ['create', 'index']]);
+	Route::resource('envios', 'UserEnvioController', ['except' => [
+		'create', 'index'
+	]]);
 
-	Route::get('envios/create/{user_id}', [
-	    'as' => 'admin.envios.create',
-	    'uses' => 'UserEnvioController@create'
-	]);
+	Route::get('envios/create/{user_id}', 'UserEnvioController@create')->name('admin.envios.create');
 
 
 	//Rutas de la orden
 
-	Route::get('orders', [
-		'as' => 'admin.order.index',
-		'uses' => 'OrderController@index'
-	]);
+	Route::get('orders', 'OrderController@index')->name('admin.order.index');
 
-	Route::post('order/get-items', [
-	    'as' => 'admin.order.getItems',
-	    'uses' => 'OrderController@getItems'
-	]);
+	Route::get('order/get-items', 'OrderController@getItems')->name('admin.order.getItems');
 
-	Route::get('order/{id}', [
-	    'as' => 'admin.order.destroy',
-	    'uses' => 'OrderController@destroy'
-	]);
+	Route::get('order/{id}', 'OrderController@destroy')->name('admin.order.destroy');
+
 });

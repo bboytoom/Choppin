@@ -2,33 +2,49 @@
     <div class="col-md-4">
         <div class="form-group">
             <label for="name">Nombre:</label>
-            {!! Form::text('name', null, array( 'class'=>'form-control', 'placeholder' => 'Nombre de producto')) !!}
+            <input type="text" id="name" class="form-control" name="name" placeholder="Nombre de producto" value="{{ isset($product->name) ? $product->name : old('name') }}">
         </div>
     </div>
 
     <div class="col-md-4">
         <div class="form-group">
             <label for="price">Precio:</label>
-            {!! Form::text('price', null, array('class'=>'form-control', 'placeholder' => 'Precio del producto')) !!}
+            <input id="price" class="form-control" name="price" type="number" min="0" step="0.01" placeholder="Precio del producto" value="{{ isset($product->price) ? $product->price : old('price') }}">
         </div>
     </div>
 
     <div class="col-md-4">
         <div class="form-group">
             <label class="control-label" for="category_id">Categoría</label>
-            {!! Form::select('category_id', $categories, null, ['class' => 'custom-select']) !!}
+            @if (isset($product))
+                <select id="category_id" class="custom-select" name="category_id">
+                    @foreach ($categories as $key => $item)
+                        <option value="{{ $key }}" {{ ($key === $product->category_id) ? 'selected' : '' }}>
+                            {{ $item }}
+                        </option>
+                    @endforeach
+                </select>
+            @else
+                <select id="category_id" class="custom-select" name="category_id">
+                    @foreach ($categories as $key => $item)
+                        <option value="{{ $key }}">
+                            {{ $item }}
+                        </option>
+                    @endforeach
+                </select>
+            @endif
         </div>
     </div>
 </div>
 
 <div class="form-group">
     <label for="extract">Extracto:</label>
-    {!! Form::text( 'extract', null, array('class'=>'form-control', 'placeholder' => 'Resumen del producto')) !!}
+    <input type="text" id="extract" class="form-control" name="extract" placeholder="Resumen del producto" value="{{ isset($product->extract) ? $product->extract : old('extract') }}">
 </div>
 
 <div class="form-group">
     <label for="description">Descripción:</label>
-    {!! Form::textarea('description', null, array('class'=>'form-control', 'rows'=>'4', 'placeholder' => 'Descripcion')) !!}
+    <textarea id="description" class="form-control" name="description" rows="4" placeholder="Agrega una descripcion">{{ isset($product->description) ? $product->description : old('description') }}</textarea>
 </div>
 
 <div class="row mt-4">

@@ -9,12 +9,12 @@
             @if (count($errors) > 0)
                 @include('admin.partials.errors')
             @endif
-                    
-            {!! Form::open(['route'=>'admin.product.store', 'files' => true, 'autocomplete' => 'off']) !!}
-                    
-                @include('admin.product.form')
 
-            {!! Form::close() !!}
+            <form action="{{ route('admin.product.store') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                
+                @include('admin.product.form')
+            </form>
         </div>
     </div>
 

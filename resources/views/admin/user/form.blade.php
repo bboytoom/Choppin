@@ -2,23 +2,21 @@
     <div class="col-md-4">
         <div class="form-group">
             <label for="name">Nombre:</label>
-            {!!Form::text('name', null, array('class'=>'form-control', 'placeholder' => 'Nombre', 'required' =>
-            'required')) !!}
+            <input type="text" id="name" class="form-control" name="name" placeholder="Nombre" value="{{ isset($user->name) ? $user->name : old('name') }}">
         </div>
     </div>
 
     <div class="col-md-4">
         <div class="form-group">
             <label for="father_surname">Apellido paterno</label>
-            {!! Form::text('father_surname', null, array('class'=>'form-control', 'placeholder' => 'Ingresa el apellido
-            paterno', 'required' => 'required')) !!}
+            <input type="text" id="father_surname" class="form-control" name="father_surname" placeholder="Ingresa el apellido paterno" value="{{ isset($user->father_surname) ? $user->father_surname : old('father_surname') }}">
         </div>
     </div>
 
     <div class="col-md-4">
         <div class="form-group">
             <label for="mother_surname">Apellido materno</label>
-            {!! Form::text('mother_surname', null, array( 'class'=>'form-control', 'placeholder' => 'Ingresa el apellido materno')) !!}
+            <input type="text" id="mother_surname" class="form-control" name="mother_surname" placeholder="Ingresa el apellido materno" value="{{ isset($user->mother_surname) ? $user->mother_surname : old('mother_surname') }}">
         </div>
     </div>
 </div>
@@ -27,7 +25,7 @@
     <div class="col-md-4">
         <div class="form-group">
             <label for="email">Correo electronico:</label>
-            {!! Form::text('email', null, array( 'class'=>'form-control', 'placeholder' => 'Correo electronico', 'required' => 'required')) !!}
+            <input type="email" id="email" class="form-control" name="email" placeholder="Correo electronico" value="{{ isset($user->email) ? $user->email : old('email') }}">
         </div>
     </div>
 
@@ -37,20 +35,20 @@
 
         @if (isset($user))
             <div class="custom-control custom-radio custom-control-inline">
-                {!! Form::radio('type', 'user', $user->type=='user' ? true : false, array('class'=>'custom-control-input')) !!}
+                <input type="radio" id="user" name="type" class="custom-control-input" value="user" {{ ($user->type == 'user') ? 'checked' : '' }}>
                 <label class="custom-control-label" for="user">Usuario</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
-                {!! Form::radio('type', 'admin', $user->type=='admin' ? true : false, array('class'=>'custom-control-input')) !!}
+                <input type="radio" id="admin" name="type" class="custom-control-input" value="admin" {{ ($user->type == 'admin') ? 'checked' : '' }}>
                 <label class="custom-control-label" for="admin">Administrador</label>
             </div>
         @else
             <div class="custom-control custom-radio custom-control-inline">
-                {!! Form::radio('type', 'user', true, array('class'=>'custom-control-input')) !!}
+                <input type="radio" id="user" name="type" class="custom-control-input" value="user" checked>
                 <label class="custom-control-label" for="user">Usuario</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
-                {!! Form::radio('type', 'admin', false, array('class'=>'custom-control-input')) !!}
+                <input type="radio" id="admin" name="type" class="custom-control-input" value="admin">
                 <label class="custom-control-label" for="admin">Administrador</label>
             </div>
         @endif

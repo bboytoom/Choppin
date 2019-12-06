@@ -10,11 +10,11 @@
                 @include('admin.partials.errors')
             @endif
 
-            {!! Form::open(['route'=>'admin.user.store', 'autocomplete' => 'off']) !!}
-
-                @include('admin.user.form')
+            <form action="{{ route('admin.user.store') }}" method="POST" autocomplete="off">
+                {{ csrf_field() }}
                 
-            {!! Form::close() !!}
+                @include('admin.user.form')
+            </form>
         </div>
     </div>
 

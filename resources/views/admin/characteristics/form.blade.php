@@ -2,14 +2,14 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="caracteristica">Caracteristica:</label>
-            {!! Form::text('caracteristica', null, array('class'=>'form-control', 'placeholder' => 'Color')) !!}
+            <input type="text" id="caracteristica" class="form-control" name="caracteristica" placeholder="Color" value="{{ isset($caracteristica->caracteristica) ? $caracteristica->caracteristica : old('caracteristica') }}">
         </div>
     </div>
 
     <div class="col-md-6">
         <div class="form-group">
             <label for="descripcion">Descripcion:</label>
-            {!! Form::text('descripcion', null, array('class'=>'form-control', 'placeholder' => 'Azul')) !!}
+            <input type="text" id="descripcion" class="form-control" name="descripcion" placeholder="Azul" value="{{ isset($caracteristica->descripcion) ? $caracteristica->descripcion : old('descripcion') }}">
         </div>
     </div>
 </div>

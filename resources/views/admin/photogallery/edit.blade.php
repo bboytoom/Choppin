@@ -9,13 +9,13 @@
             @if (count($errors) > 0)
                 @include('admin.partials.errors')
             @endif
-                    
-            {!! Form::model($gallery, array('route' => array('admin.photogallery.update', $gallery), 'files' => true, 'autocomplete' => 'off')) !!}
-                <input type="hidden" name="_method" value="PUT">
-             
-                @include('admin.photogallery.form')
 
-            {!! Form::close() !!}
+            <form action="{{ route('admin.photogallery.update', $gallery) }}" method="POST" autocomplete="off" enctype="multipart/form-data">
+                {{ method_field('PUT') }}
+				{{ csrf_field() }}
+
+                @include('admin.photogallery.form')
+            </form>
         </div>
     </div>
 

@@ -10,12 +10,12 @@
                 @include('admin.partials.errors')
             @endif
 
-            {!! Form::model($category, array('route' => array('admin.category.update', $category), 'autocomplete' => 'off')) !!}
-                <input type="hidden" name="_method" value="PUT">
+            <form action="{{ route('admin.category.update', $category) }}" method="POST" autocomplete="off">
+                {{ method_field('PUT') }}
+				{{ csrf_field() }}
 
                 @include('admin.category.form')
-
-            {!! Form::close() !!}
+            </form>
         </div>
     </div>
 

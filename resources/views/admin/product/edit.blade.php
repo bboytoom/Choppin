@@ -10,13 +10,12 @@
                 @include('admin.partials.errors')
             @endif
 
-            {!! Form::model($product, array('route' => array('admin.product.update', $product->slug), 'files' => true, 'autocomplete' => 'off')) !!}
-
-                <input type="hidden" name="_method" value="PUT">
+            <form action="{{ route('admin.product.update', $product->slug) }}" method="POST" autocomplete="off" enctype="multipart/form-data">
+                {{ method_field('PUT') }}
+				{{ csrf_field() }}
 
                 @include('admin.product.form')
-
-            {!! Form::close() !!}
+            </form>
         </div>
     </div>
 

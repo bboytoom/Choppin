@@ -10,12 +10,12 @@
                 @include('admin.partials.errors')
             @endif
 
-            {!! Form::open(['route'=>'admin.envios.store', 'autocomplete' => 'off']) !!}
-                <input type="hidden" name="user_id" value="{{ $user_id }}">
+            <form action="{{ route('admin.envios.store') }}" method="POST" autocomplete="off">
+                {{ csrf_field() }}
 
+                <input type="hidden" name="user_id" value="{{ $user_id }}"> 
                 @include('admin.envios.form')
-
-            {!! Form::close() !!}
+            </form>
         </div>
     </div>
 

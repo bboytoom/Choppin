@@ -22,18 +22,18 @@
             </div>
         @endif
     </div>
-    
+
     <div class="col-md-6">
         <div class="form-group">
             <label for="title">Titulo:</label>
-            {!! Form::text('title', null, array('class'=>'form-control', 'placeholder' => 'Titulo de la imagen')) !!}
+            <input type="text" id="title" class="form-control" name="title" placeholder="Titulo de la imagen" value="{{ isset($gallery->title) ? $gallery->title : old('title') }}">
         </div>
     </div>
 </div>
 
 <div class="form-group">
     <label for="description">Descripccion:</label>
-    {!! Form::textarea('description', null, array('class'=>'form-control', 'rows'=>'4', 'placeholder' => 'Agrega una descripcion')) !!}
+    <textarea id="description" class="form-control" name="description" rows="4" placeholder="Agrega una descripcion">{{ isset($gallery->description) ? $gallery->description : old('title') }}</textarea>
 </div>
 
 <div class="custom-control custom-switch">

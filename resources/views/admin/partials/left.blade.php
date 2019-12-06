@@ -10,9 +10,11 @@
 	</a>
 
 	<li class="nav-item">
-		{!! link_to('admin/home', "Dashboard", $attributes = array('class' => 'nav-link')) !!}		
-	</li>
-
+    	<a class="nav-link" href="{{ url('admin/home') }}">
+        	<i class="fas fa-fw fa-tachometer-alt"></i>
+        	<span>Dashboard</span>
+		</a>
+    </li>
 
 	<!-- Divider -->
 	<hr class="sidebar-divider my-0">
