@@ -40,7 +40,7 @@
 								<td>
 									<input type="number" min="1" max="100" value="{{ $item->quantity }}" id="product_{{ $item->id }}">
 									<br>
-									<a class="btn-update-item" href="#" data-href="{{ route('cart-update', $item->slug) }}" data-id = "{{ $item->id }}">
+									<a class="btn-update-item" href="#" data-href="#" data-id = "{{ $item->id }}">
 										actualizar
 									</a>
 								</td>

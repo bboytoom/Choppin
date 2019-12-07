@@ -26,8 +26,10 @@
 		@if(\Session::has('message'))
 			@include('store.partials.message')
 		@endif
-		
+
 		@include('store.partials.nav')
+
+		@include('store.partials.navShop')
 
 		<main class="container">
 			@yield('content')
