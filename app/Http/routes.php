@@ -27,24 +27,6 @@ Route::get('product/{slug}', 'Store\StoreController@show')->name('product-detail
 
 Route::get('category/{category_id}', 'Store\CategoriesController@index')->name('category-product');
 
-// Carrito 
-
-Route::get('cart/show', 'Store\CartController@show')->name('cart-show');
-
-Route::get('cart/add/{product}', 'Store\CartController@add')->name('cart-add');
-
-Route::get('cart/delete/{product}', 'Store\CartController@delete')->name('cart-delete');
-
-Route::get('cart/trash', 'Store\CartController@trash')->name('cart-trash');
-
-Route::get('cart/update/{product}/{quantity}', 'Store\CartController@update')->name('cart-update');
-
-Route::get('order-detail', [
-	'middleware' => 'auth:user',
-	'as' => 'order-detail',
-	'uses' => 'Store\CartController@orderDetail'
-]);
-
 
 // Authentication routes
 
@@ -127,14 +109,5 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth'], 'prefix' => 'adm
 	]]);
 
 	Route::get('envios/create/{user_id}', 'UserEnvioController@create')->name('admin.envios.create');
-
-
-	//Rutas de la orden
-
-	Route::get('orders', 'OrderController@index')->name('admin.order.index');
-
-	Route::get('order/get-items', 'OrderController@getItems')->name('admin.order.getItems');
-
-	Route::get('order/{id}', 'OrderController@destroy')->name('admin.order.destroy');
 
 });

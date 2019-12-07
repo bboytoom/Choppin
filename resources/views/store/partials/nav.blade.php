@@ -12,7 +12,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cart-show') }}">
+                    <a class="nav-link" href="#">
                         <i class="fas fa-shopping-basket"></i> Mi carrito
                     </a>
                 </li>
