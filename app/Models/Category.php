@@ -6,11 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $table = 'categories';
-	protected $fillable = ['name', 'slug', 'description'];
-    public $timestamps = false;
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'category';
 
-    public function products()
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'slug', 
+        'description', 
+        'status', 
+    ];
+
+    public function product()
     {
         return $this->hasMany('App\Models\Product');
     }

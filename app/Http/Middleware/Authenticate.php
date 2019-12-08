@@ -2,59 +2,20 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
-use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
-class Authenticate
+class Authenticate extends Middleware
 {
     /**
-     * The Guard implementation.
-     *
-     * @var Guard
-     */
-    protected $auth;
-
-    /**
-     * Create a new filter instance.
-     *
-     * @param  Guard  $auth
-     * @return void
-     */
-    public function __construct(Guard $auth)
-    {
-        $this->auth = $auth;
-    }
-
-    /**
-     * Handle an incoming request.
+     * Get the path the user should be redirected to when they are not authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
+     * @return string
      */
-    public function handle($request, Closure $next)
+    protected function redirectTo($request)
     {
-        if ($this->auth->guest()) 
-        {
-            if ($request->ajax()) 
-            {
-                return response('Unauthorized.', 401);
-            } 
-            else 
-            {
-                return redirect()->guest('auth/login');
-            }
+        if (! $request->expectsJson()) {
+            return route('login');
         }
-
-        if($request->path() == 'order-detail') 
-            return $next($request);
-
-        if(auth()->user()->type != 'admin')
-        {
-            $message = 'Permiso denegado: Solo los administradores pueden entrar a esta sección';
-            return redirect()->route('home')->with('message', $message);
-        }
-
-        return $next($request);
     }
 }
