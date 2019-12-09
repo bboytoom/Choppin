@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User;
+use App\Admin;
 
-class UsersTableSeeder extends Seeder
+class AdminsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,11 +14,11 @@ class UsersTableSeeder extends Seeder
     {
         $data = array(
 			[
-				'name' => 'niki', 
-				'father_surname' => 'gatofather', 
-				'mother_surname' => 'gatomother', 
-				'email' => 'niki@correo.com', 
-				'password' => \Hash::make('prueba123'),
+				'name' => 'toom', 
+				'father_surname' => 'rosber', 
+				'mother_surname' => '', 
+				'email' => 'toom@correo.com', 
+				'password' => \Hash::make('admin123'),
 				'status' => 1,
 				'created_at'=> new DateTime,
 				'updated_at'=> new DateTime
@@ -26,6 +26,6 @@ class UsersTableSeeder extends Seeder
 
 		);
 
-		User::insert($data);
+		Admin::insert($data);
     }
 }

@@ -11,7 +11,7 @@ class ShoppingCart extends Model
      *
      * @var string
      */
-    protected $table = 'shoppingcart';
+    protected $table = 'shopping_carts';
 
     /**
      * The attributes that are mass assignable.

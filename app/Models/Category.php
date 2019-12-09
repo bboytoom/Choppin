@@ -11,7 +11,7 @@ class Category extends Model
      *
      * @var string
      */
-    protected $table = 'category';
+    protected $table = 'categories';
 
     /**
      * The attributes that are mass assignable.
@@ -24,9 +24,4 @@ class Category extends Model
         'description', 
         'status', 
     ];
-
-    public function product()
-    {
-        return $this->hasMany('App\Models\Product');
-    }
 }

@@ -11,7 +11,7 @@ class Characteristic extends Model
      *
      * @var string
      */
-    protected $table = 'characteristic';
+    protected $table = 'characteristics';
 
     /**
      * The attributes that are mass assignable.
@@ -22,10 +22,6 @@ class Characteristic extends Model
         'producto_id',
         'characteristic',
         'description',
+        'status',
     ];
-
-    public function product()
-    {
-        return $this->belongsTo('App\Models\Product');
-    }
 }

@@ -11,10 +11,27 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::namespace('Store')->group(function () 
+{
+    Route::get('/', 'HomeController@index')->name('home');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::prefix('admin')->group(function () {
+    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+    Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+
+    Route::namespace('Admin')->group(function () {
+        Route::get('/', 'HomeController@index')->name('admin.home');
+    });
+});
+
+Route::prefix('user')->group(function () {
+    Route::get('/logout', 'Auth\LoginController@userLogout')->name('user.logout');
+
+    Route::namespace('Users')->group(function () {
+        Route::get('/', 'HomeController@index')->name('user.home');
+    });
+});

@@ -11,7 +11,7 @@ class Gallery extends Model
      *
      * @var string
      */
-    protected $table = 'gallery';
+    protected $table = 'galleries';
 
     /**
      * The attributes that are mass assignable.
@@ -19,6 +19,7 @@ class Gallery extends Model
      * @var array
      */
     protected $fillable = [
+        'admin_id',
         'title',
         'image', 
         'description', 

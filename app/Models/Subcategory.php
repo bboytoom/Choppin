@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class InShoppingCart extends Model
+class Subcategory extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'in_shopping_carts';
+    protected $table = 'subcategories';
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +19,10 @@ class InShoppingCart extends Model
      * @var array
      */
     protected $fillable = [
-        'product_id', 
-        'shopping_cart_id',
+        'category_id',
+        'name', 
+        'slug', 
+        'description',
+        'status',
     ];
 }

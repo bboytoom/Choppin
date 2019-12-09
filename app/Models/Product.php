@@ -11,7 +11,7 @@ class Product extends Model
      *
      * @var string
      */
-    protected $table = 'product';
+    protected $table = 'products';
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +20,8 @@ class Product extends Model
      */
     protected $fillable = [
         'category_id',
+        'subcategory_id',
+        'admin_id',
         'name', 
         'slug', 
         'extract',
@@ -28,14 +30,4 @@ class Product extends Model
         'image', 
         'status',
     ];
-
-    public function category()
-    {
-        return $this->belongsTo('App\Models\Category');
-    }
-
-    public function characteristic()
-    {
-        return $this->hasMany('App\Models\Characteristic');
-    }
 }
