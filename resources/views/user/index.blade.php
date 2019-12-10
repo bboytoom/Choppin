@@ -1,23 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.admin_layout')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">user Dashboard</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <h1 class="h3 mb-2 text-gray-800 mb-4">Dashboard</h1>
 
-                    Administrador usuario
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
