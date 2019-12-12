@@ -19,7 +19,7 @@ class AdminLoginController extends Controller
         return view('auth.admin-login');
     }
 
-    public function login(Request $request)
+    public function adminLogin(Request $request)
     {
         $this->validate($request, [
             'email' => 'required|email',

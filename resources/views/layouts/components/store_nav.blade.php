@@ -29,19 +29,35 @@
                 <!-- Authentication Links -->
                 
                 @if(Auth::check())
-                    <li class="nav-item">
-                        @if (Auth::guard('web')->check())
+                    
+                    @if (Auth::guard('web')->check())
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.home') }}">
+                                <i class="fas fa-user"></i> Mi perfil
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.logout') }}">
                                 <i class="fas fa-power-off"></i> Salir
                             </a>
-                        @endif
+                        </li>
+                    @endif
 
-                        @if (Auth::guard('admin')->check())
+                    @if (Auth::guard('admin')->check())
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.home') }}">
+                                <i class="fas fa-user"></i> Mi perfil
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.logout') }}">
                                 <i class="fas fa-power-off"></i> Salir
                             </a>
-                        @endif
-                    </li>
+                        </li>
+                    @endif
+
                 @else
                     <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">
