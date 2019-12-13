@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreLoginRequest;
+
 use Auth;
 
 class AdminLoginController extends Controller
@@ -19,18 +21,12 @@ class AdminLoginController extends Controller
         return view('auth.admin-login');
     }
 
-    public function adminLogin(Request $request)
+    public function adminLogin(StoreLoginRequest $request)
     {
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required|min:6'
-        ]);
-
         if(Auth::guard('admin')->attempt([
             'email' => $request->email,
             'password' => $request->password
-        ], 
-        $request->remember))
+        ], $request->remember))
             return redirect()->intended(route('admin.home'));
         
         return redirect()->back()->withInput($request->only('email', 'remember'));

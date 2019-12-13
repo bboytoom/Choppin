@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/sb-admin-2.css') }}">
 		<link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
-
+        
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -84,5 +84,6 @@
 		<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 		<script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
 		<script src="{{ asset('js/sb-admin-2.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

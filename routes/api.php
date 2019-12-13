@@ -17,5 +17,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('register', 'Api\AuthUserController@register');
-Route::post('login', 'Api\AuthUserController@userLogin');
+Route::prefix('admin')->group(function()
+{
+    Route::namespace('Api')->group(function () 
+    {
+        Route::apiResources([
+            'users' => 'UsersController'
+        ]);
+    });
+});
