@@ -22,6 +22,7 @@ Route::prefix('admin')->group(function()
     Route::namespace('Api')->group(function () 
     {
         Route::apiResources([
+            'admins' => 'AdminsController',
             'users' => 'UsersController'
         ]);
     });

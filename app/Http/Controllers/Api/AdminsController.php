@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\AdminUserRequest;
 use App\Http\Resources\AdminUserResource;
 use App\Http\Resources\AdminUserCollection;
-use App\User;
+use App\Admin;
 
-class UsersController extends Controller
+class AdminsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return new AdminUserCollection(User::paginate(10));
+        return new AdminUserCollection(Admin::paginate(10));
     }
 
     /**
@@ -29,7 +29,7 @@ class UsersController extends Controller
      */
     public function store(AdminUserRequest $request)
     {
-        $user = User::create([
+        $admin = Admin::create([
             'name' => $request->get('name'),
             'mother_surname' => $request->get('mother_surname'),
             'father_surname' => $request->get('father_surname'),
@@ -41,12 +41,12 @@ class UsersController extends Controller
         return response()->json(
         [
             'data' => [
-                'user' => [
-                    'name' => $user->name,
-                    'mother_surname' => $user->mother_surname,
-                    'father_surname' => $user->father_surname
+                'admins' => [
+                    'name' => $admin->name,
+                    'mother_surname' => $admin->mother_surname,
+                    'father_surname' => $admin->father_surname
                 ],
-                'password' => '@Usuario2907'
+                'password' => '@Admins2907'
             ]
         ], 201);
     }
@@ -59,10 +59,10 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $user =  User::find($id);
+        $admins =  Admin::find($id);
 
         AdminUserResource::withoutWrapping();
-        return new AdminUserResource($user);
+        return new AdminUserResource($admins);
     }
 
     /**
@@ -74,15 +74,15 @@ class UsersController extends Controller
      */
     public function update(AdminUserRequest $request, $id)
     {
-        $user =  User::find($id);
-        $user->name = $request->get('name');
-        $user->mother_surname = $request->get('mother_surname');
-        $user->father_surname = $request->get('father_surname');
-        $user->email = $request->get('email');
-        $user->status = $request->get('status');
-        $user->save();
-        
-        return response(null, 200);    
+        $admin =  Admin::find($id);
+        $admin->name = $request->get('name');
+        $admin->mother_surname = $request->get('mother_surname');
+        $admin->father_surname = $request->get('father_surname');
+        $admin->email = $request->get('email');
+        $admin->status = $request->get('status');
+        $admin->save();
+
+        return response(null, 200);  
     }
 
     /**
@@ -93,9 +93,9 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $user =  User::find($id);
-        $user->delete();
-
+        $admin =  Admin::find($id);
+        $admin->delete();
+        
         return response(null, 204);
     }
 }
