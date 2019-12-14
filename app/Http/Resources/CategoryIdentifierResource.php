@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AdminUserResource extends JsonResource
+class CategoryIdentifierResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,13 +17,7 @@ class AdminUserResource extends JsonResource
         return [
             'type' => $this->getTable(),
             'id' => $this->id,
-            'attributes' => [
-                'name' => $this->name,
-                'mother_surname' => $this->mother_surname,
-                'father_surname' => $this->father_surname,
-                'email' => $this->email,
-                'status' =>  $this->status
-            ]
+            'name' => $this->name
         ];
     }
 }

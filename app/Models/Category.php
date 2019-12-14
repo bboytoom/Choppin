@@ -19,9 +19,15 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
+        'admin_id',
         'name',
         'slug', 
         'description', 
         'status', 
     ];
+
+    public function admins()
+    {
+        return $this->belongsTo('App\Admin', 'admin_id');
+    }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AdminUserResource extends JsonResource
+class CategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,10 +19,12 @@ class AdminUserResource extends JsonResource
             'id' => $this->id,
             'attributes' => [
                 'name' => $this->name,
-                'mother_surname' => $this->mother_surname,
-                'father_surname' => $this->father_surname,
-                'email' => $this->email,
-                'status' =>  $this->status
+                'slug' => $this->slug,
+                'description' => $this->description,
+                'status' =>  $this->status,
+            ],
+            'relationsships' => [
+                'admin' => new AdminIdentifierResource($this->admins)
             ]
         ];
     }
