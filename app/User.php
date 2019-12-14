@@ -29,6 +29,8 @@ class User extends Authenticatable
         'father_surname', 
         'mother_surname', 
         'status',
+        'created_at',
+        'updated_at'
     ];
 
     /**

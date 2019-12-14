@@ -15,18 +15,7 @@ class AdminUserCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => $this->collection->transform(function($elemento)
-                {
-                    return [
-                        'id' => $elemento->id,
-                        'name' => $elemento->name,
-                        'mother_surname' => $elemento->mother_surname,
-                        'father_surname' => $elemento->father_surname,
-                        'email' => $elemento->email,
-                        'status' =>  $elemento->status
-                    ];
-                }
-            )
+            'data' => AdminUserResource::collection($this->collection)
         ];
     }
 }

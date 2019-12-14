@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\AdminUserRequest;
+use App\Http\Resources\AdminUserResource;
 use App\Http\Resources\AdminUserCollection;
 use App\User;
 
 class UsersController extends Controller
 {
+    
+
     /**
      * Display a listing of the resource.
      *
@@ -16,9 +20,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $user = User::paginate(10);
-
-        return new AdminUserCollection($user);
+        return new AdminUserCollection(User::paginate(10));
     }
 
     /**
@@ -27,9 +29,21 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminUserRequest $request)
     {
-        //
+        $user = User::create($request->all());
+
+        return response()->json(
+        [
+            'data' => [
+                'user' => [
+                    'name' => $user->name,
+                    'mother_surname' => $user->mother_surname,
+                    'father_surname' => $user->father_surname
+                ],
+                'password' => '@Usuario2907'
+            ]
+        ], 201);
     }
 
     /**
@@ -38,9 +52,10 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        AdminUserResource::withoutWrapping();
+        return new AdminUserResource($user);
     }
 
     /**
@@ -50,9 +65,14 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminUserRequest $request, User $user)
     {
-        //
+        $user->update($request->all());
+        
+        return response()->json(
+        [
+            'data' => $user
+        ], 200);    
     }
 
     /**
@@ -61,8 +81,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return response(null, 204);
     }
 }
