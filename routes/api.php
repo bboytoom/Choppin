@@ -26,7 +26,8 @@ Route::prefix('admin')->group(function()
             'users' => 'UsersController',
             'category' => 'CategoryController',
             'subcategory' => 'SubCategoryController',
-            'product' => 'ProductController'
+            'product' => 'ProductController',
+            'characteristic' => 'CharacteristicController'
         ]);
     });
 });

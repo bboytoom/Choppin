@@ -39,7 +39,6 @@ class ProductController extends Controller
             'extract' => $request->get('extract'),
             'description' => $request->get('description'),
             'price' => $request->get('price'),
-            'image' => $request->get('image'),
             'status' => $request->get('status')
         ]);
 

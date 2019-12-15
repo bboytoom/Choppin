@@ -27,7 +27,6 @@ class Product extends Model
         'extract',
         'description', 
         'price', 
-        'image', 
         'status',
     ];
 
@@ -44,5 +43,10 @@ class Product extends Model
     public function subcategory()
     {
         return $this->belongsTo('App\Models\SubCategory', 'subcategory_id');
+    }
+
+    public function characteristic()
+    {
+        return $this->hasMany('App\Models\Characteristic');
     }
 }

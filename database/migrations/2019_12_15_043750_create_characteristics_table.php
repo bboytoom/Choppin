@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductsTable extends Migration
+class CreateCharacteristicsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,28 +13,19 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('characteristics', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('admin_id');
             $table->foreign('admin_id')	
                 ->references('id')	
                 ->on('admins')	
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')	
-                ->references('id')	
-                ->on('categories')	
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')
+                ->references('id')->on('products')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('subcategory_id');
-            $table->foreign('subcategory_id')	
-                ->references('id')	
-                ->on('sub_categories')	
-                ->onDelete('cascade');
-            $table->string('name', 255);	           
-            $table->string('slug');	           
-            $table->string('extract', 100);
+            $table->string('name', 50);
             $table->text('description');
-            $table->decimal('price', 5, 2);
             $table->boolean('status');
             $table->timestamps();
         });
@@ -47,6 +38,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('characteristics');
     }
 }
