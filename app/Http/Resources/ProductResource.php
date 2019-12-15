@@ -4,8 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Category;
+use App\Models\SubCategory;
 
-class SubCategoryResource extends JsonResource
+class ProductResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,15 +22,20 @@ class SubCategoryResource extends JsonResource
             'attributes' => [
                 'name' => $this->name,
                 'slug' => $this->slug,
-                'description' => $this->description,
+                'extract' => $this->extract,
+                'description' =>  $this->description,
+                'price' =>  $this->price,
+                'image' =>  $this->image,
                 'status' =>  $this->status,
             ],
             'relationsships' => [
                 'admin' => new AdminIdentifierResource($this->admins),
-                'category' => new CategoryIdentifierResource($this->category)
+                'category' => new CategoryIdentifierResource($this->category),
+                'subcategory' => new SubCategoryIdentifierResource($this->subcategory)
             ],
             'catalogs' => [
-                'categories' => new CategoryCatalogCollection(Category::all())
+                'categories' => new CategoryCatalogCollection(Category::all()),
+                'subcategories' => new SubCategoryCatalogCollection(SubCategory::all())
             ]
         ];
     }

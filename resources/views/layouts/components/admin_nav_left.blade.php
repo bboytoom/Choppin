@@ -79,6 +79,12 @@
 		</a>
 	</li>
 
+	<li class="nav-item">
+		<a class="nav-link" href="#">
+			<i class="fas fa-users"></i>
+			<span>Administradores</span>
+		</a>
+	</li>
 
 	<!-- Divider -->
 	<hr class="sidebar-divider d-none d-md-block">
