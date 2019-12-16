@@ -50,4 +50,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function shipping()
+    {
+        return $this->hasMany('App\Models\Shipping', 'user_id');
+    }
 }
