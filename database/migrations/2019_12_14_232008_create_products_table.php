@@ -30,8 +30,8 @@ class CreateProductsTable extends Migration
                 ->references('id')	
                 ->on('sub_categories')	
                 ->onDelete('cascade');
-            $table->string('name', 255);	           
-            $table->string('slug');	           
+            $table->string('name', 255)->unique();
+            $table->string('slug');
             $table->string('extract', 100);
             $table->text('description');
             $table->decimal('price', 5, 2);

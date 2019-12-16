@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\Shipping;
 
-class AdminUserResource extends JsonResource
+class AdminResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -24,10 +23,7 @@ class AdminUserResource extends JsonResource
                 'father_surname' => $this->father_surname,
                 'email' => $this->email,
                 'status' =>  $this->status
-            ],
-            'catalogs' => [
-                'shippings' => new ShippingCatalogCollection(Shipping::all())
-            ],
+            ]
         ];
     }
 }

@@ -37,7 +37,7 @@ class ProductResource extends JsonResource
                 'categories' => new CategoryCatalogCollection(Category::all()),
                 'subcategories' => new SubCategoryCatalogCollection(SubCategory::all())
             ],
-            'caracteristics' => new CharacteristicCatalogCollection(Characteristic::all())
+            'caracteristics' => new CharacteristicCatalogCollection($this->characteristic)
         ];
     }
 }

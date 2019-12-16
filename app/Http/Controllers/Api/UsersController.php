@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminUserRequest;
-use App\Http\Resources\AdminUserResource;
-use App\Http\Resources\AdminUserCollection;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollection;
 use App\User;
 
 class UsersController extends Controller
@@ -18,7 +18,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return new AdminUserCollection(User::paginate(10));
+        return new UserCollection(User::paginate(10));
     }
 
     /**
@@ -61,8 +61,8 @@ class UsersController extends Controller
     {
         $user =  User::find($id);
 
-        AdminUserResource::withoutWrapping();
-        return new AdminUserResource($user);
+        UserResource::withoutWrapping();
+        return new UserResource($user);
     }
 
     /**

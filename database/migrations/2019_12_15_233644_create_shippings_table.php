@@ -20,7 +20,7 @@ class CreateShippingsTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('cascade');
             $table->string('street_one', 255);
-            $table->string('street_two', 255);
+            $table->string('street_two', 255)->nullable();
             $table->string('addres', 255);
             $table->string('suburb', 150);
             $table->string('town', 150);

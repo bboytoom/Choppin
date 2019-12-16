@@ -8,7 +8,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CharacteristicRequest extends FormRequest
+class SubCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,8 +28,8 @@ class CharacteristicRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:4|max:150|unique:characteristics',
-            'description' => 'required|min:4',
+            'name' => 'required|min:4|max:30|unique:sub_categories',
+            'description' => 'required|min:4|max:80'
         ];
     }
 

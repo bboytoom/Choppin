@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\SubCategoryRequest;
 use App\Http\Resources\SubCategoryResource;
 use App\Http\Resources\SubCategoryCollection;
 use App\Models\SubCategory;
@@ -28,7 +28,7 @@ class SubCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(SubCategoryRequest $request)
     {
         $subcategory = SubCategory::create([
             'admin_id' => $request->get('admin_id'),
@@ -70,7 +70,7 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(SubCategoryRequest $request, $id)
     {
         $subcategory =  SubCategory::find($id);
         $subcategory->category_id = $request->get('category_id');

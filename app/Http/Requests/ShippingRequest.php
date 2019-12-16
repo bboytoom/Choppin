@@ -29,7 +29,6 @@ class ShippingRequest extends FormRequest
     {
         return [
             'street_one' => 'required|min:4|max:100',
-            'street_two' => 'required|min:4|max:100',
             'addres' => 'required|min:4|max:80',
             'suburb' => 'required|min:4|max:80',
             'town' => 'required|min:4|max:80',

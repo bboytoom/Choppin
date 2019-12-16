@@ -47,6 +47,6 @@ class Product extends Model
 
     public function characteristic()
     {
-        return $this->hasMany('App\Models\Characteristic');
+        return $this->hasMany('App\Models\Characteristic', 'product_id');
     }
 }

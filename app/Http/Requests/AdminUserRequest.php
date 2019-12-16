@@ -29,7 +29,7 @@ class AdminUserRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:40',
-            'mother_surname' => 'min:4|max:30',
+            'mother_surname' => 'max:30',
             'father_surname' => 'required|min:4|max:30',
             'email' => 'required|email|max:80|unique:users',
         ];
