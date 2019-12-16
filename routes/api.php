@@ -30,5 +30,8 @@ Route::prefix('admin')->group(function()
             'characteristic' => 'CharacteristicController',
             'shipping' => 'ShippingController'
         ]);
+
+        Route::put('/adminpassword/{id}', 'UserPasswordController@updateAdmin')->name('admins.password.update');
+        Route::put('/userpassword/{id}', 'UserPasswordController@updateUser')->name('users.password.update');
     });
 });

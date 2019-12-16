@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Category;
-use App\Models\SubCategory;
 use App\Models\Characteristic;
 
 class ProductResource extends JsonResource
@@ -33,10 +32,7 @@ class ProductResource extends JsonResource
                 'category' => new CategoryIdentifierResource($this->category),
                 'subcategory' => new SubCategoryIdentifierResource($this->subcategory)
             ],
-            'catalogs' => [
-                'categories' => new CategoryCatalogCollection(Category::all()),
-                'subcategories' => new SubCategoryCatalogCollection(SubCategory::all())
-            ],
+            'catalogs' => new SubCategoryCatalogCollection(Category::all()),
             'caracteristics' => new CharacteristicCatalogCollection($this->characteristic)
         ];
     }

@@ -30,4 +30,9 @@ class Category extends Model
     {
         return $this->belongsTo('App\Admin', 'admin_id');
     }
+
+    public function subcategory()
+    {
+        return $this->hasMany('App\Models\SubCategory', 'category_id');
+    }
 }
