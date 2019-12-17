@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Characteristic;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\Category;
-use App\Models\Characteristic;
+use App\Http\Resources\Admin\AdminIdentifierResource;
+use App\Http\Resources\Product\ProductIdentifierResource;
 
-class ProductResource extends JsonResource
+class CharacteristicResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,19 +21,13 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'attributes' => [
                 'name' => $this->name,
-                'slug' => $this->slug,
-                'extract' => $this->extract,
                 'description' =>  $this->description,
-                'price' =>  $this->price,
                 'status' =>  $this->status,
             ],
             'relationsships' => [
                 'admin' => new AdminIdentifierResource($this->admins),
-                'category' => new CategoryIdentifierResource($this->category),
-                'subcategory' => new SubCategoryIdentifierResource($this->subcategory)
-            ],
-            'catalogs' => new SubCategoryCatalogCollection(Category::all()),
-            'caracteristics' => new CharacteristicCatalogCollection($this->characteristic)
+                'product' => new ProductIdentifierResource($this->product),
+            ]
         ];
     }
 }

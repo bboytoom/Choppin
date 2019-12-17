@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Category;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Admin\AdminIdentifierResource;
 
-class AdminResource extends JsonResource
+class CategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,10 +20,12 @@ class AdminResource extends JsonResource
             'id' => $this->id,
             'attributes' => [
                 'name' => $this->name,
-                'mother_surname' => $this->mother_surname,
-                'father_surname' => $this->father_surname,
-                'email' => $this->email,
-                'status' =>  $this->status
+                'slug' => $this->slug,
+                'description' => $this->description,
+                'status' =>  $this->status,
+            ],
+            'relationsships' => [
+                'admin' => new AdminIdentifierResource($this->admins)
             ]
         ];
     }

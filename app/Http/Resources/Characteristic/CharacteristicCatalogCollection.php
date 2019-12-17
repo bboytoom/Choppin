@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Characteristic;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CategoryCatalogCollection extends ResourceCollection
+class CharacteristicCatalogCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -18,6 +18,7 @@ class CategoryCatalogCollection extends ResourceCollection
             return [
                 'id' => $element->id,
                 'name' => $element->name,
+                'description' => $element->description,
             ];
         });
     }

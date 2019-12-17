@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ShippingRequest;
-use App\Http\Resources\ShippingResource;
-use App\Http\Resources\ShippingCollection;
+use App\Http\Resources\Shipping\ShippingResource;
+use App\Http\Resources\Shipping\ShippingCollection;
 use Illuminate\Http\Request;
 use App\Models\Shipping;
 

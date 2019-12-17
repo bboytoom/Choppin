@@ -21,7 +21,7 @@ class AdminsTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/admin/admins', $data);
+        $response = $this->json('POST', '/api/v1/admins', $data);
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('admins', $data);
@@ -44,7 +44,7 @@ class AdminsTest extends TestCase
     {
         $data = [];
 
-        $response = $this->json('POST', '/api/admin/admins', $data);
+        $response = $this->json('POST', '/api/v1/admins', $data);
         $response->assertStatus(422);
     }
 
@@ -57,7 +57,7 @@ class AdminsTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/admin/admins', $data);
+        $response = $this->json('POST', '/api/v1/admins', $data);
         $response->assertStatus(422);
     }
 
@@ -70,7 +70,7 @@ class AdminsTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/admin/admins', $data);
+        $response = $this->json('POST', '/api/v1/admins', $data);
         $response->assertStatus(422);
     }
 
@@ -87,7 +87,7 @@ class AdminsTest extends TestCase
         $seed = new SeedTest();
         $admin = $seed->seed_admin();
 
-        $response = $this->json('PUT', "/api/admin/admins/{$admin->id}", $update);
+        $response = $this->json('PUT', "/api/v1/admins/{$admin->id}", $update);
         $response->assertStatus(200);
 
         $admin = $admin->fresh();
@@ -100,7 +100,7 @@ class AdminsTest extends TestCase
     {
         $seed = new SeedTest();
         $admin = $seed->seed_admin();
-        $this->json('DELETE', "/api/admin/admins/{$admin->id}")->assertStatus(204);
+        $this->json('DELETE', "/api/v1/admins/{$admin->id}")->assertStatus(204);
         $this->assertNull(Admin::find($admin->id));
     }
 }

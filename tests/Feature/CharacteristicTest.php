@@ -24,7 +24,7 @@ class CharacteristicTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/admin/characteristic', $data);
+        $response = $this->json('POST', '/api/v1/characteristic', $data);
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('characteristics', $data);
@@ -53,7 +53,7 @@ class CharacteristicTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/admin/characteristic', $data);
+        $response = $this->json('POST', '/api/v1/characteristic', $data);
         $response->assertStatus(422);
     }
 
@@ -70,7 +70,7 @@ class CharacteristicTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/admin/characteristic', $data);
+        $response = $this->json('POST', '/api/v1/characteristic', $data);
         $response->assertStatus(422);
     }
 
@@ -85,7 +85,7 @@ class CharacteristicTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('PUT', "/api/admin/characteristic/{$characteristic['characteristic_id']}", $update);
+        $response = $this->json('PUT', "/api/v1/characteristic/{$characteristic['characteristic_id']}", $update);
         $response->assertStatus(200);
 
         $caract = Characteristic::all()->first();
@@ -98,7 +98,7 @@ class CharacteristicTest extends TestCase
         $seed = new SeedTest();
         $characteristic = $seed->seed_characteristic();
 
-        $this->json('DELETE', "/api/admin/characteristic/{$characteristic['characteristic_id']}")->assertStatus(204);
+        $this->json('DELETE', "/api/v1/characteristic/{$characteristic['characteristic_id']}")->assertStatus(204);
         $this->assertNull(Characteristic::find($characteristic['characteristic_id']));
     }    
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Category;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AdminIdentifierResource extends JsonResource
+class CategoryIdentifierResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,7 @@ class AdminIdentifierResource extends JsonResource
         return [
             'type' => $this->getTable(),
             'id' => $this->id,
-            'name' => $this->name.' '.$this->mother_surname.' '.$this->father_surname
+            'name' => $this->name
         ];
     }
 }

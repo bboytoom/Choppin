@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubCategoryRequest;
-use App\Http\Resources\SubCategoryResource;
-use App\Http\Resources\SubCategoryCollection;
+use App\Http\Resources\SubCategory\SubCategoryResource;
+use App\Http\Resources\SubCategory\SubCategoryCollection;
 use App\Models\SubCategory;
 
 class SubCategoryController extends Controller

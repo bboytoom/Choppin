@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\SubCategory;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Admin\AdminIdentifierResource;
+use App\Http\Resources\Category\CategoryIdentifierResource;
+use App\Http\Resources\Category\CategoryCatalogCollection;
 use App\Models\Category;
 
 class SubCategoryResource extends JsonResource

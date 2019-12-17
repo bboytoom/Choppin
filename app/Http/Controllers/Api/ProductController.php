@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Requests\ProductRequest;
-use App\Http\Resources\ProductResource;
-use App\Http\Resources\ProductCollection;
+use App\Http\Resources\Product\ProductResource;
+use App\Http\Resources\Product\ProductCollection;
 use App\Models\Product;
 
 class ProductController extends Controller

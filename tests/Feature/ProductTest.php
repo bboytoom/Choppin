@@ -31,7 +31,7 @@ class ProductTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/admin/product', $data);
+        $response = $this->json('POST', '/api/v1/product', $data);
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('products', $data);
@@ -58,7 +58,7 @@ class ProductTest extends TestCase
            'subcategory_id' => $complemento['subcategoria_id']
         ];
 
-        $response = $this->json('POST', '/api/admin/product', $data);
+        $response = $this->json('POST', '/api/v1/product', $data);
         $response->assertStatus(422);
     }
 
@@ -78,7 +78,7 @@ class ProductTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/admin/product', $data);
+        $response = $this->json('POST', '/api/v1/product', $data);
         $response->assertStatus(422);
     }
 
@@ -98,7 +98,7 @@ class ProductTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/admin/product', $data);
+        $response = $this->json('POST', '/api/v1/product', $data);
         $response->assertStatus(422);
     }
 
@@ -117,7 +117,7 @@ class ProductTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('PUT', "/api/admin/product/{$product['product_id']}", $update);
+        $response = $this->json('PUT', "/api/v1/product/{$product['product_id']}", $update);
         $response->assertStatus(200);
 
         $prod = Product::all()->first();
@@ -130,7 +130,7 @@ class ProductTest extends TestCase
         $seed = new SeedTest();
         $product = $seed->seed_product();
 
-        $this->json('DELETE', "/api/admin/product/{$product['product_id']}")->assertStatus(204);
+        $this->json('DELETE', "/api/v1/product/{$product['product_id']}")->assertStatus(204);
         $this->assertNull(Product::find($product['product_id']));
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Admin;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserIdentifierResource extends JsonResource
+class AdminIdentifierResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

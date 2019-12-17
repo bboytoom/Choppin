@@ -27,7 +27,7 @@ class SubCategoryTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/admin/subcategory', $data);
+        $response = $this->json('POST', '/api/v1/subcategory', $data);
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('sub_categories', $data);
@@ -55,7 +55,7 @@ class SubCategoryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('PUT', "/api/admin/subcategory/{$subcategory['subcategoria_id']}", $update);
+        $response = $this->json('PUT', "/api/v1/subcategory/{$subcategory['subcategoria_id']}", $update);
         $response->assertStatus(200);
 
         $subcat = SubCategory::all()->first();
@@ -68,7 +68,7 @@ class SubCategoryTest extends TestCase
         $seed = new SeedTest();
         $subcategory = $seed->seed_subcategory();
 
-        $this->json('DELETE', "/api/admin/subcategory/{$subcategory['subcategoria_id']}")->assertStatus(204);
+        $this->json('DELETE', "/api/v1/subcategory/{$subcategory['subcategoria_id']}")->assertStatus(204);
         $this->assertNull(SubCategory::find($subcategory['subcategoria_id']));
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\User;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class SubCategoryCollection extends ResourceCollection
+class UserCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -15,7 +15,7 @@ class SubCategoryCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => SubCategoryResource::collection($this->collection)
+            'data' => UserResource::collection($this->collection)
         ];
     }
 }

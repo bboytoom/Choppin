@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminUserRequest;
-use App\Http\Resources\AdminResource;
-use App\Http\Resources\AdminCollection;
+use App\Http\Resources\Admin\AdminResource;
+use App\Http\Resources\Admin\AdminCollection;
 use App\Admin;
 
 class AdminsController extends Controller

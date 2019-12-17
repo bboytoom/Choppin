@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\SubCategory;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CharacteristicCatalogCollection extends ResourceCollection
+class SubCategoryCatalogCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -18,7 +18,7 @@ class CharacteristicCatalogCollection extends ResourceCollection
             return [
                 'id' => $element->id,
                 'name' => $element->name,
-                'description' => $element->description,
+                'subcategoria' => SubCategoryIdentifierResource::collection($element->subcategory)
             ];
         });
     }

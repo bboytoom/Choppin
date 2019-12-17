@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductIdentifierResource extends JsonResource
+class UserIdentifierResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,7 @@ class ProductIdentifierResource extends JsonResource
         return [
             'type' => $this->getTable(),
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->name.' '.$this->mother_surname.' '.$this->father_surname
         ];
     }
 }

@@ -25,7 +25,7 @@ class CategoryTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/admin/category', $data);
+        $response = $this->json('POST', '/api/v1/category', $data);
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('categories', $data);
@@ -53,7 +53,7 @@ class CategoryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/admin/category', $data);
+        $response = $this->json('POST', '/api/v1/category', $data);
         $response->assertStatus(422);
     }
 
@@ -69,7 +69,7 @@ class CategoryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/admin/category', $data);
+        $response = $this->json('POST', '/api/v1/category', $data);
         $response->assertStatus(422);
     }
 
@@ -77,7 +77,7 @@ class CategoryTest extends TestCase
     {
         $data = [];
 
-        $response = $this->json('POST', '/api/admin/category', $data);
+        $response = $this->json('POST', '/api/v1/category', $data);
         $response->assertStatus(422);
     }
 
@@ -92,7 +92,7 @@ class CategoryTest extends TestCase
         $seed = new SeedTest();
         $category = $seed->seed_category();
 
-        $response = $this->json('PUT', "/api/admin/category/{$category['category_id']}", $update);
+        $response = $this->json('PUT', "/api/v1/category/{$category['category_id']}", $update);
         $response->assertStatus(200);
 
         $cate = Category::all()->first();
@@ -105,7 +105,7 @@ class CategoryTest extends TestCase
         $seed = new SeedTest();
         $category = $seed->seed_category();
 
-        $this->json('DELETE', "/api/admin/category/{$category['category_id']}")->assertStatus(204);
+        $this->json('DELETE', "/api/v1/category/{$category['category_id']}")->assertStatus(204);
         $this->assertNull(Category::find($category['category_id']));
     }
 }

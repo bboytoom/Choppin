@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CharacteristicRequest;
-use App\Http\Resources\CharacteristicResource;
-use App\Http\Resources\CharacteristicCollection;
+use App\Http\Resources\Characteristic\CharacteristicResource;
+use App\Http\Resources\Characteristic\CharacteristicCollection;
 use Illuminate\Http\Request;
 use App\Models\Characteristic;
 

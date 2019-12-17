@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminUserRequest;
-use App\Http\Resources\UserResource;
-use App\Http\Resources\UserCollection;
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\UserCollection;
 use App\User;
 
 class UsersController extends Controller

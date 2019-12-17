@@ -17,21 +17,20 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('admin')->group(function()
-{
-    Route::namespace('Api')->group(function () 
-    {
-        Route::apiResources([
-            'admins' => 'AdminsController',
-            'users' => 'UsersController',
-            'category' => 'CategoryController',
-            'subcategory' => 'SubCategoryController',
-            'product' => 'ProductController',
-            'characteristic' => 'CharacteristicController',
-            'shipping' => 'ShippingController'
-        ]);
+Route::group([
+    "prefix" => "v1",
+    "namespace" => "Api"
+], function(){
+    Route::apiResources([
+        'admins' => 'AdminsController',
+        'users' => 'UsersController',
+        'category' => 'CategoryController',
+        'subcategory' => 'SubCategoryController',
+        'product' => 'ProductController',
+        'characteristic' => 'CharacteristicController',
+        'shipping' => 'ShippingController'
+    ]);
 
-        Route::put('/adminpassword/{id}', 'UserPasswordController@updateAdmin')->name('admins.password.update');
-        Route::put('/userpassword/{id}', 'UserPasswordController@updateUser')->name('users.password.update');
-    });
+    Route::put('/adminpassword/{id}', 'UserPasswordController@updateAdmin')->name('admins.password.update');
+    Route::put('/userpassword/{id}', 'UserPasswordController@updateUser')->name('users.password.update');
 });
