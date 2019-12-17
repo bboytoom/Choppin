@@ -4,9 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Str;
 use Tests\TestCase;
-use App\Admin;
 use App\Models\Category;
 
 class CategoryTest extends TestCase
@@ -15,7 +13,7 @@ class CategoryTest extends TestCase
 
     public function test_category_create()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $admin = $seed->seed_admin();
 
         $data = [
@@ -43,7 +41,7 @@ class CategoryTest extends TestCase
 
     public function test_category_max_field_create()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $admin = $seed->seed_admin();
 
         $data = [
@@ -59,7 +57,7 @@ class CategoryTest extends TestCase
 
     public function test_category_min_field_create()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $admin = $seed->seed_admin();
 
         $data = [
@@ -89,7 +87,7 @@ class CategoryTest extends TestCase
            'status' => 1
         ];
 
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $category = $seed->seed_category();
 
         $response = $this->json('PUT', "/api/v1/category/{$category['category_id']}", $update);
@@ -102,7 +100,7 @@ class CategoryTest extends TestCase
 
     public function test_category_delete()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $category = $seed->seed_category();
 
         $this->json('DELETE', "/api/v1/category/{$category['category_id']}")->assertStatus(204);

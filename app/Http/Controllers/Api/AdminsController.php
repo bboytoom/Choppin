@@ -39,16 +39,18 @@ class AdminsController extends Controller
         ]);
 
         return response()->json(
-        [
-            'data' => [
-                'admins' => [
-                    'name' => $admin->name,
-                    'mother_surname' => $admin->mother_surname,
-                    'father_surname' => $admin->father_surname
-                ],
-                'password' => '@Admins2907'
-            ]
-        ], 201);
+            [
+                'data' => [
+                    'admins' => [
+                        'name' => $admin->name,
+                        'mother_surname' => $admin->mother_surname,
+                        'father_surname' => $admin->father_surname
+                    ],
+                    'password' => '@Admins2907'
+                ]
+            ],
+            201
+        );
     }
 
     /**
@@ -82,7 +84,7 @@ class AdminsController extends Controller
         $admin->status = $request->get('status');
         $admin->save();
 
-        return response(null, 200);  
+        return response(null, 200);
     }
 
     /**

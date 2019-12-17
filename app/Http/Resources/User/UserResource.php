@@ -4,7 +4,6 @@ namespace App\Http\Resources\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Shipping\ShippingCatalogCollection;
-use App\Models\Shipping;
 
 class UserResource extends JsonResource
 {

@@ -6,8 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Tests\TestCase;
-use App\Admin;
-use App\Models\Category;
 use App\Models\SubCategory;
 
 class SubCategoryTest extends TestCase
@@ -16,7 +14,7 @@ class SubCategoryTest extends TestCase
 
     public function test_subcategory_create()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $category = $seed->seed_category();
 
         $data = [
@@ -41,11 +39,11 @@ class SubCategoryTest extends TestCase
                 ]
             ]
         ]);
-    }   
+    }
 
     public function test_subcategory_update()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $subcategory = $seed->seed_subcategory();
 
         $update = [
@@ -65,7 +63,7 @@ class SubCategoryTest extends TestCase
 
     public function test_subcategory_delete()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $subcategory = $seed->seed_subcategory();
 
         $this->json('DELETE', "/api/v1/subcategory/{$subcategory['subcategoria_id']}")->assertStatus(204);

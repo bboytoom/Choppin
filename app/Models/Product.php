@@ -13,20 +13,20 @@ class Product extends Model
      */
     protected $table = 'products';
     
-     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    /**
+    * The attributes that are mass assignable.
+    *
+    * @var array
+    */
     protected $fillable = [
         'admin_id',
         'category_id',
         'subcategory_id',
-        'name', 
-        'slug', 
+        'name',
+        'slug',
         'extract',
-        'description', 
-        'price', 
+        'description',
+        'price',
         'status',
     ];
 

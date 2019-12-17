@@ -43,13 +43,15 @@ class ProductController extends Controller
         ]);
 
         return response()->json(
-        [
-            'data' => [
-                'product' => [
-                    'name' => $products->name
+            [
+                'data' => [
+                    'product' => [
+                        'name' => $products->name
+                    ]
                 ]
-            ]
-        ], 201);
+            ],
+            201
+        );
     }
 
     /**

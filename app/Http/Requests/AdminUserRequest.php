@@ -39,11 +39,13 @@ class AdminUserRequest extends FormRequest
     {
         $errors = (new ValidationException($validator))->errors();
         
-        throw new HttpResponseException(response()->json(
+        throw new HttpResponseException(
+            response()->json(
             [
                 'errors' => $errors
-            ], 
-            JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
+            ],
+                JsonResponse::HTTP_UNPROCESSABLE_ENTITY
+            )
         );
     }
 }

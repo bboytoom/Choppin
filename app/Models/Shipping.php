@@ -20,13 +20,13 @@ class Shipping extends Model
      */
     protected $fillable = [
         'user_id',
-        'street_one', 
-        'street_two', 
-        'addres', 
-        'suburb', 
-        'town', 
-        'state', 
-        'country', 
+        'street_one',
+        'street_two',
+        'addres',
+        'suburb',
+        'town',
+        'state',
+        'country',
         'postal_code',
         'status'
     ];

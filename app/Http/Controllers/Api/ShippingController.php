@@ -80,7 +80,7 @@ class ShippingController extends Controller
         $shipping->status = $request->get('status');
         $shipping->save();
 
-        return response(null, 200);  
+        return response(null, 200);
     }
 
     /**

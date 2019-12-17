@@ -40,13 +40,15 @@ class SubCategoryController extends Controller
         ]);
 
         return response()->json(
-        [
-            'data' => [
-                'subcategory' => [
-                    'name' => $subcategory->name
+            [
+                'data' => [
+                    'subcategory' => [
+                        'name' => $subcategory->name
+                    ]
                 ]
-            ]
-        ], 201);
+            ],
+            201
+        );
     }
 
     /**

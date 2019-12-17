@@ -13,7 +13,7 @@ class UsersTest extends TestCase
 
     public function test_user_create()
     {
-       $data = [
+        $data = [
            'name' => 'blisa',
            'mother_surname' => 'materno',
            'father_surname' => 'paterno',
@@ -84,7 +84,7 @@ class UsersTest extends TestCase
            'status' => 0
         ];
 
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $user = $seed->seed_user();
 
         $response = $this->json('PUT', "/api/v1/users/{$user->id}", $update);
@@ -98,7 +98,7 @@ class UsersTest extends TestCase
 
     public function test_user_delete()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $user = $seed->seed_user();
         
         $this->json('DELETE', "/api/v1/users/{$user->id}")->assertStatus(204);

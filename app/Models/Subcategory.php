@@ -22,9 +22,9 @@ class SubCategory extends Model
         'admin_id',
         'category_id',
         'name',
-        'slug', 
-        'description', 
-        'status', 
+        'slug',
+        'description',
+        'status',
     ];
 
     public function admins()

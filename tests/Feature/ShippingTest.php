@@ -13,7 +13,7 @@ class ShippingTest extends TestCase
 
     public function test_chipping_create()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $user = $seed->seed_user();
 
         $data = [
@@ -35,7 +35,7 @@ class ShippingTest extends TestCase
 
     public function test_chipping_update()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $shipping = $seed->seed_shipping();
 
         $update = [
@@ -60,7 +60,7 @@ class ShippingTest extends TestCase
 
     public function test_chipping_delete()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $shipping = $seed->seed_shipping();
 
         $this->json('DELETE', "/api/v1/shipping/{$shipping['shipping_id']}")->assertStatus(204);

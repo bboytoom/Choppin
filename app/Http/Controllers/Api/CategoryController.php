@@ -39,13 +39,15 @@ class CategoryController extends Controller
         ]);
 
         return response()->json(
-        [
-            'data' => [
-                'category' => [
-                    'name' => $category->name
+            [
+                'data' => [
+                    'category' => [
+                        'name' => $category->name
+                    ]
                 ]
-            ]
-        ], 201);
+            ],
+            201
+        );
     }
 
     /**
@@ -78,7 +80,7 @@ class CategoryController extends Controller
         $category->status = $request->get('status');
         $category->save();
 
-        return response(null, 200);  
+        return response(null, 200);
     }
 
     /**

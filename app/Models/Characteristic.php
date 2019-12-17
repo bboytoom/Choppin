@@ -22,7 +22,7 @@ class Characteristic extends Model
         'admin_id',
         'product_id',
         'name',
-        'description', 
+        'description',
         'status',
     ];
 

@@ -38,13 +38,15 @@ class CharacteristicController extends Controller
         ]);
 
         return response()->json(
-        [
-            'data' => [
-                'characteristics' => [
-                    'name' => $characteristic->name
+            [
+                'data' => [
+                    'characteristics' => [
+                        'name' => $characteristic->name
+                    ]
                 ]
-            ]
-        ], 201);
+            ],
+            201
+        );
     }
 
     /**

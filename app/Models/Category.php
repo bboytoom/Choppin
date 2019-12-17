@@ -21,9 +21,9 @@ class Category extends Model
     protected $fillable = [
         'admin_id',
         'name',
-        'slug', 
-        'description', 
-        'status', 
+        'slug',
+        'description',
+        'status',
     ];
 
     public function admins()

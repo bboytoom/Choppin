@@ -13,7 +13,7 @@ class CharacteristicTest extends TestCase
 
     public function test_characteristic_create()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $product = $seed->seed_product();
 
         $data = [
@@ -42,7 +42,7 @@ class CharacteristicTest extends TestCase
 
     public function test_characteristic_min_field_create()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $product = $seed->seed_product();
 
         $data = [
@@ -59,7 +59,7 @@ class CharacteristicTest extends TestCase
 
     public function test_characteristic_max_field_create()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $product = $seed->seed_product();
 
         $data = [
@@ -76,7 +76,7 @@ class CharacteristicTest extends TestCase
 
     public function test_characteristic_update()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $characteristic = $seed->seed_characteristic();
         
         $update = [
@@ -95,10 +95,10 @@ class CharacteristicTest extends TestCase
 
     public function test_characteristic_delete()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $characteristic = $seed->seed_characteristic();
 
         $this->json('DELETE', "/api/v1/characteristic/{$characteristic['characteristic_id']}")->assertStatus(204);
         $this->assertNull(Characteristic::find($characteristic['characteristic_id']));
-    }    
+    }
 }

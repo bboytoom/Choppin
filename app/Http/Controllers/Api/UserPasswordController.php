@@ -16,7 +16,7 @@ class UserPasswordController extends Controller
         $admin->password = \Hash::make($request->get('password'));
         $admin->save();
 
-        return response(null, 200); 
+        return response(null, 200);
     }
 
     public function updateUser(PasswordRequest $request, $id)
@@ -25,6 +25,6 @@ class UserPasswordController extends Controller
         $user->password = \Hash::make($request->get('password'));
         $user->save();
 
-        return response(null, 200); 
+        return response(null, 200);
     }
 }

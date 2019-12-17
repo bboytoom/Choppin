@@ -23,11 +23,14 @@ class AdminLoginController extends Controller
 
     public function adminLogin(StoreLoginRequest $request)
     {
-        if(Auth::guard('admin')->attempt([
+        $credenciales = [
             'email' => $request->email,
             'password' => $request->password
-        ], $request->remember))
+        ];
+
+        if (Auth::guard('admin')->attempt($credenciales, $request->remember)) {
             return redirect()->intended(route('admin.home'));
+        }
         
         return redirect()->back()->withInput($request->only('email', 'remember'));
     }

@@ -6,9 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Tests\TestCase;
-use App\Admin;
-use App\Models\Category;
-use App\Models\SubCategory;
 use App\Models\Product;
 
 class ProductTest extends TestCase
@@ -17,7 +14,7 @@ class ProductTest extends TestCase
 
     public function test_product_create()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $complemento = $seed->seed_subcategory();
 
         $data = [
@@ -49,7 +46,7 @@ class ProductTest extends TestCase
 
     public function test_product_empty_create()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $complemento = $seed->seed_subcategory();
 
         $data = [
@@ -64,7 +61,7 @@ class ProductTest extends TestCase
 
     public function test_product_min_field_create()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $complemento = $seed->seed_subcategory();
 
         $data = [
@@ -84,7 +81,7 @@ class ProductTest extends TestCase
 
     public function test_product_max_field_create()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $complemento = $seed->seed_subcategory();
 
         $data = [
@@ -104,13 +101,13 @@ class ProductTest extends TestCase
 
     public function test_product_update()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $product = $seed->seed_product();
 
         $update = [
             'category_id' => $product['category_id'],
             'subcategory_id' => $product['subcategoria_id'],
-            'name' => 'Producto uno',   
+            'name' => 'Producto uno',
             'extract' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras quam arcu, eleifend eget condimentum ut, feugiat sed dui.',
             'price' => '250',
@@ -127,7 +124,7 @@ class ProductTest extends TestCase
     
     public function test_product_delete()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $product = $seed->seed_product();
 
         $this->json('DELETE', "/api/v1/product/{$product['product_id']}")->assertStatus(204);

@@ -39,16 +39,18 @@ class UsersController extends Controller
         ]);
 
         return response()->json(
-        [
-            'data' => [
-                'user' => [
-                    'name' => $user->name,
-                    'mother_surname' => $user->mother_surname,
-                    'father_surname' => $user->father_surname
-                ],
-                'password' => '@Usuario2907'
-            ]
-        ], 201);
+            [
+                'data' => [
+                    'user' => [
+                        'name' => $user->name,
+                        'mother_surname' => $user->mother_surname,
+                        'father_surname' => $user->father_surname
+                    ],
+                    'password' => '@Usuario2907'
+                ]
+            ],
+            201
+        );
     }
 
     /**
@@ -82,7 +84,7 @@ class UsersController extends Controller
         $user->status = $request->get('status');
         $user->save();
         
-        return response(null, 200);    
+        return response(null, 200);
     }
 
     /**

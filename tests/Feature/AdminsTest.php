@@ -13,7 +13,7 @@ class AdminsTest extends TestCase
 
     public function test_admin_create()
     {
-       $data = [
+        $data = [
            'name' => 'blisa',
            'mother_surname' => 'materno',
            'father_surname' => 'paterno',
@@ -84,7 +84,7 @@ class AdminsTest extends TestCase
            'status' => 0
         ];
 
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $admin = $seed->seed_admin();
 
         $response = $this->json('PUT', "/api/v1/admins/{$admin->id}", $update);
@@ -98,7 +98,7 @@ class AdminsTest extends TestCase
 
     public function test_admin_delete()
     {
-        $seed = new SeedTest();
+        $seed = InitSeed::getInstance()->getSeed();
         $admin = $seed->seed_admin();
         $this->json('DELETE', "/api/v1/admins/{$admin->id}")->assertStatus(204);
         $this->assertNull(Admin::find($admin->id));
