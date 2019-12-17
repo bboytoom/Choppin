@@ -45,7 +45,7 @@ class ProductController extends Controller
         return response()->json(
         [
             'data' => [
-                'category' => [
+                'product' => [
                     'name' => $products->name
                 ]
             ]
@@ -83,7 +83,6 @@ class ProductController extends Controller
         $product->extract = $request->get('extract');
         $product->description = $request->get('description');
         $product->price = $request->get('price');
-        $product->image = $request->get('image');
         $product->status = $request->get('status');
         $product->save();
 

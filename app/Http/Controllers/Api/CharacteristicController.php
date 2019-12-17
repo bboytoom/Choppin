@@ -40,7 +40,7 @@ class CharacteristicController extends Controller
         return response()->json(
         [
             'data' => [
-                'category' => [
+                'characteristics' => [
                     'name' => $characteristic->name
                 ]
             ]
