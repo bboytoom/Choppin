@@ -7,9 +7,9 @@ Es una tienda en línea genérica que tiene la capacidad de poder extender sus f
 Se necesita instalar las siguientes herramientas
 
 ```
-    *Composer v1.9*
-    *Php v7.2*
-    *Node v12.13.1*
+Composer v1.9
+Php v7.2
+Node v12.13.1
 ```
 
 ### Instalación 
@@ -18,16 +18,16 @@ Se necesita instalar las siguientes herramientas
 2.- En consola se tienen que ejecutar en orden los siguientes comandos
 
 ```
-    *1. composer install*
-    *2. php artisan key:generate*
-    *3. php artisan migrate*
-    *4. npm install*
+1. composer install
+2. php artisan key:generate
+3. php artisan migrate
+4. npm install
 ```
 
 ## Ejecutando las pruebas
 
 ```
-    *vendor/bin/phpunit*
+vendor/bin/phpunit
 ```
 
 
