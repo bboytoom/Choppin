@@ -26,9 +26,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <user-table-data-component  v-for="item in users" 
+                        <user-table-component  v-for="item in users" 
                                                     v-bind:item="item"
-                                                    v-bind:key="item.id"></user-table-data-component>
+                                                    v-bind:key="item.id"></user-table-component>
                     </tbody>
                 </table>
             </div>
