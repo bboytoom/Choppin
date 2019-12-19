@@ -32,7 +32,6 @@ class ProductController extends Controller
     {
         $products = Product::create([
             'admin_id' => $request->get('admin_id'),
-            'category_id' => $request->get('category_id'),
             'subcategory_id' => $request->get('subcategory_id'),
             'name' => $request->get('name'),
             'slug' => Str::slug($request->get('name'), '-'),
@@ -78,7 +77,6 @@ class ProductController extends Controller
     public function update(ProductRequest $request, $id)
     {
         $product =  Product::find($id);
-        $product->category_id = $request->get('category_id');
         $product->subcategory_id = $request->get('subcategory_id');
         $product->name = $request->get('name');
         $product->slug = Str::slug($request->get('name'), '-');

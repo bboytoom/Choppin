@@ -13,11 +13,13 @@ class UsersTest extends TestCase
 
     public function test_user_create()
     {
+        $faker = \Faker\Factory::create();
+
         $data = [
-           'name' => 'blisa',
-           'mother_surname' => 'materno',
-           'father_surname' => 'paterno',
-           'email' => 'blisa@correo.com',
+           'name' => $faker->name,
+           'mother_surname' => $faker->lastName,
+           'father_surname' => $faker->lastName,
+           'email' => $faker->unique()->safeEmail,
            'status' => 1
         ];
 
@@ -50,10 +52,27 @@ class UsersTest extends TestCase
 
     public function test_user_max_field_create()
     {
+        $faker = \Faker\Factory::create();
+
         $data = [
-           'name' => 'blisanikichikitablisanikichikitablisanikichikitablisanikichikitablisanikichikitablisanikichikitablisanikichikita',
-           'father_surname' => 'paternopaternopaternopaternopaternopaternopaternopaternopaternopaternopaternopaternopaternopaterno',
-           'email' => 'blisa@correo.com',
+           'name' => $faker->text($maxNbChars = 200),
+           'father_surname' => $faker->text($maxNbChars = 200),
+           'email' => $faker->unique()->safeEmail,
+           'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/users', $data);
+        $response->assertStatus(422);
+    }
+
+    public function test_user_min_field_create()
+    {
+        $faker = \Faker\Factory::create();
+
+        $data = [
+           'name' => 'sd',
+           'father_surname' => 'sd',
+           'email' => $faker->unique()->safeEmail,
            'status' => 1
         ];
 
@@ -63,10 +82,12 @@ class UsersTest extends TestCase
 
     public function test_user_email_faild_create()
     {
+        $faker = \Faker\Factory::create();
+
         $data = [
-           'name' => 'niki',
-           'father_surname' => 'paterno',
-           'email' => 'ternisanikic',
+           'name' => $faker->name,
+           'father_surname' => $faker->lastName,
+           'email' => $faker->safeEmailDomain,
            'status' => 1
         ];
 
@@ -76,11 +97,13 @@ class UsersTest extends TestCase
 
     public function test_user_update()
     {
+        $faker = \Faker\Factory::create();
+
         $update = [
            'name' => 'blisa',
-           'mother_surname' => 'materno',
-           'father_surname' => 'paterno',
-           'email' => 'blisa@correo.com',
+           'mother_surname' => $faker->lastName,
+           'father_surname' => $faker->lastName,
+           'email' => $faker->unique()->safeEmail,
            'status' => 0
         ];
 

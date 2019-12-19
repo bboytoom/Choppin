@@ -14,14 +14,15 @@ class SubCategoryTest extends TestCase
 
     public function test_subcategory_create()
     {
+        $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
         $category = $seed->seed_category();
 
         $data = [
            'admin_id' => $category['admin_id'],
            'category_id' => $category['category_id'],
-           'name' => 'Subcategoria uno',
-           'description' => 'Es una subcategoria de prueba',
+           'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+           'description' => $faker->text($maxNbChars = 50),
            'status' => 1
         ];
 
@@ -41,15 +42,52 @@ class SubCategoryTest extends TestCase
         ]);
     }
 
+    public function test_subcategory_max_field_create()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $category = $seed->seed_category();
+
+        $data = [
+           'admin_id' => $category['admin_id'],
+           'category_id' => $category['category_id'],
+           'name' => $faker->text($maxNbChars = 200),
+           'description' => $faker->text($maxNbChars = 200),
+           'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/subcategory', $data);
+        $response->assertStatus(422);
+    }
+
+    public function test_subcategory_min_field_create()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $category = $seed->seed_category();
+
+        $data = [
+           'admin_id' => $category['admin_id'],
+           'category_id' => $category['category_id'],
+           'name' => 'sd',
+           'description' => 'sd',
+           'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/subcategory', $data);
+        $response->assertStatus(422);
+    }
+
     public function test_subcategory_update()
     {
+        $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
         $subcategory = $seed->seed_subcategory();
 
         $update = [
             'category_id' => $subcategory['category_id'],
-            'name' => 'Subcategoria dos',
-            'description' => 'Es una subcategoria dos de prueba',
+            'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+            'description' => $faker->text($maxNbChars = 50),
             'status' => 1
         ];
 

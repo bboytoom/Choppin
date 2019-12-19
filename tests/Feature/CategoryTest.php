@@ -13,13 +13,14 @@ class CategoryTest extends TestCase
 
     public function test_category_create()
     {
+        $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
         $admin = $seed->seed_admin();
 
         $data = [
            'admin_id' => $admin->id,
-           'name' => 'Categoria uno',
-           'description' => 'Esta es la categoria tres',
+           'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+           'description' => $faker->text($maxNbChars = 50),
            'status' => 1
         ];
 
@@ -41,13 +42,14 @@ class CategoryTest extends TestCase
 
     public function test_category_max_field_create()
     {
+        $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
         $admin = $seed->seed_admin();
 
         $data = [
             'admin_id' => $admin->id,
-            'name' => 'blisanikichikitablisanikichikitablisanikichikitablisanikichikitablisanikichikitablisanikichikitablisanikichikita',
-            'description' => 'paternopaternopaternopaternopaternopaternopaternopaternopaternopaternopaternopaternopaternopaterno',
+            'name' => $faker->text($maxNbChars = 200),
+            'description' => $faker->text($maxNbChars = 200),
             'status' => 1
         ];
 
@@ -81,9 +83,11 @@ class CategoryTest extends TestCase
 
     public function test_category_update()
     {
+        $faker = \Faker\Factory::create();
+
         $update = [
-           'name' => 'categoria uno editados',
-           'description' => 'Es una categoria de prueba',
+           'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+           'description' => $faker->text($maxNbChars = 50),
            'status' => 1
         ];
 

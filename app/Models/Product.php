@@ -20,7 +20,6 @@ class Product extends Model
     */
     protected $fillable = [
         'admin_id',
-        'category_id',
         'subcategory_id',
         'name',
         'slug',
@@ -33,11 +32,6 @@ class Product extends Model
     public function admins()
     {
         return $this->belongsTo('App\Admin', 'admin_id');
-    }
-
-    public function category()
-    {
-        return $this->belongsTo('App\Models\Category', 'category_id');
     }
 
     public function subcategory()

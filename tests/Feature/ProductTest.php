@@ -14,17 +14,17 @@ class ProductTest extends TestCase
 
     public function test_product_create()
     {
+        $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
         $complemento = $seed->seed_subcategory();
 
         $data = [
            'admin_id' => $complemento['admin_id'],
-           'category_id' => $complemento['category_id'],
            'subcategory_id' => $complemento['subcategoria_id'],
-           'name' => 'Producto nueve',
-           'extract' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-           'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras quam arcu, eleifend eget condimentum ut, feugiat sed dui.',
-           'price' => '250',
+           'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+           'extract' => $faker->text($maxNbChars = 50),
+           'description' => $faker->text($maxNbChars = 250),
+           'price' => $faker->numberBetween($min = 100, $max = 1000),
            'status' => 1
         ];
 
@@ -51,7 +51,6 @@ class ProductTest extends TestCase
 
         $data = [
            'admin_id' => $complemento['admin_id'],
-           'category_id' => $complemento['category_id'],
            'subcategory_id' => $complemento['subcategoria_id']
         ];
 
@@ -66,7 +65,6 @@ class ProductTest extends TestCase
 
         $data = [
            'admin_id' => $complemento['admin_id'],
-           'category_id' => $complemento['category_id'],
            'subcategory_id' => $complemento['subcategoria_id'],
            'name' => 'producto',
            'extract' => 'Lor',
@@ -81,17 +79,17 @@ class ProductTest extends TestCase
 
     public function test_product_max_field_create()
     {
+        $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
         $complemento = $seed->seed_subcategory();
 
         $data = [
            'admin_id' => $complemento['admin_id'],
-           'category_id' => $complemento['category_id'],
            'subcategory_id' => $complemento['subcategoria_id'],
-           'name' => 'blisanikichikitablisaniblisaniblisanikichikitablisaniblisanikichikitablisaniblisanikichikitablisaniblisanikichikitablisani',
-           'extract' => 'blisanikichikitablisaniki',
-           'description' => 'blisanikichikitablisanikichikitablisanikitablisani',
-           'price' => '12.50',
+           'name' => $faker->text($maxNbChars = 200),
+           'extract' => $faker->text($maxNbChars = 200),
+           'description' => $faker->text($maxNbChars = 200),
+           'price' => $faker->numberBetween($min = 100, $max = 1000),
            'status' => 1
         ];
 
@@ -101,16 +99,16 @@ class ProductTest extends TestCase
 
     public function test_product_update()
     {
+        $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
         $product = $seed->seed_product();
 
         $update = [
-            'category_id' => $product['category_id'],
             'subcategory_id' => $product['subcategoria_id'],
-            'name' => 'Producto uno',
-            'extract' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras quam arcu, eleifend eget condimentum ut, feugiat sed dui.',
-            'price' => '250',
+            'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+            'extract' => $faker->text($maxNbChars = 50),
+            'description' => $faker->text($maxNbChars = 250),
+            'price' => $faker->numberBetween($min = 100, $max = 1000),
             'status' => 1
         ];
 

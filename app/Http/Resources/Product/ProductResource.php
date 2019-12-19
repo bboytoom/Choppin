@@ -7,7 +7,7 @@ use App\Http\Resources\Admin\AdminIdentifierResource;
 use App\Http\Resources\Category\CategoryIdentifierResource;
 use App\Http\Resources\SubCategory\SubCategoryIdentifierResource;
 use App\Http\Resources\SubCategory\SubCategoryCatalogCollection;
-use App\Http\Resources\CharacteristicCatalogCollection;
+use App\Http\Resources\Characteristic\CharacteristicCatalogCollection;
 use App\Models\Category;
 
 class ProductResource extends JsonResource
@@ -33,7 +33,6 @@ class ProductResource extends JsonResource
             ],
             'relationsships' => [
                 'admin' => new AdminIdentifierResource($this->admins),
-                'category' => new CategoryIdentifierResource($this->category),
                 'subcategory' => new SubCategoryIdentifierResource($this->subcategory)
             ],
             'catalogs' => new SubCategoryCatalogCollection(Category::all()),

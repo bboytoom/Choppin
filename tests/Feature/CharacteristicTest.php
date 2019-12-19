@@ -13,14 +13,15 @@ class CharacteristicTest extends TestCase
 
     public function test_characteristic_create()
     {
+        $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
         $product = $seed->seed_product();
 
         $data = [
            'admin_id' => $product['admin_id'],
            'product_id' => $product['product_id'],
-           'name' => 'Caracteristica uno',
-           'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+           'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+           'description' => $faker->text($maxNbChars = 250),
            'status' => 1
         ];
 
@@ -59,14 +60,15 @@ class CharacteristicTest extends TestCase
 
     public function test_characteristic_max_field_create()
     {
+        $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
         $product = $seed->seed_product();
 
         $data = [
            'admin_id' => $product['admin_id'],
            'product_id' => $product['product_id'],
-           'name' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis vel leo a vehicula. Quisque porta nunc nunc, in dapibus ipsum rutrum ac. Maecenas tincidunt arcu at lectus gravida, eu dapibus ipsum gravida. Sed ac efficitur nibh. Fusce vestibulum, justo pulvinar iaculis semper, nisi nunc tincidunt nisi, quis venenatis leo lacus at massa',
-           'description' => 'sgddsddf',
+           'name' => $faker->unique()->sentence($nbWords = 50, $variableNbWords = true),
+           'description' => $faker->text($maxNbChars = 200),
            'status' => 1
         ];
 
@@ -76,12 +78,13 @@ class CharacteristicTest extends TestCase
 
     public function test_characteristic_update()
     {
+        $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
         $characteristic = $seed->seed_characteristic();
         
         $update = [
-            'name' => 'Caracteristica dos',
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+            'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+            'description' => $faker->text($maxNbChars = 250),
             'status' => 1
         ];
 

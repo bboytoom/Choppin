@@ -13,19 +13,20 @@ class ShippingTest extends TestCase
 
     public function test_chipping_create()
     {
+        $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
         $user = $seed->seed_user();
 
         $data = [
             'user_id' => $user->id,
-            'street_one' => 'calle uno',
-            'street_two' => 'calle dos',
-            'addres' => 'mi casita :)',
-            'suburb' => 'En un lugar de iztapalapa',
-            'town' => 'iztapalapa',
-            'state' => 'ciudad de mexico',
+            'street_one' => $faker->streetAddress,
+            'street_two' => $faker->streetAddress,
+            'addres' => $faker->address,
+            'suburb' => $faker->citySuffix,
+            'town' => $faker->city,
+            'state' => $faker->state,
             'country' => 'mexico',
-            'postal_code' => '08921',
+            'postal_code' => $faker->numerify('0 ####'),
             'status' => 1
         ];
 
@@ -33,20 +34,67 @@ class ShippingTest extends TestCase
         $response->assertStatus(201);
     }
 
+    public function test_chipping_max_field_create()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $user = $seed->seed_user();
+
+        $data = [
+            'user_id' => $user->id,
+            'street_one' => $faker->text($maxNbChars = 300),
+            'street_two' => $faker->text($maxNbChars = 300),
+            'addres' => $faker->text($maxNbChars = 300),
+            'suburb' => $faker->text($maxNbChars = 300),
+            'town' => $faker->text($maxNbChars = 300),
+            'state' => $faker->text($maxNbChars = 300),
+            'country' => 'mexico',
+            'postal_code' => $faker->numerify('0 ####'),
+            'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/shipping', $data);
+        $response->assertStatus(422);
+    }
+
+    public function test_chipping_min_field_create()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $user = $seed->seed_user();
+
+        $data = [
+            'user_id' => $user->id,
+            'street_one' => 'qw',
+            'street_two' => 'qw',
+            'addres' => 'qw',
+            'suburb' => 'qw',
+            'town' => 'qw',
+            'state' => 'qw',
+            'country' => 'mexico',
+            'postal_code' => $faker->numerify('0 ####'),
+            'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/shipping', $data);
+        $response->assertStatus(422);
+    }
+
     public function test_chipping_update()
     {
+        $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
         $shipping = $seed->seed_shipping();
 
         $update = [
-            'street_one' => 'calle tres',
-            'street_two' => 'calle cuatro',
-            'addres' => 'mi no casita :)',
-            'suburb' => 'En un lugar cerca de neza',
-            'town' => 'Ciudad neza',
-            'state' => 'Estado de mexico',
+            'street_one' => $faker->streetAddress,
+            'street_two' => $faker->streetAddress,
+            'addres' => $faker->address,
+            'suburb' => $faker->citySuffix,
+            'town' => $faker->city,
+            'state' => $faker->state,
             'country' => 'mexico',
-            'postal_code' => '08934',
+            'postal_code' => $faker->numerify('0 ####'),
             'status' => 1
         ];
 

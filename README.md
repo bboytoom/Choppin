@@ -30,6 +30,11 @@ Node v12.13.1
 vendor/bin/phpunit
 ```
 
+## Ejecutando datos semilla
+
+```
+php artisan db:seed
+```
 
 ## Construido con 
 

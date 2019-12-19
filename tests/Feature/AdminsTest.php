@@ -9,15 +9,17 @@ use App\Admin;
 
 class AdminsTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
 
     public function test_admin_create()
     {
+        $faker = \Faker\Factory::create();
+
         $data = [
-           'name' => 'blisa',
-           'mother_surname' => 'materno',
-           'father_surname' => 'paterno',
-           'email' => 'blisa@correo.com',
+           'name' => $faker->name,
+           'mother_surname' => $faker->lastName,
+           'father_surname' => $faker->lastName,
+           'email' => $faker->unique()->safeEmail,
            'status' => 1
         ];
 
@@ -50,10 +52,27 @@ class AdminsTest extends TestCase
 
     public function test_admin_max_field_create()
     {
+        $faker = \Faker\Factory::create();
+
         $data = [
-           'name' => 'blisanikichikitablisanikichikitablisanikichikitablisanikichikitablisanikichikitablisanikichikitablisanikichikita',
-           'father_surname' => 'paternopaternopaternopaternopaternopaternopaternopaternopaternopaternopaternopaternopaternopaterno',
-           'email' => 'blisa@correo.com',
+           'name' => $faker->text($maxNbChars = 200),
+           'father_surname' => $faker->text($maxNbChars = 200),
+           'email' => $faker->unique()->safeEmail,
+           'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/admins', $data);
+        $response->assertStatus(422);
+    }
+
+    public function test_admin_min_field_create()
+    {
+        $faker = \Faker\Factory::create();
+
+        $data = [
+           'name' => 'sd',
+           'father_surname' => 'sd',
+           'email' => $faker->unique()->safeEmail,
            'status' => 1
         ];
 
@@ -63,10 +82,12 @@ class AdminsTest extends TestCase
 
     public function test_admin_email_faild_create()
     {
+        $faker = \Faker\Factory::create();
+
         $data = [
-           'name' => 'niki',
-           'father_surname' => 'paterno',
-           'email' => 'ternisanikic',
+           'name' => $faker->name,
+           'father_surname' => $faker->lastName,
+           'email' => $faker->safeEmailDomain,
            'status' => 1
         ];
 
@@ -76,12 +97,14 @@ class AdminsTest extends TestCase
 
     public function test_admin_update()
     {
+        $faker = \Faker\Factory::create();
+
         $update = [
-           'name' => 'chikita',
-           'mother_surname' => 'materno',
-           'father_surname' => 'paterno',
-           'email' => 'chikita@correo.com',
-           'status' => 0
+           'name' => $faker->name,
+           'mother_surname' => $faker->lastName,
+           'father_surname' => $faker->lastName,
+           'email' => $faker->unique()->safeEmail,
+           'status' => 1
         ];
 
         $seed = InitSeed::getInstance()->getSeed();

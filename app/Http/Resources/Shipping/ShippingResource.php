@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Shipping;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\UserIdentifierResource;
+use App\Http\Resources\User\UserIdentifierResource;
 
 class ShippingResource extends JsonResource
 {
