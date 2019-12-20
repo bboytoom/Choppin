@@ -1,13 +1,13 @@
 <template>
     <tr>
         <td>
-            {{ item.name + ' ' + item.mother_surname + ' ' + item.father_surname }}
+            {{ item.attributes.name + ' ' + item.attributes.mother_surname + ' ' + item.attributes.father_surname }}
         </td>
         <td>
-            {{ item.email }}
+            {{ item.attributes.email }}
         </td>
         <td class="text-center">
-            <a href="#" class="btn btn-success btn-circle btn-sm" v-if="item.status == 1">
+            <a href="#" class="btn btn-success btn-circle btn-sm" v-if="item.attributes.status == 1">
                 <i class="fas fa-check"></i>
             </a>
 
@@ -17,7 +17,7 @@
         </td>
 
         <td class="text-center">
-            <button type="button" class="btn btn-warning btn-circle" v-on:click.prevent="showModalEdit(item.id)">
+            <button type="button" class="btn btn-warning btn-circle" v-on:click.prevent="edit(item.id)">
                 <i class="fas fa-exclamation-triangle"></i>
             </button>
         </td>
@@ -37,8 +37,11 @@
             }
         },
         methods: {
-            showModalEdit(id) { 
-                
+            edit(id) {
+                axios.get('/api/v1/users/'+id)
+                .then((response) => {
+                    this.$emit('edituser', response.data);
+                });
             }
         }
     }

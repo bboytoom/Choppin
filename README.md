@@ -22,6 +22,7 @@ Node v12.13.1
 2. php artisan key:generate
 3. php artisan migrate
 4. npm install
+5. npm run dev
 ```
 
 ## Ejecutando las pruebas
@@ -45,5 +46,5 @@ php artisan db:seed
 ## Licencia
 
 ```
-MIT
+Este proyecto está bajo la Licencia [MIT](LICENSE.md)
 ```

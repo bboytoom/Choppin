@@ -6,6 +6,7 @@
 
     <div id="app">
         <user-component></user-component>
+        @include('admin.users.edit')
     </div>
 
 @endsection

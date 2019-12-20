@@ -22,6 +22,7 @@ window.axios = require('axios');
 
 Vue.component('user-component', require('./components/users/Users.vue').default);
 Vue.component('user-table-component', require('./components/users/UsersTable.vue').default);
+Vue.component('user-form-component', require('./components/users/UsersForm.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,4 +30,11 @@ Vue.component('user-table-component', require('./components/users/UsersTable.vue
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-new Vue({ el: '#app' });
+new Vue({
+    el: '#app',
+    data: function () {
+        return {
+            prueba:'hola'
+        }
+    },
+});

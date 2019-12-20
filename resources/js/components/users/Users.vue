@@ -26,9 +26,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <user-table-component  v-for="item in users" 
-                                                    v-bind:item="item"
-                                                    v-bind:key="item.id"></user-table-component>
+                        <user-table-component   v-on:edituser="editUser" 
+                                                v-for="item in users" 
+                                                v-bind:item="item"
+                                                v-bind:key="item.id"></user-table-component>
                     </tbody>
                 </table>
             </div>
@@ -38,22 +39,22 @@
 
 <script>
   export default {
-        data() {
+        data: function () {
             return {
-                users: [],
-                endpoint: '/api/admin/users'
+                users:[]
             }
         },
         created() {
-            this.userData();
+            axios.get('/api/v1/users')
+            .then((response) => {
+                this.users = response.data.data;
+            });
         },
         methods: {
-            userData() {
-                axios.get(this.endpoint)
-                .then((response) => {
-                    this.users = response.data.data;
-                });
+            editUser(user) {
+                console.log(user);
+                $('#Modal').modal('show');
             }
-        }  
+        }
     }
 </script>
