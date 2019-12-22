@@ -50,12 +50,12 @@ new Vue({
             users: [],
             errorsusers: [],
             user: {
-                'id':'', 
+                'id': 0, 
                 'name':'',
                 'mother_surname':'',
                 'father_surname':'',
                 'email':'',
-                'status':''
+                'status':true
             }
         }
     },
@@ -75,8 +75,6 @@ new Vue({
             axios.get('/api/v1/users')
             .then((response) => {
                 this.users = response.data.data;
-            }).catch(error => {
-                console.log(error);
             });
         },
         createUser() {
@@ -98,8 +96,6 @@ new Vue({
                 this.user.status = (response.data.attributes.status === 1)? true: false;
 
                 $("#userModal").modal('show');
-            }).catch(error => {
-                console.log(error);
             });
         },
         deleteUser(id) {
@@ -107,97 +103,73 @@ new Vue({
             .then((response) => {
                 if(response.status === 204) {
                     this.indexUser();
-                    
-                    const ToastDelete = Swal.mixin({
-                        toast: true,
-                        position: 'top-start',
-                        showConfirmButton: false,
-                        timer: 3000,
-                        onOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    });
-
-                    ToastDelete.fire({
-                        icon: 'success',
-                        title: 'El usuario se elimino correctamente'
-                    });
+                    this.userToast('El usuario se elimino correctamente');
                 } else {
                     console.log('error en la peqicion');
                 }
-            }).catch(error => {
-                console.log(error);
+            });
+        },
+        userToast(mensaje) {
+            const ToastUpdate = Swal.mixin({
+                toast: true,
+                position: 'top-start',
+                showConfirmButton: false,
+                timer: 3000,
+                onOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+
+            ToastUpdate.fire({
+                icon: 'success',
+                title: mensaje
             });
         },
         userForm (user) {
             var data = {
-                'name': user.name,
-                'mother_surname': user.mother_surname,
-                'father_surname': user.father_surname,
-                'email': user.email,
+                'name': user.name.toLowerCase(),
+                'mother_surname': user.mother_surname.toLowerCase(),
+                'father_surname': user.father_surname.toLowerCase(),
+                'email': user.email.toLowerCase(),
                 'status': user.status
             };
 
-            if(user.id == 0) {
-                axios.post('/api/v1/users/', data)
-                .then((response) => {
-                    if(response.status === 201) {
-                        $("#userModal").modal('hide');
-                        this.resetForm();
-                        this.indexUser();
+            this.$refs.form.validate().then(success => {
+                if (!success) {
+                    return;
+                }
 
-                        const ToastCreate = Swal.mixin({
-                            toast: true,
-                            position: 'top-start',
-                            showConfirmButton: false,
-                            timer: 3000,
-                            onOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                        });
+                if(user.id == 0) {
+                    axios.post('/api/v1/users/', data)
+                    .then((response) => {
+                        if(response.status === 201) {
+                            $("#userModal").modal('hide');
+                            this.resetForm();
+                            this.indexUser();
+                            this.userToast('El usuario se agrego correctamente');
+                        } else {
+                            console.log('error en la peticion');
+                        }
+                    });
+                } else {
+                    axios.put('/api/v1/users/'+user.id, data)
+                    .then((response) => {
+                        if(response.status === 200) {
+                            $("#userModal").modal('hide');
+                            this.resetForm();
+                            this.indexUser();
+                            this.userToast('El usuario se actualizo correctamente');
+                        } else {
+                            console.log('error en la peqicion');
+                        }
+                    });
+                }
 
-                        ToastCreate.fire({
-                            icon: 'success',
-                            title: 'El usuario se agrego correctamente'
-                        });
-                    } else {
-                        console.log('error en la peticion');
-                    }
-                }).catch(error => {
-                    this.errorsusers = error.response.data.errors;
+                this.$nextTick(() => {
+                    this.$refs.form.reset();
                 });
-            } else {
-                axios.put('/api/v1/users/'+user.id, data)
-                .then((response) => {
-                    if(response.status === 200) {
-                        $("#userModal").modal('hide');
-                        this.resetForm();
-                        this.indexUser();
-                        
-                        const ToastUpdate = Swal.mixin({
-                            toast: true,
-                            position: 'top-start',
-                            showConfirmButton: false,
-                            timer: 3000,
-                            onOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                        });
-
-                        ToastUpdate.fire({
-                            icon: 'success',
-                            title: 'El usuario se actualizo correctamente'
-                        });
-                    } else {
-                        console.log('error en la peqicion');
-                    }
-                }).catch(error => {
-                    this.errorsusers = error.response.data.errors;
-                });
-            }
+            });
         }
     }
 });

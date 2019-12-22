@@ -7,6 +7,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AdminUserRequest extends FormRequest
 {
@@ -31,7 +32,14 @@ class AdminUserRequest extends FormRequest
             'name' => 'required|min:3|max:40',
             'mother_surname' => 'max:30',
             'father_surname' => 'required|min:4|max:30',
-            'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|min:8|max:80|unique:users',
+            'email' => [
+                'required',
+                'min:7',
+                'max:80',
+                'email',
+                'string',
+                Rule::unique('users', 'email')->ignore($this->user)
+            ]
         ];
     }
 

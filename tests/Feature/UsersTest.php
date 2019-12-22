@@ -42,6 +42,22 @@ class UsersTest extends TestCase
         ]);
     }
 
+    public function test_user_same_create()
+    {
+        $seed = InitSeed::getInstance()->getSeed();
+        $user = $seed->seed_user();
+
+        $data = [
+           'name' => $user->name,
+           'father_surname' => $user->father_surname,
+           'email' => $user->email,
+           'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/users', $data);
+        $response->assertStatus(422);
+    }
+
     public function test_user_empty_create()
     {
         $data = [];
@@ -109,6 +125,28 @@ class UsersTest extends TestCase
 
         $seed = InitSeed::getInstance()->getSeed();
         $user = $seed->seed_user();
+
+        $response = $this->json('PUT', "/api/v1/users/{$user->id}", $update);
+        $response->assertStatus(200);
+
+        $user = $user->fresh();
+
+        $this->assertEquals($user->name, $update['name']);
+        $this->assertEquals($user->email, $update['email']);
+    }
+
+    public function test_user_email_same_update()
+    {
+        $seed = InitSeed::getInstance()->getSeed();
+        $user = $seed->seed_user();
+
+        $update = [
+           'name' => $user->name,
+           'mother_surname' => $user->mother_surname,
+           'father_surname' => $user->father_surname,
+           'email' => $user->email,
+           'status' => 0
+        ];
 
         $response = $this->json('PUT', "/api/v1/users/{$user->id}", $update);
         $response->assertStatus(200);

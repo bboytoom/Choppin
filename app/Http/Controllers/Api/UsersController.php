@@ -30,11 +30,11 @@ class UsersController extends Controller
     public function store(AdminUserRequest $request)
     {
         $user = User::create([
-            'name' => $request->get('name'),
-            'mother_surname' => $request->get('mother_surname'),
-            'father_surname' => $request->get('father_surname'),
-            'email' => $request->get('email'),
-            'password' => \Hash::make('@Admins2907'),
+            'name' => strip_tags($request->get('name')),
+            'mother_surname' => strip_tags($request->get('mother_surname')),
+            'father_surname' => strip_tags($request->get('father_surname')),
+            'email' => strip_tags($request->get('email')),
+            'password' => \Hash::make('@User2907'),
             'status' => $request->get('status')
         ]);
 
@@ -77,10 +77,10 @@ class UsersController extends Controller
     public function update(AdminUserRequest $request, $id)
     {
         $user =  User::find($id);
-        $user->name = $request->get('name');
-        $user->mother_surname = $request->get('mother_surname');
-        $user->father_surname = $request->get('father_surname');
-        $user->email = $request->get('email');
+        $user->name = strip_tags($request->get('name'));
+        $user->mother_surname = strip_tags($request->get('mother_surname'));
+        $user->father_surname = strip_tags($request->get('father_surname'));
+        $user->email = strip_tags($request->get('email'));
         $user->status = $request->get('status');
         $user->save();
         

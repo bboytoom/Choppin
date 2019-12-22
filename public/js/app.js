@@ -20436,12 +20436,12 @@ new Vue({
       users: [],
       errorsusers: [],
       user: {
-        'id': '',
+        'id': 0,
         'name': '',
         'mother_surname': '',
         'father_surname': '',
         'email': '',
-        'status': ''
+        'status': true
       }
     };
   },
@@ -20462,8 +20462,6 @@ new Vue({
 
       axios.get('/api/v1/users').then(function (response) {
         _this.users = response.data.data;
-      })["catch"](function (error) {
-        console.log(error);
       });
     },
     createUser: function createUser() {
@@ -20483,8 +20481,6 @@ new Vue({
         _this2.user.email = response.data.attributes.email;
         _this2.user.status = response.data.attributes.status === 1 ? true : false;
         $("#userModal").modal('show');
-      })["catch"](function (error) {
-        console.log(error);
       });
     },
     deleteUser: function deleteUser(id) {
@@ -20494,97 +20490,77 @@ new Vue({
         if (response.status === 204) {
           _this3.indexUser();
 
-          var ToastDelete = Swal.mixin({
-            toast: true,
-            position: 'top-start',
-            showConfirmButton: false,
-            timer: 3000,
-            onOpen: function onOpen(toast) {
-              toast.addEventListener('mouseenter', Swal.stopTimer);
-              toast.addEventListener('mouseleave', Swal.resumeTimer);
-            }
-          });
-          ToastDelete.fire({
-            icon: 'success',
-            title: 'El usuario se elimino correctamente'
-          });
+          _this3.userToast('El usuario se elimino correctamente');
         } else {
           console.log('error en la peqicion');
         }
-      })["catch"](function (error) {
-        console.log(error);
+      });
+    },
+    userToast: function userToast(mensaje) {
+      var ToastUpdate = Swal.mixin({
+        toast: true,
+        position: 'top-start',
+        showConfirmButton: false,
+        timer: 3000,
+        onOpen: function onOpen(toast) {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+      });
+      ToastUpdate.fire({
+        icon: 'success',
+        title: mensaje
       });
     },
     userForm: function userForm(user) {
       var _this4 = this;
 
       var data = {
-        'name': user.name,
-        'mother_surname': user.mother_surname,
-        'father_surname': user.father_surname,
-        'email': user.email,
+        'name': user.name.toLowerCase(),
+        'mother_surname': user.mother_surname.toLowerCase(),
+        'father_surname': user.father_surname.toLowerCase(),
+        'email': user.email.toLowerCase(),
         'status': user.status
       };
+      this.$refs.form.validate().then(function (success) {
+        if (!success) {
+          return;
+        }
 
-      if (user.id == 0) {
-        axios.post('/api/v1/users/', data).then(function (response) {
-          if (response.status === 201) {
-            $("#userModal").modal('hide');
+        if (user.id == 0) {
+          axios.post('/api/v1/users/', data).then(function (response) {
+            if (response.status === 201) {
+              $("#userModal").modal('hide');
 
-            _this4.resetForm();
+              _this4.resetForm();
 
-            _this4.indexUser();
+              _this4.indexUser();
 
-            var ToastCreate = Swal.mixin({
-              toast: true,
-              position: 'top-start',
-              showConfirmButton: false,
-              timer: 3000,
-              onOpen: function onOpen(toast) {
-                toast.addEventListener('mouseenter', Swal.stopTimer);
-                toast.addEventListener('mouseleave', Swal.resumeTimer);
-              }
-            });
-            ToastCreate.fire({
-              icon: 'success',
-              title: 'El usuario se agrego correctamente'
-            });
-          } else {
-            console.log('error en la peticion');
-          }
-        })["catch"](function (error) {
-          _this4.errorsusers = error.response.data.errors;
+              _this4.userToast('El usuario se agrego correctamente');
+            } else {
+              console.log('error en la peticion');
+            }
+          });
+        } else {
+          axios.put('/api/v1/users/' + user.id, data).then(function (response) {
+            if (response.status === 200) {
+              $("#userModal").modal('hide');
+
+              _this4.resetForm();
+
+              _this4.indexUser();
+
+              _this4.userToast('El usuario se actualizo correctamente');
+            } else {
+              console.log('error en la peqicion');
+            }
+          });
+        }
+
+        _this4.$nextTick(function () {
+          _this4.$refs.form.reset();
         });
-      } else {
-        axios.put('/api/v1/users/' + user.id, data).then(function (response) {
-          if (response.status === 200) {
-            $("#userModal").modal('hide');
-
-            _this4.resetForm();
-
-            _this4.indexUser();
-
-            var ToastUpdate = Swal.mixin({
-              toast: true,
-              position: 'top-start',
-              showConfirmButton: false,
-              timer: 3000,
-              onOpen: function onOpen(toast) {
-                toast.addEventListener('mouseenter', Swal.stopTimer);
-                toast.addEventListener('mouseleave', Swal.resumeTimer);
-              }
-            });
-            ToastUpdate.fire({
-              icon: 'success',
-              title: 'El usuario se actualizo correctamente'
-            });
-          } else {
-            console.log('error en la peqicion');
-          }
-        })["catch"](function (error) {
-          _this4.errorsusers = error.response.data.errors;
-        });
-      }
+      });
     }
   }
 });

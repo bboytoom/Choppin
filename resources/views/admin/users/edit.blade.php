@@ -1,9 +1,10 @@
 <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="usereditLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <validation-observer v-slot="{ invalid }">
+        <validation-observer ref="form" v-slot="{ invalid }">
             <form method="POST" class="modal-content" v-on:submit.prevent="userForm(user)" autocomplete="off">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="usereditLabel">Actualizar usuario</h5>
+                    <h5 v-if="user.id == 0" class="modal-title" id="usereditLabel">Crear usuario</h5>
+                    <h5 v-else class="modal-title" id="usereditLabel">Actualizar usuario</h5>
                 </div>
                 <div class="modal-body">
                     <div v-for="error in errorsusers"  class="alert alert-danger" role="alert">
@@ -74,15 +75,15 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-icon-split" data-dismiss="modal">
                         <span class="icon text-white-50">
-                            <i class="fa fa-plus-circle"></i>
+                            <i class="fas fa-arrow-left"></i>
                         </span>
                         <span class="text">
                             Cancelar
                         </span>
                     </button>
-                    <button type="submit" class="btn btn-primary btn-icon-split" :disabled="invalid">
+                    <button type="submit" class="btn btn-success btn-icon-split" :disabled="invalid">
                         <span class="icon text-white-50">
-                            <i class="fa fa-plus-circle"></i>
+                            <i class="fas fa-check"></i>
                         </span>
                         <span class="text">
                             Guardar
