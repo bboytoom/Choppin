@@ -31,7 +31,7 @@ class AdminUserRequest extends FormRequest
             'name' => 'required|min:3|max:40',
             'mother_surname' => 'max:30',
             'father_surname' => 'required|min:4|max:30',
-            'email' => 'required|email|min:8|max:50|regex:/(.+)@(.+)\.(.+)/i|max:80|unique:users',
+            'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|min:8|max:80|unique:users',
         ];
     }
 
