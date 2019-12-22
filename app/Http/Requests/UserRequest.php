@@ -9,7 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class AdminUserRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -49,7 +49,7 @@ class AdminUserRequest extends FormRequest
         
         throw new HttpResponseException(
             response()->json(
-            [
+                [
                 'errors' => $errors
             ],
                 JsonResponse::HTTP_UNPROCESSABLE_ENTITY

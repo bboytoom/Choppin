@@ -33,11 +33,11 @@ class ProductController extends Controller
         $products = Product::create([
             'admin_id' => $request->get('admin_id'),
             'subcategory_id' => $request->get('subcategory_id'),
-            'name' => $request->get('name'),
+            'name' => strip_tags($request->get('name')),
             'slug' => Str::slug($request->get('name'), '-'),
-            'extract' => $request->get('extract'),
-            'description' => $request->get('description'),
-            'price' => $request->get('price'),
+            'extract' => strip_tags($request->get('extract')),
+            'description' => strip_tags($request->get('description')),
+            'price' => strip_tags(strip_tags($request->get('price'))),
             'status' => $request->get('status')
         ]);
 
@@ -63,6 +63,10 @@ class ProductController extends Controller
     {
         $product =  Product::find($id);
 
+        if ($product == null) {
+            return response(null, 404);
+        }
+
         ProductResource::withoutWrapping();
         return new ProductResource($product);
     }
@@ -77,12 +81,17 @@ class ProductController extends Controller
     public function update(ProductRequest $request, $id)
     {
         $product =  Product::find($id);
+
+        if ($product == null) {
+            return response(null, 404);
+        }
+
         $product->subcategory_id = $request->get('subcategory_id');
-        $product->name = $request->get('name');
+        $product->name = strip_tags($request->get('name'));
         $product->slug = Str::slug($request->get('name'), '-');
-        $product->extract = $request->get('extract');
-        $product->description = $request->get('description');
-        $product->price = $request->get('price');
+        $product->extract = strip_tags($request->get('extract'));
+        $product->description = strip_tags($request->get('description'));
+        $product->price = strip_tags($request->get('price'));
         $product->status = $request->get('status');
         $product->save();
 
@@ -98,6 +107,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product =  Product::find($id);
+
+        if ($product == null) {
+            return response(null, 404);
+        }
+        
         $product->delete();
 
         return response(null, 204);

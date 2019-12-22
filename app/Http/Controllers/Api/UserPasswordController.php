@@ -13,6 +13,11 @@ class UserPasswordController extends Controller
     public function updateAdmin(PasswordRequest $request, $id)
     {
         $admin =  Admin::find($id);
+
+        if ($admin == null) {
+            return response(null, 404);
+        }
+
         $admin->password = \Hash::make($request->get('password'));
         $admin->save();
 
@@ -22,6 +27,11 @@ class UserPasswordController extends Controller
     public function updateUser(PasswordRequest $request, $id)
     {
         $user =  User::find($id);
+
+        if ($user == null) {
+            return response(null, 404);
+        }
+
         $user->password = \Hash::make($request->get('password'));
         $user->save();
 

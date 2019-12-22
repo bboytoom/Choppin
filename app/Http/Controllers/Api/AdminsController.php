@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\AdminUserRequest;
+use App\Http\Requests\AdminRequest;
 use App\Http\Resources\Admin\AdminResource;
 use App\Http\Resources\Admin\AdminCollection;
 use App\Admin;
@@ -27,13 +27,13 @@ class AdminsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AdminUserRequest $request)
+    public function store(AdminRequest $request)
     {
         $admin = Admin::create([
-            'name' => $request->get('name'),
-            'mother_surname' => $request->get('mother_surname'),
-            'father_surname' => $request->get('father_surname'),
-            'email' => $request->get('email'),
+            'name' => strip_tags($request->get('name')),
+            'mother_surname' => strip_tags($request->get('mother_surname')),
+            'father_surname' => strip_tags($request->get('father_surname')),
+            'email' => strip_tags($request->get('email')),
             'password' => \Hash::make('@Admins2907'),
             'status' => $request->get('status')
         ]);
@@ -63,6 +63,10 @@ class AdminsController extends Controller
     {
         $admins =  Admin::find($id);
 
+        if ($admin == null) {
+            return response(null, 404);
+        }
+
         AdminResource::withoutWrapping();
         return new AdminResource($admins);
     }
@@ -74,13 +78,18 @@ class AdminsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AdminUserRequest $request, $id)
+    public function update(AdminRequest $request, $id)
     {
         $admin =  Admin::find($id);
-        $admin->name = $request->get('name');
-        $admin->mother_surname = $request->get('mother_surname');
-        $admin->father_surname = $request->get('father_surname');
-        $admin->email = $request->get('email');
+
+        if ($admin == null) {
+            return response(null, 404);
+        }
+
+        $admin->name = strip_tags($request->get('name'));
+        $admin->mother_surname = strip_tags($request->get('mother_surname'));
+        $admin->father_surname = strip_tags($request->get('father_surname'));
+        $admin->email = strip_tags($request->get('email'));
         $admin->status = $request->get('status');
         $admin->save();
 
@@ -96,6 +105,11 @@ class AdminsController extends Controller
     public function destroy($id)
     {
         $admin =  Admin::find($id);
+
+        if ($admin == null) {
+            return response(null, 404);
+        }
+
         $admin->delete();
         
         return response(null, 204);

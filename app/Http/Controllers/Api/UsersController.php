@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\AdminUserRequest;
+use App\Http\Requests\UserRequest;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserCollection;
 use App\User;
@@ -27,7 +27,7 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AdminUserRequest $request)
+    public function store(UserRequest $request)
     {
         $user = User::create([
             'name' => strip_tags($request->get('name')),
@@ -63,6 +63,10 @@ class UsersController extends Controller
     {
         $user =  User::find($id);
 
+        if ($user == null) {
+            return response(null, 404);
+        }
+
         UserResource::withoutWrapping();
         return new UserResource($user);
     }
@@ -74,9 +78,14 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AdminUserRequest $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $user =  User::find($id);
+
+        if ($user == null) {
+            return response(null, 404);
+        }
+
         $user->name = strip_tags($request->get('name'));
         $user->mother_surname = strip_tags($request->get('mother_surname'));
         $user->father_surname = strip_tags($request->get('father_surname'));
@@ -96,6 +105,11 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $user =  User::find($id);
+
+        if ($user == null) {
+            return response(null, 404);
+        }
+
         $user->delete();
 
         return response(null, 204);

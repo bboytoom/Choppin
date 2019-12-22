@@ -9,7 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class SubCategoryRequest extends FormRequest
+class AdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,14 +29,17 @@ class SubCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
+            'name' => 'required|min:3|max:40',
+            'mother_surname' => 'max:30',
+            'father_surname' => 'required|min:4|max:30',
+            'email' => [
                 'required',
-                'min:4',
-                'max:30',
+                'min:7',
+                'max:80',
+                'email',
                 'string',
-                Rule::unique('sub_categories', 'name')->ignore($this->subcategory)
-            ],
-            'description' => 'required|min:4|max:80'
+                Rule::unique('admins', 'email')->ignore($this->admin)
+            ]
         ];
     }
 
@@ -47,8 +50,8 @@ class SubCategoryRequest extends FormRequest
         throw new HttpResponseException(
             response()->json(
                 [
-                    'errors' => $errors
-                ],
+                'errors' => $errors
+            ],
                 JsonResponse::HTTP_UNPROCESSABLE_ENTITY
             )
         );

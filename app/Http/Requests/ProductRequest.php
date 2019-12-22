@@ -7,6 +7,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProductRequest extends FormRequest
 {
@@ -28,7 +29,13 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:4|max:100|unique:products',
+            'name' => [
+                'required',
+                'min:4',
+                'max:100',
+                'string',
+                Rule::unique('products', 'name')->ignore($this->product)
+            ],
             'extract' => 'required|min:4|max:150',
             'description' => 'required|min:4',
             'price' => 'required'

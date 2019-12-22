@@ -95,6 +95,7 @@ class SeedTest
             'admin_id' => $category['admin_id'],
             'category_id' => $category['category_id'],
             'subcategoria_id' => $subcategory->id,
+            'name' => $subcategory->name,
         ];
 
         return $this->initial_subcategory;
@@ -116,7 +117,8 @@ class SeedTest
 
         $this->initial_category = [
             'admin_id' => $admin->id,
-            'category_id' => $category->id
+            'category_id' => $category->id,
+            'name' => $category->name
         ];
 
         return $this->initial_category;

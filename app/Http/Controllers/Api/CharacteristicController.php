@@ -32,8 +32,8 @@ class CharacteristicController extends Controller
         $characteristic = Characteristic::create([
             'admin_id' => $request->get('admin_id'),
             'product_id' => $request->get('product_id'),
-            'name' => $request->get('name'),
-            'description' => $request->get('description'),
+            'name' => strip_tags($request->get('name')),
+            'description' => strip_tags($request->get('description')),
             'status' => $request->get('status')
         ]);
 
@@ -59,6 +59,10 @@ class CharacteristicController extends Controller
     {
         $characteristic =  Characteristic::find($id);
 
+        if ($characteristic == null) {
+            return response(null, 404);
+        }
+
         CharacteristicResource::withoutWrapping();
         return new CharacteristicResource($characteristic);
     }
@@ -73,8 +77,13 @@ class CharacteristicController extends Controller
     public function update(CharacteristicRequest $request, $id)
     {
         $characteristic =  Characteristic::find($id);
-        $characteristic->name = $request->get('name');
-        $characteristic->description = $request->get('description');
+
+        if ($characteristic == null) {
+            return response(null, 404);
+        }
+
+        $characteristic->name = strip_tags($request->get('name'));
+        $characteristic->description = strip_tags($request->get('description'));
         $characteristic->status = $request->get('status');
         $characteristic->save();
 
@@ -90,6 +99,11 @@ class CharacteristicController extends Controller
     public function destroy($id)
     {
         $characteristic =  Characteristic::find($id);
+
+        if ($characteristic == null) {
+            return response(null, 404);
+        }
+        
         $characteristic->delete();
 
         return response(null, 204);

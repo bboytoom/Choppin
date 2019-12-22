@@ -32,9 +32,9 @@ class CategoryController extends Controller
     {
         $category = Category::create([
             'admin_id' => $request->get('admin_id'),
-            'name' => $request->get('name'),
+            'name' => strip_tags($request->get('name')),
             'slug' => Str::slug($request->get('name'), '-'),
-            'description' => $request->get('description'),
+            'description' => strip_tags($request->get('description')),
             'status' => $request->get('status')
         ]);
 
@@ -60,6 +60,10 @@ class CategoryController extends Controller
     {
         $category =  Category::find($id);
 
+        if ($category == null) {
+            return response(null, 404);
+        }
+
         CategoryResource::withoutWrapping();
         return new CategoryResource($category);
     }
@@ -74,9 +78,14 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, $id)
     {
         $category =  Category::find($id);
-        $category->name = $request->get('name');
+
+        if ($category == null) {
+            return response(null, 404);
+        }
+
+        $category->name = strip_tags($request->get('name'));
         $category->slug = Str::slug($request->get('name'), '-');
-        $category->description = $request->get('description');
+        $category->description = strip_tags($request->get('description'));
         $category->status = $request->get('status');
         $category->save();
 
@@ -92,6 +101,11 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category =  Category::find($id);
+
+        if ($category == null) {
+            return response(null, 404);
+        }
+        
         $category->delete();
 
         return response(null, 204);

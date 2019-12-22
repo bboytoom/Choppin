@@ -40,6 +40,25 @@ class CategoryTest extends TestCase
         ]);
     }
 
+    public function test_category_same_create()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+
+        $admin = $seed->seed_admin();
+        $category = $seed->seed_category();
+
+        $data = [
+           'admin_id' => $admin->id,
+           'name' => $category['name'],
+           'description' => $faker->text($maxNbChars = 50),
+           'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/category', $data);
+        $response->assertStatus(422);
+    }
+
     public function test_category_max_field_create()
     {
         $faker = \Faker\Factory::create();
@@ -100,6 +119,23 @@ class CategoryTest extends TestCase
         $cate = Category::all()->first();
         
         $this->assertEquals($cate->name, $update['name']);
+    }
+
+    public function test_category_same_update()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+
+        $category = $seed->seed_category();
+
+        $update = [
+           'name' => $category['name'],
+           'description' => $faker->text($maxNbChars = 50),
+           'status' => 1
+        ];
+
+        $response = $this->json('PUT', "/api/v1/category/{$category['category_id']}", $update);
+        $response->assertStatus(200);
     }
 
     public function test_category_delete()

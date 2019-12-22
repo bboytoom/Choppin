@@ -41,6 +41,24 @@ class CharacteristicTest extends TestCase
         ]);
     }
 
+    public function test_characteristic_same_create()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $characteristic = $seed->seed_characteristic();
+
+        $data = [
+           'admin_id' => $characteristic['admin_id'],
+           'product_id' => $characteristic['product_id'],
+           'name' => $characteristic['name'],
+           'description' => $faker->text($maxNbChars = 250),
+           'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/characteristic', $data);
+        $response->assertStatus(422);
+    }
+
     public function test_characteristic_min_field_create()
     {
         $seed = InitSeed::getInstance()->getSeed();
@@ -94,6 +112,22 @@ class CharacteristicTest extends TestCase
         $caract = Characteristic::all()->first();
 
         $this->assertEquals($caract->name, $update['name']);
+    }
+
+    public function test_characteristic_same_update()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $characteristic = $seed->seed_characteristic();
+        
+        $update = [
+            'name' => $characteristic['name'],
+            'description' => $faker->text($maxNbChars = 250),
+            'status' => 1
+        ];
+
+        $response = $this->json('PUT', "/api/v1/characteristic/{$characteristic['characteristic_id']}", $update);
+        $response->assertStatus(200);
     }
 
     public function test_characteristic_delete()

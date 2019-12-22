@@ -55,6 +55,10 @@ class ShippingController extends Controller
     {
         $shipping =  Shipping::find($id);
 
+        if ($shipping == null) {
+            return response(null, 404);
+        }
+
         ShippingResource::withoutWrapping();
         return new ShippingResource($shipping);
     }
@@ -69,6 +73,11 @@ class ShippingController extends Controller
     public function update(ShippingRequest $request, $id)
     {
         $shipping = Shipping::find($id);
+
+        if ($shipping == null) {
+            return response(null, 404);
+        }
+
         $shipping->street_one = $request->get('street_one');
         $shipping->street_two = $request->get('street_two');
         $shipping->addres = $request->get('addres');
@@ -92,6 +101,11 @@ class ShippingController extends Controller
     public function destroy($id)
     {
         $shipping =  Shipping::find($id);
+
+        if ($shipping == null) {
+            return response(null, 404);
+        }
+        
         $shipping->delete();
 
         return response(null, 204);

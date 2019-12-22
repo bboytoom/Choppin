@@ -33,9 +33,9 @@ class SubCategoryController extends Controller
         $subcategory = SubCategory::create([
             'admin_id' => $request->get('admin_id'),
             'category_id' => $request->get('category_id'),
-            'name' => $request->get('name'),
+            'name' => strip_tags($request->get('name')),
             'slug' => Str::slug($request->get('name'), '-'),
-            'description' => $request->get('description'),
+            'description' => strip_tags($request->get('description')),
             'status' => $request->get('status')
         ]);
 
@@ -61,6 +61,10 @@ class SubCategoryController extends Controller
     {
         $subcategory =  SubCategory::find($id);
 
+        if ($subcategory == null) {
+            return response(null, 404);
+        }
+
         SubCategoryResource::withoutWrapping();
         return new SubCategoryResource($subcategory);
     }
@@ -75,10 +79,15 @@ class SubCategoryController extends Controller
     public function update(SubCategoryRequest $request, $id)
     {
         $subcategory =  SubCategory::find($id);
+
+        if ($subcategory == null) {
+            return response(null, 404);
+        }
+
         $subcategory->category_id = $request->get('category_id');
-        $subcategory->name = $request->get('name');
+        $subcategory->name = strip_tags($request->get('name'));
         $subcategory->slug = Str::slug($request->get('name'), '-');
-        $subcategory->description = $request->get('description');
+        $subcategory->description = strip_tags($request->get('description'));
         $subcategory->status = $request->get('status');
         $subcategory->save();
 
@@ -94,6 +103,11 @@ class SubCategoryController extends Controller
     public function destroy($id)
     {
         $subcategory =  SubCategory::find($id);
+
+        if ($subcategory == null) {
+            return response(null, 404);
+        }
+        
         $subcategory->delete();
 
         return response(null, 204);

@@ -9,7 +9,7 @@ use App\Admin;
 
 class AdminsTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
 
     public function test_admin_create()
     {
@@ -40,6 +40,23 @@ class AdminsTest extends TestCase
                 'password' => '@Admins2907'
             ]
         ]);
+    }
+
+    public function test_admin_same_create()
+    {
+        $seed = InitSeed::getInstance()->getSeed();
+        $admin = $seed->seed_admin();
+
+        $data = [
+           'name' => $admin->name,
+           'mother_surname' => $admin->mother_surname,
+           'father_surname' => $admin->father_surname,
+           'email' => $admin->email,
+           'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/admins', $data);
+        $response->assertStatus(422);
     }
 
     public function test_admin_empty_create()
@@ -119,10 +136,33 @@ class AdminsTest extends TestCase
         $this->assertEquals($admin->email, $update['email']);
     }
 
+    public function test_admin_email_same_update()
+    {
+        $seed = InitSeed::getInstance()->getSeed();
+        $admin = $seed->seed_admin();
+
+        $update = [
+           'name' => $admin->name,
+           'mother_surname' => $admin->mother_surname,
+           'father_surname' => $admin->father_surname,
+           'email' => $admin->email,
+           'status' => 0
+        ];
+
+        $response = $this->json('PUT', "/api/v1/admins/{$admin->id}", $update);
+        $response->assertStatus(200);
+
+        $admin = $admin->fresh();
+
+        $this->assertEquals($admin->name, $update['name']);
+        $this->assertEquals($admin->email, $update['email']);
+    }
+
     public function test_admin_delete()
     {
         $seed = InitSeed::getInstance()->getSeed();
         $admin = $seed->seed_admin();
+
         $this->json('DELETE', "/api/v1/admins/{$admin->id}")->assertStatus(204);
         $this->assertNull(Admin::find($admin->id));
     }

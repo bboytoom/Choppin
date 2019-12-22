@@ -7,6 +7,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CategoryRequest extends FormRequest
 {
@@ -28,7 +29,13 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:4|max:30|unique:categories',
+            'name' => [
+                'required',
+                'string',
+                'min:4',
+                'max:30',
+                Rule::unique('categories', 'name')->ignore($this->category)
+            ],
             'description' => 'required|min:4|max:80'
         ];
     }

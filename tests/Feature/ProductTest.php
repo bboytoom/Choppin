@@ -44,6 +44,26 @@ class ProductTest extends TestCase
         ]);
     }
 
+    public function test_product_same_create()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $complemento = $seed->seed_product();
+
+        $data = [
+           'admin_id' => $complemento['admin_id'],
+           'subcategory_id' => $complemento['subcategoria_id'],
+           'name' => $complemento['name'],
+           'extract' => $faker->text($maxNbChars = 50),
+           'description' => $faker->text($maxNbChars = 250),
+           'price' => $faker->numberBetween($min = 100, $max = 1000),
+           'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/product', $data);
+        $response->assertStatus(422);
+    }
+
     public function test_product_empty_create()
     {
         $seed = InitSeed::getInstance()->getSeed();
@@ -106,6 +126,29 @@ class ProductTest extends TestCase
         $update = [
             'subcategory_id' => $product['subcategoria_id'],
             'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+            'extract' => $faker->text($maxNbChars = 50),
+            'description' => $faker->text($maxNbChars = 250),
+            'price' => $faker->numberBetween($min = 100, $max = 1000),
+            'status' => 1
+        ];
+
+        $response = $this->json('PUT', "/api/v1/product/{$product['product_id']}", $update);
+        $response->assertStatus(200);
+
+        $prod = Product::all()->first();
+
+        $this->assertEquals($prod->name, $update['name']);
+    }
+
+    public function test_product_same_update()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $product = $seed->seed_product();
+
+        $update = [
+            'subcategory_id' => $product['subcategoria_id'],
+            'name' => $product['name'],
             'extract' => $faker->text($maxNbChars = 50),
             'description' => $faker->text($maxNbChars = 250),
             'price' => $faker->numberBetween($min = 100, $max = 1000),

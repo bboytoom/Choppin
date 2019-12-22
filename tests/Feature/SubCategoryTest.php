@@ -42,6 +42,25 @@ class SubCategoryTest extends TestCase
         ]);
     }
 
+    public function test_subcategory_same_create()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+
+        $subcategory = $seed->seed_subcategory();
+
+        $data = [
+           'admin_id' => $subcategory['admin_id'],
+           'category_id' => $subcategory['category_id'],
+           'name' => $subcategory['name'],
+           'description' => $faker->text($maxNbChars = 50),
+           'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/subcategory', $data);
+        $response->assertStatus(422);
+    }
+
     public function test_subcategory_max_field_create()
     {
         $faker = \Faker\Factory::create();
@@ -87,6 +106,27 @@ class SubCategoryTest extends TestCase
         $update = [
             'category_id' => $subcategory['category_id'],
             'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+            'description' => $faker->text($maxNbChars = 50),
+            'status' => 1
+        ];
+
+        $response = $this->json('PUT', "/api/v1/subcategory/{$subcategory['subcategoria_id']}", $update);
+        $response->assertStatus(200);
+
+        $subcat = SubCategory::all()->first();
+
+        $this->assertEquals($subcat->name, $update['name']);
+    }
+
+    public function test_subcategory_same_update()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $subcategory = $seed->seed_subcategory();
+
+        $update = [
+            'category_id' => $subcategory['category_id'],
+            'name' => $subcategory['name'],
             'description' => $faker->text($maxNbChars = 50),
             'status' => 1
         ];
