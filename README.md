@@ -1,4 +1,4 @@
-# ecommerce
+# Ecommerce
 
 Es una tienda en línea genérica que tiene la capacidad de poder extender sus funcionalidades dependiendo de las necesidades que se tengan en el momento, además de cumplir con los objetivos básicos.
 
@@ -14,8 +14,8 @@ Node v12.13.1
 
 ### Instalación 
 
-1.- Es necesario crear una base de datos y agregar las credenciales de la base de datos en el archivo .env
-2.- En consola se tienen que ejecutar en orden los siguientes comandos
+1. Es necesario crear una base de datos y agregar las credenciales de la base de datos en el archivo .env
+2. En consola se tienen que ejecutar en orden los siguientes comandos
 
 ```
 1. composer install

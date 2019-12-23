@@ -20373,6 +20373,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vee-validate/dist/locale/es.json */ "./node_modules/vee-validate/dist/locale/es.json");
 var vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t(/*! vee-validate/dist/locale/es.json */ "./node_modules/vee-validate/dist/locale/es.json", 1);
 /* harmony import */ var vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vee-validate/dist/rules */ "./node_modules/vee-validate/dist/rules.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers */ "./resources/js/helpers.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -20382,6 +20383,7 @@ var vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+
 
 
 
@@ -20476,26 +20478,10 @@ new Vue({
         if (response.status === 204) {
           _this3.indexUser();
 
-          _this3.userToast('El usuario se elimino correctamente');
+          _helpers__WEBPACK_IMPORTED_MODULE_3__["ToadAlert"].toad('El usuario se elimino correctamente');
         } else {
           console.log('error en la peqicion');
         }
-      });
-    },
-    userToast: function userToast(mensaje) {
-      var ToastUpdate = Swal.mixin({
-        toast: true,
-        position: 'top-start',
-        showConfirmButton: false,
-        timer: 3000,
-        onOpen: function onOpen(toast) {
-          toast.addEventListener('mouseenter', Swal.stopTimer);
-          toast.addEventListener('mouseleave', Swal.resumeTimer);
-        }
-      });
-      ToastUpdate.fire({
-        icon: 'success',
-        title: mensaje
       });
     },
     userForm: function userForm(user) {
@@ -20522,7 +20508,7 @@ new Vue({
 
               _this4.indexUser();
 
-              _this4.userToast('El usuario se agrego correctamente');
+              _helpers__WEBPACK_IMPORTED_MODULE_3__["ToadAlert"].toad('El usuario se agrego correctamente');
             } else {
               console.log('error en la peticion');
             }
@@ -20536,7 +20522,7 @@ new Vue({
 
               _this4.indexUser();
 
-              _this4.userToast('El usuario se actualizo correctamente');
+              _helpers__WEBPACK_IMPORTED_MODULE_3__["ToadAlert"].toad('El usuario se actualizo correctamente');
             } else {
               console.log('error en la peqicion');
             }
@@ -20619,6 +20605,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Users_vue_vue_type_template_id_30c27aa6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/helpers.js":
+/*!*********************************!*\
+  !*** ./resources/js/helpers.js ***!
+  \*********************************/
+/*! exports provided: ToadAlert */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToadAlert", function() { return ToadAlert; });
+var ToadAlert = {
+  toad: function toad(mensaje) {
+    var ToastUpdate = Swal.mixin({
+      toast: true,
+      position: 'top-start',
+      showConfirmButton: false,
+      timer: 3000,
+      onOpen: function onOpen(toast) {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      }
+    });
+    ToastUpdate.fire({
+      icon: 'success',
+      title: mensaje
+    });
+  }
+};
 
 /***/ }),
 

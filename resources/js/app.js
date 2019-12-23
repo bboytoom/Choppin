@@ -13,6 +13,7 @@ window.Swal = require('sweetalert2')
 import { ValidationProvider, ValidationObserver, extend, localize, configure } from 'vee-validate';
 import es from 'vee-validate/dist/locale/es.json';
 import * as rules from 'vee-validate/dist/rules';
+import { ToadAlert } from './helpers';
 
 /**
  * The following block of code may be used to automatically register your
@@ -110,27 +111,10 @@ new Vue({
             .then((response) => {
                 if(response.status === 204) {
                     this.indexUser();
-                    this.userToast('El usuario se elimino correctamente');
+                    ToadAlert.toad('El usuario se elimino correctamente');
                 } else {
                     console.log('error en la peqicion');
                 }
-            });
-        },
-        userToast(mensaje) {
-            const ToastUpdate = Swal.mixin({
-                toast: true,
-                position: 'top-start',
-                showConfirmButton: false,
-                timer: 3000,
-                onOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
-
-            ToastUpdate.fire({
-                icon: 'success',
-                title: mensaje
             });
         },
         userForm (user) {
@@ -154,7 +138,7 @@ new Vue({
                             $("#userModal").modal('hide');
                             this.resetForm();
                             this.indexUser();
-                            this.userToast('El usuario se agrego correctamente');
+                           ToadAlert.toad('El usuario se agrego correctamente');
                         } else {
                             console.log('error en la peticion');
                         }
@@ -166,7 +150,7 @@ new Vue({
                             $("#userModal").modal('hide');
                             this.resetForm();
                             this.indexUser();
-                            this.userToast('El usuario se actualizo correctamente');
+                           ToadAlert.toad('El usuario se actualizo correctamente');
                         } else {
                             console.log('error en la peqicion');
                         }
