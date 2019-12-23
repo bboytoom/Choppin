@@ -35,18 +35,13 @@
                             </td>
                             
                             <td class="text-center">
-                                <a href="#" class="btn btn-success btn-circle btn-sm" v-if="item.attributes.status == 1">
-                                    <i class="fas fa-check"></i>
-                                </a>
-
-                                <a href="#" class="btn btn-danger btn-circle btn-sm" v-else>
-                                    <i class="fas fa-times"></i>
-                                </a>
+                                <h6 class="text-success" v-if="item.attributes.status == 1">Activo</h6>
+                                <h6 class="text-danger" v-else>Inactivo</h6>
                             </td>
 
                             <td class="text-center">
                                 <button type="button" class="btn btn-warning btn-circle" v-on:click.prevent="$emit('edit', item.id)">
-                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <i class="fas fa-pen"></i>
                                 </button>
                             </td>
                             <td class="text-center">

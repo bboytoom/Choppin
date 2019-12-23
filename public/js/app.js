@@ -1897,11 +1897,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['data']
 });
@@ -5412,14 +5407,14 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
-/***/ "./node_modules/vee-validate/dist/locale/en.json":
+/***/ "./node_modules/vee-validate/dist/locale/es.json":
 /*!*******************************************************!*\
-  !*** ./node_modules/vee-validate/dist/locale/en.json ***!
+  !*** ./node_modules/vee-validate/dist/locale/es.json ***!
   \*******************************************************/
 /*! exports provided: code, messages, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"code\":\"en\",\"messages\":{\"alpha\":\"The {_field_} field may only contain alphabetic characters\",\"alpha_num\":\"The {_field_} field may only contain alpha-numeric characters\",\"alpha_dash\":\"The {_field_} field may contain alpha-numeric characters as well as dashes and underscores\",\"alpha_spaces\":\"The {_field_} field may only contain alphabetic characters as well as spaces\",\"between\":\"The {_field_} field must be between {min} and {max}\",\"confirmed\":\"The {_field_} field confirmation does not match\",\"digits\":\"The {_field_} field must be numeric and exactly contain {length} digits\",\"dimensions\":\"The {_field_} field must be {width} pixels by {height} pixels\",\"email\":\"The {_field_} field must be a valid email\",\"excluded\":\"The {_field_} field is not a valid value\",\"ext\":\"The {_field_} field is not a valid file\",\"image\":\"The {_field_} field must be an image\",\"integer\":\"The {_field_} field must be an integer\",\"length\":\"The {_field_} field must be {length} long\",\"max_value\":\"The {_field_} field must be {max} or less\",\"max\":\"The {_field_} field may not be greater than {length} characters\",\"mimes\":\"The {_field_} field must have a valid file type\",\"min_value\":\"The {_field_} field must be {min} or more\",\"min\":\"The {_field_} field must be at least {length} characters\",\"numeric\":\"The {_field_} field may only contain numeric characters\",\"oneOf\":\"The {_field_} field is not a valid value\",\"regex\":\"The {_field_} field format is invalid\",\"required_if\":\"The {_field_} field is required\",\"required\":\"The {_field_} field is required\",\"size\":\"The {_field_} field size must be less than {size}KB\"}}");
+module.exports = JSON.parse("{\"code\":\"es\",\"messages\":{\"alpha\":\"El campo {_field_} solo debe contener letras\",\"alpha_dash\":\"El campo {_field_} solo debe contener letras, números y guiones\",\"alpha_num\":\"El campo {_field_} solo debe contener letras y números\",\"alpha_spaces\":\"El campo {_field_} solo debe contener letras y espacios\",\"between\":\"El campo {_field_} debe estar entre {min} y {max}\",\"confirmed\":\"El campo {_field_} no coincide\",\"digits\":\"El campo {_field_} debe ser numérico y contener exactamente {length} dígitos\",\"dimensions\":\"El campo {_field_} debe ser de {width} píxeles por {height} píxeles\",\"email\":\"El campo {_field_} debe ser un correo electrónico válido\",\"excluded\":\"El campo {_field_} debe ser un valor válido\",\"ext\":\"El campo {_field_} debe ser un archivo válido\",\"image\":\"El campo {_field_} debe ser una imagen\",\"oneOf\":\"El campo {_field_} debe ser un valor válido\",\"integer\":\"El campo {_field_} debe ser un entero\",\"length\":\"El largo del campo {_field_} debe ser {length}\",\"max\":\"El campo {_field_} no debe ser mayor a {length} caracteres\",\"max_value\":\"El campo {_field_} debe de ser {max} o menor\",\"mimes\":\"El campo {_field_} debe ser un tipo de archivo válido\",\"min\":\"El campo {_field_} debe tener al menos {length} caracteres\",\"min_value\":\"El campo {_field_} debe ser {min} o superior\",\"numeric\":\"El campo {_field_} debe contener solo caracteres numéricos\",\"regex\":\"El formato del campo {_field_} no es válido\",\"required\":\"El campo {_field_} es obligatorio\",\"required_if\":\"El campo {_field_} es obligatorio\",\"size\":\"El campo {_field_} debe ser menor a {size}KB\"}}");
 
 /***/ }),
 
@@ -8177,23 +8172,12 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", { staticClass: "text-center" }, [
                         item.attributes.status == 1
-                          ? _c(
-                              "a",
-                              {
-                                staticClass:
-                                  "btn btn-success btn-circle btn-sm",
-                                attrs: { href: "#" }
-                              },
-                              [_c("i", { staticClass: "fas fa-check" })]
-                            )
-                          : _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-danger btn-circle btn-sm",
-                                attrs: { href: "#" }
-                              },
-                              [_c("i", { staticClass: "fas fa-times" })]
-                            )
+                          ? _c("h6", { staticClass: "text-success" }, [
+                              _vm._v("Activo")
+                            ])
+                          : _c("h6", { staticClass: "text-danger" }, [
+                              _vm._v("Inactivo")
+                            ])
                       ]),
                       _vm._v(" "),
                       _c("td", { staticClass: "text-center" }, [
@@ -8209,11 +8193,7 @@ var render = function() {
                               }
                             }
                           },
-                          [
-                            _c("i", {
-                              staticClass: "fas fa-exclamation-triangle"
-                            })
-                          ]
+                          [_c("i", { staticClass: "fas fa-pen" })]
                         )
                       ]),
                       _vm._v(" "),
@@ -20390,8 +20370,8 @@ module.exports = g;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
-/* harmony import */ var vee_validate_dist_locale_en_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vee-validate/dist/locale/en.json */ "./node_modules/vee-validate/dist/locale/en.json");
-var vee_validate_dist_locale_en_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t(/*! vee-validate/dist/locale/en.json */ "./node_modules/vee-validate/dist/locale/en.json", 1);
+/* harmony import */ var vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vee-validate/dist/locale/es.json */ "./node_modules/vee-validate/dist/locale/es.json");
+var vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t(/*! vee-validate/dist/locale/es.json */ "./node_modules/vee-validate/dist/locale/es.json", 1);
 /* harmony import */ var vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vee-validate/dist/rules */ "./node_modules/vee-validate/dist/rules.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -20418,7 +20398,13 @@ window.Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2
 Object.keys(vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__).forEach(function (rule) {
   Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])(rule, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__[rule]);
 });
-Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('en', vee_validate_dist_locale_en_json__WEBPACK_IMPORTED_MODULE_1__);
+Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('es', vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_1__);
+Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["configure"])({
+  inputclass: {
+    valid: 'is-valid',
+    invalid: 'is-invalid'
+  }
+});
 Vue.component('user-component', __webpack_require__(/*! ./components/Users.vue */ "./resources/js/components/Users.vue")["default"]);
 Vue.component('validation-provider', vee_validate__WEBPACK_IMPORTED_MODULE_0__["ValidationProvider"]);
 Vue.component('validation-observer', vee_validate__WEBPACK_IMPORTED_MODULE_0__["ValidationObserver"]);
@@ -20455,7 +20441,7 @@ new Vue({
       this.user.mother_surname = '';
       this.user.father_surname = '';
       this.user.email = '';
-      this.user.status = false;
+      this.user.status = true;
     },
     indexUser: function indexUser() {
       var _this = this;

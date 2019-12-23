@@ -10,8 +10,8 @@ window.Vue = require('vue');
 window.axios = require('axios');
 window.Swal = require('sweetalert2')
 
-import { ValidationProvider, ValidationObserver, extend, localize } from 'vee-validate';
-import en from 'vee-validate/dist/locale/en.json';
+import { ValidationProvider, ValidationObserver, extend, localize, configure } from 'vee-validate';
+import es from 'vee-validate/dist/locale/es.json';
 import * as rules from 'vee-validate/dist/rules';
 
 /**
@@ -29,7 +29,14 @@ Object.keys(rules).forEach(rule => {
   extend(rule, rules[rule]);
 });
 
-localize('en', en);
+localize('es', es);
+
+configure({
+    inputclass: {
+        valid: 'is-valid',
+        invalid: 'is-invalid'
+    }
+})
 
 Vue.component('user-component', require('./components/Users.vue').default);
 Vue.component('validation-provider', ValidationProvider);
@@ -69,7 +76,7 @@ new Vue({
             this.user.mother_surname = '';
             this.user.father_surname = '';
             this.user.email = '';
-            this.user.status = false
+            this.user.status = true
         },
         indexUser() {
             axios.get('/api/v1/users')
