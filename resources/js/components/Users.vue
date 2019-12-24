@@ -1,16 +1,8 @@
 <template>
     <div class="card shadow mb-4">
-        <div class="card-header py-3 text-right">
-            <button type="button" class="btn btn-primary btn-icon-split btn-sm" v-on:click.prevent="$emit('create')">
-                <span class="icon text-white-50">
-                    <i class="fa fa-plus-circle"></i>
-                </span>
-                <span class="text">Agregar</span>
-            </button>
-        </div>
-
+        <btnCreate></btnCreate>
         <div class="card-body">
-            <h4 class="text-center" v-if="data.length == 0">
+            <h4 class="text-center" v-if="users.length == 0">
                 No cuentas con usuarios
             </h4>
 
@@ -26,7 +18,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in data" v-bind:key="item.id">
+                        <tr v-for="item in users" v-bind:key="item.id">
                             <td>
                                 {{ item.attributes.name + ' ' + item.attributes.father_surname + ' ' + (item.attributes.mother_surname === null ? '': item.attributes.mother_surname) }}
                             </td>
@@ -38,27 +30,65 @@
                                 <h6 class="text-success" v-if="item.attributes.status == 1">Activo</h6>
                                 <h6 class="text-danger" v-else>Inactivo</h6>
                             </td>
-
-                            <td class="text-center">
-                                <button type="button" class="btn btn-warning btn-circle" v-on:click.prevent="$emit('edit', item.id)">
-                                    <i class="fas fa-pen"></i>
-                                </button>
-                            </td>
-                            <td class="text-center">
-                                <button type="button" class="btn btn-danger btn-circle" v-on:click.prevent="$emit('delete', item.id)">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </td>
+                            
+                            <btnEdit v-on:dataEdit="dataEdit" v-bind:id="item.id" />
+                            <btnDelete v-bind:id="item.id" v-bind:index="index" />                          
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+
+        <modalForm v-bind:user="user" v-bind:index="index"></modalForm>
     </div>
 </template>
 
 <script>
+    import modalForm from './UsersForm.vue'
+    import btnCreate from './UsersCreateBtn.vue'
+    import btnEdit from './UsersEditBtn.vue'
+    import btnDelete from './UsersDeleteBtn.vue'
+
     export default {
-        props: ['data']
+        data: function() {
+            return {
+                users: [],
+                user: {
+                    'id': 0, 
+                    'name': '',
+                    'mother_surname': '',
+                    'father_surname': '',
+                    'email': '',
+                    'status': true
+                }
+            }
+        },
+        created: function() {
+            this.index();
+        },
+        components: {
+            'modalForm': modalForm,
+            'btnCreate': btnCreate,
+            'btnEdit': btnEdit,
+            'btnDelete': btnDelete
+        },
+        methods: {
+            index: function() {
+                axios.get('/api/v1/users')
+                .then((response) => {
+                    this.users = response.data.data;
+                });
+            },
+            dataEdit: function(value) {
+                this.user.id = value.id;
+                this.user.name = value.name;
+                this.user.mother_surname = value.mother_surname;
+                this.user.father_surname = value.father_surname;
+                this.user.email = value.email;
+                this.user.status = value.status;
+
+                $("#userModal").modal('show');
+            }
+        }
     }
 </script>

@@ -8,12 +8,11 @@
 
 window.Vue = require('vue');
 window.axios = require('axios');
-window.Swal = require('sweetalert2')
+window.Swal = require('sweetalert2');
 
 import { ValidationProvider, ValidationObserver, extend, localize, configure } from 'vee-validate';
 import es from 'vee-validate/dist/locale/es.json';
 import * as rules from 'vee-validate/dist/rules';
-import { ToadAlert } from './helpers';
 
 /**
  * The following block of code may be used to automatically register your
@@ -51,116 +50,4 @@ Vue.config.productionTip = false;
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-new Vue({
-    el: '#app',
-    data: function () {
-        return {
-            users: [],
-            errorsusers: [],
-            user: {
-                'id': 0, 
-                'name':'',
-                'mother_surname':'',
-                'father_surname':'',
-                'email':'',
-                'status':true
-            }
-        }
-    },
-    created() {
-        this.indexUser();
-    },
-    methods: {
-        resetForm() {
-            this.user.id = 0;
-            this.user.name = '';
-            this.user.mother_surname = '';
-            this.user.father_surname = '';
-            this.user.email = '';
-            this.user.status = true
-        },
-        indexUser() {
-            axios.get('/api/v1/users')
-            .then((response) => {
-                this.users = response.data.data;
-            });
-        },
-        createUser() {
-            this.errorsusers = [];
-
-            this.resetForm();
-            $("#userModal").modal('show');
-        },
-        editUser(id) {
-            this.errorsusers = [];
-
-            axios.get('/api/v1/users/'+id)
-            .then((response) => {
-                this.user.id = response.data.id;
-                this.user.name = response.data.attributes.name;
-                this.user.mother_surname = response.data.attributes.mother_surname;
-                this.user.father_surname = response.data.attributes.father_surname;
-                this.user.email = response.data.attributes.email;
-                this.user.status = (response.data.attributes.status === 1)? true: false;
-
-                $("#userModal").modal('show');
-            });
-        },
-        deleteUser(id) {
-            axios.delete('/api/v1/users/'+id)
-            .then((response) => {
-                if(response.status === 204) {
-                    this.indexUser();
-                    ToadAlert.toad('El usuario se elimino correctamente');
-                } else {
-                    console.log('error en la peqicion');
-                }
-            });
-        },
-        userForm (user) {
-            var data = {
-                'name': user.name.toLowerCase(),
-                'mother_surname': user.mother_surname.toLowerCase(),
-                'father_surname': user.father_surname.toLowerCase(),
-                'email': user.email.toLowerCase(),
-                'status': user.status
-            };
-
-            this.$refs.form.validate().then(success => {
-                if (!success) {
-                    return;
-                }
-
-                if(user.id == 0) {
-                    axios.post('/api/v1/users/', data)
-                    .then((response) => {
-                        if(response.status === 201) {
-                            $("#userModal").modal('hide');
-                            this.resetForm();
-                            this.indexUser();
-                           ToadAlert.toad('El usuario se agrego correctamente');
-                        } else {
-                            console.log('error en la peticion');
-                        }
-                    });
-                } else {
-                    axios.put('/api/v1/users/'+user.id, data)
-                    .then((response) => {
-                        if(response.status === 200) {
-                            $("#userModal").modal('hide');
-                            this.resetForm();
-                            this.indexUser();
-                           ToadAlert.toad('El usuario se actualizo correctamente');
-                        } else {
-                            console.log('error en la peqicion');
-                        }
-                    });
-                }
-
-                this.$nextTick(() => {
-                    this.$refs.form.reset();
-                });
-            });
-        }
-    }
-});
+new Vue({ el: '#app' });
