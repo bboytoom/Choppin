@@ -38,7 +38,7 @@ configure({
     }
 })
 
-Vue.component('user-component', require('./components/Users.vue').default);
+Vue.component('user-component', require('./components/User/Users.vue').default);
 Vue.component('validation-provider', ValidationProvider);
 Vue.component('validation-observer', ValidationObserver);
 
@@ -50,4 +50,4 @@ Vue.config.productionTip = false;
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-new Vue({ el: '#app' });
+new Vue({ el: '#wrapper' });

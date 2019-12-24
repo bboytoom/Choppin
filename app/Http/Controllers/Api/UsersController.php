@@ -35,7 +35,7 @@ class UsersController extends Controller
             'father_surname' => strip_tags($request->get('father_surname')),
             'email' => strip_tags($request->get('email')),
             'password' => \Hash::make('@User2907'),
-            'status' => $request->get('status')
+            'status' => 1
         ]);
 
         return response()->json(

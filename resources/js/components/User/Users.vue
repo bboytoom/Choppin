@@ -1,6 +1,13 @@
 <template>
     <div class="card shadow mb-4">
-        <btnCreate></btnCreate>
+        <div class="card-header py-3 text-right">
+            <button type="button" class="btn btn-primary btn-icon-split btn-sm" v-on:click.prevent="create()">
+                <span class="icon text-white-50">
+                    <i class="fa fa-plus-circle"></i>
+                </span>
+                <span class="text">Agregar</span>
+            </button>
+        </div>
         <div class="card-body">
             <h4 class="text-center" v-if="users.length == 0">
                 No cuentas con usuarios
@@ -17,37 +24,21 @@
                             <th class="text-center">Eliminar</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr v-for="item in users" v-bind:key="item.id">
-                            <td>
-                                {{ item.attributes.name + ' ' + item.attributes.father_surname + ' ' + (item.attributes.mother_surname === null ? '': item.attributes.mother_surname) }}
-                            </td>
-                            <td>
-                                {{ item.attributes.email }}
-                            </td>
-                            
-                            <td class="text-center">
-                                <h6 class="text-success" v-if="item.attributes.status == 1">Activo</h6>
-                                <h6 class="text-danger" v-else>Inactivo</h6>
-                            </td>
-                            
-                            <btnEdit v-on:dataEdit="dataEdit" v-bind:id="item.id" />
-                            <btnDelete v-bind:id="item.id" v-bind:index="index" />                          
-                        </tr>
-                    </tbody>
+                    <tableUser v-on:dataEdit="dataEdit" v-bind:index="index" v-bind:users="users"></tableUser>
                 </table>
             </div>
         </div>
 
-        <modalForm v-bind:user="user" v-bind:index="index"></modalForm>
+        <storeUser v-bind:user="user" v-bind:index="index"></storeUser>
+        <updateUser v-bind:user="user" v-bind:index="index"></updateUser>
     </div>
 </template>
 
 <script>
-    import modalForm from './UsersForm.vue'
-    import btnCreate from './UsersCreateBtn.vue'
-    import btnEdit from './UsersEditBtn.vue'
-    import btnDelete from './UsersDeleteBtn.vue'
+
+    import tableUser from './UsersTable.vue'
+    import storeUser from './UserStore.vue'
+    import updateUser from './UserUpdate.vue'
 
     export default {
         data: function() {
@@ -58,8 +49,7 @@
                     'name': '',
                     'mother_surname': '',
                     'father_surname': '',
-                    'email': '',
-                    'status': true
+                    'email': ''
                 }
             }
         },
@@ -67,10 +57,9 @@
             this.index();
         },
         components: {
-            'modalForm': modalForm,
-            'btnCreate': btnCreate,
-            'btnEdit': btnEdit,
-            'btnDelete': btnDelete
+            'tableUser': tableUser,
+            'storeUser': storeUser,
+            'updateUser': updateUser
         },
         methods: {
             index: function() {
@@ -79,15 +68,17 @@
                     this.users = response.data.data;
                 });
             },
+            create: function() {
+                $("#createUser").modal('show');
+            },
             dataEdit: function(value) {
                 this.user.id = value.id;
                 this.user.name = value.name;
                 this.user.mother_surname = value.mother_surname;
                 this.user.father_surname = value.father_surname;
                 this.user.email = value.email;
-                this.user.status = value.status;
 
-                $("#userModal").modal('show');
+                $("#updateUser").modal('show');
             }
         }
     }
