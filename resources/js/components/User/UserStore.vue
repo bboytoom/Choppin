@@ -46,7 +46,8 @@
     export default {
         props: {
             user: { type: Object },
-            index: { type: Function }
+            index: { type: Function },
+            page_state: { type: Number },
         },
         data: function() {
             return {
@@ -76,7 +77,7 @@
                         if (response.status === 201) {
                             $("#createUser").modal('hide');
 
-                            this.index();
+                            this.index(this.page_state);
                             this.createUserReset();
 
                             ToadAlert.toad('El usuario se agrego correctamente');

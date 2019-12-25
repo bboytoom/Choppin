@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "sweetalert2": "^9.5.3",
-        "vee-validate": "^3.2.1"
+        "vee-validate": "^3.2.1",
+        "vuejs-paginate": "^2.1.0"
     }
 }

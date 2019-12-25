@@ -1,7 +1,7 @@
 <template>
     <tbody>
         <tr v-for="item in users" v-bind:key="item.id">
-            <td>
+            <td id="prueba"> 
                 {{ item.attributes.name + ' ' + item.attributes.father_surname + ' ' + (item.attributes.mother_surname === null ? '': item.attributes.mother_surname) }}
             </td>
             <td>
@@ -9,8 +9,22 @@
             </td>
 
             <td class="text-center">
-                <h6 class="text-success" v-if="item.attributes.status == 1">Activo</h6>
-                <h6 class="text-danger" v-else>Inactivo</h6>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" :id="`status_${item.id}`" :checked="item.attributes.status == 1" v-on:click.prevent="editStatus(item.id, item.attributes)">
+                    <label class="custom-control-label" :for="`status_${item.id}`"></label>
+                </div>
+            </td>
+
+            <td class="text-center">
+                <button type="button" class="btn btn-secondary btn-sm" v-on:click.prevent="password(item.id)">
+                    <i class="fas fa-lock"></i>
+                </button>
+            </td>
+            
+            <td class="text-center">
+                <button type="button" class="btn btn-info btn-circle">
+                    <i class="fas fa-cogs"></i>
+                </button>
             </td>
 
             <td class="text-center">
@@ -30,9 +44,13 @@
 
 <script>
     import { ToadAlert } from '../helpers';
-
+    
     export default {
-        props: ['users', 'index'], 
+        props: {
+            users: { type: Array },
+            index: { type: Function },
+            page_state: { type: Number },
+        },
         methods: {
             edit: function(id) {
                 axios.get('/api/v1/users/'+id)
@@ -50,11 +68,55 @@
                 axios.delete('/api/v1/users/'+id)
                 .then((response) => {
                     if(response.status === 204) {
-                        this.index();
-                        ToadAlert.toad('El usuario se elimino correctamente');
+                        axios.get('/api/v1/users')
+                        .then((response) => {
+                            if(this.page_state === parseInt(response.data.meta.last_page)) {
+                                this.index(this.page_state);
+                            } else {
+                                this.index(parseInt(response.data.meta.last_page));
+                            }
+                            
+                           ToadAlert.toad('El usuario se elimino correctamente'); 
+                        });
                     }
                 });
-            }    
+            },
+            password: function(id) {
+                axios.get('/api/v1/users/'+id)
+                .then((response) => {
+                    this.$emit('passwordEdit', {
+                        'id': response.data.id, 
+                        'name': response.data.attributes.name,
+                        'mother_surname': response.data.attributes.mother_surname,
+                        'father_surname': response.data.attributes.father_surname,
+                    });
+                });
+            },
+            editStatus: function(id, attr) {
+                Swal.fire({
+                    html: '<h6><strong>Desea cambiar el estatus del usuario</strong></h6>',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    width: '21rem',
+                    preConfirm: () => {
+                       axios.put('/api/v1/users/'+id, {
+                            'name': attr.name,
+                            'father_surname': attr.father_surname,
+                            'email': attr.email,
+                            'status': (attr.status == 1) ? 0 : 1
+                       })
+                        .then((response) => {
+                            if(response.status === 200) {
+                                this.index(this.page_state);
+                            }
+                        });
+                    }
+                });
+            }
         }
     }
 </script>

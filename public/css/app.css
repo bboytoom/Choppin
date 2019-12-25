@@ -12736,7 +12736,6 @@ body.sidebar-toggled footer.sticky-footer {
   background-repeat: no-repeat;
   background-position: center right calc(.375em + .1875rem);
   background-size: calc(.75em + .375rem) calc(.75em + .375rem);
-  text-transform: lowercase;
 }
 
 .control.valid input:focus {
@@ -12757,7 +12756,6 @@ body.sidebar-toggled footer.sticky-footer {
   background-repeat: no-repeat;
   background-position: center right calc(.375em + .1875rem);
   background-size: calc(.75em + .375rem) calc(.75em + .375rem);
-  text-transform: lowercase;
 }
 
 .control.invalid input:focus {

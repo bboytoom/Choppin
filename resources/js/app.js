@@ -9,6 +9,7 @@
 window.Vue = require('vue');
 window.axios = require('axios');
 window.Swal = require('sweetalert2');
+window.Paginate = require('vuejs-paginate')
 
 import { ValidationProvider, ValidationObserver, extend, localize, configure } from 'vee-validate';
 import es from 'vee-validate/dist/locale/es.json';
@@ -31,16 +32,27 @@ Object.keys(rules).forEach(rule => {
 
 localize('es', es);
 
+extend('password', {
+  params: ['target'],
+  validate(value, {
+    target
+  }) {
+    return value === target;
+  },
+  message: 'Las contraseñas no coinciden'
+});
+
 configure({
-    inputclass: {
-        valid: 'is-valid',
-        invalid: 'is-invalid'
-    }
+  inputclass: {
+    valid: 'is-valid',
+    invalid: 'is-invalid'
+  }
 })
 
 Vue.component('user-component', require('./components/User/Users.vue').default);
 Vue.component('validation-provider', ValidationProvider);
 Vue.component('validation-observer', ValidationObserver);
+Vue.component('paginate', Paginate)
 
 Vue.config.productionTip = false;
 
