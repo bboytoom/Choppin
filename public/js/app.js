@@ -2280,6 +2280,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2290,6 +2305,7 @@ __webpack_require__.r(__webpack_exports__);
       users: [],
       number_page: 0,
       page_state: 1,
+      searchUser: '',
       user: {
         'id': 0,
         'name': '',
@@ -2300,7 +2316,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.index(1);
+    this.index();
   },
   components: {
     'tableUser': _UsersTable_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -2308,14 +2324,27 @@ __webpack_require__.r(__webpack_exports__);
     'updateUser': _UserUpdate_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     'passwordUser': _UserPassword_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  methods: {
-    index: function index(page) {
+  computed: {
+    filtroUser: function filtroUser() {
       var _this = this;
 
+      if (this.searchUser) {
+        return this.users.filter(function (item) {
+          return item.attributes.name.includes(_this.searchUser);
+        });
+      } else {
+        return this.users;
+      }
+    }
+  },
+  methods: {
+    index: function index(page) {
+      var _this2 = this;
+
       axios.get('/api/v1/users?page=' + page).then(function (response) {
-        _this.page_state = page;
-        _this.number_page = parseInt(response.data.meta.last_page);
-        _this.users = response.data.data;
+        _this2.page_state = page;
+        _this2.number_page = parseInt(response.data.meta.last_page);
+        _this2.users = response.data.data;
       });
     },
     create: function create() {
@@ -2428,6 +2457,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
+//
+//
 //
 //
 //
@@ -9491,24 +9522,60 @@ var render = function() {
     { staticClass: "card shadow mb-4" },
     [
       _c("div", { staticClass: "card-header py-3 text-right" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary btn-icon-split btn-sm",
-            attrs: { type: "button" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.create()
-              }
-            }
-          },
-          [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("span", { staticClass: "text" }, [_vm._v("Agregar")])
-          ]
-        )
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "input-group mb-2" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.searchUser,
+                    expression: "searchUser"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "search_user",
+                  placeholder: "Busca al usuario"
+                },
+                domProps: { value: _vm.searchUser },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.searchUser = $event.target.value
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-6" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary btn-icon-split btn-sm",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.create()
+                  }
+                }
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("span", { staticClass: "text" }, [_vm._v("Agregar")])
+              ]
+            )
+          ])
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
@@ -9527,12 +9594,12 @@ var render = function() {
                     attrs: { id: "users", width: "100%", cellspacing: "0" }
                   },
                   [
-                    _vm._m(1),
+                    _vm._m(2),
                     _vm._v(" "),
                     _c("tableUser", {
                       attrs: {
                         index: _vm.index,
-                        users: _vm.users,
+                        users: _vm.filtroUser,
                         page_state: _vm.page_state
                       },
                       on: {
@@ -9579,6 +9646,16 @@ var render = function() {
   )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("div", { staticClass: "input-group-text" }, [
+        _c("i", { staticClass: "fas fa-search" })
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -9669,7 +9746,7 @@ var render = function() {
                               expression: "user.name"
                             }
                           ],
-                          staticClass: "form-control",
+                          staticClass: "form-control lower--mdf",
                           attrs: {
                             type: "text",
                             placeholder: "Ingresa tu nombre",
@@ -9735,7 +9812,7 @@ var render = function() {
                               expression: "user.father_surname"
                             }
                           ],
-                          staticClass: "form-control",
+                          staticClass: "form-control lower--mdf",
                           attrs: {
                             type: "text",
                             placeholder: "Ingresa tu apellido",
@@ -9802,7 +9879,7 @@ var render = function() {
                               expression: "user.mother_surname"
                             }
                           ],
-                          staticClass: "form-control",
+                          staticClass: "form-control lower--mdf",
                           attrs: {
                             type: "text",
                             placeholder: "Ingresa tu apellido",
@@ -9872,7 +9949,7 @@ var render = function() {
                               expression: "user.email"
                             }
                           ],
-                          staticClass: "form-control",
+                          staticClass: "form-control lower--mdf",
                           attrs: {
                             type: "email",
                             placeholder: "Ingresa tu correo electronico",
@@ -9938,14 +10015,16 @@ var render = function() {
         _c("td", { attrs: { id: "prueba" } }, [
           _vm._v(
             " \n            " +
+              _vm._s(_vm._f("capitalize")(item.attributes.name)) +
+              " \n            " +
+              _vm._s(_vm._f("capitalize")(item.attributes.father_surname)) +
+              " \n            " +
               _vm._s(
-                item.attributes.name +
-                  " " +
-                  item.attributes.father_surname +
-                  " " +
-                  (item.attributes.mother_surname === null
+                _vm._f("capitalize")(
+                  item.attributes.mother_surname === null
                     ? ""
-                    : item.attributes.mother_surname)
+                    : item.attributes.mother_surname
+                )
               ) +
               "\n        "
           )
@@ -22222,6 +22301,14 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["configure"])({
     valid: 'is-valid',
     invalid: 'is-invalid'
   }
+});
+Vue.filter('capitalize', function (value) {
+  if (!value) {
+    return '';
+  }
+
+  value = value.toString();
+  return value.charAt(0).toUpperCase() + value.slice(1);
 });
 Vue.component('user-component', __webpack_require__(/*! ./components/User/Users.vue */ "./resources/js/components/User/Users.vue")["default"]);
 Vue.component('validation-provider', vee_validate__WEBPACK_IMPORTED_MODULE_0__["ValidationProvider"]);

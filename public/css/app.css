@@ -12767,3 +12767,7 @@ body.sidebar-toggled footer.sticky-footer {
   margin: 0 auto;
 }
 
+.lower--mdf {
+  text-transform: lowercase;
+}
+

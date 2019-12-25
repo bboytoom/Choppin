@@ -2,7 +2,9 @@
     <tbody>
         <tr v-for="item in users" v-bind:key="item.id">
             <td id="prueba"> 
-                {{ item.attributes.name + ' ' + item.attributes.father_surname + ' ' + (item.attributes.mother_surname === null ? '': item.attributes.mother_surname) }}
+                {{ item.attributes.name | capitalize }} 
+                {{ item.attributes.father_surname | capitalize }} 
+                {{ item.attributes.mother_surname === null ? '': item.attributes.mother_surname | capitalize }}
             </td>
             <td>
                 {{ item.attributes.email }}
