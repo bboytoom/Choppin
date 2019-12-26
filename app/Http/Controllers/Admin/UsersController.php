@@ -27,4 +27,20 @@ class UsersController extends Controller
     {
         return view('admin.users.index');
     }
+
+    public function edit($id)
+    {
+        $user =  User::find(base64_decode($id));
+
+        if ($user == null) {
+            return abort(404);
+        }
+
+        return view('admin.users.edit', [
+            'id' => $user['id'],
+            'name' => $user['name'],
+            'paterno' => $user['father_surname'],
+            'materno' => $user['mother_surname'],
+        ]);
+    }
 }

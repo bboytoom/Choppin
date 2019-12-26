@@ -1,7 +1,7 @@
 <template>
     <tbody>
         <tr v-for="item in users" v-bind:key="item.id">
-            <td id="prueba"> 
+            <td> 
                 {{ item.attributes.name | capitalize }} 
                 {{ item.attributes.father_surname | capitalize }} 
                 {{ item.attributes.mother_surname === null ? '': item.attributes.mother_surname | capitalize }}
@@ -24,7 +24,7 @@
             </td>
             
             <td class="text-center">
-                <button type="button" class="btn btn-info btn-circle">
+                <button type="button" class="btn btn-info btn-circle" v-on:click.prevent="complemento(item.id)">
                     <i class="fas fa-cogs"></i>
                 </button>
             </td>
@@ -67,18 +67,30 @@
                 });
             },
             deleted: function(id) {
-                axios.delete('/api/v1/users/'+id)
-                .then((response) => {
-                    if(response.status === 204) {
-                        axios.get('/api/v1/users')
+                Swal.fire({
+                    html: '<h6><strong>Seguro que quiere eliminar al administrador</strong></h6>',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    width: '21rem',
+                    preConfirm: () => {
+                        axios.delete('/api/v1/users/'+id)
                         .then((response) => {
-                            if(this.page_state === parseInt(response.data.meta.last_page)) {
-                                this.index(this.page_state);
-                            } else {
-                                this.index(parseInt(response.data.meta.last_page));
+                            if(response.status === 204) {
+                                axios.get('/api/v1/users')
+                                .then((response) => {
+                                    if(this.page_state > parseInt(response.data.meta.last_page)) {
+                                        this.index(parseInt(response.data.meta.last_page));
+                                    } else {
+                                        this.index(this.page_state);
+                                    }
+                                    
+                                    ToadAlert.toad('El usuario se elimino correctamente'); 
+                                });
                             }
-                            
-                           ToadAlert.toad('El usuario se elimino correctamente'); 
                         });
                     }
                 });
@@ -93,6 +105,9 @@
                         'father_surname': response.data.attributes.father_surname,
                     });
                 });
+            },
+            complemento: function(id) {
+                window.location.href = window.location +'/'+ btoa(id) +'/edit'
             },
             editStatus: function(id, attr) {
                 Swal.fire({

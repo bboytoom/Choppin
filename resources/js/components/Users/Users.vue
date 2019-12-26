@@ -23,6 +23,7 @@
                 </div>
             </div>
         </div>
+
         <div class="card-body">
             <h4 class="text-center" v-if="users.length == 0">
                 No cuentas con usuarios
@@ -36,7 +37,7 @@
                             <th>Correo</th>
                             <th class="text-center" width="100">Estado</th>
                             <th class="text-center" width="140">Contraseña</th>
-                            <th class="text-center" width="110">Configuracion</th>
+                            <th class="text-center" width="110">Complemento</th>
                             <th class="text-center" width="110">Editar</th>
                             <th class="text-center" width="110">Eliminar</th>
                         </tr>
@@ -47,9 +48,9 @@
                                 v-bind:users="filtroUser" 
                                 v-bind:page_state="page_state"></tableUser>
                 </table>
+
                 <paginate
                     :page-count="number_page"
-                    :page-range="3"
                     :prev-text="'Anterior'"
                     :next-text="'Siguiente'"
                     :container-class="'pagination'"
@@ -73,9 +74,9 @@
 <script>
 
     import tableUser from './UsersTable.vue'
-    import storeUser from './UserStore.vue'
-    import updateUser from './UserUpdate.vue'
-    import passwordUser from './UserPassword.vue'
+    import storeUser from './UsersStore.vue'
+    import updateUser from './UsersUpdate.vue'
+    import passwordUser from './UsersPassword.vue'
     
     export default {
         data: function() {
@@ -83,7 +84,7 @@
                 users: [],
                 number_page: 0,
                 page_state: 1,
-                searchUser:'',
+                searchUser: '',
                 user: {
                     'id': 0, 
                     'name': '',

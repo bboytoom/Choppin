@@ -1,22 +1,22 @@
 <template>
-    <div class="modal fade" id="updateUser" tabindex="-1" role="dialog" aria-labelledby="usereditLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal fade" id="updateAdmin" tabindex="-1" role="dialog" aria-labelledby="admineditLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <validation-observer ref="formupdate" v-slot="{ invalid }">
-                <form method="POST" class="modal-content" v-on:submit.prevent="updateUserSubmit(user)" autocomplete="off">
+            <validation-observer ref="formadminupdate" v-slot="{ invalid }">
+                <form method="POST" class="modal-content" v-on:submit.prevent="updateAdminSubmit(admin)" autocomplete="off">
                     <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title title-form__elem" id="usereditLabel">Editar usuario</h5>
+                        <h5 class="modal-title title-form__elem" id="admineditLabel">Editar usuario</h5>
                     </div>
-                    
+
                     <div v-if="errorUpdate.length">
                         <div v-for="updateerror in errorUpdate" v-bind:key="updateerror" class="alert alert-danger text-center rounded-0" role="alert">
                             {{ updateerror }}
                         </div>
                     </div>
 
-                    <modalForm v-bind:user="user"></modalForm>
+                    <modalAdminForm v-bind:admin="admin"></modalAdminForm>
 
                     <div class="modal-footer">
-                        <button type="reset" class="btn btn-secondary btn-icon-split" data-dismiss="modal" v-on:click.prevent="updateUserReset()">
+                        <button type="reset" class="btn btn-secondary btn-icon-split" data-dismiss="modal" v-on:click.prevent="updateAdminReset()">
                             <span class="icon text-white-50">
                                 <i class="fas fa-arrow-left"></i>
                             </span>
@@ -40,12 +40,12 @@
 </template>
 
 <script>
-    import modalForm from './UsersForm.vue';
+    import modalAdminForm from './AdminsForm.vue';
     import { ToadAlert } from '../helpers';
 
     export default {
         props: {
-            user: { type: Object },
+            admin: { type: Object },
             index: { type: Function },
             page_state: { type: Number },
         },
@@ -55,46 +55,46 @@
             }
         },
         components: {
-            'modalForm': modalForm
+            'modalAdminForm': modalAdminForm
         },
         methods: {
-            updateUserSubmit: function(user) {
+            updateAdminSubmit: function(admin) {
                 var data = {
-                    'name': user.name.toLowerCase(),
-                    'mother_surname': user.mother_surname.toLowerCase(),
-                    'father_surname': user.father_surname.toLowerCase(),
-                    'email': user.email.toLowerCase(),
+                    'name': admin.name.toLowerCase(),
+                    'mother_surname': admin.mother_surname.toLowerCase(),
+                    'father_surname': admin.father_surname.toLowerCase(),
+                    'email': admin.email.toLowerCase(),
                     'status': 1
                 };
 
-                this.$refs.formupdate.validate().then(success => {
+                this.$refs.formadminupdate.validate().then(success => {
                     if (!success) {
                         return;
                     }
 
-                    axios.put('/api/v1/users/'+user.id, data)
+                    axios.put('/api/v1/admins/'+admin.id, data)
                     .then((response) => {
                         if(response.status === 200) {
-                            $("#updateUser").modal('hide');
+                            $("#updateAdmin").modal('hide');
 
                             this.index(this.page_state);
-                            this.updateUserReset();
+                            this.updateAdminReset();
                                 
-                            ToadAlert.toad('El usuario se actualizo correctamente');
+                            ToadAlert.toad('El administrador se actualizo correctamente');
                         }
                     }).catch(error => {
                         this.errorUpdate = error.response.data.errors.email;
                     }); 
                 });
             },
-            updateUserReset: function() {
-                this.user.id = 0;
-                this.user.name = '';
-                this.user.mother_surname = '';
-                this.user.father_surname = '';
-                this.user.email = '';
+            updateAdminReset: function() {
+                this.admin.id = 0;
+                this.admin.name = '';
+                this.admin.mother_surname = '';
+                this.admin.father_surname = '';
+                this.admin.email = '';
                 this.errorUpdate = [];
-                this.$refs.formupdate.reset();
+                this.$refs.formadminupdate.reset();
             }
         }
     }

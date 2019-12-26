@@ -63,7 +63,7 @@ class AdminsController extends Controller
     {
         $admins =  Admin::find($id);
 
-        if ($admin == null) {
+        if ($admins == null) {
             return response(null, 404);
         }
 

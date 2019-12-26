@@ -28,6 +28,13 @@
 		</a>
 	</li>
 
+	<li class="nav-item">
+		<a class="nav-link" href="#">
+			<i class="fas fa-fw fa-table"></i>
+			<span>Compras</span>
+		</a>
+	</li>
+
 	<!-- Divider -->
 	<hr class="sidebar-divider">
 

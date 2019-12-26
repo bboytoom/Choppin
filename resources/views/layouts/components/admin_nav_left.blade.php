@@ -80,7 +80,7 @@
 	</li>
 
 	<li class="nav-item">
-		<a class="nav-link" href="#">
+		<a class="nav-link" href="{{ route('admins.index') }}">
 			<i class="fas fa-users"></i>
 			<span>Administradores</span>
 		</a>
