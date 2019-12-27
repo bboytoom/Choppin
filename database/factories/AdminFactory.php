@@ -8,13 +8,13 @@ use Illuminate\Support\Str;
 
 $factory->define(Admin::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'name' => 'root',
         'mother_surname' => $faker->lastName,
         'father_surname' => $faker->lastName,
-        'email' => $faker->unique()->safeEmail,
+        'email' => 'admin@gmail.com',
         'email_verified_at' => now(),
-        'password' => \Hash::make('prueba123'),
+        'password' => \Hash::make('admin123'),
         'remember_token' => Str::random(10),
-        'status'=> $this->faker->numberBetween($min = 1, $max = 1)
+        'status'=> 1
     ];
 });

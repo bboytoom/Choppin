@@ -19,7 +19,6 @@ class ProductTest extends TestCase
         $complemento = $seed->seed_subcategory();
 
         $data = [
-           'admin_id' => $complemento['admin_id'],
            'subcategory_id' => $complemento['subcategoria_id'],
            'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
            'extract' => $faker->text($maxNbChars = 50),
@@ -51,7 +50,6 @@ class ProductTest extends TestCase
         $complemento = $seed->seed_product();
 
         $data = [
-           'admin_id' => $complemento['admin_id'],
            'subcategory_id' => $complemento['subcategoria_id'],
            'name' => $complemento['name'],
            'extract' => $faker->text($maxNbChars = 50),
@@ -70,7 +68,6 @@ class ProductTest extends TestCase
         $complemento = $seed->seed_subcategory();
 
         $data = [
-           'admin_id' => $complemento['admin_id'],
            'subcategory_id' => $complemento['subcategoria_id']
         ];
 
@@ -84,7 +81,6 @@ class ProductTest extends TestCase
         $complemento = $seed->seed_subcategory();
 
         $data = [
-           'admin_id' => $complemento['admin_id'],
            'subcategory_id' => $complemento['subcategoria_id'],
            'name' => 'producto',
            'extract' => 'Lor',
@@ -104,7 +100,6 @@ class ProductTest extends TestCase
         $complemento = $seed->seed_subcategory();
 
         $data = [
-           'admin_id' => $complemento['admin_id'],
            'subcategory_id' => $complemento['subcategoria_id'],
            'name' => $faker->text($maxNbChars = 200),
            'extract' => $faker->text($maxNbChars = 200),

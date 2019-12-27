@@ -26,11 +26,6 @@ class Characteristic extends Model
         'status',
     ];
 
-    public function admins()
-    {
-        return $this->belongsTo('App\Admin', 'admin_id');
-    }
-
     public function product()
     {
         return $this->belongsTo('App\Models\Product', 'product_id');

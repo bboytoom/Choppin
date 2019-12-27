@@ -29,11 +29,6 @@ class Product extends Model
         'status',
     ];
 
-    public function admins()
-    {
-        return $this->belongsTo('App\Admin', 'admin_id');
-    }
-
     public function subcategory()
     {
         return $this->belongsTo('App\Models\SubCategory', 'subcategory_id');

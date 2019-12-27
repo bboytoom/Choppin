@@ -25,6 +25,6 @@ $factory->define(User::class, function (Faker $faker) {
         'email_verified_at' => now(),
         'password' => \Hash::make('prueba123'),
         'remember_token' => Str::random(10),
-        'status'=> $this->faker->numberBetween($min = 1, $max = 1)
+        'status'=> 1
     ];
 });

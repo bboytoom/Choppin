@@ -31,7 +31,6 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $category = Category::create([
-            'admin_id' => $request->get('admin_id'),
             'name' => strip_tags($request->get('name')),
             'slug' => Str::slug($request->get('name'), '-'),
             'description' => strip_tags($request->get('description')),

@@ -15,10 +15,8 @@ class CategoryTest extends TestCase
     {
         $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
-        $admin = $seed->seed_admin();
-
+        
         $data = [
-           'admin_id' => $admin->id,
            'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
            'description' => $faker->text($maxNbChars = 50),
            'status' => 1
@@ -44,12 +42,9 @@ class CategoryTest extends TestCase
     {
         $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
-
-        $admin = $seed->seed_admin();
         $category = $seed->seed_category();
 
         $data = [
-           'admin_id' => $admin->id,
            'name' => $category['name'],
            'description' => $faker->text($maxNbChars = 50),
            'status' => 1
@@ -63,10 +58,8 @@ class CategoryTest extends TestCase
     {
         $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
-        $admin = $seed->seed_admin();
-
+        
         $data = [
-            'admin_id' => $admin->id,
             'name' => $faker->text($maxNbChars = 200),
             'description' => $faker->text($maxNbChars = 200),
             'status' => 1
@@ -79,10 +72,8 @@ class CategoryTest extends TestCase
     public function test_category_min_field_create()
     {
         $seed = InitSeed::getInstance()->getSeed();
-        $admin = $seed->seed_admin();
-
+        
         $data = [
-            'admin_id' => $admin->id,
             'name' => 'a',
             'description' => 's',
             'status' => 1

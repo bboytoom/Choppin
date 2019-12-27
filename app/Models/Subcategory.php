@@ -27,13 +27,13 @@ class SubCategory extends Model
         'status',
     ];
 
-    public function admins()
-    {
-        return $this->belongsTo('App\Admin', 'admin_id');
-    }
-
     public function category()
     {
         return $this->belongsTo('App\Models\Category', 'category_id');
+    }
+
+    public function product()
+    {
+        return $this->hasMany('App\Models\Product', 'subcategory_id');
     }
 }

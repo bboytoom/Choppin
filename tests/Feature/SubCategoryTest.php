@@ -19,7 +19,6 @@ class SubCategoryTest extends TestCase
         $category = $seed->seed_category();
 
         $data = [
-           'admin_id' => $category['admin_id'],
            'category_id' => $category['category_id'],
            'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
            'description' => $faker->text($maxNbChars = 50),
@@ -46,11 +45,9 @@ class SubCategoryTest extends TestCase
     {
         $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
-
         $subcategory = $seed->seed_subcategory();
 
         $data = [
-           'admin_id' => $subcategory['admin_id'],
            'category_id' => $subcategory['category_id'],
            'name' => $subcategory['name'],
            'description' => $faker->text($maxNbChars = 50),
@@ -68,7 +65,6 @@ class SubCategoryTest extends TestCase
         $category = $seed->seed_category();
 
         $data = [
-           'admin_id' => $category['admin_id'],
            'category_id' => $category['category_id'],
            'name' => $faker->text($maxNbChars = 200),
            'description' => $faker->text($maxNbChars = 200),
@@ -81,12 +77,10 @@ class SubCategoryTest extends TestCase
 
     public function test_subcategory_min_field_create()
     {
-        $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
         $category = $seed->seed_category();
 
         $data = [
-           'admin_id' => $category['admin_id'],
            'category_id' => $category['category_id'],
            'name' => 'sd',
            'description' => 'sd',

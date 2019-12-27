@@ -18,7 +18,6 @@ class CharacteristicTest extends TestCase
         $product = $seed->seed_product();
 
         $data = [
-           'admin_id' => $product['admin_id'],
            'product_id' => $product['product_id'],
            'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
            'description' => $faker->text($maxNbChars = 250),
@@ -48,7 +47,6 @@ class CharacteristicTest extends TestCase
         $characteristic = $seed->seed_characteristic();
 
         $data = [
-           'admin_id' => $characteristic['admin_id'],
            'product_id' => $characteristic['product_id'],
            'name' => $characteristic['name'],
            'description' => $faker->text($maxNbChars = 250),
@@ -65,7 +63,6 @@ class CharacteristicTest extends TestCase
         $product = $seed->seed_product();
 
         $data = [
-           'admin_id' => $product['admin_id'],
            'product_id' => $product['product_id'],
            'name' => 's',
            'description' => 's',
@@ -83,7 +80,6 @@ class CharacteristicTest extends TestCase
         $product = $seed->seed_product();
 
         $data = [
-           'admin_id' => $product['admin_id'],
            'product_id' => $product['product_id'],
            'name' => $faker->unique()->sentence($nbWords = 50, $variableNbWords = true),
            'description' => $faker->text($maxNbChars = 200),

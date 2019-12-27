@@ -31,7 +31,6 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $products = Product::create([
-            'admin_id' => $request->get('admin_id'),
             'subcategory_id' => $request->get('subcategory_id'),
             'name' => strip_tags($request->get('name')),
             'slug' => Str::slug($request->get('name'), '-'),

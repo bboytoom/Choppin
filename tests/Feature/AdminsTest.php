@@ -115,7 +115,9 @@ class AdminsTest extends TestCase
     public function test_admin_update()
     {
         $faker = \Faker\Factory::create();
-
+        $seed = InitSeed::getInstance()->getSeed();
+        $admin = $seed->seed_admin();
+        
         $update = [
            'name' => $faker->name,
            'mother_surname' => $faker->lastName,
@@ -123,9 +125,6 @@ class AdminsTest extends TestCase
            'email' => $faker->unique()->safeEmail,
            'status' => 1
         ];
-
-        $seed = InitSeed::getInstance()->getSeed();
-        $admin = $seed->seed_admin();
 
         $response = $this->json('PUT', "/api/v1/admins/{$admin->id}", $update);
         $response->assertStatus(200);

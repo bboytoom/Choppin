@@ -31,7 +31,6 @@ class SeedTest
         $catalogs = $this->seed_product();
 
         $characteristic = Characteristic::create([
-            'admin_id' => $catalogs['admin_id'],
             'product_id' => $catalogs['product_id'],
             'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
             'description' => $faker->text($maxNbChars = 250),
@@ -39,7 +38,6 @@ class SeedTest
         ]);
 
         $this->initial_characteristic = [
-            'admin_id' => $catalogs['admin_id'],
             'product_id' => $catalogs['product_id'],
             'characteristic_id' => $characteristic->id,
             'name' => $characteristic->name
@@ -55,7 +53,6 @@ class SeedTest
         $prod = $faker->unique()->sentence($nbWords = 2, $variableNbWords = true);
 
         $product = Product::create([
-            'admin_id' => $catalogs['admin_id'],
             'subcategory_id' => $catalogs['subcategoria_id'],
             'name' => $prod,
             'slug' => Str::slug($prod, '-'),
@@ -66,7 +63,6 @@ class SeedTest
         ]);
 
         $this->initial_product = [
-            'admin_id' => $catalogs['admin_id'],
             'category_id' => $catalogs['category_id'],
             'subcategoria_id' => $catalogs['subcategoria_id'],
             'product_id' => $product->id,
@@ -83,7 +79,6 @@ class SeedTest
         $subcat = $faker->unique()->sentence($nbWords = 2, $variableNbWords = true);
 
         $subcategory = SubCategory::create([
-            'admin_id' => $category['admin_id'],
             'category_id' => $category['category_id'],
             'name' => $subcat,
             'slug' => Str::slug($subcat, '-'),
@@ -92,7 +87,6 @@ class SeedTest
         ]);
 
         $this->initial_subcategory = [
-            'admin_id' => $category['admin_id'],
             'category_id' => $category['category_id'],
             'subcategoria_id' => $subcategory->id,
             'name' => $subcategory->name,
@@ -104,11 +98,9 @@ class SeedTest
     public function seed_category()
     {
         $faker = \Faker\Factory::create();
-        $admin = $this->seed_admin();
         $cat = $faker->unique()->sentence($nbWords = 2, $variableNbWords = true);
 
         $category = Category::create([
-            'admin_id' => $admin->id,
             'name' => $cat,
             'slug' => Str::slug($cat, '-'),
             'description' => $faker->text($maxNbChars = 50),
@@ -116,7 +108,6 @@ class SeedTest
         ]);
 
         $this->initial_category = [
-            'admin_id' => $admin->id,
             'category_id' => $category->id,
             'name' => $category->name
         ];
