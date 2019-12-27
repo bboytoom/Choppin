@@ -22,8 +22,8 @@ Route::group([
     "namespace" => "Api"
 ], function(){
     Route::apiResources([
-        'admins' => 'AdminsController',
-        'users' => 'UsersController',
+        'admins' => 'AdminController',
+        'users' => 'UserController',
         'category' => 'CategoryController',
         'subcategory' => 'SubCategoryController',
         'product' => 'ProductController',

@@ -9,7 +9,7 @@ use App\Http\Resources\Admin\AdminResource;
 use App\Http\Resources\Admin\AdminCollection;
 use App\Admin;
 
-class AdminsController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.

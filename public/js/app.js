@@ -1842,6 +1842,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminsStore_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminsStore.vue */ "./resources/js/components/Admins/AdminsStore.vue");
 /* harmony import */ var _AdminsUpdate_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminsUpdate.vue */ "./resources/js/components/Admins/AdminsUpdate.vue");
 /* harmony import */ var _AdminsPassword_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AdminsPassword.vue */ "./resources/js/components/Admins/AdminsPassword.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 //
 //
 //
@@ -1916,11 +1918,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    tableAdmin: _AdminsTable_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    passwordAdmin: _AdminsPassword_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    storeAdmin: _AdminsStore_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    updateAdmin: _AdminsUpdate_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   data: function data() {
     return {
       admins: [],
@@ -1928,22 +1953,13 @@ __webpack_require__.r(__webpack_exports__);
       page_state: 1,
       searchAdmin: '',
       admin: {
-        'id': 0,
-        'name': '',
-        'mother_surname': '',
-        'father_surname': '',
-        'email': ''
+        id: 0,
+        name: '',
+        mother_surname: '',
+        father_surname: '',
+        email: ''
       }
     };
-  },
-  created: function created() {
-    this.index();
-  },
-  components: {
-    'tableAdmin': _AdminsTable_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    'passwordAdmin': _AdminsPassword_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    'storeAdmin': _AdminsStore_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    'updateAdmin': _AdminsUpdate_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   computed: {
     filtroAdmin: function filtroAdmin() {
@@ -1958,18 +1974,21 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
+  created: function created() {
+    this.index();
+  },
   methods: {
     index: function index(page) {
       var _this2 = this;
 
-      axios.get('/api/v1/admins?page=' + page).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_4___default.a.get('/api/v1/admins?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.admins = response.data.data;
       });
     },
     create: function create() {
-      $("#createAdmin").modal('show');
+      $('#createAdmin').modal('show');
     },
     dataEdit: function dataEdit(value) {
       this.admin.id = value.id;
@@ -1977,14 +1996,14 @@ __webpack_require__.r(__webpack_exports__);
       this.admin.mother_surname = value.mother_surname;
       this.admin.father_surname = value.father_surname;
       this.admin.email = value.email;
-      $("#updateAdmin").modal('show');
+      $('#updateAdmin').modal('show');
     },
     passwordEdit: function passwordEdit(value) {
       this.admin.id = value.id;
       this.admin.name = value.name;
       this.admin.mother_surname = value.mother_surname;
       this.admin.father_surname = value.father_surname;
-      $("#passwordAdmin").modal('show');
+      $('#passwordAdmin').modal('show');
     }
   }
 });
@@ -2063,7 +2082,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['admin']
+  props: {
+    admin: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -2077,7 +2103,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
+//
+//
 //
 //
 //
@@ -2157,10 +2187,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     admin: {
-      type: Object
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
     }
   },
   data: function data() {
@@ -2175,21 +2209,21 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var data = {
-        'password': password,
-        'password_confirmation': confirmation
+        password: password,
+        password_confirmation: confirmation
       };
       this.$refs.formadminpassword.validate().then(function (success) {
         if (!success) {
           return;
         }
 
-        axios.put('/api/v1/adminpassword/' + admin.id, data).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/v1/adminpassword/' + admin.id, data).then(function (response) {
           if (response.status === 200) {
-            $("#passwordAdmin").modal('hide');
+            $('#passwordAdmin').modal('hide');
 
             _this.passwordAdminReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_0__["ToadAlert"].toad('La contraseña se actualizo correctamente');
+            _helpers__WEBPACK_IMPORTED_MODULE_1__["ToadAlert"].toad('La contraseña se actualizo correctamente');
           }
         })["catch"](function (error) {
           _this.errorPassword = error.response.data.errors.password;
@@ -2220,8 +2254,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AdminsForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminsForm.vue */ "./resources/js/components/Admins/AdminsForm.vue");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _AdminsForm_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminsForm.vue */ "./resources/js/components/Admins/AdminsForm.vue");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -2263,18 +2299,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    modalAdminForm: _AdminsForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   props: {
     admin: {
-      type: Object
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
     },
     index: {
-      type: Function
+      type: Function,
+      "default": function _default() {
+        return 1;
+      }
     },
-    page_state: {
-      type: Number
+    state: {
+      type: Number,
+      "default": 0
     }
   },
   data: function data() {
@@ -2282,34 +2331,31 @@ __webpack_require__.r(__webpack_exports__);
       errorCreate: []
     };
   },
-  components: {
-    'modalAdminForm': _AdminsForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
   methods: {
     createAdminSubmit: function createAdminSubmit(admin) {
       var _this = this;
 
       var data = {
-        'name': admin.name.toLowerCase(),
-        'mother_surname': admin.mother_surname.toLowerCase(),
-        'father_surname': admin.father_surname.toLowerCase(),
-        'email': admin.email.toLowerCase(),
-        'status': 1
+        name: admin.name.toLowerCase(),
+        mother_surname: admin.mother_surname.toLowerCase(),
+        father_surname: admin.father_surname.toLowerCase(),
+        email: admin.email.toLowerCase(),
+        status: 1
       };
       this.$refs.formadmincreate.validate().then(function (success) {
         if (!success) {
           return;
         }
 
-        axios.post('/api/v1/admins/', data).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/v1/admins/', data).then(function (response) {
           if (response.status === 201) {
-            $("#createAdmin").modal('hide');
+            $('#createAdmin').modal('hide');
 
-            _this.index(_this.page_state);
+            _this.index(_this.state);
 
             _this.createAdminrReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_1__["ToadAlert"].toad('El administrador se agrego correctamente');
+            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El administrador se agrego correctamente');
           }
         })["catch"](function (error) {
           _this.errorCreate = error.response.data.errors.email;
@@ -2339,7 +2385,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -2381,34 +2431,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     admins: {
-      type: Array
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
     },
     index: {
-      type: Function
+      type: Function,
+      "default": function _default() {
+        return 1;
+      }
     },
-    page_state: {
-      type: Number
+    state: {
+      type: Number,
+      "default": 0
     }
   },
   methods: {
     edit: function edit(id) {
       var _this = this;
 
-      axios.get('/api/v1/admins/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/admins/' + id).then(function (response) {
         _this.$emit('dataEdit', {
-          'id': response.data.id,
-          'name': response.data.attributes.name,
-          'mother_surname': response.data.attributes.mother_surname,
-          'father_surname': response.data.attributes.father_surname,
-          'email': response.data.attributes.email
+          id: response.data.id,
+          name: response.data.attributes.name,
+          mother_surname: response.data.attributes.mother_surname,
+          father_surname: response.data.attributes.father_surname,
+          email: response.data.attributes.email
         });
       });
     },
     deleted: function deleted(id) {
-      Swal.fire({
+      var _this2 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
         html: '<h6><strong>Seguro que quiere eliminar al administrador</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
@@ -2418,40 +2479,38 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios["delete"]('/api/v1/admins/' + id).then(function (response) {
-            console.log(response);
-            /*if(response.status === 204) {
-                axios.get('/api/v1/admins')
-                .then((response) => {
-                    if(this.page_state > parseInt(response.data.meta.last_page)) {
-                        this.index(parseInt(response.data.meta.last_page));
-                    } else {
-                        this.index(this.page_state);
-                    }
-                    
-                    ToadAlert.toad('El Administrador se elimino correctamente'); 
-                });
-            }*/
+          axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/v1/admins/' + id).then(function (response) {
+            if (response.status === 204) {
+              axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/admins').then(function (response) {
+                if (_this2.state > parseInt(response.data.meta.last_page)) {
+                  _this2.index(parseInt(response.data.meta.last_page));
+                } else {
+                  _this2.index(_this2.state);
+                }
+
+                _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El Administrador se elimino correctamente');
+              });
+            }
           });
         }
       });
     },
     password: function password(id) {
-      var _this2 = this;
+      var _this3 = this;
 
-      axios.get('/api/v1/admins/' + id).then(function (response) {
-        _this2.$emit('passwordEdit', {
-          'id': response.data.id,
-          'name': response.data.attributes.name,
-          'mother_surname': response.data.attributes.mother_surname,
-          'father_surname': response.data.attributes.father_surname
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/admins/' + id).then(function (response) {
+        _this3.$emit('passwordEdit', {
+          id: response.data.id,
+          name: response.data.attributes.name,
+          mother_surname: response.data.attributes.mother_surname,
+          father_surname: response.data.attributes.father_surname
         });
       });
     },
     editStatus: function editStatus(id, attr) {
-      var _this3 = this;
+      var _this4 = this;
 
-      Swal.fire({
+      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
         html: '<h6><strong>Desea cambiar el estatus del administrador</strong></h6>',
         icon: 'question',
         showCancelButton: true,
@@ -2461,14 +2520,14 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios.put('/api/v1/admins/' + id, {
-            'name': attr.name,
-            'father_surname': attr.father_surname,
-            'email': attr.email,
-            'status': attr.status == 1 ? 0 : 1
+          axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/v1/admins/' + id, {
+            name: attr.name,
+            father_surname: attr.father_surname,
+            email: attr.email,
+            status: attr.status === 1 ? 0 : 1
           }).then(function (response) {
             if (response.status === 200) {
-              _this3.index(_this3.page_state);
+              _this4.index(_this4.state);
             }
           });
         }
@@ -2489,7 +2548,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminsForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminsForm.vue */ "./resources/js/components/Admins/AdminsForm.vue");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -2531,18 +2592,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    modalAdminForm: _AdminsForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   props: {
     admin: {
-      type: Object
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
     },
     index: {
-      type: Function
+      type: Function,
+      "default": function _default() {
+        return 1;
+      }
     },
-    page_state: {
-      type: Number
+    state: {
+      type: Number,
+      "default": 0
     }
   },
   data: function data() {
@@ -2550,34 +2624,31 @@ __webpack_require__.r(__webpack_exports__);
       errorUpdate: []
     };
   },
-  components: {
-    'modalAdminForm': _AdminsForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
   methods: {
     updateAdminSubmit: function updateAdminSubmit(admin) {
       var _this = this;
 
       var data = {
-        'name': admin.name.toLowerCase(),
-        'mother_surname': admin.mother_surname.toLowerCase(),
-        'father_surname': admin.father_surname.toLowerCase(),
-        'email': admin.email.toLowerCase(),
-        'status': 1
+        name: admin.name.toLowerCase(),
+        mother_surname: admin.mother_surname.toLowerCase(),
+        father_surname: admin.father_surname.toLowerCase(),
+        email: admin.email.toLowerCase(),
+        status: 1
       };
       this.$refs.formadminupdate.validate().then(function (success) {
         if (!success) {
           return;
         }
 
-        axios.put('/api/v1/admins/' + admin.id, data).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/v1/admins/' + admin.id, data).then(function (response) {
           if (response.status === 200) {
-            $("#updateAdmin").modal('hide');
+            $('#updateAdmin').modal('hide');
 
-            _this.index(_this.page_state);
+            _this.index(_this.state);
 
             _this.updateAdminReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_1__["ToadAlert"].toad('El administrador se actualizo correctamente');
+            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El administrador se actualizo correctamente');
           }
         })["catch"](function (error) {
           _this.errorUpdate = error.response.data.errors.email;
@@ -2611,6 +2682,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UsersStore_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UsersStore.vue */ "./resources/js/components/Users/UsersStore.vue");
 /* harmony import */ var _UsersUpdate_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UsersUpdate.vue */ "./resources/js/components/Users/UsersUpdate.vue");
 /* harmony import */ var _UsersPassword_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UsersPassword.vue */ "./resources/js/components/Users/UsersPassword.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 //
 //
 //
@@ -2684,11 +2757,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    tableUser: _UsersTable_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    storeUser: _UsersStore_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    updateUser: _UsersUpdate_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    passwordUser: _UsersPassword_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
   data: function data() {
     return {
       users: [],
@@ -2696,22 +2796,13 @@ __webpack_require__.r(__webpack_exports__);
       page_state: 1,
       searchUser: '',
       user: {
-        'id': 0,
-        'name': '',
-        'mother_surname': '',
-        'father_surname': '',
-        'email': ''
+        id: 0,
+        name: '',
+        mother_surname: '',
+        father_surname: '',
+        email: ''
       }
     };
-  },
-  created: function created() {
-    this.index();
-  },
-  components: {
-    'tableUser': _UsersTable_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    'storeUser': _UsersStore_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    'updateUser': _UsersUpdate_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    'passwordUser': _UsersPassword_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   computed: {
     filtroUser: function filtroUser() {
@@ -2726,18 +2817,21 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
+  created: function created() {
+    this.index();
+  },
   methods: {
     index: function index(page) {
       var _this2 = this;
 
-      axios.get('/api/v1/users?page=' + page).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_4___default.a.get('/api/v1/users?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.users = response.data.data;
       });
     },
     create: function create() {
-      $("#createUser").modal('show');
+      $('#createUser').modal('show');
     },
     dataEdit: function dataEdit(value) {
       this.user.id = value.id;
@@ -2745,14 +2839,14 @@ __webpack_require__.r(__webpack_exports__);
       this.user.mother_surname = value.mother_surname;
       this.user.father_surname = value.father_surname;
       this.user.email = value.email;
-      $("#updateUser").modal('show');
+      $('#updateUser').modal('show');
     },
     passwordEdit: function passwordEdit(value) {
       this.user.id = value.id;
       this.user.name = value.name;
       this.user.mother_surname = value.mother_surname;
       this.user.father_surname = value.father_surname;
-      $("#passwordUser").modal('show');
+      $('#passwordUser').modal('show');
     }
   }
 });
@@ -2831,7 +2925,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['user']
+  props: {
+    user: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -2845,7 +2946,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
+//
 //
 //
 //
@@ -2925,10 +3029,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     user: {
-      type: Object
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
     }
   },
   data: function data() {
@@ -2943,21 +3051,21 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var data = {
-        'password': password,
-        'password_confirmation': confirmation
+        password: password,
+        password_confirmation: confirmation
       };
       this.$refs.formuserpassword.validate().then(function (success) {
         if (!success) {
           return;
         }
 
-        axios.put('/api/v1/userpassword/' + user.id, data).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/v1/userpassword/' + user.id, data).then(function (response) {
           if (response.status === 200) {
-            $("#passwordUser").modal('hide');
+            $('#passwordUser').modal('hide');
 
             _this.passwordUserReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_0__["ToadAlert"].toad('La contraseña se actualizo correctamente');
+            _helpers__WEBPACK_IMPORTED_MODULE_1__["ToadAlert"].toad('La contraseña se actualizo correctamente');
           }
         })["catch"](function (error) {
           _this.errorPassword = error.response.data.errors.password;
@@ -2989,7 +3097,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UsersForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UsersForm.vue */ "./resources/js/components/Users/UsersForm.vue");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -3031,18 +3141,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    modalForm: _UsersForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   props: {
     user: {
-      type: Object
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
     },
     index: {
-      type: Function
+      type: Function,
+      "default": function _default() {
+        return 1;
+      }
     },
-    page_state: {
-      type: Number
+    state: {
+      type: Number,
+      "default": 0
     }
   },
   data: function data() {
@@ -3050,34 +3173,31 @@ __webpack_require__.r(__webpack_exports__);
       errorCreate: []
     };
   },
-  components: {
-    'modalForm': _UsersForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
   methods: {
     createUserSubmit: function createUserSubmit(user) {
       var _this = this;
 
       var data = {
-        'name': user.name.toLowerCase(),
-        'mother_surname': user.mother_surname.toLowerCase(),
-        'father_surname': user.father_surname.toLowerCase(),
-        'email': user.email.toLowerCase(),
-        'status': 1
+        name: user.name.toLowerCase(),
+        mother_surname: user.mother_surname.toLowerCase(),
+        father_surname: user.father_surname.toLowerCase(),
+        email: user.email.toLowerCase(),
+        status: 1
       };
       this.$refs.formcreate.validate().then(function (success) {
         if (!success) {
           return;
         }
 
-        axios.post('/api/v1/users/', data).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/v1/users/', data).then(function (response) {
           if (response.status === 201) {
-            $("#createUser").modal('hide');
+            $('#createUser').modal('hide');
 
-            _this.index(_this.page_state);
+            _this.index(_this.state);
 
             _this.createUserReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_1__["ToadAlert"].toad('El usuario se agrego correctamente');
+            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El usuario se agrego correctamente');
           }
         })["catch"](function (error) {
           _this.errorCreate = error.response.data.errors.email;
@@ -3107,7 +3227,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -3155,36 +3279,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     users: {
-      type: Array
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
     },
     index: {
-      type: Function
+      type: Function,
+      "default": function _default() {
+        return 1;
+      }
     },
-    page_state: {
-      type: Number
+    state: {
+      type: Number,
+      "default": 0
     }
   },
   methods: {
     edit: function edit(id) {
       var _this = this;
 
-      axios.get('/api/v1/users/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/users/' + id).then(function (response) {
         _this.$emit('dataEdit', {
-          'id': response.data.id,
-          'name': response.data.attributes.name,
-          'mother_surname': response.data.attributes.mother_surname,
-          'father_surname': response.data.attributes.father_surname,
-          'email': response.data.attributes.email
+          id: response.data.id,
+          name: response.data.attributes.name,
+          mother_surname: response.data.attributes.mother_surname,
+          father_surname: response.data.attributes.father_surname,
+          email: response.data.attributes.email
         });
       });
     },
     deleted: function deleted(id) {
       var _this2 = this;
 
-      Swal.fire({
+      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
         html: '<h6><strong>Seguro que quiere eliminar al administrador</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
@@ -3194,16 +3327,16 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios["delete"]('/api/v1/users/' + id).then(function (response) {
+          axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/v1/users/' + id).then(function (response) {
             if (response.status === 204) {
-              axios.get('/api/v1/users').then(function (response) {
-                if (_this2.page_state > parseInt(response.data.meta.last_page)) {
+              axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/users').then(function (response) {
+                if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
-                  _this2.index(_this2.page_state);
+                  _this2.index(_this2.state);
                 }
 
-                _helpers__WEBPACK_IMPORTED_MODULE_0__["ToadAlert"].toad('El usuario se elimino correctamente');
+                _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El usuario se elimino correctamente');
               });
             }
           });
@@ -3213,12 +3346,12 @@ __webpack_require__.r(__webpack_exports__);
     password: function password(id) {
       var _this3 = this;
 
-      axios.get('/api/v1/users/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/users/' + id).then(function (response) {
         _this3.$emit('passwordEdit', {
-          'id': response.data.id,
-          'name': response.data.attributes.name,
-          'mother_surname': response.data.attributes.mother_surname,
-          'father_surname': response.data.attributes.father_surname
+          id: response.data.id,
+          name: response.data.attributes.name,
+          mother_surname: response.data.attributes.mother_surname,
+          father_surname: response.data.attributes.father_surname
         });
       });
     },
@@ -3228,7 +3361,7 @@ __webpack_require__.r(__webpack_exports__);
     editStatus: function editStatus(id, attr) {
       var _this4 = this;
 
-      Swal.fire({
+      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
         html: '<h6><strong>Desea cambiar el estatus del usuario</strong></h6>',
         icon: 'question',
         showCancelButton: true,
@@ -3238,14 +3371,14 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios.put('/api/v1/users/' + id, {
-            'name': attr.name,
-            'father_surname': attr.father_surname,
-            'email': attr.email,
-            'status': attr.status == 1 ? 0 : 1
+          axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/v1/users/' + id, {
+            name: attr.name,
+            father_surname: attr.father_surname,
+            email: attr.email,
+            status: attr.status === 1 ? 0 : 1
           }).then(function (response) {
             if (response.status === 200) {
-              _this4.index(_this4.page_state);
+              _this4.index(_this4.state);
             }
           });
         }
@@ -3267,6 +3400,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UsersForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UsersForm.vue */ "./resources/js/components/Users/UsersForm.vue");
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -3308,18 +3443,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    modalForm: _UsersForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   props: {
     user: {
-      type: Object
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
     },
     index: {
-      type: Function
+      type: Function,
+      "default": function _default() {
+        return 1;
+      }
     },
-    page_state: {
-      type: Number
+    state: {
+      type: Number,
+      "default": 0
     }
   },
   data: function data() {
@@ -3327,30 +3474,27 @@ __webpack_require__.r(__webpack_exports__);
       errorUpdate: []
     };
   },
-  components: {
-    'modalForm': _UsersForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
   methods: {
     updateUserSubmit: function updateUserSubmit(user) {
       var _this = this;
 
       var data = {
-        'name': user.name.toLowerCase(),
-        'mother_surname': user.mother_surname.toLowerCase(),
-        'father_surname': user.father_surname.toLowerCase(),
-        'email': user.email.toLowerCase(),
-        'status': 1
+        name: user.name.toLowerCase(),
+        mother_surname: user.mother_surname.toLowerCase(),
+        father_surname: user.father_surname.toLowerCase(),
+        email: user.email.toLowerCase(),
+        status: 1
       };
       this.$refs.formupdate.validate().then(function (success) {
         if (!success) {
           return;
         }
 
-        axios.put('/api/v1/users/' + user.id, data).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.put('/api/v1/users/' + user.id, data).then(function (response) {
           if (response.status === 200) {
-            $("#updateUser").modal('hide');
+            $('#updateUser').modal('hide');
 
-            _this.index(_this.page_state);
+            _this.index(_this.state);
 
             _this.updateUserReset();
 
@@ -9598,8 +9742,8 @@ var render = function() {
                 ],
                 staticClass: "form-control",
                 attrs: {
-                  type: "text",
                   id: "search_admin",
+                  type: "text",
                   placeholder: "Busca al administrador"
                 },
                 domProps: { value: _vm.searchAdmin },
@@ -9641,7 +9785,7 @@ var render = function() {
       _c("div", { staticClass: "card-body" }, [
         _vm.admins.length == 0
           ? _c("h4", { staticClass: "text-center" }, [
-              _vm._v("\n            No cuentas con administradores\n        ")
+              _vm._v("\n      No cuentas con administradores\n    ")
             ])
           : _c(
               "div",
@@ -9660,7 +9804,7 @@ var render = function() {
                       attrs: {
                         index: _vm.index,
                         admins: _vm.filtroAdmin,
-                        page_state: _vm.page_state
+                        state: _vm.page_state
                       },
                       on: {
                         dataEdit: _vm.dataEdit,
@@ -9683,7 +9827,7 @@ var render = function() {
                     "next-link-class": "page-link",
                     "prev-class": "page-item",
                     "prev-link-class": "page-link",
-                    clickHandler: _vm.index
+                    "click-handler": _vm.index
                   }
                 })
               ],
@@ -9692,19 +9836,11 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("storeAdmin", {
-        attrs: {
-          admin: _vm.admin,
-          index: _vm.index,
-          page_state: _vm.page_state
-        }
+        attrs: { admin: _vm.admin, index: _vm.index, state: _vm.page_state }
       }),
       _vm._v(" "),
       _c("updateAdmin", {
-        attrs: {
-          admin: _vm.admin,
-          index: _vm.index,
-          page_state: _vm.page_state
-        }
+        attrs: { admin: _vm.admin, index: _vm.index, state: _vm.page_state }
       }),
       _vm._v(" "),
       _c("passwordAdmin", { attrs: { admin: _vm.admin } })
@@ -9742,19 +9878,19 @@ var staticRenderFns = [
         _c("th", [_vm._v("Correo")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { width: "100" } }, [
-          _vm._v("Estado")
+          _vm._v("\n              Estado\n            ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { width: "140" } }, [
-          _vm._v("Contraseña")
+          _vm._v("\n              Contraseña\n            ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { width: "110" } }, [
-          _vm._v("Editar")
+          _vm._v("\n              Editar\n            ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { width: "110" } }, [
-          _vm._v("Eliminar")
+          _vm._v("\n              Eliminar\n            ")
         ])
       ])
     ])
@@ -9828,9 +9964,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("span", [
                           _vm._v(
-                            "\n                            " +
+                            "\n              " +
                               _vm._s(errors[0]) +
-                              "\n                        "
+                              "\n            "
                           )
                         ])
                       ])
@@ -9898,9 +10034,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("span", [
                           _vm._v(
-                            "\n                            " +
+                            "\n              " +
                               _vm._s(errors[0]) +
-                              "\n                        "
+                              "\n            "
                           )
                         ])
                       ])
@@ -9965,9 +10101,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("span", [
                           _vm._v(
-                            "\n                            " +
+                            "\n              " +
                               _vm._s(errors[0]) +
-                              "\n                        "
+                              "\n            "
                           )
                         ])
                       ])
@@ -10031,9 +10167,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("span", [
                           _vm._v(
-                            "\n                            " +
+                            "\n              " +
                               _vm._s(errors[0]) +
-                              "\n                        "
+                              "\n            "
                           )
                         ])
                       ])
@@ -10128,7 +10264,11 @@ var render = function() {
                                 staticClass: "modal-title title-form__elem",
                                 attrs: { id: "adminpasswordLabel" }
                               },
-                              [_vm._v("Cambio de contraseña")]
+                              [
+                                _vm._v(
+                                  "\n            Cambio de contraseña\n          "
+                                )
+                              ]
                             )
                           ]
                         ),
@@ -10142,11 +10282,11 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                    Cambio de contraseña al usuario \n                    "
+                              "\n          Cambio de contraseña al usuario\n          "
                             ),
                             _c("strong", [
                               _vm._v(
-                                "\n                        " +
+                                "\n            " +
                                   _vm._s(
                                     _vm.admin.name +
                                       " " +
@@ -10156,7 +10296,7 @@ var render = function() {
                                         ? ""
                                         : _vm.admin.mother_surname)
                                   ) +
-                                  "\n                    "
+                                  "\n          "
                               )
                             ])
                           ]
@@ -10178,9 +10318,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                        " +
+                                      "\n            " +
                                         _vm._s(updatepasserror) +
-                                        "\n                    "
+                                        "\n          "
                                     )
                                   ]
                                 )
@@ -10234,8 +10374,8 @@ var render = function() {
                                                     ],
                                                     staticClass: "form-control",
                                                     attrs: {
-                                                      type: "password",
                                                       id: "password_admin",
+                                                      type: "password",
                                                       placeholder:
                                                         "Ingresa la contraseña",
                                                       maxlength: "21"
@@ -10259,9 +10399,9 @@ var render = function() {
                                                   _vm._v(" "),
                                                   _c("span", [
                                                     _vm._v(
-                                                      "\n                                            " +
+                                                      "\n                      " +
                                                         _vm._s(errors[0]) +
-                                                        "\n                                        "
+                                                        "\n                    "
                                                     )
                                                   ])
                                                 ]
@@ -10323,9 +10463,9 @@ var render = function() {
                                                     ],
                                                     staticClass: "form-control",
                                                     attrs: {
-                                                      type: "password",
                                                       id:
                                                         "password_repeat_admin",
+                                                      type: "password",
                                                       placeholder:
                                                         "Repite la contraseña",
                                                       maxlength: "21"
@@ -10350,9 +10490,9 @@ var render = function() {
                                                   _vm._v(" "),
                                                   _c("span", [
                                                     _vm._v(
-                                                      "\n                                            " +
+                                                      "\n                      " +
                                                         _vm._s(errors[0]) +
-                                                        "\n                                        "
+                                                        "\n                    "
                                                     )
                                                   ])
                                                 ]
@@ -10393,9 +10533,7 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("span", { staticClass: "text" }, [
-                                _vm._v(
-                                  "\n                            Cancelar\n                        "
-                                )
+                                _vm._v("\n              Cancelar\n            ")
                               ])
                             ]
                           ),
@@ -10414,9 +10552,7 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("span", { staticClass: "text" }, [
-                                _vm._v(
-                                  "\n                            Guardar\n                        "
-                                )
+                                _vm._v("\n              Guardar\n            ")
                               ])
                             ]
                           )
@@ -10509,7 +10645,11 @@ var render = function() {
                                 staticClass: "modal-title title-form__elem",
                                 attrs: { id: "admineditLabel" }
                               },
-                              [_vm._v("Crear administrador")]
+                              [
+                                _vm._v(
+                                  "\n            Crear administrador\n          "
+                                )
+                              ]
                             )
                           ]
                         ),
@@ -10528,9 +10668,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                        " +
+                                      "\n            " +
                                         _vm._s(createerror) +
-                                        "\n                    "
+                                        "\n          "
                                     )
                                   ]
                                 )
@@ -10562,9 +10702,7 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("span", { staticClass: "text" }, [
-                                _vm._v(
-                                  "\n                            Cancelar\n                        "
-                                )
+                                _vm._v("\n              Cancelar\n            ")
                               ])
                             ]
                           ),
@@ -10583,9 +10721,7 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("span", { staticClass: "text" }, [
-                                _vm._v(
-                                  "\n                            Guardar\n                        "
-                                )
+                                _vm._v("\n              Guardar\n            ")
                               ])
                             ]
                           )
@@ -10632,11 +10768,11 @@ var render = function() {
       return _c("tr", { key: item.id }, [
         _c("td", [
           _vm._v(
-            " \n            " +
+            "\n      " +
               _vm._s(_vm._f("capitalize")(item.attributes.name)) +
-              " \n            " +
+              "\n      " +
               _vm._s(_vm._f("capitalize")(item.attributes.father_surname)) +
-              " \n            " +
+              "\n      " +
               _vm._s(
                 _vm._f("capitalize")(
                   item.attributes.mother_surname === null
@@ -10644,21 +10780,19 @@ var render = function() {
                     : item.attributes.mother_surname
                 )
               ) +
-              "\n        "
+              "\n    "
           )
         ]),
         _vm._v(" "),
         _c("td", [
-          _vm._v(
-            "\n            " + _vm._s(item.attributes.email) + "\n        "
-          )
+          _vm._v("\n      " + _vm._s(item.attributes.email) + "\n    ")
         ]),
         _vm._v(" "),
         _c("td", { staticClass: "text-center" }, [
           _c("div", { staticClass: "custom-control custom-switch" }, [
             _c("input", {
               staticClass: "custom-control-input",
-              attrs: { type: "checkbox", id: "status_" + item.id },
+              attrs: { id: "status_" + item.id, type: "checkbox" },
               domProps: { checked: item.attributes.status == 1 },
               on: {
                 click: function($event) {
@@ -10805,7 +10939,11 @@ var render = function() {
                                 staticClass: "modal-title title-form__elem",
                                 attrs: { id: "admineditLabel" }
                               },
-                              [_vm._v("Editar usuario")]
+                              [
+                                _vm._v(
+                                  "\n            Editar usuario\n          "
+                                )
+                              ]
                             )
                           ]
                         ),
@@ -10824,9 +10962,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                        " +
+                                      "\n            " +
                                         _vm._s(updateerror) +
-                                        "\n                    "
+                                        "\n          "
                                     )
                                   ]
                                 )
@@ -10858,9 +10996,7 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("span", { staticClass: "text" }, [
-                                _vm._v(
-                                  "\n                            Cancelar\n                        "
-                                )
+                                _vm._v("\n              Cancelar\n            ")
                               ])
                             ]
                           ),
@@ -10879,9 +11015,7 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("span", { staticClass: "text" }, [
-                                _vm._v(
-                                  "\n                            Guardar\n                        "
-                                )
+                                _vm._v("\n              Guardar\n            ")
                               ])
                             ]
                           )
@@ -10943,8 +11077,8 @@ var render = function() {
                 ],
                 staticClass: "form-control",
                 attrs: {
-                  type: "text",
                   id: "search_user",
+                  type: "text",
                   placeholder: "Busca al usuario"
                 },
                 domProps: { value: _vm.searchUser },
@@ -10986,7 +11120,7 @@ var render = function() {
       _c("div", { staticClass: "card-body" }, [
         _vm.users.length == 0
           ? _c("h4", { staticClass: "text-center" }, [
-              _vm._v("\n            No cuentas con usuarios\n        ")
+              _vm._v("\n      No cuentas con usuarios\n    ")
             ])
           : _c(
               "div",
@@ -11005,7 +11139,7 @@ var render = function() {
                       attrs: {
                         index: _vm.index,
                         users: _vm.filtroUser,
-                        page_state: _vm.page_state
+                        state: _vm.page_state
                       },
                       on: {
                         dataEdit: _vm.dataEdit,
@@ -11028,7 +11162,7 @@ var render = function() {
                     "next-link-class": "page-link",
                     "prev-class": "page-item",
                     "prev-link-class": "page-link",
-                    clickHandler: _vm.index
+                    "click-handler": _vm.index
                   }
                 })
               ],
@@ -11037,11 +11171,11 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("storeUser", {
-        attrs: { user: _vm.user, index: _vm.index, page_state: _vm.page_state }
+        attrs: { user: _vm.user, index: _vm.index, state: _vm.page_state }
       }),
       _vm._v(" "),
       _c("updateUser", {
-        attrs: { user: _vm.user, index: _vm.index, page_state: _vm.page_state }
+        attrs: { user: _vm.user, index: _vm.index, state: _vm.page_state }
       }),
       _vm._v(" "),
       _c("passwordUser", { attrs: { user: _vm.user } })
@@ -11079,23 +11213,23 @@ var staticRenderFns = [
         _c("th", [_vm._v("Correo")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { width: "100" } }, [
-          _vm._v("Estado")
+          _vm._v("\n              Estado\n            ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { width: "140" } }, [
-          _vm._v("Contraseña")
+          _vm._v("\n              Contraseña\n            ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { width: "110" } }, [
-          _vm._v("Complemento")
+          _vm._v("\n              Complemento\n            ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { width: "110" } }, [
-          _vm._v("Editar")
+          _vm._v("\n              Editar\n            ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { width: "110" } }, [
-          _vm._v("Eliminar")
+          _vm._v("\n              Eliminar\n            ")
         ])
       ])
     ])
@@ -11169,9 +11303,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("span", [
                           _vm._v(
-                            "\n                            " +
+                            "\n              " +
                               _vm._s(errors[0]) +
-                              "\n                        "
+                              "\n            "
                           )
                         ])
                       ])
@@ -11239,9 +11373,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("span", [
                           _vm._v(
-                            "\n                            " +
+                            "\n              " +
                               _vm._s(errors[0]) +
-                              "\n                        "
+                              "\n            "
                           )
                         ])
                       ])
@@ -11306,9 +11440,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("span", [
                           _vm._v(
-                            "\n                            " +
+                            "\n              " +
                               _vm._s(errors[0]) +
-                              "\n                        "
+                              "\n            "
                           )
                         ])
                       ])
@@ -11372,9 +11506,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("span", [
                           _vm._v(
-                            "\n                            " +
+                            "\n              " +
                               _vm._s(errors[0]) +
-                              "\n                        "
+                              "\n            "
                           )
                         ])
                       ])
@@ -11469,7 +11603,11 @@ var render = function() {
                                 staticClass: "modal-title title-form__elem",
                                 attrs: { id: "usereditLabel" }
                               },
-                              [_vm._v("Cambio de contraseña")]
+                              [
+                                _vm._v(
+                                  "\n            Cambio de contraseña\n          "
+                                )
+                              ]
                             )
                           ]
                         ),
@@ -11483,11 +11621,11 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                    Cambio de contraseña al usuario \n                    "
+                              "\n          Cambio de contraseña al usuario\n          "
                             ),
                             _c("strong", [
                               _vm._v(
-                                "\n                        " +
+                                "\n            " +
                                   _vm._s(
                                     _vm.user.name +
                                       " " +
@@ -11497,7 +11635,7 @@ var render = function() {
                                         ? ""
                                         : _vm.user.mother_surname)
                                   ) +
-                                  "\n                    "
+                                  "\n          "
                               )
                             ])
                           ]
@@ -11519,9 +11657,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                        " +
+                                      "\n            " +
                                         _vm._s(updatepasserror) +
-                                        "\n                    "
+                                        "\n          "
                                     )
                                   ]
                                 )
@@ -11575,8 +11713,8 @@ var render = function() {
                                                     ],
                                                     staticClass: "form-control",
                                                     attrs: {
-                                                      type: "password",
                                                       id: "password_user",
+                                                      type: "password",
                                                       placeholder:
                                                         "Ingresa la contraseña",
                                                       maxlength: "21"
@@ -11600,9 +11738,9 @@ var render = function() {
                                                   _vm._v(" "),
                                                   _c("span", [
                                                     _vm._v(
-                                                      "\n                                            " +
+                                                      "\n                      " +
                                                         _vm._s(errors[0]) +
-                                                        "\n                                        "
+                                                        "\n                    "
                                                     )
                                                   ])
                                                 ]
@@ -11664,9 +11802,9 @@ var render = function() {
                                                     ],
                                                     staticClass: "form-control",
                                                     attrs: {
-                                                      type: "password",
                                                       id:
                                                         "password_repeat_user",
+                                                      type: "password",
                                                       placeholder:
                                                         "Repite la contraseña",
                                                       maxlength: "21"
@@ -11691,9 +11829,9 @@ var render = function() {
                                                   _vm._v(" "),
                                                   _c("span", [
                                                     _vm._v(
-                                                      "\n                                            " +
+                                                      "\n                      " +
                                                         _vm._s(errors[0]) +
-                                                        "\n                                        "
+                                                        "\n                    "
                                                     )
                                                   ])
                                                 ]
@@ -11734,9 +11872,7 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("span", { staticClass: "text" }, [
-                                _vm._v(
-                                  "\n                            Cancelar\n                        "
-                                )
+                                _vm._v("\n              Cancelar\n            ")
                               ])
                             ]
                           ),
@@ -11755,9 +11891,7 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("span", { staticClass: "text" }, [
-                                _vm._v(
-                                  "\n                            Guardar\n                        "
-                                )
+                                _vm._v("\n              Guardar\n            ")
                               ])
                             ]
                           )
@@ -11850,7 +11984,11 @@ var render = function() {
                                 staticClass: "modal-title title-form__elem",
                                 attrs: { id: "usereditLabel" }
                               },
-                              [_vm._v("Crear usuario")]
+                              [
+                                _vm._v(
+                                  "\n            Crear usuario\n          "
+                                )
+                              ]
                             )
                           ]
                         ),
@@ -11869,9 +12007,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                        " +
+                                      "\n            " +
                                         _vm._s(createerror) +
-                                        "\n                    "
+                                        "\n          "
                                     )
                                   ]
                                 )
@@ -11903,9 +12041,7 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("span", { staticClass: "text" }, [
-                                _vm._v(
-                                  "\n                            Cancelar\n                        "
-                                )
+                                _vm._v("\n              Cancelar\n            ")
                               ])
                             ]
                           ),
@@ -11924,9 +12060,7 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("span", { staticClass: "text" }, [
-                                _vm._v(
-                                  "\n                            Guardar\n                        "
-                                )
+                                _vm._v("\n              Guardar\n            ")
                               ])
                             ]
                           )
@@ -11973,11 +12107,11 @@ var render = function() {
       return _c("tr", { key: item.id }, [
         _c("td", [
           _vm._v(
-            " \n            " +
+            "\n      " +
               _vm._s(_vm._f("capitalize")(item.attributes.name)) +
-              " \n            " +
+              "\n      " +
               _vm._s(_vm._f("capitalize")(item.attributes.father_surname)) +
-              " \n            " +
+              "\n      " +
               _vm._s(
                 _vm._f("capitalize")(
                   item.attributes.mother_surname === null
@@ -11985,21 +12119,19 @@ var render = function() {
                     : item.attributes.mother_surname
                 )
               ) +
-              "\n        "
+              "\n    "
           )
         ]),
         _vm._v(" "),
         _c("td", [
-          _vm._v(
-            "\n            " + _vm._s(item.attributes.email) + "\n        "
-          )
+          _vm._v("\n      " + _vm._s(item.attributes.email) + "\n    ")
         ]),
         _vm._v(" "),
         _c("td", { staticClass: "text-center" }, [
           _c("div", { staticClass: "custom-control custom-switch" }, [
             _c("input", {
               staticClass: "custom-control-input",
-              attrs: { type: "checkbox", id: "status_" + item.id },
+              attrs: { id: "status_" + item.id, type: "checkbox" },
               domProps: { checked: item.attributes.status == 1 },
               on: {
                 click: function($event) {
@@ -12163,7 +12295,11 @@ var render = function() {
                                 staticClass: "modal-title title-form__elem",
                                 attrs: { id: "usereditLabel" }
                               },
-                              [_vm._v("Editar usuario")]
+                              [
+                                _vm._v(
+                                  "\n            Editar usuario\n          "
+                                )
+                              ]
                             )
                           ]
                         ),
@@ -12182,9 +12318,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                        " +
+                                      "\n            " +
                                         _vm._s(updateerror) +
-                                        "\n                    "
+                                        "\n          "
                                     )
                                   ]
                                 )
@@ -12216,9 +12352,7 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("span", { staticClass: "text" }, [
-                                _vm._v(
-                                  "\n                            Cancelar\n                        "
-                                )
+                                _vm._v("\n              Cancelar\n            ")
                               ])
                             ]
                           ),
@@ -12237,9 +12371,7 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("span", { staticClass: "text" }, [
-                                _vm._v(
-                                  "\n                            Guardar\n                        "
-                                )
+                                _vm._v("\n              Guardar\n            ")
                               ])
                             ]
                           )
@@ -12381,7 +12513,7 @@ function normalizeComponent (
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.6.10
+ * Vue.js v2.6.11
  * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
@@ -14347,7 +14479,7 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
   isUsingMicroTask = true;
 } else if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
   // Fallback to setImmediate.
-  // Techinically it leverages the (macro) task queue,
+  // Technically it leverages the (macro) task queue,
   // but it is still a better choice than setTimeout.
   timerFunc = function () {
     setImmediate(flushCallbacks);
@@ -14436,7 +14568,7 @@ var initProxy;
     warn(
       "Property \"" + key + "\" must be accessed with \"$data." + key + "\" because " +
       'properties starting with "$" or "_" are not proxied in the Vue instance to ' +
-      'prevent conflicts with Vue internals' +
+      'prevent conflicts with Vue internals. ' +
       'See: https://vuejs.org/v2/api/#data',
       target
     );
@@ -15296,7 +15428,7 @@ function bindDynamicKeys (baseObj, values) {
     if (typeof key === 'string' && key) {
       baseObj[values[i]] = values[i + 1];
     } else if (key !== '' && key !== null) {
-      // null is a speical value for explicitly removing a binding
+      // null is a special value for explicitly removing a binding
       warn(
         ("Invalid value for dynamic directive argument (expected string or null): " + key),
         this
@@ -15791,6 +15923,12 @@ function _createElement (
     ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag);
     if (config.isReservedTag(tag)) {
       // platform built-in elements
+      if (isDef(data) && isDef(data.nativeOn)) {
+        warn(
+          ("The .native modifier for v-on is only valid on components but it was used on <" + tag + ">."),
+          context
+        );
+      }
       vnode = new VNode(
         config.parsePlatformTagName(tag), data, children,
         undefined, undefined, context
@@ -15916,7 +16054,7 @@ function renderMixin (Vue) {
     // render self
     var vnode;
     try {
-      // There's no need to maintain a stack becaues all render fns are called
+      // There's no need to maintain a stack because all render fns are called
       // separately from one another. Nested component's render fns are called
       // when parent component is patched.
       currentRenderingInstance = vm;
@@ -17815,7 +17953,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.6.10';
+Vue.version = '2.6.11';
 
 /*  */
 
@@ -18488,7 +18626,7 @@ function createPatchFunction (backend) {
     }
   }
 
-  function removeVnodes (parentElm, vnodes, startIdx, endIdx) {
+  function removeVnodes (vnodes, startIdx, endIdx) {
     for (; startIdx <= endIdx; ++startIdx) {
       var ch = vnodes[startIdx];
       if (isDef(ch)) {
@@ -18599,7 +18737,7 @@ function createPatchFunction (backend) {
       refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm;
       addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue);
     } else if (newStartIdx > newEndIdx) {
-      removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx);
+      removeVnodes(oldCh, oldStartIdx, oldEndIdx);
     }
   }
 
@@ -18691,7 +18829,7 @@ function createPatchFunction (backend) {
         if (isDef(oldVnode.text)) { nodeOps.setTextContent(elm, ''); }
         addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue);
       } else if (isDef(oldCh)) {
-        removeVnodes(elm, oldCh, 0, oldCh.length - 1);
+        removeVnodes(oldCh, 0, oldCh.length - 1);
       } else if (isDef(oldVnode.text)) {
         nodeOps.setTextContent(elm, '');
       }
@@ -18920,7 +19058,7 @@ function createPatchFunction (backend) {
 
         // destroy old node
         if (isDef(parentElm)) {
-          removeVnodes(parentElm, [oldVnode], 0, 0);
+          removeVnodes([oldVnode], 0, 0);
         } else if (isDef(oldVnode.tag)) {
           invokeDestroyHook(oldVnode);
         }
@@ -21626,7 +21764,7 @@ var startTagOpen = new RegExp(("^<" + qnameCapture));
 var startTagClose = /^\s*(\/?)>/;
 var endTag = new RegExp(("^<\\/" + qnameCapture + "[^>]*>"));
 var doctype = /^<!DOCTYPE [^>]+>/i;
-// #7298: escape - to avoid being pased as HTML comment when inlined in page
+// #7298: escape - to avoid being passed as HTML comment when inlined in page
 var comment = /^<!\--/;
 var conditionalComment = /^<!\[/;
 
@@ -21911,7 +22049,7 @@ function parseHTML (html, options) {
 /*  */
 
 var onRE = /^@|^v-on:/;
-var dirRE = /^v-|^@|^:/;
+var dirRE = /^v-|^@|^:|^#/;
 var forAliasRE = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/;
 var forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/;
 var stripParensRE = /^\(|\)$/g;
@@ -22535,7 +22673,7 @@ function processSlotContent (el) {
           if (el.parent && !maybeComponent(el.parent)) {
             warn$2(
               "<template v-slot> can only appear at the root level inside " +
-              "the receiving the component",
+              "the receiving component",
               el
             );
           }
@@ -23098,7 +23236,7 @@ function isDirectChildOfTemplateFor (node) {
 
 /*  */
 
-var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*(?:[\w$]+)?\s*\(/;
+var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function(?:\s+[\w$]+)?\s*\(/;
 var fnInvokeRE = /\([^)]*?\);*$/;
 var simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
 
@@ -23867,6 +24005,8 @@ function checkNode (node, warn) {
           var range = node.rawAttrsMap[name];
           if (name === 'v-for') {
             checkFor(node, ("v-for=\"" + value + "\""), warn, range);
+          } else if (name === 'v-slot' || name[0] === '#') {
+            checkFunctionParameterExpression(value, (name + "=\"" + value + "\""), warn, range);
           } else if (onRE.test(name)) {
             checkEvent(value, (name + "=\"" + value + "\""), warn, range);
           } else {
@@ -23886,9 +24026,9 @@ function checkNode (node, warn) {
 }
 
 function checkEvent (exp, text, warn, range) {
-  var stipped = exp.replace(stripStringRE, '');
-  var keywordMatch = stipped.match(unaryOperatorsRE);
-  if (keywordMatch && stipped.charAt(keywordMatch.index - 1) !== '$') {
+  var stripped = exp.replace(stripStringRE, '');
+  var keywordMatch = stripped.match(unaryOperatorsRE);
+  if (keywordMatch && stripped.charAt(keywordMatch.index - 1) !== '$') {
     warn(
       "avoid using JavaScript unary operator as property name: " +
       "\"" + (keywordMatch[0]) + "\" in expression " + (text.trim()),
@@ -23940,6 +24080,19 @@ function checkExpression (exp, text, warn, range) {
         range
       );
     }
+  }
+}
+
+function checkFunctionParameterExpression (exp, text, warn, range) {
+  try {
+    new Function(exp, '');
+  } catch (e) {
+    warn(
+      "invalid function parameter expression: " + (e.message) + " in\n\n" +
+      "    " + exp + "\n\n" +
+      "  Raw expression: " + (text.trim()) + "\n",
+      range
+    );
   }
 }
 
@@ -24388,22 +24541,24 @@ module.exports = g;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
-/* harmony import */ var vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vee-validate/dist/locale/es.json */ "./node_modules/vee-validate/dist/locale/es.json");
-var vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t(/*! vee-validate/dist/locale/es.json */ "./node_modules/vee-validate/dist/locale/es.json", 1);
-/* harmony import */ var vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vee-validate/dist/rules */ "./node_modules/vee-validate/dist/rules.js");
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-window.Paginate = __webpack_require__(/*! vuejs-paginate */ "./node_modules/vuejs-paginate/dist/index.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
+/* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuejs-paginate */ "./node_modules/vuejs-paginate/dist/index.js");
+/* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuejs_paginate__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vee-validate/dist/locale/es.json */ "./node_modules/vee-validate/dist/locale/es.json");
+var vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_3___namespace = /*#__PURE__*/__webpack_require__.t(/*! vee-validate/dist/locale/es.json */ "./node_modules/vee-validate/dist/locale/es.json", 1);
+/* harmony import */ var vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vee-validate/dist/rules */ "./node_modules/vee-validate/dist/rules.js");
 
 
 
-Object.keys(vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__).forEach(function (rule) {
-  Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])(rule, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__[rule]);
+
+
+Object.keys(vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_4__).forEach(function (rule) {
+  Object(vee_validate__WEBPACK_IMPORTED_MODULE_1__["extend"])(rule, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_4__[rule]);
 });
-Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('es', vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_1__);
-Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])('password', {
+Object(vee_validate__WEBPACK_IMPORTED_MODULE_1__["localize"])('es', vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_3__);
+Object(vee_validate__WEBPACK_IMPORTED_MODULE_1__["extend"])('password', {
   params: ['target'],
   validate: function validate(value, _ref) {
     var target = _ref.target;
@@ -24411,31 +24566,30 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])('password', {
   },
   message: 'Las contraseñas no coinciden'
 });
-Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["configure"])({
+Object(vee_validate__WEBPACK_IMPORTED_MODULE_1__["configure"])({
   inputclass: {
     valid: 'is-valid',
     invalid: 'is-invalid'
   }
 });
-Vue.filter('capitalize', function (value) {
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('capitalize', function (value) {
   if (!value) {
     return '';
   }
 
   value = value.toString();
   return value.charAt(0).toUpperCase() + value.slice(1);
-}); //Componentes del sistema
+}); //  Componentes del sistema
 
-Vue.component('admin-component', __webpack_require__(/*! ./components/Admins/Admins.vue */ "./resources/js/components/Admins/Admins.vue")["default"]);
-Vue.component('user-component', __webpack_require__(/*! ./components/Users/Users.vue */ "./resources/js/components/Users/Users.vue")["default"]); //Librerias
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('admin-component', __webpack_require__(/*! ./components/Admins/Admins.vue */ "./resources/js/components/Admins/Admins.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('user-component', __webpack_require__(/*! ./components/Users/Users.vue */ "./resources/js/components/Users/Users.vue")["default"]); //  Librerias
 
-Vue.component('validation-provider', vee_validate__WEBPACK_IMPORTED_MODULE_0__["ValidationProvider"]);
-Vue.component('validation-observer', vee_validate__WEBPACK_IMPORTED_MODULE_0__["ValidationObserver"]);
-Vue.component('paginate', Paginate);
-Vue.config.productionTip = false;
-new Vue({
-  el: '#wrapper'
-});
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('validation-provider', vee_validate__WEBPACK_IMPORTED_MODULE_1__["ValidationProvider"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('validation-observer', vee_validate__WEBPACK_IMPORTED_MODULE_1__["ValidationObserver"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('paginate', vuejs_paginate__WEBPACK_IMPORTED_MODULE_2___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
+var vm = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
+vm.$mount('#wrapper');
 
 /***/ }),
 
@@ -25277,16 +25431,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToadAlert", function() { return ToadAlert; });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
 var ToadAlert = {
   toad: function toad(mensaje) {
-    var ToastUpdate = Swal.mixin({
+    var ToastUpdate = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
       toast: true,
       position: 'top-start',
       showConfirmButton: false,
       timer: 3000,
       onOpen: function onOpen(toast) {
-        toast.addEventListener('mouseenter', Swal.stopTimer);
-        toast.addEventListener('mouseleave', Swal.resumeTimer);
+        toast.addEventListener('mouseenter', sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.stopTimer);
+        toast.addEventListener('mouseleave', sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.resumeTimer);
       }
     });
     ToastUpdate.fire({
