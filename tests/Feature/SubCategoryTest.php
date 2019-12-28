@@ -25,7 +25,7 @@ class SubCategoryTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/subcategory', $data);
+        $response = $this->json('POST', '/api/v1/subcategories', $data);
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('sub_categories', $data);
@@ -54,7 +54,7 @@ class SubCategoryTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/subcategory', $data);
+        $response = $this->json('POST', '/api/v1/subcategories', $data);
         $response->assertStatus(422);
     }
 
@@ -71,7 +71,7 @@ class SubCategoryTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/subcategory', $data);
+        $response = $this->json('POST', '/api/v1/subcategories', $data);
         $response->assertStatus(422);
     }
 
@@ -87,7 +87,7 @@ class SubCategoryTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/subcategory', $data);
+        $response = $this->json('POST', '/api/v1/subcategories', $data);
         $response->assertStatus(422);
     }
 
@@ -104,7 +104,7 @@ class SubCategoryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('PUT', "/api/v1/subcategory/{$subcategory['subcategoria_id']}", $update);
+        $response = $this->json('PUT', "/api/v1/subcategories/{$subcategory['subcategoria_id']}", $update);
         $response->assertStatus(200);
 
         $subcat = SubCategory::all()->first();
@@ -125,7 +125,7 @@ class SubCategoryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('PUT', "/api/v1/subcategory/{$subcategory['subcategoria_id']}", $update);
+        $response = $this->json('PUT', "/api/v1/subcategories/{$subcategory['subcategoria_id']}", $update);
         $response->assertStatus(200);
 
         $subcat = SubCategory::all()->first();
@@ -138,7 +138,7 @@ class SubCategoryTest extends TestCase
         $seed = InitSeed::getInstance()->getSeed();
         $subcategory = $seed->seed_subcategory();
 
-        $this->json('DELETE', "/api/v1/subcategory/{$subcategory['subcategoria_id']}")->assertStatus(204);
+        $this->json('DELETE', "/api/v1/subcategories/{$subcategory['subcategoria_id']}")->assertStatus(204);
         $this->assertNull(SubCategory::find($subcategory['subcategoria_id']));
     }
 }

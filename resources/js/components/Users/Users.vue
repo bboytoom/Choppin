@@ -9,7 +9,7 @@
                 <i class="fas fa-search" />
               </div>
             </div>
-            <input id="search_user" v-model="searchUser" type="text" class="form-control" placeholder="Busca al usuario">
+            <input v-model="searchUser" type="text" class="form-control" placeholder="Busca al usuario">
           </div>
         </div>
 
@@ -30,7 +30,7 @@
       </h4>
 
       <div v-else class="table-responsive">
-        <table id="users" class="table table-bordered table-hover" width="100%" cellspacing="0">
+        <table class="table table-bordered table-hover" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th>Nombre</th>
@@ -52,6 +52,7 @@
               </th>
             </tr>
           </thead>
+
           <tableUser
             :index="index"
             :users="filtroUser"

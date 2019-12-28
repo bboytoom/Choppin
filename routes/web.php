@@ -29,6 +29,7 @@ Route::prefix('admin')->group(function ()
         Route::get('/', 'HomeController@index')->name('admin.home');        
         Route::resource('users', 'UserController')->only('index', 'edit');
         Route::resource('admins', 'AdminController')->only('index');
+        Route::resource('categories', 'CategoryController')->only('index');
     });
 });
 

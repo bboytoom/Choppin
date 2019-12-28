@@ -24,11 +24,11 @@ Route::group([
     Route::apiResources([
         'admins' => 'AdminController',
         'users' => 'UserController',
-        'category' => 'CategoryController',
-        'subcategory' => 'SubCategoryController',
-        'product' => 'ProductController',
-        'characteristic' => 'CharacteristicController',
-        'shipping' => 'ShippingController'
+        'categories' => 'CategoryController',
+        'subcategories' => 'SubCategoryController',
+        'products' => 'ProductController',
+        'characteristics' => 'CharacteristicController',
+        'shippings' => 'ShippingController'
     ]);
 
     Route::put('/adminpassword/{id}', 'UserPasswordController@updateAdmin')->name('admins.password.update');

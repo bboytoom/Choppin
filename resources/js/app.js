@@ -38,6 +38,7 @@ Vue.filter('capitalize', function (value) {
 //  Componentes del sistema
 Vue.component('admin-component', require('./components/Admins/Admins.vue').default)
 Vue.component('user-component', require('./components/Users/Users.vue').default)
+Vue.component('category-component', require('./components/Categories/Categories.vue').default)
 
 //  Librerias
 Vue.component('validation-provider', ValidationProvider)

@@ -1,14 +1,12 @@
 <template>
   <tbody>
-    <tr v-for="item in users" :key="item.id">
+    <tr v-for="item in categories" :key="item.id">
       <td>
         {{ item.attributes.name | capitalize }}
-        {{ item.attributes.father_surname | capitalize }}
-        {{ item.attributes.mother_surname === null ? '': item.attributes.mother_surname | capitalize }}
       </td>
 
       <td>
-        {{ item.attributes.email }}
+        {{ item.attributes.description | capitalize }}
       </td>
 
       <td class="text-center">
@@ -16,18 +14,6 @@
           <input :id="`status_${item.id}`" type="checkbox" class="custom-control-input" :checked="item.attributes.status == 1" @click.prevent="editStatus(item.id, item.attributes)">
           <label class="custom-control-label" :for="`status_${item.id}`" />
         </div>
-      </td>
-
-      <td class="text-center">
-        <button type="button" class="btn btn-secondary btn-sm" @click.prevent="password(item.id)">
-          <i class="fas fa-lock" />
-        </button>
-      </td>
-
-      <td class="text-center">
-        <button type="button" class="btn btn-info btn-circle" @click.prevent="complemento(item.id)">
-          <i class="fas fa-cogs" />
-        </button>
       </td>
 
       <td class="text-center">
@@ -53,7 +39,7 @@ import { ToadAlert } from '../helpers'
 
 export default {
   props: {
-    users: {
+    categories: {
       type: Array,
       default: function () {
         return []
@@ -72,19 +58,17 @@ export default {
   },
   methods: {
     edit: function (id) {
-      axios.get('/api/v1/users/' + id).then((response) => {
+      axios.get('/api/v1/categories/' + id).then((response) => {
         this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
-          mother_surname: response.data.attributes.mother_surname,
-          father_surname: response.data.attributes.father_surname,
-          email: response.data.attributes.email
+          description: response.data.attributes.description
         })
       })
     },
     deleted: function (id) {
       Swal.fire({
-        html: '<h6><strong>Seguro que quiere eliminar al administrador</strong></h6>',
+        html: '<h6><strong>Seguro que quiere eliminar la categoria</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -93,38 +77,25 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          axios.delete('/api/v1/users/' + id).then((response) => {
+          axios.delete('/api/v1/categories/' + id).then((response) => {
             if (response.status === 204) {
-              axios.get('/api/v1/users').then((response) => {
+              axios.get('/api/v1/categories').then((response) => {
                 if (this.state > parseInt(response.data.meta.last_page)) {
                   this.index(parseInt(response.data.meta.last_page))
                 } else {
                   this.index(this.state)
                 }
 
-                ToadAlert.toad('El usuario se elimino correctamente')
+                ToadAlert.toad('La categoria se elimino correctamente')
               })
             }
           })
         }
       })
     },
-    password: function (id) {
-      axios.get('/api/v1/users/' + id).then((response) => {
-        this.$emit('passwordEdit', {
-          id: response.data.id,
-          name: response.data.attributes.name,
-          mother_surname: response.data.attributes.mother_surname,
-          father_surname: response.data.attributes.father_surname
-        })
-      })
-    },
-    complemento: function (id) {
-      window.location.href = window.location + '/' + btoa(id) + '/edit'
-    },
     editStatus: function (id, attr) {
       Swal.fire({
-        html: '<h6><strong>Desea cambiar el estatus del usuario</strong></h6>',
+        html: '<h6><strong>Desea cambiar el estatus de la categoria</strong></h6>',
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -133,15 +104,16 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          axios.put('/api/v1/users/' + id, {
+          axios.put('/api/v1/categories/' + id, {
             name: attr.name,
-            father_surname: attr.father_surname,
-            email: attr.email,
+            description: attr.description,
             status: (attr.status === 1) ? 0 : 1
           }).then((response) => {
             if (response.status === 200) {
               this.index(this.state)
             }
+          }).catch(error => {
+            console.log(error.response.data)
           })
         }
       })

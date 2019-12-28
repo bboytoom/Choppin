@@ -1,10 +1,10 @@
 <template>
-  <div id="updateUser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="usereditLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div id="updateUser" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <validation-observer v-slot="{ invalid }" ref="formupdate">
         <form method="POST" class="modal-content" autocomplete="off" @submit.prevent="updateUserSubmit(user)">
           <div class="modal-header bg-success text-white">
-            <h5 id="usereditLabel" class="modal-title title-form__elem">
+            <h5 class="modal-title title-form__elem">
               Editar usuario
             </h5>
           </div>
@@ -25,6 +25,7 @@
                 Cancelar
               </span>
             </button>
+
             <button type="submit" class="btn btn-success btn-icon-split" :disabled="invalid">
               <span class="icon text-white-50">
                 <i class="fas fa-check" />

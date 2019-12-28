@@ -1,10 +1,10 @@
 <template>
-  <div id="createAdmin" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="admineditLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div id="createAdmin" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <validation-observer v-slot="{ invalid }" ref="formadmincreate">
         <form method="POST" class="modal-content" autocomplete="off" @submit.prevent="createAdminSubmit(admin)">
           <div class="modal-header bg-success text-white">
-            <h5 id="admineditLabel" class="modal-title title-form__elem">
+            <h5 class="modal-title title-form__elem">
               Crear administrador
             </h5>
           </div>
@@ -18,7 +18,7 @@
           <modalAdminForm :admin="admin" />
 
           <div class="modal-footer">
-            <button type="reset" class="btn btn-secondary btn-icon-split" data-dismiss="modal" @click.prevent="createAdminrReset()">
+            <button type="reset" class="btn btn-secondary btn-icon-split" data-dismiss="modal" @click.prevent="createAdminReset()">
               <span class="icon text-white-50">
                 <i class="fas fa-arrow-left" />
               </span>
@@ -26,6 +26,7 @@
                 Cancelar
               </span>
             </button>
+
             <button type="submit" class="btn btn-success btn-icon-split" :disabled="invalid">
               <span class="icon text-white-50">
                 <i class="fas fa-check" />
@@ -103,7 +104,7 @@ export default {
         })
       })
     },
-    createAdminrReset: function () {
+    createAdminReset: function () {
       this.admin.id = 0
       this.admin.name = ''
       this.admin.mother_surname = ''

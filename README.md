@@ -37,6 +37,12 @@ vendor/bin/phpunit
 php artisan db:seed
 ```
 
+## Ejecutando pruebas de sintaxis en componentes vue
+
+```
+npm test
+```
+
 ## Construido con 
 
 * [Laravel: 6.x](https://laravel.com/docs/6.x) - Framework principal de desarrollo

@@ -1,10 +1,10 @@
 <template>
-  <div id="passwordAdmin" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="adminpasswordLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div id="passwordAdmin" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <validation-observer ref="formadminpassword" v-slot="{ invalid }">
         <form method="POST" class="modal-content" autocomplete="off" @submit.prevent="passwordAdminSubmit(admin, password, password_confimed)">
           <div class="modal-header bg-success text-white">
-            <h5 id="adminpasswordLabel" class="modal-title title-form__elem">
+            <h5 class="modal-title title-form__elem">
               Cambio de contraseña
             </h5>
           </div>
@@ -26,10 +26,10 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="password_admin">Contraseña</label>
+                  <label>Contraseña</label>
                   <validation-provider v-slot="{ errors, classes }" name="Password" rules="min:7|max:20|required|password:@confirm">
                     <div class="control" :class="classes">
-                      <input id="password_admin" v-model="password" type="password" class="form-control" placeholder="Ingresa la contraseña" maxlength="21">
+                      <input v-model="password" type="password" class="form-control" placeholder="Ingresa la contraseña" maxlength="21">
                       <span>
                         {{ errors[0] }}
                       </span>
@@ -40,10 +40,10 @@
 
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="password_repeat_admin">Repite la contraseña</label>
+                  <label>Repite la contraseña</label>
                   <validation-provider v-slot="{ errors, classes }" name="confirm" rules="min:7|max:20|required">
                     <div class="control" :class="classes">
-                      <input id="password_repeat_admin" v-model="password_confimed" type="password" class="form-control" placeholder="Repite la contraseña" maxlength="21">
+                      <input v-model="password_confimed" type="password" class="form-control" placeholder="Repite la contraseña" maxlength="21">
                       <span>
                         {{ errors[0] }}
                       </span>
@@ -63,6 +63,7 @@
                 Cancelar
               </span>
             </button>
+
             <button type="submit" class="btn btn-success btn-icon-split" :disabled="invalid">
               <span class="icon text-white-50">
                 <i class="fas fa-check" />

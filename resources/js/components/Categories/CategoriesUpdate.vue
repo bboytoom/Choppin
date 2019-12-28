@@ -1,11 +1,11 @@
 <template>
-  <div id="updateAdmin" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div id="updateCategory" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <validation-observer v-slot="{ invalid }" ref="formadminupdate">
-        <form method="POST" class="modal-content" autocomplete="off" @submit.prevent="updateAdminSubmit(admin)">
+      <validation-observer v-slot="{ invalid }" ref="formcategoryupdate">
+        <form method="POST" class="modal-content" autocomplete="off" @submit.prevent="updateCategorySubmit(category)">
           <div class="modal-header bg-success text-white">
             <h5 class="modal-title title-form__elem">
-              Editar usuario
+              Editar categoria
             </h5>
           </div>
 
@@ -15,10 +15,10 @@
             </div>
           </div>
 
-          <modalAdminForm :admin="admin" />
+          <modalCategoryForm :category="category" />
 
           <div class="modal-footer">
-            <button type="reset" class="btn btn-secondary btn-icon-split" data-dismiss="modal" @click.prevent="updateAdminReset()">
+            <button type="reset" class="btn btn-secondary btn-icon-split" data-dismiss="modal" @click.prevent="updateCategoryReset()">
               <span class="icon text-white-50">
                 <i class="fas fa-arrow-left" />
               </span>
@@ -44,16 +44,16 @@
 
 <script>
 
-import modalAdminForm from './AdminsForm.vue'
+import modalCategoryForm from './CategoriesForm.vue'
 import axios from 'axios'
 import { ToadAlert } from '../helpers'
 
 export default {
   components: {
-    modalAdminForm: modalAdminForm
+    modalCategoryForm: modalCategoryForm
   },
   props: {
-    admin: {
+    category: {
       type: Object,
       default: function () {
         return {}
@@ -76,42 +76,36 @@ export default {
     }
   },
   methods: {
-    updateAdminSubmit: function (admin) {
+    updateCategorySubmit: function (category) {
       var data = {
-        name: admin.name.toLowerCase(),
-        mother_surname: admin.mother_surname.toLowerCase(),
-        father_surname: admin.father_surname.toLowerCase(),
-        email: admin.email.toLowerCase(),
+        name: category.name.toLowerCase(),
+        description: category.description.toLowerCase(),
         status: 1
       }
 
-      this.$refs.formadminupdate.validate().then(success => {
+      this.$refs.formcategoryupdate.validate().then(success => {
         if (!success) {
           return
         }
 
-        axios.put('/api/v1/admins/' + admin.id, data).then((response) => {
+        axios.put('/api/v1/categories/' + category.id, data).then((response) => {
           if (response.status === 200) {
-            $('#updateAdmin').modal('hide')
+            $('#updateCategory').modal('hide')
 
             this.index(this.state)
-            this.updateAdminReset()
+            this.updateCategoryReset()
 
-            ToadAlert.toad('El administrador se actualizo correctamente')
+            ToadAlert.toad('La categoria se actualizo correctamente')
           }
-        }).catch(error => {
-          this.errorUpdate = error.response.data.errors.email
         })
       })
     },
-    updateAdminReset: function () {
-      this.admin.id = 0
-      this.admin.name = ''
-      this.admin.mother_surname = ''
-      this.admin.father_surname = ''
-      this.admin.email = ''
-      this.errorUpdate = []
-      this.$refs.formadminupdate.reset()
+    updateCategoryReset: function () {
+      this.category.id = 0
+      this.category.name = ''
+      this.category.description = ''
+      this.errorCreate = []
+      this.$refs.formcategoryupdate.reset()
     }
   }
 }

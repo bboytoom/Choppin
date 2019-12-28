@@ -9,7 +9,7 @@
                 <i class="fas fa-search" />
               </div>
             </div>
-            <input v-model="searchAdmin" type="text" class="form-control" placeholder="Busca al administrador">
+            <input v-model="searchCategories" type="text" class="form-control" placeholder="Busca la categoria">
           </div>
         </div>
 
@@ -25,20 +25,22 @@
     </div>
 
     <div class="card-body">
-      <h4 v-if="admins.length == 0" class="text-center">
-        No cuentas con administradores
+      <h4 v-if="categories.length == 0" class="text-center">
+        No cuentas con usuarios
       </h4>
+
       <div v-else class="table-responsive">
         <table class="table table-bordered table-hover" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>Nombre</th>
-              <th>Correo</th>
+              <th>
+                Categoria
+              </th>
+              <th>
+                Descripcion
+              </th>
               <th class="text-center" width="100">
                 Estado
-              </th>
-              <th class="text-center" width="140">
-                Contraseña
               </th>
               <th class="text-center" width="110">
                 Editar
@@ -49,12 +51,11 @@
             </tr>
           </thead>
 
-          <tableAdmin
+          <tableCategory
             :index="index"
-            :admins="filtroAdmin"
+            :categories="filtroCategory"
             :state="page_state"
             @dataEdit="dataEdit"
-            @passwordEdit="passwordEdit"
           />
         </table>
 
@@ -74,58 +75,53 @@
       </div>
     </div>
 
-    <storeAdmin
-      :admin="admin"
+    <storeCategory
+      :category="category"
       :index="index"
       :state="page_state"
     />
-    <updateAdmin
-      :admin="admin"
+    <updateCategory
+      :category="category"
       :index="index"
       :state="page_state"
     />
-    <passwordAdmin :admin="admin" />
   </div>
 </template>
 
 <script>
 
-import tableAdmin from './AdminsTable.vue'
-import storeAdmin from './AdminsStore.vue'
-import updateAdmin from './AdminsUpdate.vue'
-import passwordAdmin from './AdminsPassword.vue'
+import tableCategory from './CategoriesTable.vue'
+import storeCategory from './CategoriesStore.vue'
+import updateCategory from './CategoriesUpdate.vue'
 import axios from 'axios'
 
 export default {
   components: {
-    tableAdmin: tableAdmin,
-    passwordAdmin: passwordAdmin,
-    storeAdmin: storeAdmin,
-    updateAdmin: updateAdmin
+    tableCategory: tableCategory,
+    storeCategory: storeCategory,
+    updateCategory: updateCategory
   },
   data: function () {
     return {
-      admins: [],
+      categories: [],
       number_page: 0,
       page_state: 1,
-      searchAdmin: '',
-      admin: {
+      searchCategories: '',
+      category: {
         id: 0,
         name: '',
-        mother_surname: '',
-        father_surname: '',
-        email: ''
+        description: ''
       }
     }
   },
   computed: {
-    filtroAdmin: function () {
-      if (this.searchAdmin) {
-        return this.admins.filter((item) => {
-          return item.attributes.name.includes(this.searchAdmin)
+    filtroCategory: function () {
+      if (this.searchCategories) {
+        return this.categories.filter((item) => {
+          return item.attributes.name.includes(this.searchCategories)
         })
       } else {
-        return this.admins
+        return this.categories
       }
     }
   },
@@ -134,31 +130,21 @@ export default {
   },
   methods: {
     index: function (page) {
-      axios.get('/api/v1/admins?page=' + page).then((response) => {
+      axios.get('/api/v1/categories?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
-        this.admins = response.data.data
+        this.categories = response.data.data
       })
     },
     create: function () {
-      $('#createAdmin').modal('show')
+      $('#createCategory').modal('show')
     },
     dataEdit: function (value) {
-      this.admin.id = value.id
-      this.admin.name = value.name
-      this.admin.mother_surname = value.mother_surname
-      this.admin.father_surname = value.father_surname
-      this.admin.email = value.email
+      this.category.id = value.id
+      this.category.name = value.name
+      this.category.description = value.description
 
-      $('#updateAdmin').modal('show')
-    },
-    passwordEdit: function (value) {
-      this.admin.id = value.id
-      this.admin.name = value.name
-      this.admin.mother_surname = value.mother_surname
-      this.admin.father_surname = value.father_surname
-
-      $('#passwordAdmin').modal('show')
+      $('#updateCategory').modal('show')
     }
   }
 }

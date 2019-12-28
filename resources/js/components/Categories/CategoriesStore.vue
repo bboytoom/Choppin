@@ -1,11 +1,11 @@
 <template>
-  <div id="createUser" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div id="createCategory" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <validation-observer v-slot="{ invalid }" ref="formcreate">
-        <form method="POST" class="modal-content" autocomplete="off" @submit.prevent="createUserSubmit(user)">
+      <validation-observer v-slot="{ invalid }" ref="formcategorycreate">
+        <form method="POST" class="modal-content" autocomplete="off" @submit.prevent="createCategorySubmit(category)">
           <div class="modal-header bg-success text-white">
             <h5 class="modal-title title-form__elem">
-              Crear usuario
+              Crear categoria
             </h5>
           </div>
 
@@ -15,10 +15,10 @@
             </div>
           </div>
 
-          <modalForm :user="user" />
+          <modalCategoryForm :category="category" />
 
           <div class="modal-footer">
-            <button type="reset" class="btn btn-secondary btn-icon-split" data-dismiss="modal" @click.prevent="createUserReset()">
+            <button type="reset" class="btn btn-secondary btn-icon-split" data-dismiss="modal" @click.prevent="createCategoryReset()">
               <span class="icon text-white-50">
                 <i class="fas fa-arrow-left" />
               </span>
@@ -44,16 +44,16 @@
 
 <script>
 
-import modalForm from './UsersForm.vue'
+import modalCategoryForm from './CategoriesForm.vue'
 import axios from 'axios'
 import { ToadAlert } from '../helpers'
 
 export default {
   components: {
-    modalForm: modalForm
+    modalCategoryForm: modalCategoryForm
   },
   props: {
-    user: {
+    category: {
       type: Object,
       default: function () {
         return {}
@@ -76,42 +76,36 @@ export default {
     }
   },
   methods: {
-    createUserSubmit: function (user) {
+    createCategorySubmit: function (category) {
       var data = {
-        name: user.name.toLowerCase(),
-        mother_surname: user.mother_surname.toLowerCase(),
-        father_surname: user.father_surname.toLowerCase(),
-        email: user.email.toLowerCase(),
+        name: category.name.toLowerCase(),
+        description: category.description.toLowerCase(),
         status: 1
       }
 
-      this.$refs.formcreate.validate().then(success => {
+      this.$refs.formcategorycreate.validate().then(success => {
         if (!success) {
           return
         }
 
-        axios.post('/api/v1/users/', data).then((response) => {
+        axios.post('/api/v1/categories/', data).then((response) => {
           if (response.status === 201) {
-            $('#createUser').modal('hide')
+            $('#createCategory').modal('hide')
 
             this.index(this.state)
-            this.createUserReset()
+            this.createCategoryReset()
 
-            ToadAlert.toad('El usuario se agrego correctamente')
+            ToadAlert.toad('La categoria se agrego correctamente')
           }
-        }).catch(error => {
-          this.errorCreate = error.response.data.errors.email
         })
       })
     },
-    createUserReset: function () {
-      this.user.id = 0
-      this.user.name = ''
-      this.user.mother_surname = ''
-      this.user.father_surname = ''
-      this.user.email = ''
+    createCategoryReset: function () {
+      this.category.id = 0
+      this.category.name = ''
+      this.category.description = ''
       this.errorCreate = []
-      this.$refs.formcreate.reset()
+      this.$refs.formcategorycreate.reset()
     }
   }
 }
