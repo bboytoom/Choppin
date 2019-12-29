@@ -3886,8 +3886,8 @@ __webpack_require__.r(__webpack_exports__);
           name: response.data.attributes.name,
           description: response.data.attributes.description,
           category: {
-            id: response.data.relationsships.category.id,
-            name: response.data.relationsships.category.name
+            id: response.data.category.id,
+            name: response.data.category.name
           }
         });
       });
@@ -13852,7 +13852,7 @@ var render = function() {
         _c("td", [
           _vm._v(
             "\n      " +
-              _vm._s(_vm._f("capitalize")(item.relationsships.category.name)) +
+              _vm._s(_vm._f("capitalize")(item.category.name)) +
               "\n    "
           )
         ]),
@@ -13885,7 +13885,7 @@ var render = function() {
                   return _vm.editStatus(
                     item.id,
                     item.attributes,
-                    item.relationsships.category.id
+                    item.category.id
                   )
                 }
               }

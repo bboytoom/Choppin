@@ -2,7 +2,7 @@
   <tbody>
     <tr v-for="item in subcategories" :key="item.id">
       <td>
-        {{ item.relationsships.category.name | capitalize }}
+        {{ item.category.name | capitalize }}
       </td>
 
       <td>
@@ -15,7 +15,7 @@
 
       <td class="text-center">
         <div class="custom-control custom-switch">
-          <input :id="`status_${item.id}`" type="checkbox" class="custom-control-input" :checked="item.attributes.status == 1" @click.prevent="editStatus(item.id, item.attributes, item.relationsships.category.id)">
+          <input :id="`status_${item.id}`" type="checkbox" class="custom-control-input" :checked="item.attributes.status == 1" @click.prevent="editStatus(item.id, item.attributes, item.category.id)">
           <label class="custom-control-label" :for="`status_${item.id}`" />
         </div>
       </td>
@@ -68,8 +68,8 @@ export default {
           name: response.data.attributes.name,
           description: response.data.attributes.description,
           category: {
-            id: response.data.relationsships.category.id,
-            name: response.data.relationsships.category.name
+            id: response.data.category.id,
+            name: response.data.category.name
           }
         })
       })

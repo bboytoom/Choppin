@@ -11,7 +11,7 @@ class ShippingTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_chipping_create()
+    public function test_shipping_create()
     {
         $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
@@ -34,7 +34,7 @@ class ShippingTest extends TestCase
         $response->assertStatus(201);
     }
 
-    public function test_chipping_max_field_create()
+    public function test_shipping_max_field_create()
     {
         $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
@@ -57,7 +57,7 @@ class ShippingTest extends TestCase
         $response->assertStatus(422);
     }
 
-    public function test_chipping_min_field_create()
+    public function test_shipping_min_field_create()
     {
         $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
@@ -80,13 +80,35 @@ class ShippingTest extends TestCase
         $response->assertStatus(422);
     }
 
-    public function test_chipping_update()
+    public function test_shipping_user_no_exist_create()
+    {
+        $faker = \Faker\Factory::create();
+
+        $data = [
+            'user_id' => 0,
+            'street_one' => $faker->text($maxNbChars = 300),
+            'street_two' => $faker->text($maxNbChars = 300),
+            'addres' => $faker->text($maxNbChars = 300),
+            'suburb' => $faker->text($maxNbChars = 300),
+            'town' => $faker->text($maxNbChars = 300),
+            'state' => $faker->text($maxNbChars = 300),
+            'country' => 'mexico',
+            'postal_code' => $faker->numerify('0 ####'),
+            'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/shippings', $data);
+        $response->assertStatus(422);
+    }
+
+    public function test_shipping_update()
     {
         $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
         $shipping = $seed->seed_shipping();
 
         $update = [
+            'user_id' => $shipping['user_id'],
             'street_one' => $faker->streetAddress,
             'street_two' => $faker->streetAddress,
             'addres' => $faker->address,
@@ -106,7 +128,30 @@ class ShippingTest extends TestCase
         $this->assertEquals($ship->addres, $update['addres']);
     }
 
-    public function test_chipping_delete()
+    public function test_shipping_user_no_exist_update()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $shipping = $seed->seed_shipping();
+
+        $update = [
+            'user_id' => 0,
+            'street_one' => $faker->streetAddress,
+            'street_two' => $faker->streetAddress,
+            'addres' => $faker->address,
+            'suburb' => $faker->citySuffix,
+            'town' => $faker->city,
+            'state' => $faker->state,
+            'country' => 'mexico',
+            'postal_code' => $faker->numerify('0 ####'),
+            'status' => 1
+        ];
+
+        $response = $this->json('PUT', "/api/v1/shippings/{$shipping['shipping_id']}", $update);
+        $response->assertStatus(422);
+    }
+
+    public function test_shipping_delete()
     {
         $seed = InitSeed::getInstance()->getSeed();
         $shipping = $seed->seed_shipping();

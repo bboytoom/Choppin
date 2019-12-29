@@ -30,9 +30,7 @@ class ShippingResource extends JsonResource
                 'postal_code' => $this->postal_code,
                 'status' =>  $this->status
             ],
-            'relationsships' => [
-                'user' => new UserIdentifierResource($this->user)
-            ]
+            'user' => new UserIdentifierResource($this->user)
         ];
     }
 }

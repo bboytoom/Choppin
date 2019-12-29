@@ -28,13 +28,15 @@ class ShippingRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => 'required|exists:App\User,id',
             'street_one' => 'required|min:4|max:100',
             'addres' => 'required|min:4|max:80',
             'suburb' => 'required|min:4|max:80',
             'town' => 'required|min:4|max:80',
             'state' => 'required|min:4|max:40',
             'country' => 'required|min:4|max:20',
-            'postal_code' => 'required|min:5|max:7'
+            'postal_code' => 'required|min:5|max:7',
+            'status' => 'boolean'
         ];
     }
 

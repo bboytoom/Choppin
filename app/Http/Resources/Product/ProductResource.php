@@ -30,11 +30,7 @@ class ProductResource extends JsonResource
                 'price' =>  $this->price,
                 'status' =>  $this->status
             ],
-            'relationsships' => [
-                'subcategory' => new SubCategoryIdentifierResource($this->subcategory)
-            ],
-            'catalogs' => new SubCategoryCatalogCollection(Category::all()),
-            'caracteristics' => new CharacteristicCatalogCollection($this->characteristic)
+            'subcategory' => new SubCategoryIdentifierResource($this->subcategory)
         ];
     }
 }

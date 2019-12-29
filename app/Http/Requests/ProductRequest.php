@@ -29,6 +29,7 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
+            'subcategory_id' => 'required|exists:App\Models\Subcategory,id',
             'name' => [
                 'required',
                 'min:4',
@@ -38,7 +39,8 @@ class ProductRequest extends FormRequest
             ],
             'extract' => 'required|min:4|max:150',
             'description' => 'required|min:4',
-            'price' => 'required'
+            'price' => 'required',
+            'status' => 'boolean'
         ];
     }
 

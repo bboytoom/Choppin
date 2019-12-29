@@ -29,7 +29,7 @@ Npm v6.13.4
 ## Ejecutando pruebas
 
 
-### Pruebas funcional
+### Pruebas funcionales
 
 ```
 vendor/bin/phpunit

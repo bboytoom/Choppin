@@ -26,9 +26,7 @@ class SubCategoryResource extends JsonResource
                 'description' => $this->description,
                 'status' =>  $this->status
             ],
-            'relationsships' => [
-                'category' => new CategoryIdentifierResource($this->category)
-            ]
+            'category' => new CategoryIdentifierResource($this->category)
         ];
     }
 }

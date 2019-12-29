@@ -39,7 +39,8 @@ class UserRequest extends FormRequest
                 'email',
                 'string',
                 Rule::unique('users', 'email')->ignore($this->user)
-            ]
+            ],
+            'status' => 'boolean'
         ];
     }
 

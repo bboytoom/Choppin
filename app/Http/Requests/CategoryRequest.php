@@ -36,7 +36,8 @@ class CategoryRequest extends FormRequest
                 'max:30',
                 Rule::unique('categories', 'name')->ignore($this->category)
             ],
-            'description' => 'min:4|max:80'
+            'description' => 'min:4|max:80',
+            'status' => 'boolean'
         ];
     }
 

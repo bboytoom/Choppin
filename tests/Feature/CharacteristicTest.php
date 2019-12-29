@@ -57,6 +57,23 @@ class CharacteristicTest extends TestCase
         $response->assertStatus(422);
     }
 
+    public function test_characteristic_product_no_exist_create()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $characteristic = $seed->seed_characteristic();
+
+        $data = [
+           'product_id' => 0,
+           'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+           'description' => $faker->text($maxNbChars = 250),
+           'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/characteristics', $data);
+        $response->assertStatus(422);
+    }
+
     public function test_characteristic_min_field_create()
     {
         $seed = InitSeed::getInstance()->getSeed();
@@ -97,6 +114,7 @@ class CharacteristicTest extends TestCase
         $characteristic = $seed->seed_characteristic();
         
         $update = [
+            'product_id' => $characteristic['product_id'],
             'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
             'description' => $faker->text($maxNbChars = 250),
             'status' => 1
@@ -117,6 +135,7 @@ class CharacteristicTest extends TestCase
         $characteristic = $seed->seed_characteristic();
         
         $update = [
+            'product_id' => $characteristic['product_id'],
             'name' => $characteristic['name'],
             'description' => $faker->text($maxNbChars = 250),
             'status' => 1
@@ -124,6 +143,23 @@ class CharacteristicTest extends TestCase
 
         $response = $this->json('PUT', "/api/v1/characteristics/{$characteristic['characteristic_id']}", $update);
         $response->assertStatus(200);
+    }
+
+    public function test_characteristic_product_no_exist_update()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $characteristic = $seed->seed_characteristic();
+        
+        $update = [
+            'product_id' => 0,
+            'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+            'description' => $faker->text($maxNbChars = 250),
+            'status' => 1
+        ];
+
+        $response = $this->json('PUT', "/api/v1/characteristics/{$characteristic['characteristic_id']}", $update);
+        $response->assertStatus(422);
     }
 
     public function test_characteristic_delete()

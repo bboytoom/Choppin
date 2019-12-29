@@ -24,10 +24,7 @@ class UserResource extends JsonResource
                 'father_surname' => $this->father_surname,
                 'email' => $this->email,
                 'status' =>  $this->status
-            ],
-            'catalogs' => [
-                'shippings' => new ShippingCatalogCollection($this->shipping)
-            ],
+            ]
         ];
     }
 }

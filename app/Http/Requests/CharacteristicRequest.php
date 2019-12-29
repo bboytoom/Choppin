@@ -29,6 +29,7 @@ class CharacteristicRequest extends FormRequest
     public function rules()
     {
         return [
+            'product_id' => 'required|exists:App\Models\Product,id',
             'name' => [
                 'required',
                 'min:4',
@@ -37,6 +38,7 @@ class CharacteristicRequest extends FormRequest
                 Rule::unique('characteristics', 'name')->ignore($this->characteristic)
             ],
             'description' => 'required|min:4',
+            'status' => 'boolean'
         ];
     }
 

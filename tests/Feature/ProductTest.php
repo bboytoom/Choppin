@@ -62,6 +62,25 @@ class ProductTest extends TestCase
         $response->assertStatus(422);
     }
 
+    public function test_product_subcategory_no_exist_create()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $complemento = $seed->seed_product();
+
+        $data = [
+           'subcategory_id' => 0,
+           'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+           'extract' => $faker->text($maxNbChars = 50),
+           'description' => $faker->text($maxNbChars = 250),
+           'price' => $faker->numberBetween($min = 100, $max = 1000),
+           'status' => 1
+        ];
+
+        $response = $this->json('POST', '/api/v1/products', $data);
+        $response->assertStatus(422);
+    }
+
     public function test_product_empty_create()
     {
         $seed = InitSeed::getInstance()->getSeed();
@@ -156,6 +175,25 @@ class ProductTest extends TestCase
         $prod = Product::all()->first();
 
         $this->assertEquals($prod->name, $update['name']);
+    }
+
+    public function test_product_subcategory_no_exist_update()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $product = $seed->seed_product();
+
+        $update = [
+            'subcategory_id' => 0,
+            'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+            'extract' => $faker->text($maxNbChars = 50),
+            'description' => $faker->text($maxNbChars = 250),
+            'price' => $faker->numberBetween($min = 100, $max = 1000),
+            'status' => 1
+        ];
+
+        $response = $this->json('PUT', "/api/v1/products/{$product['product_id']}", $update);
+        $response->assertStatus(422);
     }
     
     public function test_product_delete()

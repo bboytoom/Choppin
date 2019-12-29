@@ -39,7 +39,8 @@ class AdminRequest extends FormRequest
                 'email',
                 'string',
                 Rule::unique('admins', 'email')->ignore($this->admin)
-            ]
+            ],
+            'status' => 'boolean'
         ];
     }
 
