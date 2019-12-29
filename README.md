@@ -8,8 +8,9 @@ Se necesita instalar las siguientes herramientas
 
 ```
 Composer v1.9
-Php v7.2
+Php v7.3.12
 Node v12.13.1
+Npm v6.13.4
 ```
 
 ### Instalación 
@@ -25,22 +26,25 @@ Node v12.13.1
 5. npm run dev
 ```
 
-## Ejecutando las pruebas
+## Ejecutando pruebas
+
+
+### Pruebas funcional
 
 ```
 vendor/bin/phpunit
+```
+
+### Pruebas de sintaxis en componentes Vue
+
+```
+npm test
 ```
 
 ## Ejecutando datos semilla
 
 ```
 php artisan db:seed
-```
-
-## Ejecutando pruebas de sintaxis en componentes vue
-
-```
-npm test
 ```
 
 ## Construido con 
@@ -52,4 +56,3 @@ npm test
 ## Licencia
 
 Este proyecto está bajo la Licencia [MIT](LICENSE.md)
-

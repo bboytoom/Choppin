@@ -9,12 +9,6 @@
             </h5>
           </div>
 
-          <div v-if="errorCreate.length">
-            <div v-for="createerror in errorCreate" :key="createerror" class="alert alert-danger text-center rounded-0" role="alert">
-              {{ createerror }}
-            </div>
-          </div>
-
           <modalCategoryForm :category="category" />
 
           <div class="modal-footer">
@@ -70,11 +64,6 @@ export default {
       default: 0
     }
   },
-  data: function () {
-    return {
-      errorCreate: []
-    }
-  },
   methods: {
     createCategorySubmit: function (category) {
       var data = {
@@ -104,7 +93,6 @@ export default {
       this.category.id = 0
       this.category.name = ''
       this.category.description = ''
-      this.errorCreate = []
       this.$refs.formcategorycreate.reset()
     }
   }

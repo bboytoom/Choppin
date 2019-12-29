@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Characteristic;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Admin\AdminIdentifierResource;
 use App\Http\Resources\Product\ProductIdentifierResource;
 
 class CharacteristicResource extends JsonResource
@@ -22,11 +21,10 @@ class CharacteristicResource extends JsonResource
             'attributes' => [
                 'name' => $this->name,
                 'description' =>  $this->description,
-                'status' =>  $this->status,
+                'status' =>  $this->status
             ],
             'relationsships' => [
-                'admin' => new AdminIdentifierResource($this->admins),
-                'product' => new ProductIdentifierResource($this->product),
+                'product' => new ProductIdentifierResource($this->product)
             ]
         ];
     }

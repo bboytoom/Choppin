@@ -24,7 +24,7 @@ class ShippingCatalogCollection extends ResourceCollection
                 'town' => $element->town,
                 'state' => $element->state,
                 'country' => $element->country,
-                'postal_code' => $element->postal_code,
+                'postal_code' => $element->postal_code
             ];
         });
     }

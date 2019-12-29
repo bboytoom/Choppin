@@ -29,6 +29,7 @@ class SubCategoryRequest extends FormRequest
     public function rules()
     {
         return [
+            'category_id' => 'required|exists:App\Models\Category,id',
             'name' => [
                 'required',
                 'min:4',

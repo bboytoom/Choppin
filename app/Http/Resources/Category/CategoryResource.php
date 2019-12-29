@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Category;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Admin\AdminIdentifierResource;
 
 class CategoryResource extends JsonResource
 {
@@ -22,10 +21,7 @@ class CategoryResource extends JsonResource
                 'name' => $this->name,
                 'slug' => $this->slug,
                 'description' => $this->description,
-                'status' =>  $this->status,
-            ],
-            'relationsships' => [
-                'admin' => new AdminIdentifierResource($this->admins)
+                'status' =>  $this->status
             ]
         ];
     }

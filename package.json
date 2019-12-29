@@ -33,7 +33,7 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
-        "sweetalert2": "^9.5.3",
+        "sweetalert2": "^9.5.4",
         "vee-validate": "^3.2.1",
         "vuejs-paginate": "^2.1.0"
     }

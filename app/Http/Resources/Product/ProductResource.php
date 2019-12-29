@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Product;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Admin\AdminIdentifierResource;
 use App\Http\Resources\Category\CategoryIdentifierResource;
 use App\Http\Resources\SubCategory\SubCategoryIdentifierResource;
 use App\Http\Resources\SubCategory\SubCategoryCatalogCollection;
@@ -29,10 +28,9 @@ class ProductResource extends JsonResource
                 'extract' => $this->extract,
                 'description' =>  $this->description,
                 'price' =>  $this->price,
-                'status' =>  $this->status,
+                'status' =>  $this->status
             ],
             'relationsships' => [
-                'admin' => new AdminIdentifierResource($this->admins),
                 'subcategory' => new SubCategoryIdentifierResource($this->subcategory)
             ],
             'catalogs' => new SubCategoryCatalogCollection(Category::all()),

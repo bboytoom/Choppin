@@ -1,8 +1,4 @@
 /vendor
 /node_modules
-products_img/
-gallery_img/
-public/css/*.css
-public/js/*.js
 Homestead.yaml
 .env

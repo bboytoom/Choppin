@@ -17,7 +17,7 @@ class CategoryCatalogCollection extends ResourceCollection
         return $this->collection->transform(function ($element) {
             return [
                 'id' => $element->id,
-                'name' => $element->name,
+                'name' => $element->name
             ];
         });
     }

@@ -3,6 +3,8 @@
 namespace App\Http\Resources\SubCategory;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Http\Resources\Category\CategoryCatalogCollection;
+use App\Models\Category;
 
 class SubCategoryCollection extends ResourceCollection
 {
@@ -16,6 +18,13 @@ class SubCategoryCollection extends ResourceCollection
     {
         return [
             'data' => SubCategoryResource::collection($this->collection)
+        ];
+    }
+
+    public function with($request)
+    {
+        return [
+            'categories' => new CategoryCatalogCollection(Category::all())
         ];
     }
 }

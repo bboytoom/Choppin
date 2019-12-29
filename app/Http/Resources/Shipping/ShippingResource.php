@@ -28,7 +28,7 @@ class ShippingResource extends JsonResource
                 'state' => $this->state,
                 'country' =>  $this->country,
                 'postal_code' => $this->postal_code,
-                'status' =>  $this->status,
+                'status' =>  $this->status
             ],
             'relationsships' => [
                 'user' => new UserIdentifierResource($this->user)
