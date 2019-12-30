@@ -26,7 +26,7 @@
 
     <div class="card-body">
       <h4 v-if="categories.length == 0" class="text-center">
-        No cuentas con usuarios
+        No cuentas con categorias
       </h4>
 
       <div v-else class="table-responsive">

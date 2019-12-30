@@ -17,6 +17,7 @@ class SubCategoryIdentifierResource extends JsonResource
         return [
             'type' => $this->getTable(),
             'id' => $this->id,
+            'categoryid' => $this->category_id,
             'name' => $this->name
         ];
     }

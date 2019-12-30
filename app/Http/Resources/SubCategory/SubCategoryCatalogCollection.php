@@ -18,7 +18,7 @@ class SubCategoryCatalogCollection extends ResourceCollection
             return [
                 'id' => $element->id,
                 'name' => $element->name,
-                'subcategoria' => SubCategoryIdentifierResource::collection($element->subcategory)
+                'subcategories' => SubCategoryIdentifierResource::collection($element->subcategory)
             ];
         });
     }

@@ -31,6 +31,7 @@ Route::prefix('admin')->group(function ()
         Route::resource('admins', 'AdminController')->only('index');
         Route::resource('categories', 'CategoryController')->only('index');
         Route::resource('subcategories', 'SubCategoryController')->only('index');
+        Route::resource('products', 'ProductController')->only('index');
     });
 });
 

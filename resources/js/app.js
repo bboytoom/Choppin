@@ -40,6 +40,7 @@ Vue.component('admin-component', require('./components/Admins/Admins.vue').defau
 Vue.component('user-component', require('./components/Users/Users.vue').default)
 Vue.component('category-component', require('./components/Categories/Categories.vue').default)
 Vue.component('subcategory-component', require('./components/SubCategories/SubCategories.vue').default)
+Vue.component('product-component', require('./components/Products/Products.vue').default)
 
 //  Librerias
 Vue.component('validation-provider', ValidationProvider)

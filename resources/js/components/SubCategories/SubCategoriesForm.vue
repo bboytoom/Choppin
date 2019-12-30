@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="form-group">
           <label>Categoria</label>
-          <validation-provider v-slot="{ errors, classes }" name="Sub categoria" rules="required">
+          <validation-provider v-slot="{ errors, classes }" name="Categoria" rules="required">
             <div class="control" :class="classes">
               <select v-model="subcategory.category.id" class="custom-select" @change="category_id">
                 <option disabled value="0">
@@ -71,7 +71,7 @@ export default {
     }
   },
   methods: {
-    category_id: function (e) {
+    category_id: function () {
       return this.subcategory.category.id
     }
   }

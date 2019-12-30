@@ -9,7 +9,7 @@
                 <i class="fas fa-search" />
               </div>
             </div>
-            <input v-model="searchSubCategories" type="text" class="form-control" placeholder="Busca la sub categoria">
+            <input v-model="searchProducts" type="text" class="form-control" placeholder="Busca el producto">
           </div>
         </div>
 
@@ -25,8 +25,8 @@
     </div>
 
     <div class="card-body">
-      <h4 v-if="subcategories.length == 0" class="text-center">
-        No cuentas con sub categorias
+      <h4 v-if="products.length == 0" class="text-center">
+        No cuentas con productos
       </h4>
 
       <div v-else class="table-responsive">
@@ -34,13 +34,13 @@
           <thead>
             <tr>
               <th>
-                Categoria
+                Producto
               </th>
               <th>
                 Sub categoria
               </th>
               <th>
-                Descripcion
+                Resumen
               </th>
               <th class="text-center" width="100">
                 Estado
@@ -54,9 +54,9 @@
             </tr>
           </thead>
 
-          <tableSubCategory
+          <tableProduct
             :index="index"
-            :subcategories="filtroSubCategory"
+            :products="filtroProduct"
             :state="page_state"
             @dataEdit="dataEdit"
           />
@@ -78,15 +78,17 @@
       </div>
     </div>
 
-    <storeSubCategory
-      :subcategory="subcategory"
+    <storeProduct
+      :product="product"
       :categories="categories"
+      :subcategories="subcategories"
       :index="index"
       :state="page_state"
     />
-    <updateSubCategory
-      :subcategory="subcategory"
+    <updateProduct
+      :product="product"
       :categories="categories"
+      :subcategories="subcategories"
       :index="index"
       :state="page_state"
     />
@@ -95,43 +97,47 @@
 
 <script>
 
-import tableSubCategory from './SubCategpriesTable.vue'
-import updateSubCategory from './SubCategoriesUpdate.vue'
-import storeSubCategory from './SubCategoriesStore.vue'
+import tableProduct from './ProductsTable.vue'
+import updateProduct from './ProductsUpdate.vue'
+import storeProduct from './ProductsStore.vue'
 import axios from 'axios'
 
 export default {
   components: {
-    tableSubCategory: tableSubCategory,
-    updateSubCategory: updateSubCategory,
-    storeSubCategory: storeSubCategory
+    tableProduct: tableProduct,
+    updateProduct: updateProduct,
+    storeProduct: storeProduct
   },
   data: function () {
     return {
-      subcategories: [],
+      products: [],
       categories: [],
+      subcategories: [],
       number_page: 0,
       page_state: 1,
-      searchSubCategories: '',
-      subcategory: {
+      searchProducts: '',
+      product: {
         id: 0,
         name: '',
+        extract: '',
         description: '',
-        category: {
+        price: '',
+        subcategory: {
           id: 0,
+          categoryid: 0,
           name: ''
         }
       }
     }
   },
   computed: {
-    filtroSubCategory: function () {
-      if (this.searchSubCategories) {
-        return this.subcategories.filter((item) => {
-          return item.attributes.name.includes(this.searchSubCategories)
+    filtroProduct: function () {
+      if (this.searchProducts) {
+        return this.products.filter((item) => {
+          return item.attributes.name.includes(this.searchProducts)
         })
       } else {
-        return this.subcategories
+        return this.products
       }
     }
   },
@@ -140,24 +146,28 @@ export default {
   },
   methods: {
     index: function (page) {
-      axios.get('/api/v1/subcategories?page=' + page).then((response) => {
+      axios.get('/api/v1/products?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
-        this.subcategories = response.data.data
+        this.products = response.data.data
         this.categories = response.data.categories
       })
     },
     create: function () {
-      $('#createSubCategory').modal('show')
+      $('#createProduct').modal('show')
     },
     dataEdit: function (value) {
-      this.subcategory.id = value.id
-      this.subcategory.name = value.name
-      this.subcategory.description = value.description
-      this.subcategory.category.id = value.category.id
-      this.subcategory.category.name = value.category.name
+      this.product.id = value.id
+      this.product.name = value.name
+      this.product.extract = value.extract
+      this.product.description = value.description
+      this.product.price = value.price
+      this.product.subcategory.id = value.subcategory.id
+      this.product.subcategory.categoryid = value.subcategory.categoryid
+      this.product.subcategory.name = value.subcategory.name
+      this.subcategories = this.categories[value.subcategory.categoryid - 1].subcategories
 
-      $('#updateSubCategory').modal('show')
+      $('#updateProduct').modal('show')
     }
   }
 }
