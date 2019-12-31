@@ -43,7 +43,7 @@
       <div class="col-md-12">
         <div class="form-group">
           <label>Producto</label>
-          <validation-provider v-slot="{ errors, classes }" name="Producto" rules="min:4|max:150|required">
+          <validation-provider v-slot="{ errors, classes }" name="Producto" rules="min:4|max:100|required">
             <div class="control" :class="classes">
               <input v-model="product.name" type="text" class="form-control lower--mdf" placeholder="Ingresa el producto" maxlength="41">
               <span>
@@ -57,9 +57,9 @@
       <div class="col-md-12">
         <div class="form-group">
           <label>Precio</label>
-          <validation-provider v-slot="{ errors, classes }" name="Precio" rules="min:1|max:150|required">
+          <validation-provider v-slot="{ errors, classes }" name="Precio" rules="min:1|max:6|required">
             <div class="control" :class="classes">
-              <input v-model="product.price" type="text" class="form-control lower--mdf" placeholder="Ingresa el precio" maxlength="41">
+              <input v-model="product.price" type="text" class="form-control lower--mdf" placeholder="Ingresa el precio" maxlength="7">
               <span>
                 {{ errors[0] }}
               </span>
@@ -71,9 +71,9 @@
       <div class="col-md-12">
         <div class="form-group">
           <label>Resumen</label>
-          <validation-provider v-slot="{ errors, classes }" name="Resumen" rules="min:4|max:80">
+          <validation-provider v-slot="{ errors, classes }" name="Resumen" rules="min:4|max:150">
             <div class="control" :class="classes">
-              <textarea v-model="product.extract" class="form-control lower--mdf" rows="3" placeholder="Ingresa el resumen del producto" maxlength="81" />
+              <textarea v-model="product.extract" class="form-control lower--mdf" rows="2" placeholder="Ingresa el resumen del producto" maxlength="151" />
               <span>
                 {{ errors[0] }}
               </span>
@@ -85,9 +85,9 @@
       <div class="col-md-12">
         <div class="form-group">
           <label>Descripcion</label>
-          <validation-provider v-slot="{ errors, classes }" name="Descripcion" rules="min:4|max:80">
+          <validation-provider v-slot="{ errors, classes }" name="Descripcion" rules="min:4|max:250">
             <div class="control" :class="classes">
-              <textarea v-model="product.description" class="form-control lower--mdf" rows="5" placeholder="Ingresa la descripcion del producto" maxlength="81" />
+              <textarea v-model="product.description" class="form-control lower--mdf" rows="5" placeholder="Ingresa la descripcion del producto" maxlength="151" />
               <span>
                 {{ errors[0] }}
               </span>

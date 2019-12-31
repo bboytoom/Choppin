@@ -34,10 +34,13 @@
           <thead>
             <tr>
               <th>
-                Producto
+                Categoria
               </th>
               <th>
                 Sub categoria
+              </th>
+              <th>
+                Producto
               </th>
               <th>
                 Resumen
@@ -57,6 +60,7 @@
           <tableProduct
             :index="index"
             :products="filtroProduct"
+            :categories="categories"
             :state="page_state"
             @dataEdit="dataEdit"
           />

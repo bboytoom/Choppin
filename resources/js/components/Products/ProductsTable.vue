@@ -2,6 +2,10 @@
   <tbody>
     <tr v-for="item in products" :key="item.id">
       <td>
+        {{ category(categories, item.subcategory.categoryid) | capitalize }}
+      </td>
+
+      <td>
         {{ item.subcategory.name | capitalize }}
       </td>
 
@@ -49,6 +53,12 @@ export default {
         return []
       }
     },
+    categories: {
+      type: Array,
+      default: function () {
+        return []
+      }
+    },
     index: {
       type: Function,
       default: function () {
@@ -61,6 +71,13 @@ export default {
     }
   },
   methods: {
+    category: function (categories, id) {
+      var catName = categories.filter(function (item) {
+        return (item.id === id)
+      })
+
+      return catName[0].name
+    },
     edit: function (id) {
       axios.get('/api/v1/products/' + id).then((response) => {
         this.$emit('dataEdit', {

@@ -39,7 +39,7 @@ class ProductRequest extends FormRequest
             ],
             'extract' => 'required|min:4|max:150',
             'description' => 'required|min:4',
-            'price' => 'required',
+            'price' => 'required|max:6',
             'status' => 'boolean'
         ];
     }

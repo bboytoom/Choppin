@@ -45,6 +45,8 @@
 <script>
 
 import modalProductForm from './ProductsForm.vue'
+import axios from 'axios'
+import { ToadAlert } from '../helpers'
 
 export default {
   components: {
@@ -87,10 +89,43 @@ export default {
   },
   methods: {
     createProductSubmit: function (product) {
-      console.log(product)
+      var data = {
+        subcategory_id: this.product.subcategory.id,
+        name: product.name.toLowerCase(),
+        extract: product.extract.toLowerCase(),
+        description: product.description.toLowerCase(),
+        price: product.price,
+        status: 1
+      }
+
+      this.$refs.formproductcreate.validate().then(success => {
+        if (!success) {
+          return
+        }
+
+        axios.post('/api/v1/products/', data).then((response) => {
+          if (response.status === 201) {
+            $('#createProduct').modal('hide')
+
+            this.index(this.state)
+            this.createProductReset()
+
+            ToadAlert.toad('El producto se agrego correctamente')
+          }
+        }).catch(error => {
+          this.errorCreate = error.response.data.errors.category_id
+        })
+      })
     },
     createProductReset: function () {
-
+      this.product.id = 0
+      this.product.subcategory.id = 0
+      this.product.name = ''
+      this.product.extract = ''
+      this.product.description = ''
+      this.product.price = ''
+      this.errorCreate = []
+      this.$refs.formproductcreate.reset()
     }
   }
 }

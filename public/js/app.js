@@ -3374,6 +3374,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3601,7 +3605,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     category_id: function category_id() {
       this.dataSubCategory = this.categories[this.product.subcategory.categoryid - 1].subcategories;
-      return this.product.subcategory.categoryid;
     },
     subcategory_id: function subcategory_id() {
       return this.product.subcategory.id;
@@ -3621,6 +3624,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProductsForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductsForm.vue */ "./resources/js/components/Products/ProductsForm.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -3665,6 +3671,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3707,9 +3715,46 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     createProductSubmit: function createProductSubmit(product) {
-      console.log(product);
+      var _this = this;
+
+      var data = {
+        subcategory_id: this.product.subcategory.id,
+        name: product.name.toLowerCase(),
+        extract: product.extract.toLowerCase(),
+        description: product.description.toLowerCase(),
+        price: product.price,
+        status: 1
+      };
+      this.$refs.formproductcreate.validate().then(function (success) {
+        if (!success) {
+          return;
+        }
+
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/v1/products/', data).then(function (response) {
+          if (response.status === 201) {
+            $('#createProduct').modal('hide');
+
+            _this.index(_this.state);
+
+            _this.createProductReset();
+
+            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El producto se agrego correctamente');
+          }
+        })["catch"](function (error) {
+          _this.errorCreate = error.response.data.errors.category_id;
+        });
+      });
     },
-    createProductReset: function createProductReset() {}
+    createProductReset: function createProductReset() {
+      this.product.id = 0;
+      this.product.subcategory.id = 0;
+      this.product.name = '';
+      this.product.extract = '';
+      this.product.description = '';
+      this.product.price = '';
+      this.errorCreate = [];
+      this.$refs.formproductcreate.reset();
+    }
   }
 });
 
@@ -3766,12 +3811,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     products: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    categories: {
       type: Array,
       "default": function _default() {
         return [];
@@ -3789,6 +3844,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    category: function category(categories, id) {
+      var catName = categories.filter(function (item) {
+        return item.id === id;
+      });
+      return catName[0].name;
+    },
     edit: function edit(id) {
       var _this = this;
 
@@ -3879,6 +3940,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProductsForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductsForm.vue */ "./resources/js/components/Products/ProductsForm.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -3924,6 +3988,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     modalProductForm: _ProductsForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -3965,9 +4031,46 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateProductSubmit: function updateProductSubmit(product) {
-      console.log(product);
+      var _this = this;
+
+      var data = {
+        subcategory_id: this.product.subcategory.id,
+        name: product.name.toLowerCase(),
+        extract: product.extract.toLowerCase(),
+        description: product.description.toLowerCase(),
+        price: product.price,
+        status: 1
+      };
+      this.$refs.formproductupdate.validate().then(function (success) {
+        if (!success) {
+          return;
+        }
+
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/v1/products/' + product.id, data).then(function (response) {
+          if (response.status === 200) {
+            $('#updateProduct').modal('hide');
+
+            _this.index(_this.state);
+
+            _this.updateProductReset();
+
+            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El producto se actualizo correctamente');
+          }
+        })["catch"](function (error) {
+          _this.errorUpdate = error.response.data.errors;
+        });
+      });
     },
-    updateProductReset: function updateProductReset() {}
+    updateProductReset: function updateProductReset() {
+      this.product.id = 0;
+      this.product.subcategory.id = 0;
+      this.product.name = '';
+      this.product.extract = '';
+      this.product.description = '';
+      this.product.price = '';
+      this.errorUpdate = [];
+      this.$refs.formproductupdate.reset();
+    }
   }
 });
 
@@ -13838,6 +13941,7 @@ var render = function() {
                       attrs: {
                         index: _vm.index,
                         products: _vm.filtroProduct,
+                        categories: _vm.categories,
                         state: _vm.page_state
                       },
                       on: { dataEdit: _vm.dataEdit }
@@ -13914,9 +14018,11 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("\n              Producto\n            ")]),
+        _c("th", [_vm._v("\n              Categoria\n            ")]),
         _vm._v(" "),
         _c("th", [_vm._v("\n              Sub categoria\n            ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("\n              Producto\n            ")]),
         _vm._v(" "),
         _c("th", [_vm._v("\n              Resumen\n            ")]),
         _vm._v(" "),
@@ -14116,7 +14222,13 @@ var render = function() {
                           [
                             _c(
                               "option",
-                              { attrs: { selected: "", value: "0" } },
+                              {
+                                attrs: {
+                                  disabled: "",
+                                  selected: "",
+                                  value: "0"
+                                }
+                              },
                               [
                                 _vm._v(
                                   "\n                Seleccione un elemento\n              "
@@ -14162,7 +14274,7 @@ var render = function() {
             _c("label", [_vm._v("Producto")]),
             _vm._v(" "),
             _c("validation-provider", {
-              attrs: { name: "Producto", rules: "min:4|max:150|required" },
+              attrs: { name: "Producto", rules: "min:4|max:100|required" },
               scopedSlots: _vm._u([
                 {
                   key: "default",
@@ -14223,7 +14335,7 @@ var render = function() {
             _c("label", [_vm._v("Precio")]),
             _vm._v(" "),
             _c("validation-provider", {
-              attrs: { name: "Precio", rules: "min:1|max:150|required" },
+              attrs: { name: "Precio", rules: "min:1|max:6|required" },
               scopedSlots: _vm._u([
                 {
                   key: "default",
@@ -14245,7 +14357,7 @@ var render = function() {
                           attrs: {
                             type: "text",
                             placeholder: "Ingresa el precio",
-                            maxlength: "41"
+                            maxlength: "7"
                           },
                           domProps: { value: _vm.product.price },
                           on: {
@@ -14288,7 +14400,7 @@ var render = function() {
             _c("label", [_vm._v("Resumen")]),
             _vm._v(" "),
             _c("validation-provider", {
-              attrs: { name: "Resumen", rules: "min:4|max:80" },
+              attrs: { name: "Resumen", rules: "min:4|max:150" },
               scopedSlots: _vm._u([
                 {
                   key: "default",
@@ -14308,9 +14420,9 @@ var render = function() {
                           ],
                           staticClass: "form-control lower--mdf",
                           attrs: {
-                            rows: "3",
+                            rows: "2",
                             placeholder: "Ingresa el resumen del producto",
-                            maxlength: "81"
+                            maxlength: "151"
                           },
                           domProps: { value: _vm.product.extract },
                           on: {
@@ -14353,7 +14465,7 @@ var render = function() {
             _c("label", [_vm._v("Descripcion")]),
             _vm._v(" "),
             _c("validation-provider", {
-              attrs: { name: "Descripcion", rules: "min:4|max:80" },
+              attrs: { name: "Descripcion", rules: "min:4|max:250" },
               scopedSlots: _vm._u([
                 {
                   key: "default",
@@ -14375,7 +14487,7 @@ var render = function() {
                           attrs: {
                             rows: "5",
                             placeholder: "Ingresa la descripcion del producto",
-                            maxlength: "81"
+                            maxlength: "151"
                           },
                           domProps: { value: _vm.product.description },
                           on: {
@@ -14610,6 +14722,18 @@ var render = function() {
     "tbody",
     _vm._l(_vm.products, function(item) {
       return _c("tr", { key: item.id }, [
+        _c("td", [
+          _vm._v(
+            "\n      " +
+              _vm._s(
+                _vm._f("capitalize")(
+                  _vm.category(_vm.categories, item.subcategory.categoryid)
+                )
+              ) +
+              "\n    "
+          )
+        ]),
+        _vm._v(" "),
         _c("td", [
           _vm._v(
             "\n      " +

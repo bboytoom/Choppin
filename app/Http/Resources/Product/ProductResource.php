@@ -3,11 +3,7 @@
 namespace App\Http\Resources\Product;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Category\CategoryIdentifierResource;
 use App\Http\Resources\SubCategory\SubCategoryIdentifierResource;
-use App\Http\Resources\SubCategory\SubCategoryCatalogCollection;
-use App\Http\Resources\Characteristic\CharacteristicCatalogCollection;
-use App\Models\Category;
 
 class ProductResource extends JsonResource
 {
