@@ -87,7 +87,7 @@
           <label>Descripcion</label>
           <validation-provider v-slot="{ errors, classes }" name="Descripcion" rules="min:4|max:250">
             <div class="control" :class="classes">
-              <textarea v-model="product.description" class="form-control lower--mdf" rows="5" placeholder="Ingresa la descripcion del producto" maxlength="151" />
+              <textarea v-model="product.description" class="form-control lower--mdf" rows="5" placeholder="Ingresa la descripcion del producto" maxlength="251" />
               <span>
                 {{ errors[0] }}
               </span>

@@ -27,9 +27,11 @@ Route::group([
         'categories' => 'CategoryController',
         'subcategories' => 'SubCategoryController',
         'products' => 'ProductController',
-        'characteristics' => 'CharacteristicController',
         'shippings' => 'ShippingController'
     ]);
+
+    Route::apiResource('characteristics', 'CharacteristicController')->except('index');
+    Route::get('/characteristics/all/{id}', 'CharacteristicController@index')->name('characteristics.index');
 
     Route::put('/adminpassword/{id}', 'UserPasswordController@updateAdmin')->name('admins.password.update');
     Route::put('/userpassword/{id}', 'UserPasswordController@updateUser')->name('users.password.update');

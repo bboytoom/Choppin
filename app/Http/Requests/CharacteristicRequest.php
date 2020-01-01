@@ -37,7 +37,7 @@ class CharacteristicRequest extends FormRequest
                 'string',
                 Rule::unique('characteristics', 'name')->ignore($this->characteristic)
             ],
-            'description' => 'required|min:4',
+            'description' => 'required|min:4|max:250',
             'status' => 'boolean'
         ];
     }

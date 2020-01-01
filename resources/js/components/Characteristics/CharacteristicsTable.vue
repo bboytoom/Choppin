@@ -1,12 +1,8 @@
 <template>
   <tbody>
-    <tr v-for="item in products" :key="item.id">
+    <tr v-for="item in characteristics" :key="item.id">
       <td>
-        {{ category(categories, item.subcategory.categoryid) | capitalize }}
-      </td>
-
-      <td>
-        {{ item.subcategory.name | capitalize }}
+        {{ item.product.name | capitalize }}
       </td>
 
       <td>
@@ -15,15 +11,9 @@
 
       <td class="text-center">
         <div class="custom-control custom-switch">
-          <input :id="`status_${item.id}`" type="checkbox" class="custom-control-input" :checked="item.attributes.status == 1" @click.prevent="editStatus(item.id, item.attributes, item.subcategory.id)">
+          <input :id="`status_${item.id}`" type="checkbox" class="custom-control-input" :checked="item.attributes.status == 1" @click.prevent="editStatus(item.id, item.attributes)">
           <label class="custom-control-label" :for="`status_${item.id}`" />
         </div>
-      </td>
-
-      <td class="text-center">
-        <button type="button" class="btn btn-info btn-circle" @click.prevent="complemento(item.id)">
-          <i class="fas fa-cog" />
-        </button>
       </td>
 
       <td class="text-center">
@@ -49,13 +39,7 @@ import { ToadAlert } from '../helpers'
 
 export default {
   props: {
-    products: {
-      type: Array,
-      default: function () {
-        return []
-      }
-    },
-    categories: {
+    characteristics: {
       type: Array,
       default: function () {
         return []
@@ -70,35 +54,31 @@ export default {
     state: {
       type: Number,
       default: 0
+    },
+    productoid: {
+      type: Number,
+      default: 0
     }
   },
   methods: {
-    category: function (categories, id) {
-      var catName = categories.filter((item) => {
-        return (item.id === id)
-      })
-
-      return catName[0].name
+    CharacteristicsXproduct: function () {
+      return this.characteristics
     },
     edit: function (id) {
-      axios.get('/api/v1/products/' + id).then((response) => {
+      axios.get('/api/v1/characteristics/' + id).then((response) => {
         this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
-          extract: response.data.attributes.extract,
           description: response.data.attributes.description,
-          price: response.data.attributes.price,
-          subcategory: {
-            id: response.data.subcategory.id,
-            categoryid: response.data.subcategory.categoryid,
-            name: response.data.subcategory.name
+          product: {
+            name: response.data.product.name
           }
         })
       })
     },
     deleted: function (id) {
       Swal.fire({
-        html: '<h6><strong>Seguro que quiere eliminar el producto</strong></h6>',
+        html: '<h6><strong>Seguro que quiere eliminar la caracteristica</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -107,28 +87,25 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          axios.delete('/api/v1/products/' + id).then((response) => {
+          axios.delete('/api/v1/characteristics/' + id).then((response) => {
             if (response.status === 204) {
-              axios.get('/api/v1/products').then((response) => {
+              axios.get('/api/v1/characteristics/all/' + this.productoid).then((response) => {
                 if (this.state > parseInt(response.data.meta.last_page)) {
                   this.index(parseInt(response.data.meta.last_page))
                 } else {
                   this.index(this.state)
                 }
 
-                ToadAlert.toad('El producto se elimino correctamente')
+                ToadAlert.toad('La caracteristica se elimino correctamente')
               })
             }
           })
         }
       })
     },
-    complemento: function (id) {
-      window.location.href = window.location + '/' + btoa(id) + '/edit'
-    },
-    editStatus: function (id, attr, subcategoryId) {
+    editStatus: function (id, attr) {
       Swal.fire({
-        html: '<h6><strong>Desea cambiar el estatus de la sub categoria</strong></h6>',
+        html: '<h6><strong>Desea cambiar el estatus de la caracteristica</strong></h6>',
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -137,12 +114,10 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          axios.put('/api/v1/products/' + id, {
-            subcategory_id: subcategoryId,
+          axios.put('/api/v1/characteristics/' + id, {
+            product_id: this.productoid,
             name: attr.name,
-            extract: attr.extract,
             description: attr.description,
-            price: attr.price,
             status: (attr.status === 1) ? 0 : 1
           }).then((response) => {
             if (response.status === 200) {

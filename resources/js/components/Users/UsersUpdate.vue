@@ -8,6 +8,7 @@
               Editar usuario
             </h5>
           </div>
+
           <div v-if="errorUpdate.length">
             <div v-for="updateerror in errorUpdate" :key="updateerror" class="alert alert-danger text-center rounded-0" role="alert">
               {{ updateerror }}

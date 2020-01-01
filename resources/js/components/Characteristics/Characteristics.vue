@@ -9,7 +9,7 @@
                 <i class="fas fa-search" />
               </div>
             </div>
-            <input v-model="searchProducts" type="text" class="form-control" placeholder="Busca el producto">
+            <input v-model="searchCharacteristics" type="text" class="form-control" placeholder="Busca la caracteristica">
           </div>
         </div>
 
@@ -25,8 +25,8 @@
     </div>
 
     <div class="card-body">
-      <h4 v-if="products.length == 0" class="text-center">
-        No cuentas con productos
+      <h4 v-if="characteristics.length == 0" class="text-center">
+        No cuentas con caracteristicas
       </h4>
 
       <div v-else class="table-responsive">
@@ -34,19 +34,13 @@
           <thead>
             <tr>
               <th>
-                Categoria
-              </th>
-              <th>
-                Sub categoria
-              </th>
-              <th>
                 Producto
+              </th>
+              <th>
+                Caracteristica
               </th>
               <th class="text-center" width="100">
                 Estado
-              </th>
-              <th class="text-center" width="110">
-                Caracteristicas
               </th>
               <th class="text-center" width="110">
                 Editar
@@ -57,10 +51,10 @@
             </tr>
           </thead>
 
-          <tableProduct
+          <tableCharacteristic
             :index="index"
-            :products="filtroProduct"
-            :categories="categories"
+            :characteristics="filtroCharacteristic"
+            :productoid="productoid"
             :state="page_state"
             @dataEdit="dataEdit"
           />
@@ -82,17 +76,15 @@
       </div>
     </div>
 
-    <storeProduct
-      :product="product"
-      :categories="categories"
-      :subcategories="subcategories"
+    <storeCharacteristic
+      :characteristic="characteristic"
+      :productoid="productoid"
       :index="index"
       :state="page_state"
     />
-    <updateProduct
-      :product="product"
-      :categories="categories"
-      :subcategories="subcategories"
+    <updateCharacteristic
+      :characteristic="characteristic"
+      :productoid="productoid"
       :index="index"
       :state="page_state"
     />
@@ -101,47 +93,48 @@
 
 <script>
 
-import tableProduct from './ProductsTable.vue'
-import updateProduct from './ProductsUpdate.vue'
-import storeProduct from './ProductsStore.vue'
+import tableCharacteristic from './CharacteristicsTable.vue'
+import updateCharacteristic from './CharacteristicsUpdate.vue'
+import storeCharacteristic from './CharacteristisStore.vue'
 import axios from 'axios'
 
 export default {
   components: {
-    tableProduct: tableProduct,
-    updateProduct: updateProduct,
-    storeProduct: storeProduct
+    tableCharacteristic: tableCharacteristic,
+    updateCharacteristic: updateCharacteristic,
+    storeCharacteristic: storeCharacteristic
+  },
+  props: {
+    productoid: {
+      type: Number,
+      default: 0
+    }
   },
   data: function () {
     return {
-      products: [],
-      categories: [],
-      subcategories: [],
+      characteristics: [],
       number_page: 0,
       page_state: 1,
-      searchProducts: '',
-      product: {
+      searchCharacteristics: '',
+      characteristic: {
         id: 0,
         name: '',
-        extract: '',
         description: '',
-        price: '',
-        subcategory: {
+        product: {
           id: 0,
-          categoryid: 0,
           name: ''
         }
       }
     }
   },
   computed: {
-    filtroProduct: function () {
-      if (this.searchProducts) {
-        return this.products.filter((item) => {
-          return item.attributes.name.includes(this.searchProducts)
+    filtroCharacteristic: function () {
+      if (this.searchCharacteristics) {
+        return this.characteristics.filter((item) => {
+          return item.attributes.name.includes(this.searchCharacteristics)
         })
       } else {
-        return this.products
+        return this.characteristics
       }
     }
   },
@@ -150,28 +143,22 @@ export default {
   },
   methods: {
     index: function (page) {
-      axios.get('/api/v1/products?page=' + page).then((response) => {
+      axios.get('/api/v1/characteristics/all/' + this.productoid + '?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
-        this.products = response.data.data
-        this.categories = response.data.categories
+        this.characteristics = response.data.data
       })
     },
     create: function () {
-      $('#createProduct').modal('show')
+      $('#createCharacteristic').modal('show')
     },
     dataEdit: function (value) {
-      this.product.id = value.id
-      this.product.name = value.name
-      this.product.extract = value.extract
-      this.product.description = value.description
-      this.product.price = value.price
-      this.product.subcategory.id = value.subcategory.id
-      this.product.subcategory.categoryid = value.subcategory.categoryid
-      this.product.subcategory.name = value.subcategory.name
-      this.subcategories = this.categories[value.subcategory.categoryid - 1].subcategories
+      this.characteristic.id = value.id
+      this.characteristic.name = value.name
+      this.characteristic.description = value.description
+      this.characteristic.product.name = value.product.name
 
-      $('#updateProduct').modal('show')
+      $('#updateCharacteristic').modal('show')
     }
   }
 }

@@ -81,33 +81,15 @@
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Comunicacion con el cliente</h6>
-                </div>
-                <div class="card-body">
-                    <div class="text-center">
-                        <!--img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt=""-->
-                    </div>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum mauris lorem, 
-                        id feugiat arcu eleifend et. Proin finibus fermentum turpis volutpat volutpat. Praesent enim justo, 
-                        eleifend in ultrices a, posuere ut sapien. 
-                    </p>
-                </div>
-            </div>
-        </div>
-
         <div class="col-md-12 mt-5 text-right">
-            <button type="button" class="btn btn-secondary btn-icon-split">
+            <a href="{{ route('users.index') }}" type="button" class="btn btn-secondary btn-icon-split">
                 <span class="icon text-white-50">
                     <i class="fas fa-arrow-left"></i>
                 </span>
                 <span class="text">
                     Regresar
                 </span>
-            </button>
+            </a>
         </div>
     </div>
 
