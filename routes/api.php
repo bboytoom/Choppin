@@ -26,12 +26,14 @@ Route::group([
         'users' => 'UserController',
         'categories' => 'CategoryController',
         'subcategories' => 'SubCategoryController',
-        'products' => 'ProductController',
-        'shippings' => 'ShippingController'
+        'products' => 'ProductController'
     ]);
 
     Route::apiResource('characteristics', 'CharacteristicController')->except('index');
     Route::get('/characteristics/all/{id}', 'CharacteristicController@index')->name('characteristics.index');
+
+    Route::apiResource('shippings', 'ShippingController')->except('index');
+    Route::get('/shippings/all/{id}', 'ShippingController@index')->name('shippings.index');
 
     Route::put('/adminpassword/{id}', 'UserPasswordController@updateAdmin')->name('admins.password.update');
     Route::put('/userpassword/{id}', 'UserPasswordController@updateUser')->name('users.password.update');

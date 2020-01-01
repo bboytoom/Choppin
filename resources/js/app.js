@@ -42,6 +42,7 @@ Vue.component('category-component', require('./components/Categories/Categories.
 Vue.component('subcategory-component', require('./components/SubCategories/SubCategories.vue').default)
 Vue.component('product-component', require('./components/Products/Products.vue').default)
 Vue.component('characteristic-component', require('./components/Characteristics/Characteristics.vue').default)
+Vue.component('shipping-component', require('./components/Shippings/Shippings.vue').default)
 
 //  Librerias
 Vue.component('validation-provider', ValidationProvider)

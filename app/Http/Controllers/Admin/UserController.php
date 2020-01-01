@@ -37,7 +37,7 @@ class UserController extends Controller
         }
 
         return view('admin.users.edit', [
-            'id' => $user['id'],
+            'id' => $id,
             'name' => $user['name'],
             'paterno' => $user['father_surname'],
             'materno' => $user['mother_surname'],
