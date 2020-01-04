@@ -20,7 +20,7 @@ class CharacteristicController extends Controller
     {
         $characteristics = Characteristic::whereHas('product', function ($characteristicsEstatus) {
             $characteristicsEstatus->where('status', 1); 
-        })->paginate(10);
+        })->where('product_id', $id)->paginate(10);
 
         return new CharacteristicCollection($characteristics);
     }

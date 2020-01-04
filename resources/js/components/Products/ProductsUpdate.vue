@@ -15,7 +15,7 @@
             </div>
           </div>
 
-          <modalProductForm :product="product" :categories="categories" :subcategories="subcategories" />
+          <modalProductForm :product="product" :categories="categories" />
 
           <div class="modal-footer">
             <button type="reset" class="btn btn-secondary btn-icon-split" data-dismiss="modal" @click.prevent="updateProductReset()">
@@ -60,12 +60,6 @@ export default {
       }
     },
     categories: {
-      type: Array,
-      default: function () {
-        return []
-      }
-    },
-    subcategories: {
       type: Array,
       default: function () {
         return []

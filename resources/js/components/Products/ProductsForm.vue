@@ -6,7 +6,7 @@
           <label>Categoria</label>
           <validation-provider v-slot="{ errors, classes }" name="Categoria" rules="required">
             <div class="control" :class="classes">
-              <select v-model="product.subcategory.categoryid" class="custom-select" @change="category_id">
+              <select v-model="product.subcategory.categoryid" class="custom-select">
                 <option disabled value="0">
                   Seleccione un elemento
                 </option>
@@ -25,16 +25,19 @@
       <div class="col-md-12">
         <div class="form-group">
           <label>Sub categoria</label>
-          <validation-provider v-slot="{ errors, classes }" name="SubCategoria" rules="required">
+          <validation-provider v-slot="{ errors, classes }" name="sub categoria" rules="required">
             <div class="control" :class="classes">
-              <select v-model="product.subcategory.id" class="custom-select" @change="subcategory_id">
-                <option disabled selected value="0">
+              <select v-model="product.subcategory.id" class="custom-select">
+                <option disabled value="0">
                   Seleccione un elemento
                 </option>
-                <option v-for="option in subCat" :key="option.id" :value="option.id">
+                <option v-for="option in SubCategories" :key="option.id" :value="option.id">
                   {{ option.name }}
                 </option>
               </select>
+              <span>
+                {{ errors[0] }}
+              </span>
             </div>
           </validation-provider>
         </div>
@@ -114,34 +117,20 @@ export default {
       default: function () {
         return []
       }
-    },
-    subcategories: {
-      type: Array,
-      default: function () {
-        return []
-      }
-    }
-  },
-  data: function () {
-    return {
-      dataSubCategory: []
     }
   },
   computed: {
-    subCat: function () {
-      if (this.dataSubCategory.length === 0) {
-        return this.subcategories
-      } else {
-        return this.dataSubCategory
-      }
-    }
-  },
-  methods: {
-    category_id: function () {
-      this.dataSubCategory = this.categories[this.product.subcategory.categoryid - 1].subcategories
-    },
-    subcategory_id: function () {
-      return this.product.subcategory.id
+    SubCategories: function () {
+      var item = []
+      var category = this.categories.filter((item) => {
+        return (item.id === this.product.subcategory.categoryid)
+      })
+
+      category.forEach(element => {
+        item = element.subcategories
+      })
+
+      return item
     }
   }
 }

@@ -2,7 +2,7 @@
   <tbody>
     <tr v-for="item in products" :key="item.id">
       <td>
-        {{ category(categories, item.subcategory.categoryid) | capitalize }}
+        {{ category(categories, item.subcategory.categoryid) }}
       </td>
 
       <td>
@@ -74,11 +74,19 @@ export default {
   },
   methods: {
     category: function (categories, id) {
-      var catName = categories.filter((item) => {
-        return (item.id === id)
+      var prueba = ''
+
+      var obj = categories.filter((item) => {
+        return item
       })
 
-      return catName[0].name
+      obj.forEach(elemento => {
+        if (elemento.id === id) {
+          prueba = elemento.name
+        }
+      })
+
+      return prueba
     },
     edit: function (id) {
       axios.get('/api/v1/products/' + id).then((response) => {

@@ -85,14 +85,12 @@
     <storeProduct
       :product="product"
       :categories="categories"
-      :subcategories="subcategories"
       :index="index"
       :state="page_state"
     />
     <updateProduct
       :product="product"
       :categories="categories"
-      :subcategories="subcategories"
       :index="index"
       :state="page_state"
     />
@@ -116,7 +114,6 @@ export default {
     return {
       products: [],
       categories: [],
-      subcategories: [],
       number_page: 0,
       page_state: 1,
       searchProducts: '',
@@ -169,7 +166,6 @@ export default {
       this.product.subcategory.id = value.subcategory.id
       this.product.subcategory.categoryid = value.subcategory.categoryid
       this.product.subcategory.name = value.subcategory.name
-      this.subcategories = this.categories[value.subcategory.categoryid - 1].subcategories
 
       $('#updateProduct').modal('show')
     }

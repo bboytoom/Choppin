@@ -4006,8 +4006,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -4022,7 +4020,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       products: [],
       categories: [],
-      subcategories: [],
       number_page: 0,
       page_state: 1,
       searchProducts: '',
@@ -4079,7 +4076,6 @@ __webpack_require__.r(__webpack_exports__);
       this.product.subcategory.id = value.subcategory.id;
       this.product.subcategory.categoryid = value.subcategory.categoryid;
       this.product.subcategory.name = value.subcategory.name;
-      this.subcategories = this.categories[value.subcategory.categoryid - 1].subcategories;
       $('#updateProduct').modal('show');
     }
   }
@@ -4197,6 +4193,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     product: {
@@ -4210,34 +4209,20 @@ __webpack_require__.r(__webpack_exports__);
       "default": function _default() {
         return [];
       }
-    },
-    subcategories: {
-      type: Array,
-      "default": function _default() {
-        return [];
-      }
     }
-  },
-  data: function data() {
-    return {
-      dataSubCategory: []
-    };
   },
   computed: {
-    subCat: function subCat() {
-      if (this.dataSubCategory.length === 0) {
-        return this.subcategories;
-      } else {
-        return this.dataSubCategory;
-      }
-    }
-  },
-  methods: {
-    category_id: function category_id() {
-      this.dataSubCategory = this.categories[this.product.subcategory.categoryid - 1].subcategories;
-    },
-    subcategory_id: function subcategory_id() {
-      return this.product.subcategory.id;
+    SubCategories: function SubCategories() {
+      var _this = this;
+
+      var item = [];
+      var category = this.categories.filter(function (item) {
+        return item.id === _this.product.subcategory.categoryid;
+      });
+      category.forEach(function (element) {
+        item = element.subcategories;
+      });
+      return item;
     }
   }
 });
@@ -4316,12 +4301,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     categories: {
-      type: Array,
-      "default": function _default() {
-        return [];
-      }
-    },
-    subcategories: {
       type: Array,
       "default": function _default() {
         return [];
@@ -4477,10 +4456,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     category: function category(categories, id) {
-      var catName = categories.filter(function (item) {
-        return item.id === id;
+      var prueba = '';
+      var obj = categories.filter(function (item) {
+        return item;
       });
-      return catName[0].name;
+      obj.forEach(function (elemento) {
+        if (elemento.id === id) {
+          prueba = elemento.name;
+        }
+      });
+      return prueba;
     },
     edit: function edit(id) {
       var _this = this;
@@ -4637,12 +4622,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     categories: {
-      type: Array,
-      "default": function _default() {
-        return [];
-      }
-    },
-    subcategories: {
       type: Array,
       "default": function _default() {
         return [];
@@ -16117,7 +16096,6 @@ var render = function() {
         attrs: {
           product: _vm.product,
           categories: _vm.categories,
-          subcategories: _vm.subcategories,
           index: _vm.index,
           state: _vm.page_state
         }
@@ -16127,7 +16105,6 @@ var render = function() {
         attrs: {
           product: _vm.product,
           categories: _vm.categories,
-          subcategories: _vm.subcategories,
           index: _vm.index,
           state: _vm.page_state
         }
@@ -16239,27 +16216,23 @@ var render = function() {
                             ],
                             staticClass: "custom-select",
                             on: {
-                              change: [
-                                function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.product.subcategory,
-                                    "categoryid",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                },
-                                _vm.category_id
-                              ]
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.product.subcategory,
+                                  "categoryid",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
                             }
                           },
                           [
@@ -16319,7 +16292,7 @@ var render = function() {
             _c("label", [_vm._v("Sub categoria")]),
             _vm._v(" "),
             _c("validation-provider", {
-              attrs: { name: "SubCategoria", rules: "required" },
+              attrs: { name: "sub categoria", rules: "required" },
               scopedSlots: _vm._u([
                 {
                   key: "default",
@@ -16341,39 +16314,29 @@ var render = function() {
                             ],
                             staticClass: "custom-select",
                             on: {
-                              change: [
-                                function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.product.subcategory,
-                                    "id",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                },
-                                _vm.subcategory_id
-                              ]
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.product.subcategory,
+                                  "id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
                             }
                           },
                           [
                             _c(
                               "option",
-                              {
-                                attrs: {
-                                  disabled: "",
-                                  selected: "",
-                                  value: "0"
-                                }
-                              },
+                              { attrs: { disabled: "", value: "0" } },
                               [
                                 _vm._v(
                                   "\n                Seleccione un elemento\n              "
@@ -16381,7 +16344,7 @@ var render = function() {
                               ]
                             ),
                             _vm._v(" "),
-                            _vm._l(_vm.subCat, function(option) {
+                            _vm._l(_vm.SubCategories, function(option) {
                               return _c(
                                 "option",
                                 {
@@ -16399,7 +16362,15 @@ var render = function() {
                             })
                           ],
                           2
-                        )
+                        ),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(errors[0]) +
+                              "\n            "
+                          )
+                        ])
                       ])
                     ]
                   }
@@ -16777,8 +16748,7 @@ var render = function() {
                         _c("modalProductForm", {
                           attrs: {
                             product: _vm.product,
-                            categories: _vm.categories,
-                            subcategories: _vm.subcategories
+                            categories: _vm.categories
                           }
                         }),
                         _vm._v(" "),
@@ -16871,9 +16841,7 @@ var render = function() {
           _vm._v(
             "\n      " +
               _vm._s(
-                _vm._f("capitalize")(
-                  _vm.category(_vm.categories, item.subcategory.categoryid)
-                )
+                _vm.category(_vm.categories, item.subcategory.categoryid)
               ) +
               "\n    "
           )
@@ -17083,8 +17051,7 @@ var render = function() {
                         _c("modalProductForm", {
                           attrs: {
                             product: _vm.product,
-                            categories: _vm.categories,
-                            subcategories: _vm.subcategories
+                            categories: _vm.categories
                           }
                         }),
                         _vm._v(" "),

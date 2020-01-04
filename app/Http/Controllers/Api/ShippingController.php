@@ -20,7 +20,7 @@ class ShippingController extends Controller
     {
         $shippings = Shipping::whereHas('user', function ($shippingsEstatus) {
             $shippingsEstatus->where('status', 1); 
-        })->paginate(10);
+        })->where('user_id', $id)->paginate(10);
 
         return new ShippingCollection($shippings);
     }
