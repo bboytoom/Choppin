@@ -24,7 +24,7 @@ class ProductCollection extends ResourceCollection
     public function with($request)
     {
         return [
-            'categories' => new SubCategoryCatalogCollection(Category::all())
+            'categories' => new SubCategoryCatalogCollection(Category::where('status', 1)->get())
         ];
     }
 }

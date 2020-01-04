@@ -19,7 +19,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return new ProductCollection(Product::paginate(10));
+        $products = Product::whereHas('subcategory', function ($productsEstatus) {
+            $productsEstatus->where('status', 1); 
+        })->paginate(10);
+
+        return new ProductCollection($products);
     }
 
     /**
@@ -58,14 +62,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        $product =  Product::find($id);
-
-        if ($product == null) {
-            return response(null, 404);
-        }
-
         ProductResource::withoutWrapping();
         return new ProductResource($product);
     }
@@ -77,14 +75,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, $id)
+    public function update(ProductRequest $request, Product $product)
     {
-        $product =  Product::find($id);
-
-        if ($product == null) {
-            return response(null, 404);
-        }
-
         $product->subcategory_id = $request->get('subcategory_id');
         $product->name = strip_tags($request->get('name'));
         $product->slug = Str::slug($request->get('name'), '-');
@@ -103,14 +95,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        $product =  Product::find($id);
-
-        if ($product == null) {
-            return response(null, 404);
-        }
-        
         $product->delete();
 
         return response(null, 204);

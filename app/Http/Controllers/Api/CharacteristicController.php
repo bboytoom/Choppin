@@ -18,7 +18,11 @@ class CharacteristicController extends Controller
      */
     public function index($id)
     {
-        return new CharacteristicCollection(Characteristic::where('product_id', $id)->paginate(10));
+        $characteristics = Characteristic::whereHas('product', function ($characteristicsEstatus) {
+            $characteristicsEstatus->where('status', 1); 
+        })->paginate(10);
+
+        return new CharacteristicCollection($characteristics);
     }
 
     /**
@@ -54,14 +58,8 @@ class CharacteristicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Characteristic $characteristic)
     {
-        $characteristic =  Characteristic::find($id);
-
-        if ($characteristic == null) {
-            return response(null, 404);
-        }
-
         CharacteristicResource::withoutWrapping();
         return new CharacteristicResource($characteristic);
     }
@@ -73,14 +71,8 @@ class CharacteristicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CharacteristicRequest $request, $id)
+    public function update(CharacteristicRequest $request, Characteristic $characteristic)
     {
-        $characteristic =  Characteristic::find($id);
-
-        if ($characteristic == null) {
-            return response(null, 404);
-        }
-
         $characteristic->name = strip_tags($request->get('name'));
         $characteristic->description = strip_tags($request->get('description'));
         $characteristic->status = $request->get('status');
@@ -95,14 +87,8 @@ class CharacteristicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Characteristic $characteristic)
     {
-        $characteristic =  Characteristic::find($id);
-
-        if ($characteristic == null) {
-            return response(null, 404);
-        }
-        
         $characteristic->delete();
 
         return response(null, 204);

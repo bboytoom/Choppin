@@ -59,16 +59,10 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Admin $admin)
     {
-        $admins =  Admin::find($id);
-
-        if ($admins == null) {
-            return response(null, 404);
-        }
-
         AdminResource::withoutWrapping();
-        return new AdminResource($admins);
+        return new AdminResource($admin);
     }
 
     /**
@@ -78,14 +72,8 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AdminRequest $request, $id)
+    public function update(AdminRequest $request, Admin $admin)
     {
-        $admin =  Admin::find($id);
-
-        if ($admin == null) {
-            return response(null, 404);
-        }
-
         $admin->name = strip_tags($request->get('name'));
         $admin->mother_surname = strip_tags($request->get('mother_surname'));
         $admin->father_surname = strip_tags($request->get('father_surname'));
@@ -102,14 +90,8 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Admin $admin)
     {
-        $admin =  Admin::find($id);
-
-        if ($admin == null) {
-            return response(null, 404);
-        }
-
         $admin->delete();
         
         return response(null, 204);

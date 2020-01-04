@@ -10,28 +10,16 @@ use App\User;
 
 class UserPasswordController extends Controller
 {
-    public function updateAdmin(PasswordRequest $request, $id)
+    public function updateAdmin(PasswordRequest $request, Admin $admin)
     {
-        $admin =  Admin::find($id);
-
-        if ($admin == null) {
-            return response(null, 404);
-        }
-
         $admin->password = \Hash::make($request->get('password'));
         $admin->save();
 
         return response(null, 200);
     }
 
-    public function updateUser(PasswordRequest $request, $id)
+    public function updateUser(PasswordRequest $request, User $user)
     {
-        $user =  User::find($id);
-
-        if ($user == null) {
-            return response(null, 404);
-        }
-
         $user->password = \Hash::make($request->get('password'));
         $user->save();
 

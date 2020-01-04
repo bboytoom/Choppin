@@ -55,14 +55,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        $category =  Category::find($id);
-
-        if ($category == null) {
-            return response(null, 404);
-        }
-
         CategoryResource::withoutWrapping();
         return new CategoryResource($category);
     }
@@ -74,14 +68,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $category =  Category::find($id);
-
-        if ($category == null) {
-            return response(null, 404);
-        }
-
         $category->name = strip_tags($request->get('name'));
         $category->slug = Str::slug($request->get('name'), '-');
         $category->description = strip_tags($request->get('description'));
@@ -97,14 +85,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        $category =  Category::find($id);
-
-        if ($category == null) {
-            return response(null, 404);
-        }
-        
         $category->delete();
 
         return response(null, 204);

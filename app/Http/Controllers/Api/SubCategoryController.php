@@ -19,7 +19,11 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        return new SubCategoryCollection(SubCategory::paginate(10));
+        $subCategories = SubCategory::whereHas('category', function ($subCategoriesEstatus) {
+            $subCategoriesEstatus->where('status', 1); 
+        })->paginate(10);
+
+        return new SubCategoryCollection($subCategories);
     }
 
     /**
@@ -56,14 +60,8 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(SubCategory $subcategory)
     {
-        $subcategory =  SubCategory::find($id);
-
-        if ($subcategory == null) {
-            return response(null, 404);
-        }
-
         SubCategoryResource::withoutWrapping();
         return new SubCategoryResource($subcategory);
     }
@@ -75,14 +73,8 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SubCategoryRequest $request, $id)
+    public function update(SubCategoryRequest $request, SubCategory $subcategory)
     {
-        $subcategory =  SubCategory::find($id);
-
-        if ($subcategory == null) {
-            return response(null, 404);
-        }
-
         $subcategory->category_id = $request->get('category_id');
         $subcategory->name = strip_tags($request->get('name'));
         $subcategory->slug = Str::slug($request->get('name'), '-');
@@ -99,14 +91,8 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $subcategory =  SubCategory::find($id);
-
-        if ($subcategory == null) {
-            return response(null, 404);
-        }
-        
+    public function destroy(SubCategory $subcategory)
+    {        
         $subcategory->delete();
 
         return response(null, 204);

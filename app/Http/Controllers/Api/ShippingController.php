@@ -18,7 +18,11 @@ class ShippingController extends Controller
      */
     public function index($id)
     {
-        return new ShippingCollection(Shipping::where('user_id', $id)->paginate(10));
+        $shippings = Shipping::whereHas('user', function ($shippingsEstatus) {
+            $shippingsEstatus->where('status', 1); 
+        })->paginate(10);
+
+        return new ShippingCollection($shippings);
     }
 
     /**
@@ -51,14 +55,8 @@ class ShippingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Shipping $shipping)
     {
-        $shipping =  Shipping::find($id);
-
-        if ($shipping == null) {
-            return response(null, 404);
-        }
-
         ShippingResource::withoutWrapping();
         return new ShippingResource($shipping);
     }
@@ -70,14 +68,8 @@ class ShippingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ShippingRequest $request, $id)
+    public function update(ShippingRequest $request, Shipping $shipping)
     {
-        $shipping = Shipping::find($id);
-
-        if ($shipping == null) {
-            return response(null, 404);
-        }
-
         $shipping->street_one = $request->get('street_one');
         $shipping->street_two = $request->get('street_two');
         $shipping->addres = $request->get('addres');
@@ -98,14 +90,8 @@ class ShippingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $shipping =  Shipping::find($id);
-
-        if ($shipping == null) {
-            return response(null, 404);
-        }
-        
+    public function destroy(Shipping $shipping)
+    {       
         $shipping->delete();
 
         return response(null, 204);

@@ -59,14 +59,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user =  User::find($id);
-
-        if ($user == null) {
-            return response(null, 404);
-        }
-
         UserResource::withoutWrapping();
         return new UserResource($user);
     }
@@ -78,14 +72,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(UserRequest $request, User $user)
     {
-        $user =  User::find($id);
-
-        if ($user == null) {
-            return response(null, 404);
-        }
-
         $user->name = strip_tags($request->get('name'));
         $user->mother_surname = strip_tags($request->get('mother_surname'));
         $user->father_surname = strip_tags($request->get('father_surname'));
@@ -102,14 +90,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $user =  User::find($id);
-
-        if ($user == null) {
-            return response(null, 404);
-        }
-
         $user->delete();
 
         return response(null, 204);

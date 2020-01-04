@@ -24,7 +24,7 @@ class SubCategoryCollection extends ResourceCollection
     public function with($request)
     {
         return [
-            'categories' => new CategoryCatalogCollection(Category::all())
+            'categories' => new CategoryCatalogCollection(Category::where('status', 1)->get())
         ];
     }
 }

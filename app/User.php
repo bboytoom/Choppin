@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Events\Userupdated;
 
 class User extends Authenticatable
 {
@@ -49,6 +50,15 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    /**
+    * The event map for the model.
+    *
+    * @var array
+    */
+    protected $dispatchesEvents = [
+        'updated' => Userupdated::class,
     ];
 
     public function shipping()

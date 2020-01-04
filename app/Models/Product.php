@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Events\Productupdated;
 
 class Product extends Model
 {
@@ -27,6 +28,15 @@ class Product extends Model
         'description',
         'price',
         'status',
+    ];
+
+    /**
+    * The event map for the model.
+    *
+    * @var array
+    */
+    protected $dispatchesEvents = [
+        'updated' => Productupdated::class,
     ];
 
     public function subcategory()
