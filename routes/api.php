@@ -26,7 +26,8 @@ Route::group([
         'users' => 'UserController',
         'categories' => 'CategoryController',
         'subcategories' => 'SubCategoryController',
-        'products' => 'ProductController'
+        'products' => 'ProductController',
+        'configurations' => 'ConfigurationController'
     ]);
 
     Route::apiResource('characteristics', 'CharacteristicController')->except('index');

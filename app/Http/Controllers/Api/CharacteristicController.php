@@ -33,7 +33,7 @@ class CharacteristicController extends Controller
      */
     public function store(CharacteristicRequest $request)
     {
-        $characteristic = Characteristic::create([
+        Characteristic::create([
             'product_id' => $request->get('product_id'),
             'name' => strip_tags($request->get('name')),
             'description' => strip_tags($request->get('description')),

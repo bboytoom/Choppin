@@ -29,7 +29,7 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request)
     {
-        $admin = Admin::create([
+        Admin::create([
             'name' => strip_tags($request->get('name')),
             'mother_surname' => strip_tags($request->get('mother_surname')),
             'father_surname' => strip_tags($request->get('father_surname')),

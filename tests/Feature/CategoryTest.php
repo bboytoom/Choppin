@@ -14,7 +14,6 @@ class CategoryTest extends TestCase
     public function test_category_create()
     {
         $faker = \Faker\Factory::create();
-        $seed = InitSeed::getInstance()->getSeed();
         
         $data = [
            'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
@@ -47,7 +46,6 @@ class CategoryTest extends TestCase
     public function test_category_max_field_create()
     {
         $faker = \Faker\Factory::create();
-        $seed = InitSeed::getInstance()->getSeed();
         
         $data = [
             'name' => $faker->text($maxNbChars = 260),

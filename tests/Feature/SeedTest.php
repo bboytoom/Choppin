@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
+use App\Models\Configuration;
 use App\Admin;
 use App\User;
 use App\Models\Characteristic;
@@ -17,6 +18,7 @@ class SeedTest
 {
     use RefreshDatabase, WithFaker;
     
+    private $initial_configuration;
     private $initial_user;
     private $initial_admin;
     private $initial_category;
@@ -171,5 +173,28 @@ class SeedTest
         ]);
 
         return $this->initial_user;
+    }
+
+    public function seed_configuration()
+    {
+        $faker = \Faker\Factory::create();
+
+        $configuration = Configuration::create([
+            'domain' => $faker->domainName,
+            'name' => $faker->domainWord,
+            'business_name' => $faker->sentence($nbWords = 4, $variableNbWords = true),
+            'slogan' => $faker->text($maxNbChars = 100),
+            'logo' => 'prueba.png',
+            'email' => $faker->email,
+            'phone' => $faker->tollFreePhoneNumber,
+            'status' => 1
+        ]);
+
+        $this->initial_configuration = [
+            'configuration_id' => $configuration->id,
+            'domain' => $configuration->domain
+        ];
+
+        return $this->initial_configuration;
     }
 }

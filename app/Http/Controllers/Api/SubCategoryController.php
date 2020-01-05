@@ -34,7 +34,7 @@ class SubCategoryController extends Controller
      */
     public function store(SubCategoryRequest $request)
     {
-        $subcategory = SubCategory::create([
+        SubCategory::create([
             'category_id' => $request->get('category_id'),
             'name' => strip_tags($request->get('name')),
             'slug' => Str::slug($request->get('name'), '-'),
