@@ -27,19 +27,6 @@ class AdminsTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('admins', $data);
-
-        $admin = Admin::all()->first();
-
-        $response->assertJson([
-            'data' => [
-                'admins' => [
-                    'name' => $admin->name,
-                    'mother_surname' => $admin->mother_surname,
-                    'father_surname' => $admin->father_surname
-                ],
-                'password' => '@Admins2907'
-            ]
-        ]);
     }
 
     public function test_admin_same_create()

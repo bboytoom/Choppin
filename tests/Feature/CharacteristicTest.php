@@ -28,16 +28,6 @@ class CharacteristicTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('characteristics', $data);
-
-        $characteristics = Characteristic::all()->first();
-
-        $response->assertJson([
-            'data' => [
-                'characteristics' => [
-                    'name' => $characteristics->name
-                ]
-            ]
-        ]);
     }
 
     public function test_characteristic_same_create()

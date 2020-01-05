@@ -27,7 +27,7 @@ class UserUpdatedListener
      */
     public function handle(Userupdated $event)
     {
-        if($event->user->status === "0")
+        if($event->user->status == 0)
         {
             Shipping::where('user_id', $event->user->id)->update(['status' => 0]);
         }

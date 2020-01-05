@@ -38,19 +38,7 @@ class UserController extends Controller
             'status' => 1
         ]);
 
-        return response()->json(
-            [
-                'data' => [
-                    'user' => [
-                        'name' => $user->name,
-                        'mother_surname' => $user->mother_surname,
-                        'father_surname' => $user->father_surname
-                    ],
-                    'password' => '@Usuario2907'
-                ]
-            ],
-            201
-        );
+        return response(null, 201);
     }
 
     /**

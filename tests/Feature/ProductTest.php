@@ -31,16 +31,6 @@ class ProductTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('products', $data);
-
-        $product = Product::all()->first();
-
-        $response->assertJson([
-            'data' => [
-                'product' => [
-                    'name' => $product->name
-                ]
-            ]
-        ]);
     }
 
     public function test_product_same_create()

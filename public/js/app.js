@@ -16256,7 +16256,9 @@ var render = function() {
                                 [
                                   _vm._v(
                                     "\n                " +
-                                      _vm._s(option.name) +
+                                      _vm._s(
+                                        _vm._f("capitalize")(option.name)
+                                      ) +
                                       "\n              "
                                   )
                                 ]
@@ -16354,7 +16356,9 @@ var render = function() {
                                 [
                                   _vm._v(
                                     "\n                " +
-                                      _vm._s(option.name) +
+                                      _vm._s(
+                                        _vm._f("capitalize")(option.name)
+                                      ) +
                                       "\n              "
                                   )
                                 ]
@@ -16841,7 +16845,9 @@ var render = function() {
           _vm._v(
             "\n      " +
               _vm._s(
-                _vm.category(_vm.categories, item.subcategory.categoryid)
+                _vm._f("capitalize")(
+                  _vm.category(_vm.categories, item.subcategory.categoryid)
+                )
               ) +
               "\n    "
           )
@@ -18547,7 +18553,9 @@ var render = function() {
                                 [
                                   _vm._v(
                                     "\n                " +
-                                      _vm._s(option.name) +
+                                      _vm._s(
+                                        _vm._f("capitalize")(option.name)
+                                      ) +
                                       "\n              "
                                   )
                                 ]

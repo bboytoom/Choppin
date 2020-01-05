@@ -38,19 +38,7 @@ class AdminController extends Controller
             'status' => $request->get('status')
         ]);
 
-        return response()->json(
-            [
-                'data' => [
-                    'admins' => [
-                        'name' => $admin->name,
-                        'mother_surname' => $admin->mother_surname,
-                        'father_surname' => $admin->father_surname
-                    ],
-                    'password' => '@Admins2907'
-                ]
-            ],
-            201
-        );
+        return response(null, 201);
     }
 
     /**

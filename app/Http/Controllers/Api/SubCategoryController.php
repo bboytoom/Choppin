@@ -42,16 +42,7 @@ class SubCategoryController extends Controller
             'status' => $request->get('status')
         ]);
 
-        return response()->json(
-            [
-                'data' => [
-                    'subcategory' => [
-                        'name' => $subcategory->name
-                    ]
-                ]
-            ],
-            201
-        );
+        return response(null, 201);
     }
 
     /**

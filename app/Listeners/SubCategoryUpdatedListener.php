@@ -27,7 +27,7 @@ class SubCategoryUpdatedListener
      */
     public function handle(SubCategoryupdated $event)
     {
-        if($event->subcategory->status === "0")
+        if($event->subcategory->status == 0)
         {
             Product::where('subcategory_id', $event->subcategory->id)->update(['status' => 0]);
         }

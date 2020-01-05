@@ -29,16 +29,6 @@ class SubCategoryTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('sub_categories', $data);
-
-        $subcategory = SubCategory::all()->first();
-
-        $response->assertJson([
-            'data' => [
-                'subcategory' => [
-                    'name' => $subcategory->name
-                ]
-            ]
-        ]);
     }
 
     public function test_subcategory_same_create()

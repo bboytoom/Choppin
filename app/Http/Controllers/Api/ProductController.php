@@ -44,16 +44,7 @@ class ProductController extends Controller
             'status' => $request->get('status')
         ]);
 
-        return response()->json(
-            [
-                'data' => [
-                    'product' => [
-                        'name' => $products->name
-                    ]
-                ]
-            ],
-            201
-        );
+        return response(null, 201);
     }
 
     /**

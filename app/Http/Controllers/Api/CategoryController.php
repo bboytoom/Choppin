@@ -37,16 +37,7 @@ class CategoryController extends Controller
             'status' => $request->get('status')
         ]);
 
-        return response()->json(
-            [
-                'data' => [
-                    'category' => [
-                        'name' => $category->name
-                    ]
-                ]
-            ],
-            201
-        );
+        return response(null, 201);
     }
 
     /**

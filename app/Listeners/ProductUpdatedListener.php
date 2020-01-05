@@ -27,7 +27,7 @@ class ProductUpdatedListener
      */
     public function handle(Productupdated $event)
     {
-        if($event->product->status === "0")
+        if($event->product->status == 0)
         {
             Characteristic::where('product_id', $event->product->id)->update(['status' => 0]);
         }

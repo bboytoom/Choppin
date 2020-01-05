@@ -2,7 +2,7 @@
   <tbody>
     <tr v-for="item in products" :key="item.id">
       <td>
-        {{ category(categories, item.subcategory.categoryid) }}
+        {{ category(categories, item.subcategory.categoryid) | capitalize }}
       </td>
 
       <td>

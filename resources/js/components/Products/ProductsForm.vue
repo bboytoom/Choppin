@@ -11,7 +11,7 @@
                   Seleccione un elemento
                 </option>
                 <option v-for="option in categories" :key="option.id" :value="option.id">
-                  {{ option.name }}
+                  {{ option.name | capitalize }}
                 </option>
               </select>
               <span>
@@ -32,7 +32,7 @@
                   Seleccione un elemento
                 </option>
                 <option v-for="option in SubCategories" :key="option.id" :value="option.id">
-                  {{ option.name }}
+                  {{ option.name | capitalize }}
                 </option>
               </select>
               <span>

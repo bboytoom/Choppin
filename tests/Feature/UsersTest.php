@@ -27,19 +27,6 @@ class UsersTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('users', $data);
-
-        $user = User::all()->first();
-
-        $response->assertJson([
-            'data' => [
-                'user' => [
-                    'name' => $user->name,
-                    'mother_surname' => $user->mother_surname,
-                    'father_surname' => $user->father_surname
-                ],
-                'password' => '@Usuario2907'
-            ]
-        ]);
     }
 
     public function test_user_same_create()

@@ -40,16 +40,7 @@ class CharacteristicController extends Controller
             'status' => $request->get('status')
         ]);
 
-        return response()->json(
-            [
-                'data' => [
-                    'characteristics' => [
-                        'name' => $characteristic->name
-                    ]
-                ]
-            ],
-            201
-        );
+        return response(null, 201);
     }
 
     /**

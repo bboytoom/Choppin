@@ -26,16 +26,6 @@ class CategoryTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('categories', $data);
-
-        $category = Category::all()->first();
-
-        $response->assertJson([
-            'data' => [
-                'category' => [
-                    'name' => $category->name
-                ]
-            ]
-        ]);
     }
 
     public function test_category_same_create()
