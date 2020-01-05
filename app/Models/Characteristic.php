@@ -26,6 +26,16 @@ class Characteristic extends Model
         'status',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($characteristic) {
+            $characteristic->name = e(strtolower($characteristic->name));
+            $characteristic->description = e(strtolower($characteristic->description));
+        });
+    }
+
     public function product()
     {
         return $this->belongsTo('App\Models\Product', 'product_id');

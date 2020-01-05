@@ -138,10 +138,6 @@ class ProductTest extends TestCase
 
         $response = $this->json('PUT', "/api/v1/products/{$product['product_id']}", $update);
         $response->assertStatus(200);
-
-        $prod = Product::all()->first();
-
-        $this->assertEquals($prod->name, $update['name']);
     }
 
     public function test_product_same_update()
@@ -161,10 +157,6 @@ class ProductTest extends TestCase
 
         $response = $this->json('PUT', "/api/v1/products/{$product['product_id']}", $update);
         $response->assertStatus(200);
-
-        $prod = Product::all()->first();
-
-        $this->assertEquals($prod->name, $update['name']);
     }
 
     public function test_product_subcategory_no_exist_update()

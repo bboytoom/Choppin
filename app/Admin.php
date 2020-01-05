@@ -50,4 +50,17 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($admin) {
+            $admin->name = e(strtolower($admin->name));
+            $admin->mother_surname = e(strtolower($admin->mother_surname));
+            $admin->father_surname = e(strtolower($admin->father_surname));
+            $admin->email = e(strtolower($admin->email));
+            $admin->password = \Hash::make($admin->password);
+        });
+    }
 }

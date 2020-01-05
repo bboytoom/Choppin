@@ -29,15 +29,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        User::create([
-            'name' => strip_tags($request->get('name')),
-            'mother_surname' => strip_tags($request->get('mother_surname')),
-            'father_surname' => strip_tags($request->get('father_surname')),
-            'email' => strip_tags($request->get('email')),
-            'password' => \Hash::make('@User2907'),
-            'status' => 1
-        ]);
-
+        User::create($request->all());
         return response(null, 201);
     }
 
@@ -62,13 +54,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        $user->name = strip_tags($request->get('name'));
-        $user->mother_surname = strip_tags($request->get('mother_surname'));
-        $user->father_surname = strip_tags($request->get('father_surname'));
-        $user->email = strip_tags($request->get('email'));
-        $user->status = $request->get('status');
-        $user->save();
-        
+        $user->update($request->all());
         return response(null, 200);
     }
 
@@ -81,7 +67,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-
         return response(null, 204);
     }
 }

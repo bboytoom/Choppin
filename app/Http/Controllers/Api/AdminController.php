@@ -29,15 +29,7 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request)
     {
-        Admin::create([
-            'name' => strip_tags($request->get('name')),
-            'mother_surname' => strip_tags($request->get('mother_surname')),
-            'father_surname' => strip_tags($request->get('father_surname')),
-            'email' => strip_tags($request->get('email')),
-            'password' => \Hash::make('@Admins2907'),
-            'status' => $request->get('status')
-        ]);
-
+        Admin::create($request->all());
         return response(null, 201);
     }
 
@@ -62,13 +54,7 @@ class AdminController extends Controller
      */
     public function update(AdminRequest $request, Admin $admin)
     {
-        $admin->name = strip_tags($request->get('name'));
-        $admin->mother_surname = strip_tags($request->get('mother_surname'));
-        $admin->father_surname = strip_tags($request->get('father_surname'));
-        $admin->email = strip_tags($request->get('email'));
-        $admin->status = $request->get('status');
-        $admin->save();
-
+        $admin->update($request->all());
         return response(null, 200);
     }
 
@@ -81,7 +67,6 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         $admin->delete();
-        
         return response(null, 204);
     }
 }

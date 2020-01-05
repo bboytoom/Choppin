@@ -112,10 +112,6 @@ class ConfigurationTest extends TestCase
 
         $response = $this->json('PUT', "/api/v1/configurations/{$configuration['configuration_id']}", $update);
         $response->assertStatus(200);
-
-        $confi = Configuration::all()->first();
-        
-        $this->assertEquals($confi->name, $update['name']);
     }
 
     public function test_configuration_same_update()

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\Category\CategoryResource;
@@ -30,13 +29,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Category::create([
-            'name' => strip_tags($request->get('name')),
-            'slug' => Str::slug($request->get('name'), '-'),
-            'description' => strip_tags($request->get('description')),
-            'status' => $request->get('status')
-        ]);
-
+        Category::create($request->all());
         return response(null, 201);
     }
 
@@ -61,12 +54,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        $category->name = strip_tags($request->get('name'));
-        $category->slug = Str::slug($request->get('name'), '-');
-        $category->description = strip_tags($request->get('description'));
-        $category->status = $request->get('status');
-        $category->save();
-
+        $category->update($request->all());
         return response(null, 200);
     }
 
@@ -79,7 +67,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-
         return response(null, 204);
     }
 }

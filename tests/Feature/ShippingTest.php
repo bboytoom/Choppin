@@ -122,10 +122,6 @@ class ShippingTest extends TestCase
 
         $response = $this->json('PUT', "/api/v1/shippings/{$shipping['shipping_id']}", $update);
         $response->assertStatus(200);
-
-        $ship = Shipping::all()->first();
-
-        $this->assertEquals($ship->addres, $update['addres']);
     }
 
     public function test_shipping_user_no_exist_update()

@@ -33,13 +33,7 @@ class CharacteristicController extends Controller
      */
     public function store(CharacteristicRequest $request)
     {
-        Characteristic::create([
-            'product_id' => $request->get('product_id'),
-            'name' => strip_tags($request->get('name')),
-            'description' => strip_tags($request->get('description')),
-            'status' => $request->get('status')
-        ]);
-
+        Characteristic::create($request->all());
         return response(null, 201);
     }
 
@@ -64,11 +58,7 @@ class CharacteristicController extends Controller
      */
     public function update(CharacteristicRequest $request, Characteristic $characteristic)
     {
-        $characteristic->name = strip_tags($request->get('name'));
-        $characteristic->description = strip_tags($request->get('description'));
-        $characteristic->status = $request->get('status');
-        $characteristic->save();
-
+        $characteristic->update($request->all());
         return response(null, 200);
     }
 
@@ -81,7 +71,6 @@ class CharacteristicController extends Controller
     public function destroy(Characteristic $characteristic)
     {
         $characteristic->delete();
-
         return response(null, 204);
     }
 }

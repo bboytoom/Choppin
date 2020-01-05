@@ -29,16 +29,7 @@ class ConfigurationController extends Controller
      */
     public function store(ConfigurationRequest $request)
     {
-        Configuration::create([
-            'domain' => strip_tags($request->get('domain')),
-            'name' => strip_tags($request->get('name')),
-            'business_name' => strip_tags($request->get('business_name')),
-            'slogan' => strip_tags($request->get('slogan')),
-            'email' => strip_tags($request->get('email')),
-            'phone' => strip_tags($request->get('phone')),
-            'status' => $request->get('status')
-        ]);
-
+        Configuration::create($request->all());
         return response(null, 201);
     }
 
@@ -63,15 +54,7 @@ class ConfigurationController extends Controller
      */
     public function update(ConfigurationRequest $request, Configuration $configuration)
     {
-        $configuration->domain = strip_tags($request->get('domain'));
-        $configuration->name = strip_tags($request->get('name'));
-        $configuration->business_name = strip_tags($request->get('business_name'));
-        $configuration->slogan = strip_tags($request->get('slogan'));
-        $configuration->email = strip_tags($request->get('email'));
-        $configuration->phone = strip_tags($request->get('phone'));
-        $configuration->status = $request->get('status');
-        $configuration->save();
-
+        $configuration->update($request->all());
         return response(null, 200);
     }
 
@@ -84,7 +67,6 @@ class ConfigurationController extends Controller
     public function destroy(Configuration $configuration)
     {
         $configuration->delete();
-
         return response(null, 204);
     }
 }

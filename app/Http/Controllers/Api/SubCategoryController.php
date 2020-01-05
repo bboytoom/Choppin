@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubCategoryRequest;
 use App\Http\Resources\SubCategory\SubCategoryResource;
@@ -34,14 +33,7 @@ class SubCategoryController extends Controller
      */
     public function store(SubCategoryRequest $request)
     {
-        SubCategory::create([
-            'category_id' => $request->get('category_id'),
-            'name' => strip_tags($request->get('name')),
-            'slug' => Str::slug($request->get('name'), '-'),
-            'description' => strip_tags($request->get('description')),
-            'status' => $request->get('status')
-        ]);
-
+        SubCategory::create($request->all());
         return response(null, 201);
     }
 
@@ -66,13 +58,7 @@ class SubCategoryController extends Controller
      */
     public function update(SubCategoryRequest $request, SubCategory $subcategory)
     {
-        $subcategory->category_id = $request->get('category_id');
-        $subcategory->name = strip_tags($request->get('name'));
-        $subcategory->slug = Str::slug($request->get('name'), '-');
-        $subcategory->description = strip_tags($request->get('description'));
-        $subcategory->status = $request->get('status');
-        $subcategory->save();
-
+        $subcategory->update($request->all());
         return response(null, 200);
     }
 
@@ -85,7 +71,6 @@ class SubCategoryController extends Controller
     public function destroy(SubCategory $subcategory)
     {        
         $subcategory->delete();
-
         return response(null, 204);
     }
 }

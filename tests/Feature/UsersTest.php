@@ -115,11 +115,6 @@ class UsersTest extends TestCase
 
         $response = $this->json('PUT', "/api/v1/users/{$user->id}", $update);
         $response->assertStatus(200);
-
-        $user = $user->fresh();
-
-        $this->assertEquals($user->name, $update['name']);
-        $this->assertEquals($user->email, $update['email']);
     }
 
     public function test_user_email_same_update()
@@ -137,11 +132,6 @@ class UsersTest extends TestCase
 
         $response = $this->json('PUT', "/api/v1/users/{$user->id}", $update);
         $response->assertStatus(200);
-
-        $user = $user->fresh();
-
-        $this->assertEquals($user->name, $update['name']);
-        $this->assertEquals($user->email, $update['email']);
     }
 
     public function test_user_delete()

@@ -36,6 +36,17 @@ class Category extends Model
         'updated' => Categoryupdated::class,
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($category) {
+            $category->name = e(strtolower($category->name));
+            $category->slug = \Str::slug($category->name, '-');
+            $category->description = e(strtolower($category->description));
+        });
+    }
+
     public function subcategory()
     {
         return $this->hasMany('App\Models\SubCategory', 'category_id');

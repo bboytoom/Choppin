@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\Product\ProductResource;
 use App\Http\Resources\Product\ProductCollection;
@@ -34,16 +33,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        Product::create([
-            'subcategory_id' => $request->get('subcategory_id'),
-            'name' => strip_tags($request->get('name')),
-            'slug' => Str::slug($request->get('name'), '-'),
-            'extract' => strip_tags($request->get('extract')),
-            'description' => strip_tags($request->get('description')),
-            'price' => strip_tags(strip_tags($request->get('price'))),
-            'status' => $request->get('status')
-        ]);
-
+        Product::create($request->all());
         return response(null, 201);
     }
 
@@ -68,15 +58,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->subcategory_id = $request->get('subcategory_id');
-        $product->name = strip_tags($request->get('name'));
-        $product->slug = Str::slug($request->get('name'), '-');
-        $product->extract = strip_tags($request->get('extract'));
-        $product->description = strip_tags($request->get('description'));
-        $product->price = strip_tags($request->get('price'));
-        $product->status = $request->get('status');
-        $product->save();
-
+        $product->update($request->all());
         return response(null, 200);
     }
 
@@ -89,7 +71,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-
         return response(null, 204);
     }
 }

@@ -37,6 +37,17 @@ class SubCategory extends Model
         'updated' => SubCategoryupdated::class,
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($subcategory) {
+            $subcategory->name = e(strtolower($subcategory->name));
+            $subcategory->slug = \Str::slug($subcategory->name, '-');
+            $subcategory->description = e(strtolower($subcategory->description));
+        });
+    }
+
     public function category()
     {
         return $this->belongsTo('App\Models\Category', 'category_id');

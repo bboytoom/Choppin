@@ -61,6 +61,19 @@ class User extends Authenticatable
         'updated' => Userupdated::class,
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($user) {
+            $user->name = e(strtolower($user->name));
+            $user->mother_surname = e(strtolower($user->mother_surname));
+            $user->father_surname = e(strtolower($user->father_surname));
+            $user->email = e(strtolower($user->email));
+            $user->password = \Hash::make($user->password);
+        });
+    }
+
     public function shipping()
     {
         return $this->hasMany('App\Models\Shipping', 'user_id');

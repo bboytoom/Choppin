@@ -112,10 +112,6 @@ class CharacteristicTest extends TestCase
 
         $response = $this->json('PUT', "/api/v1/characteristics/{$characteristic['characteristic_id']}", $update);
         $response->assertStatus(200);
-
-        $caract = Characteristic::all()->first();
-
-        $this->assertEquals($caract->name, $update['name']);
     }
 
     public function test_characteristic_same_update()

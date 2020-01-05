@@ -111,10 +111,6 @@ class SubCategoryTest extends TestCase
 
         $response = $this->json('PUT', "/api/v1/subcategories/{$subcategory['subcategoria_id']}", $update);
         $response->assertStatus(200);
-
-        $subcat = SubCategory::all()->first();
-
-        $this->assertEquals($subcat->name, $update['name']);
     }
 
     public function test_subcategory_same_update()
@@ -132,10 +128,6 @@ class SubCategoryTest extends TestCase
 
         $response = $this->json('PUT', "/api/v1/subcategories/{$subcategory['subcategoria_id']}", $update);
         $response->assertStatus(200);
-
-        $subcat = SubCategory::all()->first();
-
-        $this->assertEquals($subcat->name, $update['name']);
     }
 
     public function test_subcategory_category_no_exist_update()

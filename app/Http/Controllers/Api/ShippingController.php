@@ -33,19 +33,7 @@ class ShippingController extends Controller
      */
     public function store(ShippingRequest $request)
     {
-        Shipping::create([
-            'user_id' => $request->get('user_id'),
-            'street_one' => $request->get('street_one'),
-            'street_two' => $request->get('street_two'),
-            'addres' => $request->get('addres'),
-            'suburb' => $request->get('suburb'),
-            'town' => $request->get('town'),
-            'state' => $request->get('state'),
-            'country' => $request->get('country'),
-            'postal_code' => $request->get('postal_code'),
-            'status' => $request->get('status')
-        ]);
-
+        Shipping::create($request->all());
         return response(null, 201);
     }
 
@@ -70,17 +58,7 @@ class ShippingController extends Controller
      */
     public function update(ShippingRequest $request, Shipping $shipping)
     {
-        $shipping->street_one = $request->get('street_one');
-        $shipping->street_two = $request->get('street_two');
-        $shipping->addres = $request->get('addres');
-        $shipping->suburb = $request->get('suburb');
-        $shipping->town = $request->get('town');
-        $shipping->state = $request->get('state');
-        $shipping->country = $request->get('country');
-        $shipping->postal_code = $request->get('postal_code');
-        $shipping->status = $request->get('status');
-        $shipping->save();
-
+        $shipping->update($request->all());
         return response(null, 200);
     }
 
@@ -93,7 +71,6 @@ class ShippingController extends Controller
     public function destroy(Shipping $shipping)
     {       
         $shipping->delete();
-
         return response(null, 204);
     }
 }

@@ -94,10 +94,6 @@ class CategoryTest extends TestCase
 
         $response = $this->json('PUT', "/api/v1/categories/{$category['category_id']}", $update);
         $response->assertStatus(200);
-
-        $cate = Category::all()->first();
-        
-        $this->assertEquals($cate->name, $update['name']);
     }
 
     public function test_category_same_update()
