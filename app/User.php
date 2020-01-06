@@ -65,12 +65,19 @@ class User extends Authenticatable
     {
         parent::boot();
 
-        static::saving(function ($user) {
+        static::creating(function ($user) {
             $user->name = e(strtolower($user->name));
             $user->mother_surname = e(strtolower($user->mother_surname));
             $user->father_surname = e(strtolower($user->father_surname));
             $user->email = e(strtolower($user->email));
-            $user->password = \Hash::make($user->password);
+            $user->password = \Hash::make('@User2907');
+        });
+
+        static::updating(function ($user) {
+            $user->name = e(strtolower($user->name));
+            $user->mother_surname = e(strtolower($user->mother_surname));
+            $user->father_surname = e(strtolower($user->father_surname));
+            $user->email = e(strtolower($user->email));
         });
     }
 

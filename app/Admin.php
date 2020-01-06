@@ -55,12 +55,19 @@ class Admin extends Authenticatable
     {
         parent::boot();
 
-        static::saving(function ($admin) {
+        static::creating(function ($admin) {
             $admin->name = e(strtolower($admin->name));
             $admin->mother_surname = e(strtolower($admin->mother_surname));
             $admin->father_surname = e(strtolower($admin->father_surname));
             $admin->email = e(strtolower($admin->email));
-            $admin->password = \Hash::make($admin->password);
+            $admin->password = \Hash::make('@Admin2907');
+        });
+
+        static::updating(function ($admin) {
+            $admin->name = e(strtolower($admin->name));
+            $admin->mother_surname = e(strtolower($admin->mother_surname));
+            $admin->father_surname = e(strtolower($admin->father_surname));
+            $admin->email = e(strtolower($admin->email));
         });
     }
 }

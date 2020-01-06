@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
     {
         factory(\App\Admin::class, 1)->create();
         
+        factory(\App\Models\Configuration::class, 1)->create();
+
         factory(\App\User::class, 50)->create()->each(function ($user) {
             $user->shipping()->createMany(factory(\App\Models\Shipping::class, 2)->make()->toArray());
         });

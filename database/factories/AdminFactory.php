@@ -13,7 +13,7 @@ $factory->define(Admin::class, function (Faker $faker) {
         'father_surname' => $faker->lastName,
         'email' => 'admin@gmail.com',
         'email_verified_at' => now(),
-        'password' => \Hash::make('admin123'),
+        'password' => \Hash::make('@Admin2907'),
         'remember_token' => Str::random(10),
         'status'=> 1
     ];
