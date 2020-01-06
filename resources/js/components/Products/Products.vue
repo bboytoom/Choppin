@@ -102,7 +102,6 @@
 import tableProduct from './ProductsTable.vue'
 import updateProduct from './ProductsUpdate.vue'
 import storeProduct from './ProductsStore.vue'
-import axios from 'axios'
 
 export default {
   components: {
@@ -147,7 +146,7 @@ export default {
   },
   methods: {
     index: function (page) {
-      axios.get('/api/v1/products?page=' + page).then((response) => {
+      this.$http.get('/api/v1/products?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
         this.products = response.data.data

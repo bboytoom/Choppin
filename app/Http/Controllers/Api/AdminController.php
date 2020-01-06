@@ -16,9 +16,13 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new AdminCollection(Admin::paginate(10));
+        if (config('app.key') == $request->header('APP_KEY')) {
+            return new AdminCollection(Admin::paginate(10));
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -29,8 +33,12 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request)
     {
-        Admin::create($request->all());
-        return response(null, 201);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            Admin::create($request->all());
+            return response(null, 201);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -39,10 +47,14 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Admin $admin)
+    public function show(Request $request, Admin $admin)
     {
-        AdminResource::withoutWrapping();
-        return new AdminResource($admin);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            AdminResource::withoutWrapping();
+            return new AdminResource($admin);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -54,8 +66,12 @@ class AdminController extends Controller
      */
     public function update(AdminRequest $request, Admin $admin)
     {
-        $admin->update($request->all());
-        return response(null, 200);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $admin->update($request->all());
+            return response(null, 200);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -64,9 +80,13 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy(Request $request, Admin $admin)
     {
-        $admin->delete();
-        return response(null, 204);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $admin->delete();
+            return response(null, 204);
+        } else {
+            abort(401);
+        }
     }
 }

@@ -27,7 +27,9 @@ class ProductTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/products', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/products', $data);
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('products', $data);
@@ -48,7 +50,9 @@ class ProductTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/products', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/products', $data);
         $response->assertStatus(422);
     }
 
@@ -67,7 +71,9 @@ class ProductTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/products', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/products', $data);
         $response->assertStatus(422);
     }
 
@@ -80,7 +86,9 @@ class ProductTest extends TestCase
            'subcategory_id' => $complemento['subcategoria_id']
         ];
 
-        $response = $this->json('POST', '/api/v1/products', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/products', $data);
         $response->assertStatus(422);
     }
 
@@ -98,7 +106,9 @@ class ProductTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/products', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/products', $data);
         $response->assertStatus(422);
     }
 
@@ -117,7 +127,9 @@ class ProductTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/products', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/products', $data);
         $response->assertStatus(422);
     }
 
@@ -136,7 +148,9 @@ class ProductTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('PUT', "/api/v1/products/{$product['product_id']}", $update);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('PUT', "/api/v1/products/{$product['product_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -155,7 +169,9 @@ class ProductTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('PUT', "/api/v1/products/{$product['product_id']}", $update);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('PUT', "/api/v1/products/{$product['product_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -174,7 +190,9 @@ class ProductTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('PUT', "/api/v1/products/{$product['product_id']}", $update);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('PUT', "/api/v1/products/{$product['product_id']}", $update);
         $response->assertStatus(422);
     }
     
@@ -183,7 +201,9 @@ class ProductTest extends TestCase
         $seed = InitSeed::getInstance()->getSeed();
         $product = $seed->seed_product();
 
-        $this->json('DELETE', "/api/v1/products/{$product['product_id']}")->assertStatus(204);
+        $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('DELETE', "/api/v1/products/{$product['product_id']}")->assertStatus(204);
         $this->assertNull(Product::find($product['product_id']));
     }
 }

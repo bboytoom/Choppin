@@ -45,8 +45,6 @@
 <script>
 
 import modalSubCategoryForm from './SubCategoriesForm.vue'
-import axios from 'axios'
-import { ToadAlert } from '../helpers'
 
 export default {
   components: {
@@ -95,14 +93,14 @@ export default {
           return
         }
 
-        axios.post('/api/v1/subcategories/', data).then((response) => {
+        this.$http.post('/api/v1/subcategories/', data).then((response) => {
           if (response.status === 201) {
             $('#createSubCategory').modal('hide')
 
             this.index(this.state)
             this.createSubCategoryReset()
 
-            ToadAlert.toad('La sub categoria se agrego correctamente')
+            this.$toad.toad('La sub categoria se agrego correctamente')
           }
         }).catch(error => {
           this.errorCreate = error.response.data.errors.category_id

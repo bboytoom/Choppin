@@ -45,8 +45,6 @@
 <script>
 
 import modalAdminForm from './AdminsForm.vue'
-import axios from 'axios'
-import { ToadAlert } from '../helpers'
 
 export default {
   components: {
@@ -90,14 +88,14 @@ export default {
           return
         }
 
-        axios.put('/api/v1/admins/' + admin.id, data).then((response) => {
+        this.$http.put('/api/v1/admins/' + admin.id, data).then((response) => {
           if (response.status === 200) {
             $('#updateAdmin').modal('hide')
 
             this.index(this.state)
             this.updateAdminReset()
 
-            ToadAlert.toad('El administrador se actualizo correctamente')
+            this.$toad.toad('El administrador se actualizo correctamente')
           }
         }).catch(error => {
           this.errorUpdate = error.response.data.errors.email

@@ -37,10 +37,6 @@
 
 <script>
 
-import axios from 'axios'
-import Swal from 'sweetalert2'
-import { ToadAlert } from '../helpers'
-
 export default {
   props: {
     shippings: {
@@ -66,7 +62,7 @@ export default {
   },
   methods: {
     edit: function (id) {
-      axios.get('/api/v1/shippings/' + id).then((response) => {
+      this.$http.get('/api/v1/shippings/' + id).then((response) => {
         this.$emit('dataEdit', {
           id: response.data.id,
           street_one: response.data.attributes.street_one,
@@ -85,7 +81,7 @@ export default {
       })
     },
     deleted: function (id) {
-      Swal.fire({
+      this.$swal.fire({
         html: '<h6><strong>Seguro que quiere eliminar la direccion</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
@@ -95,16 +91,16 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          axios.delete('/api/v1/shippings/' + id).then((response) => {
+          this.$http.delete('/api/v1/shippings/' + id).then((response) => {
             if (response.status === 204) {
-              axios.get('/api/v1/shippings/all/' + this.userid).then((response) => {
+              this.$http.get('/api/v1/shippings/all/' + this.userid).then((response) => {
                 if (this.state > parseInt(response.data.meta.last_page)) {
                   this.index(parseInt(response.data.meta.last_page))
                 } else {
                   this.index(this.state)
                 }
 
-                ToadAlert.toad('La direccion se elimino correctamente')
+                this.$toad.toad('La direccion se elimino correctamente')
               })
             }
           })
@@ -112,7 +108,7 @@ export default {
       })
     },
     editStatus: function (id, attr) {
-      Swal.fire({
+      this.$swal.fire({
         html: '<h6><strong>Desea cambiar el estatus de la direccion</strong></h6>',
         icon: 'question',
         showCancelButton: true,
@@ -122,7 +118,7 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          axios.put('/api/v1/shippings/' + id, {
+          this.$http.put('/api/v1/shippings/' + id, {
             user_id: this.userid,
             street_one: attr.street_one,
             street_two: attr.street_two,

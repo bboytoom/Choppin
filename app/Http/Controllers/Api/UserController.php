@@ -16,9 +16,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new UserCollection(User::paginate(10));
+        if (config('app.key') == $request->header('APP_KEY')) {
+            return new UserCollection(User::paginate(10));
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -29,8 +33,12 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        User::create($request->all());
-        return response(null, 201);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            User::create($request->all());
+            return response(null, 201);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -39,10 +47,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
-        UserResource::withoutWrapping();
-        return new UserResource($user);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            UserResource::withoutWrapping();
+            return new UserResource($user);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -54,8 +66,12 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        $user->update($request->all());
-        return response(null, 200);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $user->update($request->all());
+            return response(null, 200);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -64,9 +80,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
-        $user->delete();
-        return response(null, 204);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $user->delete();
+            return response(null, 204);
+        } else {
+            abort(401);
+        }
     }
 }

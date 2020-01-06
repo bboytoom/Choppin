@@ -16,9 +16,13 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new CategoryCollection(Category::paginate(10));
+        if (config('app.key') == $request->header('APP_KEY')) {
+            return new CategoryCollection(Category::paginate(10));
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -29,8 +33,12 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Category::create($request->all());
-        return response(null, 201);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            Category::create($request->all());
+            return response(null, 201);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -39,10 +47,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Request $request, Category $category)
     {
-        CategoryResource::withoutWrapping();
-        return new CategoryResource($category);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            CategoryResource::withoutWrapping();
+            return new CategoryResource($category);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -54,8 +66,12 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        $category->update($request->all());
-        return response(null, 200);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $category->update($request->all());
+            return response(null, 200);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -64,9 +80,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Request $request, Category $category)
     {
-        $category->delete();
-        return response(null, 204);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $category->delete();
+            return response(null, 204);
+        } else {
+            abort(401);
+        }
     }
 }

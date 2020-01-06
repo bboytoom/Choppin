@@ -16,13 +16,17 @@ class CharacteristicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Request $request, $id)
     {
-        $characteristics = Characteristic::whereHas('product', function ($characteristicsEstatus) {
-            $characteristicsEstatus->where('status', 1); 
-        })->where('product_id', $id)->paginate(10);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $characteristics = Characteristic::whereHas('product', function ($characteristicsEstatus) {
+                $characteristicsEstatus->where('status', 1); 
+            })->where('product_id', $id)->paginate(10);
 
-        return new CharacteristicCollection($characteristics);
+            return new CharacteristicCollection($characteristics);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -33,8 +37,12 @@ class CharacteristicController extends Controller
      */
     public function store(CharacteristicRequest $request)
     {
-        Characteristic::create($request->all());
-        return response(null, 201);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            Characteristic::create($request->all());
+            return response(null, 201);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -43,10 +51,14 @@ class CharacteristicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Characteristic $characteristic)
+    public function show(Request $request, Characteristic $characteristic)
     {
-        CharacteristicResource::withoutWrapping();
-        return new CharacteristicResource($characteristic);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            CharacteristicResource::withoutWrapping();
+            return new CharacteristicResource($characteristic);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -58,8 +70,12 @@ class CharacteristicController extends Controller
      */
     public function update(CharacteristicRequest $request, Characteristic $characteristic)
     {
-        $characteristic->update($request->all());
-        return response(null, 200);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $characteristic->update($request->all());
+            return response(null, 200);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -68,9 +84,13 @@ class CharacteristicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Characteristic $characteristic)
+    public function destroy(Request $request, Characteristic $characteristic)
     {
-        $characteristic->delete();
-        return response(null, 204);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $characteristic->delete();
+            return response(null, 204);
+        } else {
+            abort(401);
+        }
     }
 }

@@ -45,8 +45,6 @@
 <script>
 
 import modalForm from './UsersForm.vue'
-import { ToadAlert } from '../helpers'
-import axios from 'axios'
 
 export default {
   components: {
@@ -90,14 +88,14 @@ export default {
           return
         }
 
-        axios.put('/api/v1/users/' + user.id, data).then((response) => {
+        this.$http.put('/api/v1/users/' + user.id, data).then((response) => {
           if (response.status === 200) {
             $('#updateUser').modal('hide')
 
             this.index(this.state)
             this.updateUserReset()
 
-            ToadAlert.toad('El usuario se actualizo correctamente')
+            this.$toad.toad('El usuario se actualizo correctamente')
           }
         }).catch(error => {
           this.errorUpdate = error.response.data.errors.email

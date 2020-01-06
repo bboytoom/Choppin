@@ -93,7 +93,6 @@
 import tableCategory from './CategoriesTable.vue'
 import storeCategory from './CategoriesStore.vue'
 import updateCategory from './CategoriesUpdate.vue'
-import axios from 'axios'
 
 export default {
   components: {
@@ -130,7 +129,7 @@ export default {
   },
   methods: {
     index: function (page) {
-      axios.get('/api/v1/categories?page=' + page).then((response) => {
+      this.$http.get('/api/v1/categories?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
         this.categories = response.data.data

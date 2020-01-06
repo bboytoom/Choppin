@@ -33,10 +33,6 @@
 
 <script>
 
-import axios from 'axios'
-import Swal from 'sweetalert2'
-import { ToadAlert } from '../helpers'
-
 export default {
   props: {
     categories: {
@@ -58,7 +54,7 @@ export default {
   },
   methods: {
     edit: function (id) {
-      axios.get('/api/v1/categories/' + id).then((response) => {
+      this.$http.get('/api/v1/categories/' + id).then((response) => {
         this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -67,7 +63,7 @@ export default {
       })
     },
     deleted: function (id) {
-      Swal.fire({
+      this.$swal.fire({
         html: '<h6><strong>Seguro que quiere eliminar la categoria</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
@@ -77,16 +73,16 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          axios.delete('/api/v1/categories/' + id).then((response) => {
+          this.$http.delete('/api/v1/categories/' + id).then((response) => {
             if (response.status === 204) {
-              axios.get('/api/v1/categories').then((response) => {
+              this.$http.get('/api/v1/categories').then((response) => {
                 if (this.state > parseInt(response.data.meta.last_page)) {
                   this.index(parseInt(response.data.meta.last_page))
                 } else {
                   this.index(this.state)
                 }
 
-                ToadAlert.toad('La categoria se elimino correctamente')
+                this.$toad.toad('La categoria se elimino correctamente')
               })
             }
           })
@@ -94,7 +90,7 @@ export default {
       })
     },
     editStatus: function (id, attr) {
-      Swal.fire({
+      this.$swal.fire({
         html: '<h6><strong>Desea cambiar el estatus de la categoria</strong></h6>',
         icon: 'question',
         showCancelButton: true,
@@ -104,7 +100,7 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          axios.put('/api/v1/categories/' + id, {
+          this.$http.put('/api/v1/categories/' + id, {
             name: attr.name,
             description: attr.description,
             status: (attr.status === 1) ? 0 : 1

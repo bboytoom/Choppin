@@ -1842,8 +1842,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminsStore_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminsStore.vue */ "./resources/js/components/Admins/AdminsStore.vue");
 /* harmony import */ var _AdminsUpdate_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminsUpdate.vue */ "./resources/js/components/Admins/AdminsUpdate.vue");
 /* harmony import */ var _AdminsPassword_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AdminsPassword.vue */ "./resources/js/components/Admins/AdminsPassword.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 //
 //
 //
@@ -1934,7 +1932,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 
@@ -1981,7 +1978,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_4___default.a.get('/api/v1/admins?page=' + page).then(function (response) {
+      this.$http.get('/api/v1/admins?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.admins = response.data.data;
@@ -2103,9 +2100,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -2187,8 +2181,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     admin: {
@@ -2218,13 +2210,13 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/v1/adminpassword/' + admin.id, data).then(function (response) {
+        _this.$http.put('/api/v1/adminpassword/' + admin.id, data).then(function (response) {
           if (response.status === 200) {
             $('#passwordAdmin').modal('hide');
 
             _this.passwordAdminReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_1__["ToadAlert"].toad('La contraseña se actualizo correctamente');
+            _this.$toad.toad('La contraseña se actualizo correctamente');
           }
         })["catch"](function (error) {
           _this.errorPassword = error.response.data.errors.password;
@@ -2255,10 +2247,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _AdminsForm_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminsForm.vue */ "./resources/js/components/Admins/AdminsForm.vue");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
+/* harmony import */ var _AdminsForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminsForm.vue */ "./resources/js/components/Admins/AdminsForm.vue");
 //
 //
 //
@@ -2303,12 +2292,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    modalAdminForm: _AdminsForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    modalAdminForm: _AdminsForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
     admin: {
@@ -2349,7 +2336,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/v1/admins/', data).then(function (response) {
+        _this.$http.post('/api/v1/admins/', data).then(function (response) {
           if (response.status === 201) {
             $('#createAdmin').modal('hide');
 
@@ -2357,7 +2344,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.createAdminrReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El administrador se agrego correctamente');
+            _this.$toad.toad('El administrador se agrego correctamente');
           }
         })["catch"](function (error) {
           _this.errorCreate = error.response.data.errors.email;
@@ -2387,11 +2374,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -2432,9 +2414,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     admins: {
@@ -2458,7 +2437,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/admins/' + id).then(function (response) {
+      this.$http.get('/api/v1/admins/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -2471,7 +2450,7 @@ __webpack_require__.r(__webpack_exports__);
     deleted: function deleted(id) {
       var _this2 = this;
 
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+      this.$swal.fire({
         html: '<h6><strong>Seguro que quiere eliminar al administrador</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
@@ -2481,16 +2460,16 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/v1/admins/' + id).then(function (response) {
+          _this2.$http["delete"]('/api/v1/admins/' + id).then(function (response) {
             if (response.status === 204) {
-              axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/admins').then(function (response) {
+              _this2.$http.get('/api/v1/admins').then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
                   _this2.index(_this2.state);
                 }
 
-                _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El Administrador se elimino correctamente');
+                _this2.$toad.toad('El Administrador se elimino correctamente');
               });
             }
           });
@@ -2500,7 +2479,7 @@ __webpack_require__.r(__webpack_exports__);
     password: function password(id) {
       var _this3 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/admins/' + id).then(function (response) {
+      this.$http.get('/api/v1/admins/' + id).then(function (response) {
         _this3.$emit('passwordEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -2512,7 +2491,7 @@ __webpack_require__.r(__webpack_exports__);
     editStatus: function editStatus(id, attr) {
       var _this4 = this;
 
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+      this.$swal.fire({
         html: '<h6><strong>Desea cambiar el estatus del administrador</strong></h6>',
         icon: 'question',
         showCancelButton: true,
@@ -2522,7 +2501,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/v1/admins/' + id, {
+          _this4.$http.put('/api/v1/admins/' + id, {
             name: attr.name,
             father_surname: attr.father_surname,
             email: attr.email,
@@ -2550,9 +2529,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminsForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminsForm.vue */ "./resources/js/components/Admins/AdminsForm.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -2597,8 +2573,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2643,7 +2617,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/v1/admins/' + admin.id, data).then(function (response) {
+        _this.$http.put('/api/v1/admins/' + admin.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateAdmin').modal('hide');
 
@@ -2651,7 +2625,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.updateAdminReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El administrador se actualizo correctamente');
+            _this.$toad.toad('El administrador se actualizo correctamente');
           }
         })["catch"](function (error) {
           _this.errorUpdate = error.response.data.errors.email;
@@ -2684,8 +2658,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CategoriesTable_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CategoriesTable.vue */ "./resources/js/components/Categories/CategoriesTable.vue");
 /* harmony import */ var _CategoriesStore_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CategoriesStore.vue */ "./resources/js/components/Categories/CategoriesStore.vue");
 /* harmony import */ var _CategoriesUpdate_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CategoriesUpdate.vue */ "./resources/js/components/Categories/CategoriesUpdate.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -2776,7 +2748,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 
@@ -2819,7 +2790,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('/api/v1/categories?page=' + page).then(function (response) {
+      this.$http.get('/api/v1/categories?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.categories = response.data.data;
@@ -2905,9 +2876,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CategoriesForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CategoriesForm.vue */ "./resources/js/components/Categories/CategoriesForm.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -2946,8 +2914,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2985,7 +2951,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/v1/categories/', data).then(function (response) {
+        _this.$http.post('/api/v1/categories/', data).then(function (response) {
           if (response.status === 201) {
             $('#createCategory').modal('hide');
 
@@ -2993,7 +2959,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.createCategoryReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('La categoria se agrego correctamente');
+            _this.$toad.toad('La categoria se agrego correctamente');
           }
         });
       });
@@ -3018,11 +2984,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -3056,9 +3017,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     categories: {
@@ -3082,7 +3040,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/categories/' + id).then(function (response) {
+      this.$http.get('/api/v1/categories/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -3093,7 +3051,7 @@ __webpack_require__.r(__webpack_exports__);
     deleted: function deleted(id) {
       var _this2 = this;
 
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+      this.$swal.fire({
         html: '<h6><strong>Seguro que quiere eliminar la categoria</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
@@ -3103,16 +3061,16 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/v1/categories/' + id).then(function (response) {
+          _this2.$http["delete"]('/api/v1/categories/' + id).then(function (response) {
             if (response.status === 204) {
-              axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/categories').then(function (response) {
+              _this2.$http.get('/api/v1/categories').then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
                   _this2.index(_this2.state);
                 }
 
-                _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('La categoria se elimino correctamente');
+                _this2.$toad.toad('La categoria se elimino correctamente');
               });
             }
           });
@@ -3122,7 +3080,7 @@ __webpack_require__.r(__webpack_exports__);
     editStatus: function editStatus(id, attr) {
       var _this3 = this;
 
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+      this.$swal.fire({
         html: '<h6><strong>Desea cambiar el estatus de la categoria</strong></h6>',
         icon: 'question',
         showCancelButton: true,
@@ -3132,7 +3090,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/v1/categories/' + id, {
+          _this3.$http.put('/api/v1/categories/' + id, {
             name: attr.name,
             description: attr.description,
             status: attr.status === 1 ? 0 : 1
@@ -3159,9 +3117,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CategoriesForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CategoriesForm.vue */ "./resources/js/components/Categories/CategoriesForm.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -3200,8 +3155,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3239,7 +3192,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/v1/categories/' + category.id, data).then(function (response) {
+        _this.$http.put('/api/v1/categories/' + category.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateCategory').modal('hide');
 
@@ -3247,7 +3200,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.updateCategoryReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('La categoria se actualizo correctamente');
+            _this.$toad.toad('La categoria se actualizo correctamente');
           }
         });
       });
@@ -3275,8 +3228,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CharacteristicsTable_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CharacteristicsTable.vue */ "./resources/js/components/Characteristics/CharacteristicsTable.vue");
 /* harmony import */ var _CharacteristicsUpdate_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CharacteristicsUpdate.vue */ "./resources/js/components/Characteristics/CharacteristicsUpdate.vue");
 /* harmony import */ var _CharacteristisStore_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CharacteristisStore.vue */ "./resources/js/components/Characteristics/CharacteristisStore.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -3370,7 +3321,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 
@@ -3423,7 +3373,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('/api/v1/characteristics/all/' + this.productoid + '?page=' + page).then(function (response) {
+      this.$http.get('/api/v1/characteristics/all/' + this.productoid + '?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.characteristics = response.data.data;
@@ -3509,11 +3459,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -3547,9 +3492,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     characteristics: {
@@ -3580,7 +3522,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/characteristics/' + id).then(function (response) {
+      this.$http.get('/api/v1/characteristics/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -3594,7 +3536,7 @@ __webpack_require__.r(__webpack_exports__);
     deleted: function deleted(id) {
       var _this2 = this;
 
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+      this.$swal.fire({
         html: '<h6><strong>Seguro que quiere eliminar la caracteristica</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
@@ -3604,16 +3546,16 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/v1/characteristics/' + id).then(function (response) {
+          _this2.$http["delete"]('/api/v1/characteristics/' + id).then(function (response) {
             if (response.status === 204) {
-              axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/characteristics/all/' + _this2.productoid).then(function (response) {
+              _this2.$http.get('/api/v1/characteristics/all/' + _this2.productoid).then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
                   _this2.index(_this2.state);
                 }
 
-                _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('La caracteristica se elimino correctamente');
+                _this2.$toad.toad('La caracteristica se elimino correctamente');
               });
             }
           });
@@ -3623,7 +3565,7 @@ __webpack_require__.r(__webpack_exports__);
     editStatus: function editStatus(id, attr) {
       var _this3 = this;
 
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+      this.$swal.fire({
         html: '<h6><strong>Desea cambiar el estatus de la caracteristica</strong></h6>',
         icon: 'question',
         showCancelButton: true,
@@ -3633,7 +3575,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/v1/characteristics/' + id, {
+          _this3.$http.put('/api/v1/characteristics/' + id, {
             product_id: _this3.productoid,
             name: attr.name,
             description: attr.description,
@@ -3661,9 +3603,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CharacteristicsForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CharacteristicsForm.vue */ "./resources/js/components/Characteristics/CharacteristicsForm.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -3702,8 +3641,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3746,7 +3683,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/v1/characteristics/' + characteristic.id, data).then(function (response) {
+        _this.$http.put('/api/v1/characteristics/' + characteristic.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateCharacteristic').modal('hide');
 
@@ -3754,7 +3691,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.updateCharacteristicReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('La caracteristica se agrego correctamente');
+            _this.$toad.toad('La caracteristica se agrego correctamente');
           }
         });
       });
@@ -3782,9 +3719,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CharacteristicsForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CharacteristicsForm.vue */ "./resources/js/components/Characteristics/CharacteristicsForm.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -3823,8 +3757,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3867,7 +3799,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/v1/characteristics/', data).then(function (response) {
+        _this.$http.post('/api/v1/characteristics/', data).then(function (response) {
           if (response.status === 201) {
             $('#createCharacteristic').modal('hide');
 
@@ -3875,7 +3807,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.createCharacteristicReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('La caracteristica se agrego correctamente');
+            _this.$toad.toad('La caracteristica se agrego correctamente');
           }
         });
       });
@@ -3905,8 +3837,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProductsTable_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductsTable.vue */ "./resources/js/components/Products/ProductsTable.vue");
 /* harmony import */ var _ProductsUpdate_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductsUpdate.vue */ "./resources/js/components/Products/ProductsUpdate.vue");
 /* harmony import */ var _ProductsStore_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductsStore.vue */ "./resources/js/components/Products/ProductsStore.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -4006,7 +3936,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 
@@ -4057,7 +3986,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('/api/v1/products?page=' + page).then(function (response) {
+      this.$http.get('/api/v1/products?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.products = response.data.data;
@@ -4239,9 +4168,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProductsForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductsForm.vue */ "./resources/js/components/Products/ProductsForm.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -4286,8 +4212,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4339,7 +4263,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/v1/products/', data).then(function (response) {
+        _this.$http.post('/api/v1/products/', data).then(function (response) {
           if (response.status === 201) {
             $('#createProduct').modal('hide');
 
@@ -4347,7 +4271,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.createProductReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El producto se agrego correctamente');
+            _this.$toad.toad('El producto se agrego correctamente');
           }
         })["catch"](function (error) {
           _this.errorCreate = error.response.data.errors.category_id;
@@ -4378,11 +4302,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -4426,9 +4345,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     products: {
@@ -4470,7 +4386,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/products/' + id).then(function (response) {
+      this.$http.get('/api/v1/products/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -4488,7 +4404,7 @@ __webpack_require__.r(__webpack_exports__);
     deleted: function deleted(id) {
       var _this2 = this;
 
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+      this.$swal.fire({
         html: '<h6><strong>Seguro que quiere eliminar el producto</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
@@ -4498,16 +4414,16 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/v1/products/' + id).then(function (response) {
+          _this2.$http["delete"]('/api/v1/products/' + id).then(function (response) {
             if (response.status === 204) {
-              axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/products').then(function (response) {
+              _this2.$http.get('/api/v1/products').then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
                   _this2.index(_this2.state);
                 }
 
-                _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El producto se elimino correctamente');
+                _this2.$toad.toad('El producto se elimino correctamente');
               });
             }
           });
@@ -4520,7 +4436,7 @@ __webpack_require__.r(__webpack_exports__);
     editStatus: function editStatus(id, attr, subcategoryId) {
       var _this3 = this;
 
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+      this.$swal.fire({
         html: '<h6><strong>Desea cambiar el estatus de la sub categoria</strong></h6>',
         icon: 'question',
         showCancelButton: true,
@@ -4530,7 +4446,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/v1/products/' + id, {
+          _this3.$http.put('/api/v1/products/' + id, {
             subcategory_id: subcategoryId,
             name: attr.name,
             extract: attr.extract,
@@ -4560,9 +4476,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProductsForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductsForm.vue */ "./resources/js/components/Products/ProductsForm.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -4607,8 +4520,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4660,7 +4571,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/v1/products/' + product.id, data).then(function (response) {
+        _this.$http.put('/api/v1/products/' + product.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateProduct').modal('hide');
 
@@ -4668,7 +4579,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.updateProductReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El producto se actualizo correctamente');
+            _this.$toad.toad('El producto se actualizo correctamente');
           }
         })["catch"](function (error) {
           _this.errorUpdate = error.response.data.errors;
@@ -4699,11 +4610,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -4741,9 +4647,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     shippings: {
@@ -4771,7 +4674,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/shippings/' + id).then(function (response) {
+      this.$http.get('/api/v1/shippings/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           street_one: response.data.attributes.street_one,
@@ -4792,7 +4695,7 @@ __webpack_require__.r(__webpack_exports__);
     deleted: function deleted(id) {
       var _this2 = this;
 
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+      this.$swal.fire({
         html: '<h6><strong>Seguro que quiere eliminar la direccion</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
@@ -4802,16 +4705,16 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/v1/shippings/' + id).then(function (response) {
+          _this2.$http["delete"]('/api/v1/shippings/' + id).then(function (response) {
             if (response.status === 204) {
-              axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/shippings/all/' + _this2.userid).then(function (response) {
+              _this2.$http.get('/api/v1/shippings/all/' + _this2.userid).then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
                   _this2.index(_this2.state);
                 }
 
-                _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('La direccion se elimino correctamente');
+                _this2.$toad.toad('La direccion se elimino correctamente');
               });
             }
           });
@@ -4821,7 +4724,7 @@ __webpack_require__.r(__webpack_exports__);
     editStatus: function editStatus(id, attr) {
       var _this3 = this;
 
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+      this.$swal.fire({
         html: '<h6><strong>Desea cambiar el estatus de la direccion</strong></h6>',
         icon: 'question',
         showCancelButton: true,
@@ -4831,7 +4734,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/v1/shippings/' + id, {
+          _this3.$http.put('/api/v1/shippings/' + id, {
             user_id: _this3.userid,
             street_one: attr.street_one,
             street_two: attr.street_two,
@@ -4867,8 +4770,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ShipingsTable_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShipingsTable.vue */ "./resources/js/components/Shippings/ShipingsTable.vue");
 /* harmony import */ var _ShippingsUpdate_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ShippingsUpdate.vue */ "./resources/js/components/Shippings/ShippingsUpdate.vue");
 /* harmony import */ var _ShippingsStore_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ShippingsStore.vue */ "./resources/js/components/Shippings/ShippingsStore.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -4959,7 +4860,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 
@@ -5018,7 +4918,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('/api/v1/shippings/all/' + this.userid + '?page=' + page).then(function (response) {
+      this.$http.get('/api/v1/shippings/all/' + this.userid + '?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.shippings = response.data.data;
@@ -5196,9 +5096,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ShippingsForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShippingsForm.vue */ "./resources/js/components/Shippings/ShippingsForm.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -5237,8 +5134,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -5287,7 +5182,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/v1/shippings/', data).then(function (response) {
+        _this.$http.post('/api/v1/shippings/', data).then(function (response) {
           if (response.status === 201) {
             $('#createShipping').modal('hide');
 
@@ -5295,7 +5190,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.createShippingReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('La direccion se agrego correctamente');
+            _this.$toad.toad('La direccion se agrego correctamente');
           }
         });
       });
@@ -5329,9 +5224,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ShippingsForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShippingsForm.vue */ "./resources/js/components/Shippings/ShippingsForm.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -5370,8 +5262,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -5420,7 +5310,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/v1/shippings/' + shipping.id, data).then(function (response) {
+        _this.$http.put('/api/v1/shippings/' + shipping.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateShipping').modal('hide');
 
@@ -5428,7 +5318,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.updateShippingReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('La direccion se actualizo correctamente');
+            _this.$toad.toad('La direccion se actualizo correctamente');
           }
         });
       });
@@ -5464,8 +5354,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SubCategpriesTable_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SubCategpriesTable.vue */ "./resources/js/components/SubCategories/SubCategpriesTable.vue");
 /* harmony import */ var _SubCategoriesUpdate_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SubCategoriesUpdate.vue */ "./resources/js/components/SubCategories/SubCategoriesUpdate.vue");
 /* harmony import */ var _SubCategoriesStore_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SubCategoriesStore.vue */ "./resources/js/components/SubCategories/SubCategoriesStore.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -5561,7 +5449,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 
@@ -5609,7 +5496,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('/api/v1/subcategories?page=' + page).then(function (response) {
+      this.$http.get('/api/v1/subcategories?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.subcategories = response.data.data;
@@ -5730,9 +5617,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SubCategoriesForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SubCategoriesForm.vue */ "./resources/js/components/SubCategories/SubCategoriesForm.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -5777,8 +5661,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -5828,7 +5710,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/v1/subcategories/', data).then(function (response) {
+        _this.$http.post('/api/v1/subcategories/', data).then(function (response) {
           if (response.status === 201) {
             $('#createSubCategory').modal('hide');
 
@@ -5836,7 +5718,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.createSubCategoryReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('La sub categoria se agrego correctamente');
+            _this.$toad.toad('La sub categoria se agrego correctamente');
           }
         })["catch"](function (error) {
           _this.errorCreate = error.response.data.errors.category_id;
@@ -5866,9 +5748,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SubCategoriesForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SubCategoriesForm.vue */ "./resources/js/components/SubCategories/SubCategoriesForm.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -5913,8 +5792,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -5964,7 +5841,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/v1/subcategories/' + subcategory.id, data).then(function (response) {
+        _this.$http.put('/api/v1/subcategories/' + subcategory.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateSubCategory').modal('hide');
 
@@ -5972,7 +5849,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.updateSubCategoryReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('La categoria se actualizo correctamente');
+            _this.$toad.toad('La categoria se actualizo correctamente');
           }
         })["catch"](function (error) {
           _this.errorUpdate = error.response.data.errors.category_id;
@@ -6001,11 +5878,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -6043,9 +5915,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     subcategories: {
@@ -6069,7 +5938,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/subcategories/' + id).then(function (response) {
+      this.$http.get('/api/v1/subcategories/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -6084,7 +5953,7 @@ __webpack_require__.r(__webpack_exports__);
     deleted: function deleted(id) {
       var _this2 = this;
 
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+      this.$swal.fire({
         html: '<h6><strong>Seguro que quiere eliminar la sub categoria</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
@@ -6094,16 +5963,16 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/v1/subcategories/' + id).then(function (response) {
+          _this2.$http["delete"]('/api/v1/subcategories/' + id).then(function (response) {
             if (response.status === 204) {
-              axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/subcategories').then(function (response) {
+              _this2.$http.get('/api/v1/subcategories').then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
                   _this2.index(_this2.state);
                 }
 
-                _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('La sub categoria se elimino correctamente');
+                _this2.$toad.toad('La sub categoria se elimino correctamente');
               });
             }
           });
@@ -6113,7 +5982,7 @@ __webpack_require__.r(__webpack_exports__);
     editStatus: function editStatus(id, attr, categoryId) {
       var _this3 = this;
 
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+      this.$swal.fire({
         html: '<h6><strong>Desea cambiar el estatus de la sub categoria</strong></h6>',
         icon: 'question',
         showCancelButton: true,
@@ -6123,7 +5992,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/v1/subcategories/' + id, {
+          _this3.$http.put('/api/v1/subcategories/' + id, {
             category_id: categoryId,
             name: attr.name,
             description: attr.description,
@@ -6154,8 +6023,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UsersStore_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UsersStore.vue */ "./resources/js/components/Users/UsersStore.vue");
 /* harmony import */ var _UsersUpdate_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UsersUpdate.vue */ "./resources/js/components/Users/UsersUpdate.vue");
 /* harmony import */ var _UsersPassword_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UsersPassword.vue */ "./resources/js/components/Users/UsersPassword.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 //
 //
 //
@@ -6250,7 +6117,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 
@@ -6297,7 +6163,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_4___default.a.get('/api/v1/users?page=' + page).then(function (response) {
+      this.$http.get('/api/v1/users?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.users = response.data.data;
@@ -6419,9 +6285,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -6502,8 +6365,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     user: {
@@ -6533,13 +6394,13 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/v1/userpassword/' + user.id, data).then(function (response) {
+        _this.$http.put('/api/v1/userpassword/' + user.id, data).then(function (response) {
           if (response.status === 200) {
             $('#passwordUser').modal('hide');
 
             _this.passwordUserReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_1__["ToadAlert"].toad('La contraseña se actualizo correctamente');
+            _this.$toad.toad('La contraseña se actualizo correctamente');
           }
         })["catch"](function (error) {
           _this.errorPassword = error.response.data.errors.password;
@@ -6571,9 +6432,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UsersForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UsersForm.vue */ "./resources/js/components/Users/UsersForm.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -6618,8 +6476,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -6664,7 +6520,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/v1/users/', data).then(function (response) {
+        _this.$http.post('/api/v1/users/', data).then(function (response) {
           if (response.status === 201) {
             $('#createUser').modal('hide');
 
@@ -6672,7 +6528,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.createUserReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El usuario se agrego correctamente');
+            _this.$toad.toad('El usuario se agrego correctamente');
           }
         })["catch"](function (error) {
           _this.errorCreate = error.response.data.errors.email;
@@ -6702,11 +6558,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
 //
 //
 //
@@ -6754,9 +6605,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     users: {
@@ -6780,7 +6628,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/users/' + id).then(function (response) {
+      this.$http.get('/api/v1/users/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -6793,7 +6641,7 @@ __webpack_require__.r(__webpack_exports__);
     deleted: function deleted(id) {
       var _this2 = this;
 
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+      this.$swal.fire({
         html: '<h6><strong>Seguro que quiere eliminar al administrador</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
@@ -6803,16 +6651,16 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/v1/users/' + id).then(function (response) {
+          _this2.$http["delete"]('/api/v1/users/' + id).then(function (response) {
             if (response.status === 204) {
-              axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/users').then(function (response) {
+              _this2.$http.get('/api/v1/users').then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
                   _this2.index(_this2.state);
                 }
 
-                _helpers__WEBPACK_IMPORTED_MODULE_2__["ToadAlert"].toad('El usuario se elimino correctamente');
+                _this2.$toad.toad('El usuario se elimino correctamente');
               });
             }
           });
@@ -6822,7 +6670,7 @@ __webpack_require__.r(__webpack_exports__);
     password: function password(id) {
       var _this3 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/users/' + id).then(function (response) {
+      this.$http.get('/api/v1/users/' + id).then(function (response) {
         _this3.$emit('passwordEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -6837,7 +6685,7 @@ __webpack_require__.r(__webpack_exports__);
     editStatus: function editStatus(id, attr) {
       var _this4 = this;
 
-      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+      this.$swal.fire({
         html: '<h6><strong>Desea cambiar el estatus del usuario</strong></h6>',
         icon: 'question',
         showCancelButton: true,
@@ -6847,7 +6695,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/v1/users/' + id, {
+          _this4.$http.put('/api/v1/users/' + id, {
             name: attr.name,
             father_surname: attr.father_surname,
             email: attr.email,
@@ -6875,9 +6723,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UsersForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UsersForm.vue */ "./resources/js/components/Users/UsersForm.vue");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers */ "./resources/js/components/helpers.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -6922,8 +6767,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -6968,7 +6811,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.put('/api/v1/users/' + user.id, data).then(function (response) {
+        _this.$http.put('/api/v1/users/' + user.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateUser').modal('hide');
 
@@ -6976,7 +6819,7 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.updateUserReset();
 
-            _helpers__WEBPACK_IMPORTED_MODULE_1__["ToadAlert"].toad('El usuario se actualizo correctamente');
+            _this.$toad.toad('El usuario se actualizo correctamente');
           }
         })["catch"](function (error) {
           _this.errorUpdate = error.response.data.errors.email;
@@ -32653,11 +32496,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vee-validate/dist/locale/es.json */ "./node_modules/vee-validate/dist/locale/es.json");
 var vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_3___namespace = /*#__PURE__*/__webpack_require__.t(/*! vee-validate/dist/locale/es.json */ "./node_modules/vee-validate/dist/locale/es.json", 1);
 /* harmony import */ var vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vee-validate/dist/rules */ "./node_modules/vee-validate/dist/rules.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_helpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/helpers */ "./resources/js/components/helpers.js");
 
 
 
 
 
+
+
+
+axios__WEBPACK_IMPORTED_MODULE_5___default.a.defaults.headers.common.APP_KEY = 'base64:gZG7KRmCq6ms7cDb6o9l6Kl/yd6COLu1RZ8rP8M7FeI=';
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_5___default.a;
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$swal = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default.a;
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$toad = _components_helpers__WEBPACK_IMPORTED_MODULE_7__["ToadAlert"];
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('capitalize', function (value) {
+  if (!value) {
+    return '';
+  }
+
+  value = value.toString();
+  return value.charAt(0).toUpperCase() + value.slice(1);
+});
 Object.keys(vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_4__).forEach(function (rule) {
   Object(vee_validate__WEBPACK_IMPORTED_MODULE_1__["extend"])(rule, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_4__[rule]);
 });
@@ -32676,23 +32539,13 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_1__["configure"])({
     invalid: 'is-invalid'
   }
 });
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('capitalize', function (value) {
-  if (!value) {
-    return '';
-  }
-
-  value = value.toString();
-  return value.charAt(0).toUpperCase() + value.slice(1);
-}); //  Componentes del sistema
-
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('admin-component', __webpack_require__(/*! ./components/Admins/Admins.vue */ "./resources/js/components/Admins/Admins.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('user-component', __webpack_require__(/*! ./components/Users/Users.vue */ "./resources/js/components/Users/Users.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('category-component', __webpack_require__(/*! ./components/Categories/Categories.vue */ "./resources/js/components/Categories/Categories.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('subcategory-component', __webpack_require__(/*! ./components/SubCategories/SubCategories.vue */ "./resources/js/components/SubCategories/SubCategories.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('product-component', __webpack_require__(/*! ./components/Products/Products.vue */ "./resources/js/components/Products/Products.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('characteristic-component', __webpack_require__(/*! ./components/Characteristics/Characteristics.vue */ "./resources/js/components/Characteristics/Characteristics.vue")["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('shipping-component', __webpack_require__(/*! ./components/Shippings/Shippings.vue */ "./resources/js/components/Shippings/Shippings.vue")["default"]); //  Librerias
-
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('shipping-component', __webpack_require__(/*! ./components/Shippings/Shippings.vue */ "./resources/js/components/Shippings/Shippings.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('validation-provider', vee_validate__WEBPACK_IMPORTED_MODULE_1__["ValidationProvider"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('validation-observer', vee_validate__WEBPACK_IMPORTED_MODULE_1__["ValidationObserver"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('paginate', vuejs_paginate__WEBPACK_IMPORTED_MODULE_2___default.a);

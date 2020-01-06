@@ -17,13 +17,21 @@ Npm v6.13.4
 
 1. Es necesario crear una base de datos y agregar las credenciales de la base de datos en el archivo .env
 2. En consola se tienen que ejecutar en orden los siguientes comandos
-
 ```
-1. composer install
-2. php artisan key:generate
-3. php artisan migrate
-4. npm install
-5. npm run dev
+composer install
+php artisan key:generate
+```
+
+3. En la variable APP_KEY del archivo *app.js* que se encuentra en el directorio resources/js ingresar la clave generada por el comando *php artisan key:generate*
+```
+axios.defaults.headers.common.APP_KEY = 'ingresar llave'
+```
+
+4. En consola se tienen que ejecutar en orden los siguientes comandos
+```
+php artisan migrate
+npm install
+npm run dev
 ```
 
 ## Ejecutando pruebas

@@ -16,13 +16,17 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::whereHas('subcategory', function ($productsEstatus) {
-            $productsEstatus->where('status', 1); 
-        })->paginate(10);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $products = Product::whereHas('subcategory', function ($productsEstatus) {
+                $productsEstatus->where('status', 1); 
+            })->paginate(10);
 
-        return new ProductCollection($products);
+            return new ProductCollection($products);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -33,8 +37,12 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        Product::create($request->all());
-        return response(null, 201);
+        if (config('app.key') == $request->header('APP_KEY')) { 
+            Product::create($request->all());
+            return response(null, 201);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -43,10 +51,14 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Request $request, Product $product)
     {
-        ProductResource::withoutWrapping();
-        return new ProductResource($product);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            ProductResource::withoutWrapping();
+            return new ProductResource($product);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -58,8 +70,12 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->all());
-        return response(null, 200);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $product->update($request->all());
+            return response(null, 200);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -68,9 +84,13 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request, Product $product)
     {
-        $product->delete();
-        return response(null, 204);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $product->delete();
+            return response(null, 204);
+        } else {
+            abort(401);
+        }
     }
 }

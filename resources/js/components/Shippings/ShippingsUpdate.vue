@@ -39,8 +39,6 @@
 <script>
 
 import modalShippingForm from './ShippingsForm.vue'
-import axios from 'axios'
-import { ToadAlert } from '../helpers'
 
 export default {
   components: {
@@ -88,14 +86,14 @@ export default {
           return
         }
 
-        axios.put('/api/v1/shippings/' + shipping.id, data).then((response) => {
+        this.$http.put('/api/v1/shippings/' + shipping.id, data).then((response) => {
           if (response.status === 200) {
             $('#updateShipping').modal('hide')
 
             this.index(this.state)
             this.updateShippingReset()
 
-            ToadAlert.toad('La direccion se actualizo correctamente')
+            this.$toad.toad('La direccion se actualizo correctamente')
           }
         })
       })

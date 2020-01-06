@@ -25,7 +25,9 @@ class ConfigurationTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/configurations', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/configurations', $data);
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('configurations', $data);
@@ -47,7 +49,9 @@ class ConfigurationTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/configurations', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/configurations', $data);
         $response->assertStatus(422);
     }
 
@@ -65,7 +69,9 @@ class ConfigurationTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/configurations', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/configurations', $data);
         $response->assertStatus(422);
     }
 
@@ -81,7 +87,9 @@ class ConfigurationTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/configurations', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/configurations', $data);
         $response->assertStatus(422);
     }
 
@@ -89,7 +97,9 @@ class ConfigurationTest extends TestCase
     {
         $data = [];
 
-        $response = $this->json('POST', '/api/v1/configurations', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/configurations', $data);
         $response->assertStatus(422);
     }
 
@@ -110,7 +120,9 @@ class ConfigurationTest extends TestCase
         $seed = InitSeed::getInstance()->getSeed();
         $configuration = $seed->seed_configuration();
 
-        $response = $this->json('PUT', "/api/v1/configurations/{$configuration['configuration_id']}", $update);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('PUT', "/api/v1/configurations/{$configuration['configuration_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -131,7 +143,9 @@ class ConfigurationTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('PUT', "/api/v1/configurations/{$configuration['configuration_id']}", $update);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('PUT', "/api/v1/configurations/{$configuration['configuration_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -140,7 +154,9 @@ class ConfigurationTest extends TestCase
         $seed = InitSeed::getInstance()->getSeed();
         $configuration = $seed->seed_configuration();
 
-        $this->json('DELETE', "/api/v1/configurations/{$configuration['configuration_id']}")->assertStatus(204);
+        $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('DELETE', "/api/v1/configurations/{$configuration['configuration_id']}")->assertStatus(204);
         $this->assertNull(Configuration::find($configuration['configuration_id']));
     }
 }

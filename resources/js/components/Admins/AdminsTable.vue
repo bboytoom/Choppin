@@ -40,10 +40,6 @@
 
 <script>
 
-import axios from 'axios'
-import Swal from 'sweetalert2'
-import { ToadAlert } from '../helpers'
-
 export default {
   props: {
     admins: {
@@ -65,7 +61,7 @@ export default {
   },
   methods: {
     edit: function (id) {
-      axios.get('/api/v1/admins/' + id)
+      this.$http.get('/api/v1/admins/' + id)
         .then((response) => {
           this.$emit('dataEdit', {
             id: response.data.id,
@@ -77,7 +73,7 @@ export default {
         })
     },
     deleted: function (id) {
-      Swal.fire({
+      this.$swal.fire({
         html: '<h6><strong>Seguro que quiere eliminar al administrador</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
@@ -87,17 +83,17 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          axios.delete('/api/v1/admins/' + id)
+          this.$http.delete('/api/v1/admins/' + id)
             .then((response) => {
               if (response.status === 204) {
-                axios.get('/api/v1/admins').then((response) => {
+                this.$http.get('/api/v1/admins').then((response) => {
                   if (this.state > parseInt(response.data.meta.last_page)) {
                     this.index(parseInt(response.data.meta.last_page))
                   } else {
                     this.index(this.state)
                   }
 
-                  ToadAlert.toad('El Administrador se elimino correctamente')
+                  this.$toad.toad('El Administrador se elimino correctamente')
                 })
               }
             })
@@ -105,7 +101,7 @@ export default {
       })
     },
     password: function (id) {
-      axios.get('/api/v1/admins/' + id).then((response) => {
+      this.$http.get('/api/v1/admins/' + id).then((response) => {
         this.$emit('passwordEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -115,7 +111,7 @@ export default {
       })
     },
     editStatus: function (id, attr) {
-      Swal.fire({
+      this.$swal.fire({
         html: '<h6><strong>Desea cambiar el estatus del administrador</strong></h6>',
         icon: 'question',
         showCancelButton: true,
@@ -125,7 +121,7 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          axios.put('/api/v1/admins/' + id, {
+          this.$http.put('/api/v1/admins/' + id, {
             name: attr.name,
             father_surname: attr.father_surname,
             email: attr.email,

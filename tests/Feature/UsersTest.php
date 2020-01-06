@@ -23,7 +23,9 @@ class UsersTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/users', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/users', $data);
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('users', $data);
@@ -41,7 +43,9 @@ class UsersTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/users', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/users', $data);
         $response->assertStatus(422);
     }
 
@@ -49,7 +53,9 @@ class UsersTest extends TestCase
     {
         $data = [];
 
-        $response = $this->json('POST', '/api/v1/users', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/users', $data);
         $response->assertStatus(422);
     }
 
@@ -64,7 +70,9 @@ class UsersTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/users', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/users', $data);
         $response->assertStatus(422);
     }
 
@@ -79,7 +87,9 @@ class UsersTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/users', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/users', $data);
         $response->assertStatus(422);
     }
 
@@ -94,7 +104,9 @@ class UsersTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/users', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/users', $data);
         $response->assertStatus(422);
     }
 
@@ -113,7 +125,9 @@ class UsersTest extends TestCase
         $seed = InitSeed::getInstance()->getSeed();
         $user = $seed->seed_user();
 
-        $response = $this->json('PUT', "/api/v1/users/{$user->id}", $update);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('PUT', "/api/v1/users/{$user->id}", $update);
         $response->assertStatus(200);
     }
 
@@ -130,7 +144,9 @@ class UsersTest extends TestCase
            'status' => 0
         ];
 
-        $response = $this->json('PUT', "/api/v1/users/{$user->id}", $update);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('PUT', "/api/v1/users/{$user->id}", $update);
         $response->assertStatus(200);
     }
 
@@ -139,7 +155,9 @@ class UsersTest extends TestCase
         $seed = InitSeed::getInstance()->getSeed();
         $user = $seed->seed_user();
         
-        $this->json('DELETE', "/api/v1/users/{$user->id}")->assertStatus(204);
+        $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('DELETE', "/api/v1/users/{$user->id}")->assertStatus(204);
         $this->assertNull(User::find($user->id));
     }
 }

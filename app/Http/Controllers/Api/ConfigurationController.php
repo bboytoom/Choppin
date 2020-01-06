@@ -16,9 +16,13 @@ class ConfigurationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new ConfigurationCollection(Configuration::paginate(10));
+        if (config('app.key') == $request->header('APP_KEY')) {
+            return new ConfigurationCollection(Configuration::paginate(10));
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -29,8 +33,12 @@ class ConfigurationController extends Controller
      */
     public function store(ConfigurationRequest $request)
     {
-        Configuration::create($request->all());
-        return response(null, 201);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            Configuration::create($request->all());
+            return response(null, 201);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -39,10 +47,14 @@ class ConfigurationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Configuration $configuration)
+    public function show(Request $request, Configuration $configuration)
     {
-        ConfigurationResource::withoutWrapping();
-        return new ConfigurationResource($configuration);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            ConfigurationResource::withoutWrapping();
+            return new ConfigurationResource($configuration);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -54,8 +66,12 @@ class ConfigurationController extends Controller
      */
     public function update(ConfigurationRequest $request, Configuration $configuration)
     {
-        $configuration->update($request->all());
-        return response(null, 200);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $configuration->update($request->all());
+            return response(null, 200);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -64,9 +80,13 @@ class ConfigurationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Configuration $configuration)
+    public function destroy(Request $request, Configuration $configuration)
     {
-        $configuration->delete();
-        return response(null, 204);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $configuration->delete();
+            return response(null, 204);
+        } else {
+            abort(401);
+        }
     }
 }

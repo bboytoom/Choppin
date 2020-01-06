@@ -39,8 +39,6 @@
 <script>
 
 import modalCharacteristicForm from './CharacteristicsForm.vue'
-import axios from 'axios'
-import { ToadAlert } from '../helpers'
 
 export default {
   components: {
@@ -82,14 +80,14 @@ export default {
           return
         }
 
-        axios.post('/api/v1/characteristics/', data).then((response) => {
+        this.$http.post('/api/v1/characteristics/', data).then((response) => {
           if (response.status === 201) {
             $('#createCharacteristic').modal('hide')
 
             this.index(this.state)
             this.createCharacteristicReset()
 
-            ToadAlert.toad('La caracteristica se agrego correctamente')
+            this.$toad.toad('La caracteristica se agrego correctamente')
           }
         })
       })

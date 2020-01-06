@@ -16,13 +16,17 @@ class ShippingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Request $request, $id)
     {
-        $shippings = Shipping::whereHas('user', function ($shippingsEstatus) {
-            $shippingsEstatus->where('status', 1); 
-        })->where('user_id', $id)->paginate(10);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $shippings = Shipping::whereHas('user', function ($shippingsEstatus) {
+                $shippingsEstatus->where('status', 1); 
+            })->where('user_id', $id)->paginate(10);
 
-        return new ShippingCollection($shippings);
+            return new ShippingCollection($shippings);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -33,8 +37,12 @@ class ShippingController extends Controller
      */
     public function store(ShippingRequest $request)
     {
-        Shipping::create($request->all());
-        return response(null, 201);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            Shipping::create($request->all());
+            return response(null, 201);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -43,10 +51,14 @@ class ShippingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Shipping $shipping)
+    public function show(Request $request, Shipping $shipping)
     {
-        ShippingResource::withoutWrapping();
-        return new ShippingResource($shipping);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            ShippingResource::withoutWrapping();
+            return new ShippingResource($shipping);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -58,8 +70,12 @@ class ShippingController extends Controller
      */
     public function update(ShippingRequest $request, Shipping $shipping)
     {
-        $shipping->update($request->all());
-        return response(null, 200);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $shipping->update($request->all());
+            return response(null, 200);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -68,9 +84,13 @@ class ShippingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Shipping $shipping)
-    {       
-        $shipping->delete();
-        return response(null, 204);
+    public function destroy(Request $request, Shipping $shipping)
+    {   
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $shipping->delete();
+            return response(null, 204);
+        } else {
+            abort(401);
+        }
     }
 }

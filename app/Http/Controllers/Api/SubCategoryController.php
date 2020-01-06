@@ -16,13 +16,17 @@ class SubCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $subCategories = SubCategory::whereHas('category', function ($subCategoriesEstatus) {
-            $subCategoriesEstatus->where('status', 1); 
-        })->paginate(10);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $subCategories = SubCategory::whereHas('category', function ($subCategoriesEstatus) {
+                $subCategoriesEstatus->where('status', 1); 
+            })->paginate(10);
 
-        return new SubCategoryCollection($subCategories);
+            return new SubCategoryCollection($subCategories);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -33,8 +37,12 @@ class SubCategoryController extends Controller
      */
     public function store(SubCategoryRequest $request)
     {
-        SubCategory::create($request->all());
-        return response(null, 201);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            SubCategory::create($request->all());
+            return response(null, 201);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -43,10 +51,14 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(SubCategory $subcategory)
+    public function show(Request $request, SubCategory $subcategory)
     {
-        SubCategoryResource::withoutWrapping();
-        return new SubCategoryResource($subcategory);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            SubCategoryResource::withoutWrapping();
+            return new SubCategoryResource($subcategory);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -58,8 +70,12 @@ class SubCategoryController extends Controller
      */
     public function update(SubCategoryRequest $request, SubCategory $subcategory)
     {
-        $subcategory->update($request->all());
-        return response(null, 200);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $subcategory->update($request->all());
+            return response(null, 200);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -68,9 +84,13 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubCategory $subcategory)
-    {        
-        $subcategory->delete();
-        return response(null, 204);
+    public function destroy(Request $request, SubCategory $subcategory)
+    {
+        if (config('app.key') == $request->header('APP_KEY')) {
+            $subcategory->delete();
+            return response(null, 204);
+        } else {
+            abort(401);
+        }
     }
 }

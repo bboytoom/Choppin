@@ -30,7 +30,9 @@ class ShippingTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/shippings', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/shippings', $data);
         $response->assertStatus(201);
     }
 
@@ -53,7 +55,9 @@ class ShippingTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/shippings', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/shippings', $data);
         $response->assertStatus(422);
     }
 
@@ -76,7 +80,9 @@ class ShippingTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/shippings', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/shippings', $data);
         $response->assertStatus(422);
     }
 
@@ -97,7 +103,9 @@ class ShippingTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/shippings', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/shippings', $data);
         $response->assertStatus(422);
     }
 
@@ -120,7 +128,9 @@ class ShippingTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('PUT', "/api/v1/shippings/{$shipping['shipping_id']}", $update);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('PUT', "/api/v1/shippings/{$shipping['shipping_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -143,7 +153,9 @@ class ShippingTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('PUT', "/api/v1/shippings/{$shipping['shipping_id']}", $update);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('PUT', "/api/v1/shippings/{$shipping['shipping_id']}", $update);
         $response->assertStatus(422);
     }
 
@@ -152,7 +164,9 @@ class ShippingTest extends TestCase
         $seed = InitSeed::getInstance()->getSeed();
         $shipping = $seed->seed_shipping();
 
-        $this->json('DELETE', "/api/v1/shippings/{$shipping['shipping_id']}")->assertStatus(204);
+        $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('DELETE', "/api/v1/shippings/{$shipping['shipping_id']}")->assertStatus(204);
         $this->assertNull(Shipping::find($shipping['shipping_id']));
     }
 }

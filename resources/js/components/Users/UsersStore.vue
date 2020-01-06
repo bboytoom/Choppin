@@ -45,8 +45,6 @@
 <script>
 
 import modalForm from './UsersForm.vue'
-import axios from 'axios'
-import { ToadAlert } from '../helpers'
 
 export default {
   components: {
@@ -90,14 +88,14 @@ export default {
           return
         }
 
-        axios.post('/api/v1/users/', data).then((response) => {
+        this.$http.post('/api/v1/users/', data).then((response) => {
           if (response.status === 201) {
             $('#createUser').modal('hide')
 
             this.index(this.state)
             this.createUserReset()
 
-            ToadAlert.toad('El usuario se agrego correctamente')
+            this.$toad.toad('El usuario se agrego correctamente')
           }
         }).catch(error => {
           this.errorCreate = error.response.data.errors.email

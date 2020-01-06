@@ -12,19 +12,27 @@ class UserPasswordController extends Controller
 {
     public function updateAdmin(PasswordRequest $request, $id)
     {
-        Admin::where('id', $id)->update([
-            'password' => \Hash::make($request->get('password')) 
-        ]);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            Admin::where('id', $id)->update([
+                'password' => \Hash::make($request->get('password')) 
+            ]);
 
-        return response(null, 200);
+            return response(null, 200);
+        } else {
+            abort(401);
+        }
     }
 
     public function updateUser(PasswordRequest $request, $id)
     {
-        $prus = User::where('id', $id)->update([
-            'password' => \Hash::make($request->get('password')) 
-        ]);
+        if (config('app.key') == $request->header('APP_KEY')) {
+            User::where('id', $id)->update([
+                'password' => \Hash::make($request->get('password')) 
+            ]);
 
-        return response(null, 200);
+            return response(null, 200);
+        } else {
+            abort(401);
+        }
     }
 }

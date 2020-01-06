@@ -39,8 +39,6 @@
 <script>
 
 import modalCategoryForm from './CategoriesForm.vue'
-import axios from 'axios'
-import { ToadAlert } from '../helpers'
 
 export default {
   components: {
@@ -77,14 +75,14 @@ export default {
           return
         }
 
-        axios.post('/api/v1/categories/', data).then((response) => {
+        this.$http.post('/api/v1/categories/', data).then((response) => {
           if (response.status === 201) {
             $('#createCategory').modal('hide')
 
             this.index(this.state)
             this.createCategoryReset()
 
-            ToadAlert.toad('La categoria se agrego correctamente')
+            this.$toad.toad('La categoria se agrego correctamente')
           }
         })
       })

@@ -96,7 +96,6 @@
 import tableCharacteristic from './CharacteristicsTable.vue'
 import updateCharacteristic from './CharacteristicsUpdate.vue'
 import storeCharacteristic from './CharacteristisStore.vue'
-import axios from 'axios'
 
 export default {
   components: {
@@ -143,7 +142,7 @@ export default {
   },
   methods: {
     index: function (page) {
-      axios.get('/api/v1/characteristics/all/' + this.productoid + '?page=' + page).then((response) => {
+      this.$http.get('/api/v1/characteristics/all/' + this.productoid + '?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
         this.characteristics = response.data.data

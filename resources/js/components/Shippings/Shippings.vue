@@ -93,7 +93,6 @@
 import tableShipping from './ShipingsTable.vue'
 import updateShipping from './ShippingsUpdate.vue'
 import storeShipping from './ShippingsStore.vue'
-import axios from 'axios'
 
 export default {
   components: {
@@ -146,7 +145,7 @@ export default {
   },
   methods: {
     index: function (page) {
-      axios.get('/api/v1/shippings/all/' + this.userid + '?page=' + page).then((response) => {
+      this.$http.get('/api/v1/shippings/all/' + this.userid + '?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
         this.shippings = response.data.data

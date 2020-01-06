@@ -98,7 +98,6 @@ import tableUser from './UsersTable.vue'
 import storeUser from './UsersStore.vue'
 import updateUser from './UsersUpdate.vue'
 import passwordUser from './UsersPassword.vue'
-import axios from 'axios'
 
 export default {
   components: {
@@ -138,7 +137,7 @@ export default {
   },
   methods: {
     index: function (page) {
-      axios.get('/api/v1/users?page=' + page).then((response) => {
+      this.$http.get('/api/v1/users?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
         this.users = response.data.data

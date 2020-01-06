@@ -21,7 +21,9 @@ class CategoryTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/categories', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/categories', $data);
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('categories', $data);
@@ -39,7 +41,9 @@ class CategoryTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/categories', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/categories', $data);
         $response->assertStatus(422);
     }
 
@@ -53,7 +57,9 @@ class CategoryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/categories', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/categories', $data);
         $response->assertStatus(422);
     }
 
@@ -67,7 +73,9 @@ class CategoryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/categories', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/categories', $data);
         $response->assertStatus(422);
     }
 
@@ -75,7 +83,9 @@ class CategoryTest extends TestCase
     {
         $data = [];
 
-        $response = $this->json('POST', '/api/v1/categories', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/categories', $data);
         $response->assertStatus(422);
     }
 
@@ -92,7 +102,9 @@ class CategoryTest extends TestCase
         $seed = InitSeed::getInstance()->getSeed();
         $category = $seed->seed_category();
 
-        $response = $this->json('PUT', "/api/v1/categories/{$category['category_id']}", $update);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('PUT', "/api/v1/categories/{$category['category_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -109,7 +121,9 @@ class CategoryTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('PUT', "/api/v1/categories/{$category['category_id']}", $update);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('PUT', "/api/v1/categories/{$category['category_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -118,7 +132,9 @@ class CategoryTest extends TestCase
         $seed = InitSeed::getInstance()->getSeed();
         $category = $seed->seed_category();
 
-        $this->json('DELETE', "/api/v1/categories/{$category['category_id']}")->assertStatus(204);
+        $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('DELETE', "/api/v1/categories/{$category['category_id']}")->assertStatus(204);
         $this->assertNull(Category::find($category['category_id']));
     }
 }

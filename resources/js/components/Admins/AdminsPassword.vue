@@ -81,9 +81,6 @@
 
 <script>
 
-import axios from 'axios'
-import { ToadAlert } from '../helpers'
-
 export default {
   props: {
     admin: {
@@ -112,12 +109,12 @@ export default {
           return
         }
 
-        axios.put('/api/v1/adminpassword/' + admin.id, data).then((response) => {
+        this.$http.put('/api/v1/adminpassword/' + admin.id, data).then((response) => {
           if (response.status === 200) {
             $('#passwordAdmin').modal('hide')
 
             this.passwordAdminReset()
-            ToadAlert.toad('La contraseña se actualizo correctamente')
+            this.$toad.toad('La contraseña se actualizo correctamente')
           }
         }).catch(error => {
           this.errorPassword = error.response.data.errors.password

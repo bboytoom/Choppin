@@ -23,7 +23,9 @@ class AdminsTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/admins', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/admins', $data);
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('admins', $data);
@@ -42,7 +44,9 @@ class AdminsTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/admins', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/admins', $data);
         $response->assertStatus(422);
     }
 
@@ -50,7 +54,9 @@ class AdminsTest extends TestCase
     {
         $data = [];
 
-        $response = $this->json('POST', '/api/v1/admins', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/admins', $data);
         $response->assertStatus(422);
     }
 
@@ -65,7 +71,9 @@ class AdminsTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/admins', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/admins', $data);
         $response->assertStatus(422);
     }
 
@@ -80,7 +88,9 @@ class AdminsTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/admins', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/admins', $data);
         $response->assertStatus(422);
     }
 
@@ -95,7 +105,9 @@ class AdminsTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('POST', '/api/v1/admins', $data);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('POST', '/api/v1/admins', $data);
         $response->assertStatus(422);
     }
 
@@ -113,7 +125,9 @@ class AdminsTest extends TestCase
            'status' => 1
         ];
 
-        $response = $this->json('PUT', "/api/v1/admins/{$admin->id}", $update);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('PUT', "/api/v1/admins/{$admin->id}", $update);
         $response->assertStatus(200);
     }
 
@@ -130,7 +144,9 @@ class AdminsTest extends TestCase
            'status' => 0
         ];
 
-        $response = $this->json('PUT', "/api/v1/admins/{$admin->id}", $update);
+        $response = $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('PUT', "/api/v1/admins/{$admin->id}", $update);
         $response->assertStatus(200);
     }
 
@@ -139,7 +155,9 @@ class AdminsTest extends TestCase
         $seed = InitSeed::getInstance()->getSeed();
         $admin = $seed->seed_admin();
 
-        $this->json('DELETE', "/api/v1/admins/{$admin->id}")->assertStatus(204);
+        $this->withHeaders([
+            'APP_KEY' => config('app.key'),
+        ])->json('DELETE', "/api/v1/admins/{$admin->id}")->assertStatus(204);
         $this->assertNull(Admin::find($admin->id));
     }
 }
