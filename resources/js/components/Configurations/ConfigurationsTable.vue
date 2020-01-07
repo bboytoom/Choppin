@@ -1,0 +1,147 @@
+<template>
+  <tbody>
+    <tr v-for="item in configurations" :key="item.id">
+      <td class="text-center">
+        <button type="button" class="btn" @click.prevent="editImage(item.id)">
+          <img class="img-thumbnail rounded" :src="`data:image/png;base64,${item.image}`" :alt="`${item.attributes.logo}`" style="width: 100px;">
+        </button>
+      </td>
+
+      <td>
+        {{ item.attributes.domain }}
+      </td>
+
+      <td>
+        {{ item.attributes.name | capitalize }}
+      </td>
+
+      <td>
+        {{ item.attributes.email }}
+      </td>
+
+      <td>
+        {{ item.attributes.phone }}
+      </td>
+
+      <td class="text-center">
+        <div class="custom-control custom-switch">
+          <input :id="`status_${item.id}`" type="checkbox" class="custom-control-input" :checked="item.attributes.status == 1" @click.prevent="editStatus(item.id, item.attributes)">
+          <label class="custom-control-label" :for="`status_${item.id}`" />
+        </div>
+      </td>
+
+      <td class="text-center">
+        <button type="button" class="btn btn-warning btn-circle" @click.prevent="edit(item.id)">
+          <i class="fas fa-pen" />
+        </button>
+      </td>
+
+      <td class="text-center">
+        <button type="button" class="btn btn-danger btn-circle" @click.prevent="deleted(item.id)">
+          <i class="fas fa-trash-alt" />
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</template>
+
+<script>
+
+export default {
+  props: {
+    configurations: {
+      type: Array,
+      default: function () {
+        return []
+      }
+    },
+    index: {
+      type: Function,
+      default: function () {
+        return 1
+      }
+    },
+    state: {
+      type: Number,
+      default: 0
+    }
+  },
+  methods: {
+    edit: function (id) {
+      this.$http.get('/api/v1/configurations/' + id).then((response) => {
+        this.$emit('dataEdit', {
+          id: response.data.id,
+          domain: response.data.attributes.domain,
+          name: response.data.attributes.name,
+          business_name: response.data.attributes.business_name,
+          slogan: response.data.attributes.slogan,
+          email: response.data.attributes.email,
+          phone: response.data.attributes.phone
+        })
+      })
+    },
+    deleted: function (id) {
+      this.$swal.fire({
+        html: '<h6><strong>Seguro que quiere eliminar la configuracion</strong></h6>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        width: '21rem',
+        preConfirm: () => {
+          this.$http.delete('/api/v1/configurations/' + id).then((response) => {
+            if (response.status === 204) {
+              this.$http.get('/api/v1/configurations').then((response) => {
+                if (this.state > parseInt(response.data.meta.last_page)) {
+                  this.index(parseInt(response.data.meta.last_page))
+                } else {
+                  this.index(this.state)
+                }
+
+                this.$toad.toad('La configuracion se elimino correctamente')
+              })
+            }
+          })
+        }
+      })
+    },
+    editStatus: function (id, attr) {
+      this.$swal.fire({
+        html: '<h6><strong>Desea cambiar el estatus de la configuracion</strong></h6>',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        width: '21rem',
+        preConfirm: () => {
+          this.$http.put('/api/v1/configurations/' + id, {
+            domain: attr.domain,
+            name: attr.name,
+            email: attr.email,
+            phone: attr.phone,
+            status: (attr.status === 1) ? 0 : 1
+          }).then((response) => {
+            if (response.status === 200) {
+              this.index(this.state)
+            }
+          })
+        }
+      })
+    },
+    editImage: function (id) {
+      this.$http.get('/api/v1/configurations/' + id).then((response) => {
+        this.$emit('dataEditImage', {
+          id: response.data.id,
+          logo: response.data.attributes.logo,
+          image: response.data.image
+        })
+      })
+    }
+  }
+}
+
+</script>

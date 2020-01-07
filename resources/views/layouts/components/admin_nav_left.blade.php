@@ -64,7 +64,7 @@
 		</a>
 		<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="#">Configuracion</a>
+				<a class="collapse-item" href="{{ route('configurations.index') }}">Configuracion</a>
 				<a class="collapse-item" href="#">Informacion</a>
 				<a class="collapse-item" href="#">Galeria</a>
 			</div>

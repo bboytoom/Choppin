@@ -7,7 +7,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import { ToadAlert } from './components/helpers'
 
-axios.defaults.headers.common.APP_KEY = ''
+axios.defaults.headers.common.APP_KEY = 'base64:gZG7KRmCq6ms7cDb6o9l6Kl/yd6COLu1RZ8rP8M7FeI='
 
 Vue.prototype.$http = axios
 Vue.prototype.$swal = Swal
@@ -44,6 +44,7 @@ configure({
   }
 })
 
+Vue.component('configuration-component', require('./components/Configurations/Configurations.vue').default)
 Vue.component('admin-component', require('./components/Admins/Admins.vue').default)
 Vue.component('user-component', require('./components/Users/Users.vue').default)
 Vue.component('category-component', require('./components/Categories/Categories.vue').default)

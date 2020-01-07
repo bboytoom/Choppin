@@ -26,7 +26,8 @@ class ConfigurationResource extends JsonResource
                 'phone' => $this->phone,
                 'logo' => $this->logo,
                 'status' =>  $this->status
-            ]
+            ],
+            'image' => base64_encode(file_get_contents(public_path('images/'.$this->logo)))
         ];
     }
 }

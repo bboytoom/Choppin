@@ -27,6 +27,7 @@ Route::prefix('admin')->group(function ()
     Route::namespace('Admin')->group(function () 
     {
         Route::get('/', 'HomeController@index')->name('admin.home');        
+        Route::resource('configurations', 'ConfigurationController')->only('index');
         Route::resource('users', 'UserController')->only('index', 'edit');
         Route::resource('admins', 'AdminController')->only('index');
         Route::resource('categories', 'CategoryController')->only('index');
