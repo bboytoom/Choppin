@@ -1,43 +1,63 @@
 <template>
   <div id="imageConfiguration" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <validation-observer v-slot="{ invalid }" ref="formconfigurationimage">
-        <form method="POST" class="modal-content" autocomplete="off" @submit.prevent="imageConfigurationSubmit(configuration)">
-          <div class="modal-header bg-success text-white">
-            <h5 class="modal-title title-form__elem">
-              Logo del carrito
-            </h5>
-          </div>
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title">
+            Logo de la tienda
+          </h5>
 
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-12">
-                s
-              </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click.prevent="imageConfigurationReset()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <VueFileAgent
+          ref="profilePicRef"
+          v-model="profilePic"
+          class="profile-pic-upload-block"
+          :multiple="false"
+          :deletable="false"
+          :meta="true"
+          :compact="true"
+          :accept="'image/png, image/jpg, image/jpeg'"
+          :thumbnail-size="283"
+          :max-size="'1MB'"
+          :help-text="'Arrastra la imagen aqui'"
+          :error-text="{
+            type: 'Archivo no valido',
+            size: 'El tamaño maximo es de 1MB ',
+          }"
+        >
+          <template v-slot:after-inner>
+            <button title="after-inner" class="btn btn-primary btn-sm btn-block rounded-0">
+              <i class="fas fa-upload" /> Selecciona una imagen
+            </button>
+          </template>
+
+          <template v-slot:after-outer>
+            <div title="after-outer" class="modal-footer">
+              <button v-if="profilePic" type="button" class="btn btn-secondary" @click="removePic()">
+                <span class="icon text-white-50">
+                  <i class="fas fa-broom" />
+                </span>
+                <span class="text">
+                  Remover
+                </span>
+              </button>
+
+              <button type="button" class="btn btn-success btn-icon-split" :class="{'disabled': uploaded || !profilePic}" @click="upload()">
+                <span class="icon text-white-50">
+                  <i class="fas fa-check" />
+                </span>
+                <span class="text">
+                  Guardar
+                </span>
+              </button>
             </div>
-          </div>
-
-          <div class="modal-footer">
-            <button type="reset" class="btn btn-secondary btn-icon-split" data-dismiss="modal" @click.prevent="imageConfigurationReset()">
-              <span class="icon text-white-50">
-                <i class="fas fa-arrow-left" />
-              </span>
-              <span class="text">
-                Cancelar
-              </span>
-            </button>
-
-            <button type="submit" class="btn btn-success btn-icon-split" :disabled="invalid">
-              <span class="icon text-white-50">
-                <i class="fas fa-check" />
-              </span>
-              <span class="text">
-                Guardar
-              </span>
-            </button>
-          </div>
-        </form>
-      </validation-observer>
+          </template>
+        </VueFileAgent>
+      </div>
     </div>
   </div>
 </template>
@@ -63,35 +83,49 @@ export default {
       default: 0
     }
   },
+  data: function () {
+    return {
+      profilePic: null,
+      uploaded: false
+    }
+  },
   methods: {
-    imageConfigurationSubmit: function (configuration) {
-      var data = {
-        name: configuration.name,
-        image: configuration.image
+    removePic: function () {
+      this.profilePic = null
+      this.uploaded = false
+    },
+    upload: function () {
+      var reader = new FileReader()
+
+      if (this.profilePic === null) {
+        return false
       }
 
-      this.$refs.formconfigurationupdate.validate().then(success => {
-        if (!success) {
-          return
+      reader.onload = (e) => {
+        var data = {
+          name: this.profilePic.file.name,
+          logo: reader.result
         }
 
-        this.$http.put('/api/v1/configurations/image/' + configuration.id, data).then((response) => {
+        this.$http.put('/api/v1/configurations/image/' + this.configuration.id, data).then((response) => {
           if (response.status === 200) {
             $('#imageConfiguration').modal('hide')
-
             this.index(this.state)
             this.imageConfigurationReset()
-
             this.$toad.toad('La imagen se agrego correctamente')
           }
         })
-      })
+      }
+
+      reader.readAsDataURL(this.profilePic.file)
     },
     imageConfigurationReset: function () {
       this.configuration.id = 0
       this.configuration.logo.name = ''
       this.configuration.logo.image = ''
-      this.$refs.formconfigurationimage.reset()
+      this.configuration.logo.size = 0
+      this.profilePic = null
+      this.uploaded = false
     }
   }
 }

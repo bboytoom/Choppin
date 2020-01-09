@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import { ValidationProvider, ValidationObserver, extend, localize, configure } from 'vee-validate'
 import Paginate from 'vuejs-paginate'
+import VueFileAgent from 'vue-file-agent'
+
+// eslint-disable-next-line no-unused-vars
+import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css'
+
 import es from 'vee-validate/dist/locale/es.json'
 import * as rules from 'vee-validate/dist/rules'
 import axios from 'axios'
@@ -12,6 +17,9 @@ axios.defaults.headers.common.APP_KEY = 'base64:gZG7KRmCq6ms7cDb6o9l6Kl/yd6COLu1
 Vue.prototype.$http = axios
 Vue.prototype.$swal = Swal
 Vue.prototype.$toad = ToadAlert
+Vue.config.productionTip = false
+
+Vue.use(VueFileAgent)
 
 Vue.filter('capitalize', function (value) {
   if (!value) {
@@ -56,8 +64,6 @@ Vue.component('shipping-component', require('./components/Shippings/Shippings.vu
 Vue.component('validation-provider', ValidationProvider)
 Vue.component('validation-observer', ValidationObserver)
 Vue.component('paginate', Paginate)
-
-Vue.config.productionTip = false
 
 var vm = new Vue()
 vm.$mount('#wrapper')

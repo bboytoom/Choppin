@@ -133,6 +133,7 @@ export default {
         phone: '',
         logo: {
           name: '',
+          size: 0,
           image: ''
         }
       }
@@ -175,6 +176,7 @@ export default {
       $('#updateConfiguration').modal('show')
     },
     dataEditImage: function (value) {
+      this.configuration.id = value.id
       this.configuration.logo.name = value.logo
       this.configuration.logo.image = value.image
 

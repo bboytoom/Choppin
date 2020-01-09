@@ -38,4 +38,5 @@ Route::group([
 
     Route::put('/adminpassword/{id}', 'UserPasswordController@updateAdmin')->name('admins.password.update');
     Route::put('/userpassword/{id}', 'UserPasswordController@updateUser')->name('users.password.update');
+    Route::put('/configurations/image/{id}', 'ImageController@updateImageConfiguration')->name('configurations.image.update');
 });
