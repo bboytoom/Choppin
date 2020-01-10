@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ImageRequest;
+use App\Http\Requests\ImageConfigurationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -11,7 +11,7 @@ use App\Models\Configuration;
 
 class ImageController extends Controller
 {
-    public function updateImageConfiguration(ImageRequest $request, $id)
+    public function updateImageConfiguration(ImageConfigurationRequest $request, $id)
     {
         if (config('app.key') == $request->header('APP_KEY')) {
             if(!is_null($request->get('logo'))) {

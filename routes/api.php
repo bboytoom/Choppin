@@ -27,6 +27,7 @@ Route::group([
         'categories' => 'CategoryController',
         'subcategories' => 'SubCategoryController',
         'products' => 'ProductController',
+        'photos' => 'PhotoController',
         'configurations' => 'ConfigurationController'
     ]);
 

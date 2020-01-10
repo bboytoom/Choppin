@@ -9,7 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ImageConfigurationRequest extends FormRequest
+class PhotoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,9 +29,16 @@ class ImageConfigurationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:6|max:100',
-            'logo' => 'required|min:100',
-            'type' => 'required|min:8|max:11'
+            'name' => [
+                'required',
+                'min:6',
+                'max:100',
+                Rule::unique('photos', 'name')->ignore($this->product)
+            ],
+            'image' => 'required|min:100',
+            'type' => 'required|min:8|max:11',
+            'description' => 'min:4|max:255',
+            'status' => 'boolean'
         ];
     }
 
