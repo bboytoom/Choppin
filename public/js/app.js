@@ -4253,7 +4253,8 @@ __webpack_require__.r(__webpack_exports__);
       reader.onload = function (e) {
         var data = {
           name: _this.profilePic.file.name,
-          logo: reader.result
+          logo: reader.result,
+          type: _this.profilePic.file.type
         };
 
         _this.$http.put('/api/v1/configurations/image/' + _this.configuration.id, data).then(function (response) {
@@ -21155,7 +21156,6 @@ var render = function() {
             [
               _c("img", {
                 staticClass: "img-thumbnail rounded",
-                staticStyle: { width: "100px" },
                 attrs: {
                   src: "data:image/png;base64," + item.image,
                   alt: "" + item.attributes.logo

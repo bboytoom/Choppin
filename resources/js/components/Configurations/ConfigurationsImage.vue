@@ -104,7 +104,8 @@ export default {
       reader.onload = (e) => {
         var data = {
           name: this.profilePic.file.name,
-          logo: reader.result
+          logo: reader.result,
+          type: this.profilePic.file.type
         }
 
         this.$http.put('/api/v1/configurations/image/' + this.configuration.id, data).then((response) => {
