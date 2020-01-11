@@ -50,20 +50,50 @@ return [
 
         'configurations' => [
             'driver' => 'local',
-            'root' => public_path('images'),
-            'visibility' => 'public',
+            'root' => storage_path('app/public/images'),
+            'url' => env('APP_URL').'/storage/images',
+            'permissions' => [
+                'file' => [
+                    'public' => 0664,
+                    'private' => 0600,
+                ],
+                'dir' => [
+                    'public' => 0775,
+                    'private' => 0700,
+                ],
+            ],
         ],
 
         'photo_big' => [
             'driver' => 'local',
-            'root' => public_path('product_images/big'),
-            'visibility' => 'public',
+            'root' => storage_path('app/public/images/big'),
+            'url' => env('APP_URL').'/storage/images/big',
+            'permissions' => [
+                'file' => [
+                    'public' => 0664,
+                    'private' => 0600,
+                ],
+                'dir' => [
+                    'public' => 0775,
+                    'private' => 0700,
+                ],
+            ],
         ],
 
         'photo_small' => [
             'driver' => 'local',
-            'root' => public_path('product_images/small'),
-            'visibility' => 'public',
+            'root' => storage_path('app/public/images/small'),
+            'url' => env('APP_URL').'/storage/images/small',
+            'permissions' => [
+                'file' => [
+                    'public' => 0664,
+                    'private' => 0600,
+                ],
+                'dir' => [
+                    'public' => 0775,
+                    'private' => 0700,
+                ],
+            ],
         ],
 
         's3' => [

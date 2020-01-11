@@ -4,6 +4,7 @@ namespace App\Http\Resources\Photo;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Product\ProductIdentifierResource;
+use Illuminate\Support\Facades\Storage;
 
 class PhotoResource extends JsonResource
 {
@@ -24,6 +25,7 @@ class PhotoResource extends JsonResource
                 'description' => $this->description,
                 'status' => $this->status
             ],
+            'url' => Storage::disk('photo_small')->url($this->image),
             'product' => new ProductIdentifierResource($this->product)
         ];
     }

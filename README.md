@@ -20,6 +20,7 @@ Npm v6.13.4
 ```
 composer install
 php artisan key:generate
+php artisan storage:link
 ```
 
 3. En la variable APP_KEY del archivo *app.js* que se encuentra en el directorio resources/js ingresar la clave generada por el comando *php artisan key:generate*

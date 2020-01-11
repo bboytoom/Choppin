@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Configuration;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ConfigurationResource extends JsonResource
 {
@@ -27,7 +28,7 @@ class ConfigurationResource extends JsonResource
                 'logo' => $this->logo,
                 'status' =>  $this->status
             ],
-            'image' => base64_encode(file_get_contents(public_path('images/'.$this->logo)))
+            'url' => Storage::disk('configurations')->url($this->logo)
         ];
     }
 }

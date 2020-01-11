@@ -25,11 +25,7 @@ class ShippingController extends Controller
      */
     public function index($id)
     {
-        $shipping =  Shipping::find(base64_decode($id));
-
-        if ($shipping == null) {
-            return response(null, 404);
-        }
+        $shipping =  Shipping::findOrFail(base64_decode($id));
 
         return view('admin.shippings.index', [
             'id' => $shipping['id']

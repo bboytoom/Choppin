@@ -21156,10 +21156,7 @@ var render = function() {
             [
               _c("img", {
                 staticClass: "img-thumbnail rounded",
-                attrs: {
-                  src: "data:image/png;base64," + item.image,
-                  alt: "" + item.attributes.logo
-                }
+                attrs: { src: "" + item.url, alt: "" + item.attributes.logo }
               })
             ]
           )
@@ -21576,7 +21573,7 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { width: "110" } }, [
-          _vm._v("\n              Caracteristicas\n            ")
+          _vm._v("\n              Complementos\n            ")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { width: "110" } }, [

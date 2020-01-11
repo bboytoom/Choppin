@@ -30,11 +30,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user =  User::find(base64_decode($id));
-
-        if ($user == null) {
-            return abort(404);
-        }
+        $user =  User::findOrFail(base64_decode($id));
 
         return view('admin.users.edit', [
             'id' => $id,

@@ -3,7 +3,7 @@
     <tr v-for="item in configurations" :key="item.id">
       <td class="text-center">
         <button type="button" class="btn" @click.prevent="editImage(item.id)">
-          <img class="img-thumbnail rounded" :src="`data:image/png;base64,${item.image}`" :alt="`${item.attributes.logo}`">
+          <img class="img-thumbnail rounded" :src="`${item.url}`" :alt="`${item.attributes.logo}`">
         </button>
       </td>
 

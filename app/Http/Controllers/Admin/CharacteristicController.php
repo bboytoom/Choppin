@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Models\Characteristic;
 
-class ProductController extends Controller
+class CharacteristicController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -23,18 +23,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        return view('admin.products.index');
-    }
+        $characteristic =  Characteristic::findOrFail(base64_decode($id));
 
-    public function edit($id)
-    {
-        $product =  Product::findOrFail(base64_decode($id));
-
-        return view('admin.products.edit', [
-            'id' => $id,
-            'name' => $product['name']
+        return view('admin.characteristic.index', [
+            'id' => $characteristic['id']
         ]);
     }
 }

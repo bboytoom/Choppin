@@ -14,21 +14,12 @@ class ImageController extends Controller
     public function updateImageConfiguration(ImageConfigurationRequest $request, $id)
     {
         if (config('app.key') == $request->header('APP_KEY')) {
-            if(!is_null($request->get('logo'))) {
-                $name = date('YmdHis_').$request->get('name');
-                $base_64toImage = str_replace('data:'. $request->get('type') .';base64,', '', $request->get('logo'));
-                $image = base64_decode($base_64toImage);
-                
-                Configuration::where('id', $id)->update([
-                    'logo' => $name
-                ]);
-                
-                Storage::disk('configurations')->put($name, $image);
-                
-                $imageResize = Image::make(public_path('images/'.$name))->resize(300, 120);
-                $imageResize->save(public_path('images/'.$name));
+            $configuration = Configuration::find($id);
 
-                return response(null, 200);
+            if (!is_null($configuration) and !is_null($request->logo)) {
+                $name = date('YmdHis_').$request->name;
+
+                $this->uploadImage($request, $id, $name);
             } else {
                 abort(404);
             }
@@ -36,5 +27,22 @@ class ImageController extends Controller
         else {
             abort(401);
         }
+    }
+
+    private function uploadImage(ImageConfigurationRequest $request, $id, $name)
+    {
+        $base_64toImage = str_replace('data:'. $request->type .';base64,', '', $request->logo);
+        $image = base64_decode($base_64toImage);
+                
+        Configuration::where('id', $id)->update([
+            'logo' => $name
+        ]);
+                
+        Storage::disk('configurations')->put($name, $image);
+            
+        $imageResize = Image::make(public_path('storage/images/'.$name))->resize(300, 120);
+        $imageResize->save(public_path('storage/images/'.$name));
+
+        return response(null, 200);
     }
 }

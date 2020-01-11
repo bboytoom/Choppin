@@ -46,7 +46,7 @@
                 Estado
               </th>
               <th class="text-center" width="110">
-                Caracteristicas
+                Complementos
               </th>
               <th class="text-center" width="110">
                 Editar
