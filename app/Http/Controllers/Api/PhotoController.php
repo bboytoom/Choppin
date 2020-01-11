@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PhotoRequest;
 use App\Http\Resources\Photo\PhotoResource;
 use App\Http\Resources\Photo\PhotoCollection;
+use App\Events\PhotoImageUpdated;
 use App\Models\Photo;
 
 class PhotoController extends Controller
@@ -16,14 +17,14 @@ class PhotoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $id)
     {
         if (config('app.key') == $request->header('APP_KEY')) {
             $photos = Photo::whereHas('product', function ($photosEstatus) {
                 $photosEstatus->where('status', 1); 
             })->where('product_id', $id)->paginate(10);
 
-            return new PhotoCollection(Photo::paginate(10));
+            return new PhotoCollection($photos);
         } else {
             abort(401);
         }
@@ -38,7 +39,9 @@ class PhotoController extends Controller
     public function store(PhotoRequest $request)
     {
         if (config('app.key') == $request->header('APP_KEY')) {
-            Photo::create($request->all());
+            $photo = Photo::create($request->except(['type', 'base']));
+            event(new PhotoImageUpdated($photo->id, $photo->image, $request->base, $request->type));
+            
             return response(null, 201);
         } else {
             abort(401);
@@ -71,7 +74,9 @@ class PhotoController extends Controller
     public function update(PhotoRequest $request, Photo $photo)
     {
         if (config('app.key') == $request->header('APP_KEY')) {
-            $photo->update($request->all());
+            $photo->update($request->except(['type', 'base']));
+            event(new PhotoImageUpdated($photo->id, $photo->image, $request->base, $request->type));
+
             return response(null, 200);
         } else {
             abort(401);

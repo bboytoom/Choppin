@@ -29,14 +29,16 @@ class PhotoRequest extends FormRequest
     public function rules()
     {
         return [
+            'product_id' => 'required|exists:App\Models\Product,id',
             'name' => [
                 'required',
-                'min:6',
+                'min:3',
                 'max:100',
-                Rule::unique('photos', 'name')->ignore($this->product)
+                Rule::unique('photos', 'name')->ignore($this->photo)
             ],
-            'image' => 'required|min:100',
+            'image' => 'required|min:6|max:100',
             'type' => 'required|min:8|max:11',
+            'base' => 'required|min:100',
             'description' => 'min:4|max:255',
             'status' => 'boolean'
         ];

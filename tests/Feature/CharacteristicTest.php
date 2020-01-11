@@ -55,8 +55,7 @@ class CharacteristicTest extends TestCase
     {
         $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
-        $characteristic = $seed->seed_characteristic();
-
+        
         $data = [
            'product_id' => 0,
            'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),

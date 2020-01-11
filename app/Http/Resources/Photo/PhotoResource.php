@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Photo;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Product\ProductIdentifierResource;
 
 class PhotoResource extends JsonResource
 {
@@ -15,7 +16,15 @@ class PhotoResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'data' => PhotoResource::collection($this->collection)
+            'type' => $this->getTable(),
+            'id' => $this->id,
+            'attributes' => [
+                'name' => $this->name,
+                'image' => $this->image,
+                'description' => $this->description,
+                'status' => $this->status
+            ],
+            'product' => new ProductIdentifierResource($this->product)
         ];
     }
 }

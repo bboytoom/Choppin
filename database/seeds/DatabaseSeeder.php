@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
 
         factory(\App\Models\Product::class, 400)->create()->each(function ($product) {
             $product->characteristic()->createMany(factory(\App\Models\Characteristic::class, 6)->make()->toArray());
+            $product->image()->createMany(factory(\App\Models\Photo::class, 6)->make()->toArray());
         });
     }
 }

@@ -57,6 +57,11 @@ class Product extends Model
         return $this->belongsTo('App\Models\SubCategory', 'subcategory_id');
     }
 
+    public function image()
+    {
+        return $this->hasMany('App\Models\Photo', 'product_id');
+    }
+
     public function characteristic()
     {
         return $this->hasMany('App\Models\Characteristic', 'product_id');

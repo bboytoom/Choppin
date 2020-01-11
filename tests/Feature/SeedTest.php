@@ -12,6 +12,7 @@ use App\Models\Characteristic;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Product;
+use App\Models\Photo;
 use App\Models\Shipping;
 
 class SeedTest
@@ -24,6 +25,7 @@ class SeedTest
     private $initial_category;
     private $initial_subcategory;
     private $initial_product;
+    private $initial_photo;
     private $initial_characteristic;
     private $initial_shipping;
 
@@ -46,6 +48,28 @@ class SeedTest
         ];
 
         return $this->initial_characteristic;
+    }
+
+    public function seed_photo()
+    {
+        $faker = \Faker\Factory::create();
+        $catalogs = $this->seed_product();
+
+        $photo = Photo::create([
+            'product_id' => $catalogs['product_id'],
+            'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+            'image' => 'producto_default.png',
+            'description' => $faker->text($maxNbChars = 250),
+            'status' => 1
+        ]);
+
+        $this->initial_photo = [
+            'product_id' => $catalogs['product_id'],
+            'photo_id' => $photo->id,
+            'name' => $photo->name
+        ];
+
+        return $this->initial_photo;
     }
 
     public function seed_product()

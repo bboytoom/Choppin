@@ -14,6 +14,8 @@ use App\Events\Productupdated;
 use App\Listeners\ProductUpdatedListener;
 use App\Events\SubCategoryupdated;
 use App\Listeners\SubCategoryUpdatedListener;
+use App\Events\PhotoImageUpdated;
+use App\Listeners\PhotoImageUpdatedListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -37,6 +39,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         SubCategoryupdated::class => [
             SubCategoryUpdatedListener::class,
+        ],
+        PhotoImageUpdated::class => [
+            PhotoImageUpdatedListener::class,
         ]
     ];
 
