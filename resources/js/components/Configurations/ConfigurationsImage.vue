@@ -13,7 +13,6 @@
         </div>
 
         <VueFileAgent
-          ref="profilePicRef"
           v-model="profilePic"
           class="profile-pic-upload-block"
           :multiple="false"

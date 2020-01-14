@@ -46,7 +46,7 @@
                         eleifend in ultrices a, posuere ut sapien. 
                     </p>
 
-                    <a href="#" class="mt-4" rel="nofollow" style="float: right;">
+                    <a href="{{route('photo.index', $id)}}" class="mt-4" rel="nofollow" style="float: right;">
                         Ver imagenes →
                     </a>
                 </div>

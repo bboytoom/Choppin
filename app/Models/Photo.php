@@ -32,7 +32,6 @@ class Photo extends Model
 
         static::saving(function ($photo) {
             $photo->name = e(strtolower($photo->name));
-            $photo->image = '20200111034735_producto_default.png';
             $photo->description = e(strtolower($photo->description));
         });
     }

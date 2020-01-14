@@ -35,6 +35,7 @@ Route::prefix('admin')->group(function ()
         Route::resource('products', 'ProductController')->only('index', 'edit');
         Route::resource('users/{id}/edit/shippings', 'ShippingController')->only('index');
         Route::resource('products/{id}/edit/characteristic', 'CharacteristicController')->only('index');
+        Route::resource('products/{id}/edit/photo', 'PhotoController')->only('index');
     });
 });
 

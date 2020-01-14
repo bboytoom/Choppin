@@ -36,9 +36,9 @@ class PhotoRequest extends FormRequest
                 'max:100',
                 Rule::unique('photos', 'name')->ignore($this->photo)
             ],
-            'image' => 'required|min:6|max:100',
-            'type' => 'required|min:8|max:11',
-            'base' => 'required|min:100',
+            'image' => 'min:6|max:100',
+            'type' => 'min:8|max:11',
+            'base' => 'min:100',
             'description' => 'min:4|max:255',
             'status' => 'boolean'
         ];

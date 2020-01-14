@@ -21,7 +21,7 @@ class PhotoController extends Controller
     {
         if (config('app.key') == $request->header('APP_KEY')) {
             $photos = Photo::whereHas('product', function ($photosEstatus) {
-                $photosEstatus->where('status', 1); 
+                $photosEstatus->where('status', 1);
             })->where('product_id', $id)->paginate(10);
 
             return new PhotoCollection($photos);
@@ -40,8 +40,11 @@ class PhotoController extends Controller
     {
         if (config('app.key') == $request->header('APP_KEY')) {
             $photo = Photo::create($request->except(['type', 'base']));
-            event(new PhotoImageUpdated($photo->id, $photo->image, $request->base, $request->type));
             
+            if (!is_null($request->base)) {
+                event(new PhotoImageUpdated($photo->id, $photo->image, $request->base, $request->type));
+            }
+
             return response(null, 201);
         } else {
             abort(401);
@@ -75,8 +78,11 @@ class PhotoController extends Controller
     {
         if (config('app.key') == $request->header('APP_KEY')) {
             $photo->update($request->except(['type', 'base']));
-            event(new PhotoImageUpdated($photo->id, $photo->image, $request->base, $request->type));
-
+            
+            if (!is_null($request->base)) {
+                event(new PhotoImageUpdated($photo->id, $photo->image, $request->base, $request->type));
+            }
+            
             return response(null, 200);
         } else {
             abort(401);

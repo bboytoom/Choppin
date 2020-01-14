@@ -1,12 +1,16 @@
 <template>
   <tbody>
-    <tr v-for="item in characteristics" :key="item.id">
+    <tr v-for="item in photos" :key="item.id">
       <td>
         {{ item.product.name | capitalize }}
       </td>
 
       <td>
         {{ item.attributes.name | capitalize }}
+      </td>
+
+      <td>
+        <img class="img-thumbnail rounded" :src="`${item.url}`" :alt="`${item.attributes.name}`">
       </td>
 
       <td class="text-center">
@@ -35,7 +39,7 @@
 
 export default {
   props: {
-    characteristics: {
+    photos: {
       type: Array,
       default: function () {
         return []
@@ -58,10 +62,13 @@ export default {
   },
   methods: {
     edit: function (id) {
-      this.$http.get('/api/v1/characteristics/' + id).then((response) => {
+      this.$http.get('/api/v1/photos/' + id).then((response) => {
         this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
+          image: response.data.attributes.image,
+          url: response.data.url,
+          temp: response.data.url,
           description: response.data.attributes.description,
           product: {
             name: response.data.product.name
@@ -71,7 +78,7 @@ export default {
     },
     deleted: function (id) {
       this.$swal.fire({
-        html: '<h6><strong>Seguro que quiere eliminar la caracteristica</strong></h6>',
+        html: '<h6><strong>Seguro que quiere eliminar la imagen</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -80,16 +87,16 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          this.$http.delete('/api/v1/characteristics/' + id).then((response) => {
+          this.$http.delete('/api/v1/photos/' + id).then((response) => {
             if (response.status === 204) {
-              this.$http.get('/api/v1/characteristics/all/' + this.productoid).then((response) => {
+              this.$http.get('/api/v1/photos/all/' + this.productoid).then((response) => {
                 if (this.state > parseInt(response.data.meta.last_page)) {
                   this.index(parseInt(response.data.meta.last_page))
                 } else {
                   this.index(this.state)
                 }
 
-                this.$toad.toad('La caracteristica se elimino correctamente')
+                this.$toad.toad('La imagen se elimino correctamente')
               })
             }
           })
@@ -98,7 +105,7 @@ export default {
     },
     editStatus: function (id, attr) {
       this.$swal.fire({
-        html: '<h6><strong>Desea cambiar el estatus de la caracteristica</strong></h6>',
+        html: '<h6><strong>Desea cambiar el estatus de la imagen</strong></h6>',
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -107,7 +114,7 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          this.$http.put('/api/v1/characteristics/' + id, {
+          this.$http.put('/api/v1/photos/' + id, {
             product_id: this.productoid,
             name: attr.name,
             description: attr.description,
