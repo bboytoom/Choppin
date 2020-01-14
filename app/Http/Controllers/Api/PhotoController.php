@@ -19,7 +19,7 @@ class PhotoController extends Controller
      */
     public function index(Request $request, $id)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $photos = Photo::whereHas('product', function ($photosEstatus) {
                 $photosEstatus->where('status', 1);
             })->where('product_id', $id)->paginate(10);
@@ -38,7 +38,7 @@ class PhotoController extends Controller
      */
     public function store(PhotoRequest $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $photo = Photo::create($request->except(['type', 'base']));
             
             if (!is_null($request->base)) {
@@ -59,7 +59,7 @@ class PhotoController extends Controller
      */
     public function show(Request $request, Photo $photo)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             PhotoResource::withoutWrapping();
             return new PhotoResource($photo);
         } else {
@@ -76,7 +76,7 @@ class PhotoController extends Controller
      */
     public function update(PhotoRequest $request, Photo $photo)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $photo->update($request->except(['type', 'base']));
             
             if (!is_null($request->base)) {
@@ -97,7 +97,7 @@ class PhotoController extends Controller
      */
     public function destroy(Request $request, Photo $photo)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $photo->delete();
             return response(null, 204);
         } else {

@@ -18,7 +18,7 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             return new AdminCollection(Admin::paginate(10));
         } else {
             abort(401);
@@ -33,7 +33,7 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             Admin::create($request->all());
             return response(null, 201);
         } else {
@@ -49,7 +49,7 @@ class AdminController extends Controller
      */
     public function show(Request $request, Admin $admin)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             AdminResource::withoutWrapping();
             return new AdminResource($admin);
         } else {
@@ -66,7 +66,7 @@ class AdminController extends Controller
      */
     public function update(AdminRequest $request, Admin $admin)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $admin->update($request->all());
             return response(null, 200);
         } else {
@@ -82,7 +82,7 @@ class AdminController extends Controller
      */
     public function destroy(Request $request, Admin $admin)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $admin->delete();
             return response(null, 204);
         } else {

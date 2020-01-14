@@ -18,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             return new CategoryCollection(Category::paginate(10));
         } else {
             abort(401);
@@ -33,7 +33,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             Category::create($request->all());
             return response(null, 201);
         } else {
@@ -49,7 +49,7 @@ class CategoryController extends Controller
      */
     public function show(Request $request, Category $category)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             CategoryResource::withoutWrapping();
             return new CategoryResource($category);
         } else {
@@ -66,7 +66,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $category->update($request->all());
             return response(null, 200);
         } else {
@@ -82,7 +82,7 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request, Category $category)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $category->delete();
             return response(null, 204);
         } else {

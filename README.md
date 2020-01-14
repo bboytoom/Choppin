@@ -4,13 +4,11 @@ Es una tienda en línea genérica que tiene la capacidad de poder extender sus f
 
 ### Pre-requisitos
 
-Se necesita instalar las siguientes herramientas
-
+Se necesita instalar Vagrant >= 2.2.6 y ejecutar los siguientes comandos
 ```
-Composer v1.9
-Php v7.3.12
-Node v12.13.1
-Npm v6.13.4
+vagrant box add laravel/homestead
+vagrant up
+vagrant ssh
 ```
 
 ### Instalación 
@@ -23,9 +21,9 @@ php artisan key:generate
 php artisan storage:link
 ```
 
-3. En la variable APP_KEY del archivo *app.js* que se encuentra en el directorio resources/js ingresar la clave generada por el comando *php artisan key:generate*
+3. En la variable **x-api-key** del archivo *app.js* que se encuentra en el directorio resources/js ingresar la clave generada por el comando *php artisan key:generate*
 ```
-axios.defaults.headers.common.APP_KEY = 'ingresar llave'
+axios.defaults.headers.common['x-api-key'] = 'ingresar llave'
 ```
 
 4. En consola se tienen que ejecutar en orden los siguientes comandos

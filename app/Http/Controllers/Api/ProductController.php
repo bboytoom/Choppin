@@ -18,7 +18,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $products = Product::whereHas('subcategory', function ($productsEstatus) {
                 $productsEstatus->where('status', 1); 
             })->paginate(10);
@@ -37,7 +37,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) { 
+        if (config('app.key') == $request->header('x-api-key')) { 
             Product::create($request->all());
             return response(null, 201);
         } else {
@@ -53,7 +53,7 @@ class ProductController extends Controller
      */
     public function show(Request $request, Product $product)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             ProductResource::withoutWrapping();
             return new ProductResource($product);
         } else {
@@ -70,7 +70,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $product->update($request->all());
             return response(null, 200);
         } else {
@@ -86,7 +86,7 @@ class ProductController extends Controller
      */
     public function destroy(Request $request, Product $product)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $product->delete();
             return response(null, 204);
         } else {

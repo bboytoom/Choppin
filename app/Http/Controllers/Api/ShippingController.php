@@ -18,7 +18,7 @@ class ShippingController extends Controller
      */
     public function index(Request $request, $id)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $shippings = Shipping::whereHas('user', function ($shippingsEstatus) {
                 $shippingsEstatus->where('status', 1); 
             })->where('user_id', $id)->paginate(10);
@@ -37,7 +37,7 @@ class ShippingController extends Controller
      */
     public function store(ShippingRequest $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             Shipping::create($request->all());
             return response(null, 201);
         } else {
@@ -53,7 +53,7 @@ class ShippingController extends Controller
      */
     public function show(Request $request, Shipping $shipping)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             ShippingResource::withoutWrapping();
             return new ShippingResource($shipping);
         } else {
@@ -70,7 +70,7 @@ class ShippingController extends Controller
      */
     public function update(ShippingRequest $request, Shipping $shipping)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $shipping->update($request->all());
             return response(null, 200);
         } else {
@@ -86,7 +86,7 @@ class ShippingController extends Controller
      */
     public function destroy(Request $request, Shipping $shipping)
     {   
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $shipping->delete();
             return response(null, 204);
         } else {

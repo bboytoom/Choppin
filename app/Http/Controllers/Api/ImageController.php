@@ -13,7 +13,7 @@ class ImageController extends Controller
 {
     public function updateImageConfiguration(ImageConfigurationRequest $request, $id)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $configuration = Configuration::find($id);
 
             if (!is_null($configuration) and !is_null($request->logo)) {

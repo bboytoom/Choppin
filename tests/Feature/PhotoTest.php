@@ -28,7 +28,7 @@ class PhotoTest extends TestCase
         ];
 
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('POST', '/api/v1/photos', $data);
         $response->assertStatus(201);
     }
@@ -47,7 +47,7 @@ class PhotoTest extends TestCase
         ];
 
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('POST', '/api/v1/photos', $data);
         $response->assertStatus(422);
     }
@@ -66,7 +66,7 @@ class PhotoTest extends TestCase
         ];
 
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('POST', '/api/v1/photos', $data);
         $response->assertStatus(422);
     }
@@ -85,7 +85,7 @@ class PhotoTest extends TestCase
         ];
 
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('POST', '/api/v1/photos', $data);
         $response->assertStatus(422);
     }
@@ -105,7 +105,7 @@ class PhotoTest extends TestCase
         ];
 
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('POST', '/api/v1/photos', $data);
         $response->assertStatus(422);
     }
@@ -127,7 +127,7 @@ class PhotoTest extends TestCase
         ];
 
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('PUT', "/api/v1/photos/{$photo['photo_id']}", $update);
         $response->assertStatus(200);
     }
@@ -149,7 +149,7 @@ class PhotoTest extends TestCase
         ];
         
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('PUT', "/api/v1/photos/{$photo['photo_id']}", $update);
         $response->assertStatus(200);
     }
@@ -168,7 +168,7 @@ class PhotoTest extends TestCase
         ];
 
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('PUT', "/api/v1/photos/{$photo['photo_id']}", $update);
         $response->assertStatus(422);
     }
@@ -179,7 +179,7 @@ class PhotoTest extends TestCase
         $photo = $seed->seed_photo();
 
         $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('DELETE', "/api/v1/photos/{$photo['photo_id']}")->assertStatus(204);
         $this->assertNull(Photo::find($photo['photo_id']));
     }

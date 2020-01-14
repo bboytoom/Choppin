@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             return new UserCollection(User::paginate(10));
         } else {
             abort(401);
@@ -33,7 +33,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             User::create($request->all());
             return response(null, 201);
         } else {
@@ -49,7 +49,7 @@ class UserController extends Controller
      */
     public function show(Request $request, User $user)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             UserResource::withoutWrapping();
             return new UserResource($user);
         } else {
@@ -66,7 +66,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $user->update($request->all());
             return response(null, 200);
         } else {
@@ -82,7 +82,7 @@ class UserController extends Controller
      */
     public function destroy(Request $request, User $user)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $user->delete();
             return response(null, 204);
         } else {

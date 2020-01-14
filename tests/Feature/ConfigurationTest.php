@@ -26,7 +26,7 @@ class ConfigurationTest extends TestCase
         ];
 
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('POST', '/api/v1/configurations', $data);
         $response->assertStatus(201);
 
@@ -50,7 +50,7 @@ class ConfigurationTest extends TestCase
         ];
 
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('POST', '/api/v1/configurations', $data);
         $response->assertStatus(422);
     }
@@ -70,7 +70,7 @@ class ConfigurationTest extends TestCase
         ];
 
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('POST', '/api/v1/configurations', $data);
         $response->assertStatus(422);
     }
@@ -88,7 +88,7 @@ class ConfigurationTest extends TestCase
         ];
 
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('POST', '/api/v1/configurations', $data);
         $response->assertStatus(422);
     }
@@ -98,7 +98,7 @@ class ConfigurationTest extends TestCase
         $data = [];
 
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('POST', '/api/v1/configurations', $data);
         $response->assertStatus(422);
     }
@@ -121,7 +121,7 @@ class ConfigurationTest extends TestCase
         $configuration = $seed->seed_configuration();
 
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('PUT', "/api/v1/configurations/{$configuration['configuration_id']}", $update);
         $response->assertStatus(200);
     }
@@ -144,7 +144,7 @@ class ConfigurationTest extends TestCase
         ];
 
         $response = $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('PUT', "/api/v1/configurations/{$configuration['configuration_id']}", $update);
         $response->assertStatus(200);
     }
@@ -155,7 +155,7 @@ class ConfigurationTest extends TestCase
         $configuration = $seed->seed_configuration();
 
         $this->withHeaders([
-            'APP_KEY' => config('app.key'),
+            'x-api-key' => config('app.key'),
         ])->json('DELETE', "/api/v1/configurations/{$configuration['configuration_id']}")->assertStatus(204);
         $this->assertNull(Configuration::find($configuration['configuration_id']));
     }

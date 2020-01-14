@@ -18,7 +18,7 @@ class CharacteristicController extends Controller
      */
     public function index(Request $request, $id)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $characteristics = Characteristic::whereHas('product', function ($characteristicsEstatus) {
                 $characteristicsEstatus->where('status', 1); 
             })->where('product_id', $id)->paginate(10);
@@ -37,7 +37,7 @@ class CharacteristicController extends Controller
      */
     public function store(CharacteristicRequest $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             Characteristic::create($request->all());
             return response(null, 201);
         } else {
@@ -53,7 +53,7 @@ class CharacteristicController extends Controller
      */
     public function show(Request $request, Characteristic $characteristic)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             CharacteristicResource::withoutWrapping();
             return new CharacteristicResource($characteristic);
         } else {
@@ -70,7 +70,7 @@ class CharacteristicController extends Controller
      */
     public function update(CharacteristicRequest $request, Characteristic $characteristic)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $characteristic->update($request->all());
             return response(null, 200);
         } else {
@@ -86,7 +86,7 @@ class CharacteristicController extends Controller
      */
     public function destroy(Request $request, Characteristic $characteristic)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $characteristic->delete();
             return response(null, 204);
         } else {

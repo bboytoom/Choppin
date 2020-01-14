@@ -39738,7 +39738,7 @@ var vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_5___namespace = /*
 
 
 
-axios__WEBPACK_IMPORTED_MODULE_7___default.a.defaults.headers.common.APP_KEY = 'base64:gZG7KRmCq6ms7cDb6o9l6Kl/yd6COLu1RZ8rP8M7FeI=';
+axios__WEBPACK_IMPORTED_MODULE_7___default.a.defaults.headers.common['x-api-key'] = 'base64:gZG7KRmCq6ms7cDb6o9l6Kl/yd6COLu1RZ8rP8M7FeI=';
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_7___default.a;
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$swal = sweetalert2__WEBPACK_IMPORTED_MODULE_8___default.a;
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$toad = _components_helpers__WEBPACK_IMPORTED_MODULE_9__["ToadAlert"];
@@ -43151,8 +43151,8 @@ var ToadAlert = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/bboytoom/Documents/Ecommerce/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/bboytoom/Documents/Ecommerce/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

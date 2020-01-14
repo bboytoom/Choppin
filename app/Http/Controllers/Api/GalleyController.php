@@ -18,7 +18,7 @@ class GalleyController extends Controller
      */
     public function index(Request $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             return new GalleryCollection(Gallery::all());
         } else {
             abort(401);
@@ -33,7 +33,7 @@ class GalleyController extends Controller
      */
     public function store(GalleryRequest $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             Gallery::create($request->all());
         } else {
             abort(401);
@@ -48,7 +48,7 @@ class GalleyController extends Controller
      */
     public function show(Request $request, Gallery $gallery)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             GalleryResource::withoutWrapping();
             return new GalleryResource($gallery);
         } else {
@@ -65,7 +65,7 @@ class GalleyController extends Controller
      */
     public function update(GalleryRequest $request, Gallery $gallery)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $gallery->update($request->all());
             return response(null, 200);
         } else {
@@ -81,7 +81,7 @@ class GalleyController extends Controller
      */
     public function destroy(Request $request, Gallery $gallery)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $gallery->delete();
             return response(null, 204);
         } else {

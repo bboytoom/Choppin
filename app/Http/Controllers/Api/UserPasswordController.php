@@ -12,7 +12,7 @@ class UserPasswordController extends Controller
 {
     public function updateAdmin(PasswordRequest $request, $id)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             Admin::where('id', $id)->update([
                 'password' => \Hash::make($request->get('password')) 
             ]);
@@ -25,7 +25,7 @@ class UserPasswordController extends Controller
 
     public function updateUser(PasswordRequest $request, $id)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             User::where('id', $id)->update([
                 'password' => \Hash::make($request->get('password')) 
             ]);

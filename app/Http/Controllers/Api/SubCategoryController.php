@@ -18,7 +18,7 @@ class SubCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $subCategories = SubCategory::whereHas('category', function ($subCategoriesEstatus) {
                 $subCategoriesEstatus->where('status', 1); 
             })->paginate(10);
@@ -37,7 +37,7 @@ class SubCategoryController extends Controller
      */
     public function store(SubCategoryRequest $request)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             SubCategory::create($request->all());
             return response(null, 201);
         } else {
@@ -53,7 +53,7 @@ class SubCategoryController extends Controller
      */
     public function show(Request $request, SubCategory $subcategory)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             SubCategoryResource::withoutWrapping();
             return new SubCategoryResource($subcategory);
         } else {
@@ -70,7 +70,7 @@ class SubCategoryController extends Controller
      */
     public function update(SubCategoryRequest $request, SubCategory $subcategory)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $subcategory->update($request->all());
             return response(null, 200);
         } else {
@@ -86,7 +86,7 @@ class SubCategoryController extends Controller
      */
     public function destroy(Request $request, SubCategory $subcategory)
     {
-        if (config('app.key') == $request->header('APP_KEY')) {
+        if (config('app.key') == $request->header('x-api-key')) {
             $subcategory->delete();
             return response(null, 204);
         } else {
