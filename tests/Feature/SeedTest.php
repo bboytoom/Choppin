@@ -24,6 +24,7 @@ class SeedTest
     private $initial_admin;
     private $initial_category;
     private $initial_subcategory;
+    private $initial_gallery;
     private $initial_product;
     private $initial_photo;
     private $initial_characteristic;
@@ -96,6 +97,28 @@ class SeedTest
         ];
 
         return $this->initial_product;
+    }
+
+    public function seed_gallery()
+    {
+        $faker = \Faker\Factory::create();
+        $category = $this->seed_category();
+        $nameGalley = $faker->unique()->sentence($nbWords = 2, $variableNbWords = true);
+
+        $gallery = Gallery::create([
+            'category_id' => $category['category_id'],
+            'name' => $nameGalley,
+            'active' => 1,
+            'status' => 1
+        ]);
+
+        $this->initial_gallery = [
+            'category_id' => $category['category_id'],
+            'gallery_id' => $gallery->id,
+            'name' => $gallery->name,
+        ];
+
+        return $this->initial_gallery;
     }
 
     public function seed_subcategory()
