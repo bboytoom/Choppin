@@ -8,16 +8,12 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Events\Categoryupdated;
 use App\Listeners\CategoryUpdatedListener;
-use App\Events\Userupdated;
-use App\Listeners\UserUpdatedListener;
 use App\Events\Productupdated;
 use App\Listeners\ProductUpdatedListener;
 use App\Events\SubCategoryupdated;
 use App\Listeners\SubCategoryUpdatedListener;
 use App\Events\PhotoImageUpdated;
 use App\Listeners\PhotoImageUpdatedListener;
-use App\Events\Galleryupdated;
-use App\Listeners\GalleryUpdatedListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -33,9 +29,6 @@ class EventServiceProvider extends ServiceProvider
         Categoryupdated::class => [
             CategoryUpdatedListener::class,
         ],
-        Userupdated::class => [
-            UserUpdatedListener::class,
-        ],
         Productupdated::class => [
             ProductUpdatedListener::class,
         ],
@@ -44,9 +37,6 @@ class EventServiceProvider extends ServiceProvider
         ],
         PhotoImageUpdated::class => [
             PhotoImageUpdatedListener::class,
-        ],
-        Galleryupdated::class => [
-            GalleryUpdatedListener::class,
         ]
     ];
 

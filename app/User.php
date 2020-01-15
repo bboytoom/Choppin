@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Events\Userupdated;
 
 class User extends Authenticatable
 {
@@ -51,35 +50,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    /**
-    * The event map for the model.
-    *
-    * @var array
-    */
-    protected $dispatchesEvents = [
-        'updated' => Userupdated::class,
-    ];
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($user) {
-            $user->name = e(strtolower($user->name));
-            $user->mother_surname = e(strtolower($user->mother_surname));
-            $user->father_surname = e(strtolower($user->father_surname));
-            $user->email = e(strtolower($user->email));
-            $user->password = \Hash::make('@User2907');
-        });
-
-        static::updating(function ($user) {
-            $user->name = e(strtolower($user->name));
-            $user->mother_surname = e(strtolower($user->mother_surname));
-            $user->father_surname = e(strtolower($user->father_surname));
-            $user->email = e(strtolower($user->email));
-        });
-    }
 
     public function shipping()
     {
