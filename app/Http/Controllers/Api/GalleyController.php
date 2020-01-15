@@ -19,7 +19,11 @@ class GalleyController extends Controller
     public function index(Request $request)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            return new GalleryCollection(Gallery::all());
+            $gallery = Gallery::whereHas('category', function ($galleryEstatus) {
+                $galleryEstatus->where('status', 1); 
+            })->paginate(10);
+
+            return new GalleryCollection($gallery);
         } else {
             abort(401);
         }
@@ -35,6 +39,7 @@ class GalleyController extends Controller
     {
         if (config('app.key') == $request->header('x-api-key')) {
             Gallery::create($request->all());
+            return response(null, 201);
         } else {
             abort(401);
         }

@@ -19,7 +19,6 @@ class Characteristic extends Model
      * @var array
      */
     protected $fillable = [
-        'admin_id',
         'product_id',
         'name',
         'description',

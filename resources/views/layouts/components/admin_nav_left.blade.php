@@ -66,7 +66,7 @@
 			<div class="bg-white py-2 collapse-inner rounded">
 				<a class="collapse-item" href="{{ route('configurations.index') }}">Configuracion</a>
 				<a class="collapse-item" href="#">Informacion</a>
-				<a class="collapse-item" href="#">Galeria</a>
+				<a class="collapse-item" href="{{ route('galleries.index') }}">Galeria</a>
 			</div>
 		</div>
 	</li>

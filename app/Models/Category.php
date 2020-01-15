@@ -20,7 +20,6 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'admin_id',
         'name',
         'slug',
         'description',
@@ -50,5 +49,10 @@ class Category extends Model
     public function subcategory()
     {
         return $this->hasMany('App\Models\SubCategory', 'category_id');
+    }
+
+    public function gallery()
+    {
+        return $this->hasMany('App\Models\Gallery', 'category_id');
     }
 }

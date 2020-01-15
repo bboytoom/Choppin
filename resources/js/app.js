@@ -12,7 +12,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import { ToadAlert } from './components/helpers'
 
-axios.defaults.headers.common['x-api-key'] = 'base64:gZG7KRmCq6ms7cDb6o9l6Kl/yd6COLu1RZ8rP8M7FeI='
+axios.defaults.headers.common['x-api-key'] = 'base64:aIqY2kyeOcEUJkK97Jq56oFzTDhVnzJu26wM6mOXeCc='
 
 Vue.prototype.$http = axios
 Vue.prototype.$swal = Swal
@@ -61,6 +61,7 @@ Vue.component('product-component', require('./components/Products/Products.vue')
 Vue.component('characteristic-component', require('./components/Characteristics/Characteristics.vue').default)
 Vue.component('photo-component', require('./components/Photos/Photos.vue').default)
 Vue.component('shipping-component', require('./components/Shippings/Shippings.vue').default)
+Vue.component('gallery-component', require('./components/Galleries/Galleries.vue').default)
 
 Vue.component('validation-provider', ValidationProvider)
 Vue.component('validation-observer', ValidationObserver)

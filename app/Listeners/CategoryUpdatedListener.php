@@ -6,6 +6,7 @@ use App\Events\Categoryupdated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Models\SubCategory;
+use App\Models\Gallery;
 
 class CategoryUpdatedListener
 {
@@ -30,10 +31,12 @@ class CategoryUpdatedListener
         if($event->category->status == 0)
         {
             SubCategory::where('category_id', $event->category->id)->update(['status' => 0]);
+            Gallery::where('category_id', $event->category->id)->update(['status' => 0]);
         }
         else
         {
             SubCategory::where('category_id', $event->category->id)->update(['status' => 1]);
+            Gallery::where('category_id', $event->category->id)->update(['status' => 1]);
         }
     }
 }

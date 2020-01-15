@@ -26,6 +26,7 @@ Route::group([
         'users' => 'UserController',
         'categories' => 'CategoryController',
         'subcategories' => 'SubCategoryController',
+        'galleries' => 'GalleyController',
         'products' => 'ProductController',
         'configurations' => 'ConfigurationController'
     ]);

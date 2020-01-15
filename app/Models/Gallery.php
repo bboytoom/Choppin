@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Events\Galleryupdated;
 
 class Gallery extends Model
 {
@@ -24,6 +25,24 @@ class Gallery extends Model
         'active',
         'status',
     ];
+
+    /**
+    * The event map for the model.
+    *
+    * @var array
+    */
+    protected $dispatchesEvents = [
+        'updated' => Galleryupdated::class,
+    ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($gallery) {
+            $gallery->name = e(strtolower($gallery->name));
+        });
+    }
 
     public function category()
     {
