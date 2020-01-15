@@ -4,21 +4,31 @@ Es una tienda en línea genérica que tiene la capacidad de poder extender sus f
 
 ### Pre-requisitos
 
-Se necesita instalar Vagrant >= 2.2.6 y ejecutar los siguientes comandos
+Se necesita instalar las siguientes herramientas
+```
+Composer v1.9
+Php v7.3.12
+Vagrant >= 2.2.6
+```
+
+### Entorno de desarrollo
+
+Es necesario ejecutar el siguiente comando
 ```
 vagrant box add laravel/homestead
-vagrant up
-vagrant ssh
+composer install
+php vendor/bin/homestead make
 ```
 
 ### Instalación 
 
-1. Es necesario crear una base de datos y agregar las credenciales de la base de datos en el archivo .env
+1. copiar el archivo .env.example y renombrarlo por .env
 2. En consola se tienen que ejecutar en orden los siguientes comandos
 ```
-composer install
 php artisan key:generate
 php artisan storage:link
+vagrant up
+vagrant ssh
 ```
 
 3. En la variable **x-api-key** del archivo *app.js* que se encuentra en el directorio resources/js ingresar la clave generada por el comando *php artisan key:generate*
@@ -58,7 +68,7 @@ php artisan db:seed
 
 * [Laravel: 6.x](https://laravel.com/docs/6.x) - Framework principal de desarrollo
 * [Vue: 2.x](https://vuejs.org/) - Framework para construir interfaces
-
+* [Vagrant: 2.x](https://www.vagrantup.com/) - Entorno de desarrollo
 
 ## Licencia
 
