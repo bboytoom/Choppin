@@ -5181,6 +5181,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
+    complemento: function complemento(id) {
+      window.location.href = window.location + '/' + btoa(id) + '/edit';
+    },
     editStatus: function editStatus(id, attr, categoryId) {
       var _this3 = this;
 
@@ -23463,7 +23466,22 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(0, true),
+        _c("td", { staticClass: "text-center" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-info btn-circle",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.complemento(item.id)
+                }
+              }
+            },
+            [_c("i", { staticClass: "fas fa-cog" })]
+          )
+        ]),
         _vm._v(" "),
         _c("td", { staticClass: "text-center" }, [
           _c(
@@ -23503,20 +23521,7 @@ var render = function() {
     0
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-info btn-circle", attrs: { type: "button" } },
-        [_c("i", { staticClass: "fas fa-cog" })]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

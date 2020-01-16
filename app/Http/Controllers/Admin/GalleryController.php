@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Gallery;
 
 class GalleryController extends Controller
 {
@@ -25,5 +26,15 @@ class GalleryController extends Controller
     public function index()
     {
         return view('admin.gallery.index');
+    }
+
+    public function edit($id)
+    {
+        $gallery =  Gallery::findOrFail(base64_decode($id));
+
+        return view('admin.gallery.edit', [
+            'id' => $id,
+            'name' => $gallery['name']
+        ]);
     }
 }

@@ -14,6 +14,7 @@ use App\Models\SubCategory;
 use App\Models\Gallery;
 use App\Models\Product;
 use App\Models\Photo;
+use App\Models\PhotoGallery;
 use App\Models\Shipping;
 
 class SeedTest
@@ -28,6 +29,7 @@ class SeedTest
     private $initial_gallery;
     private $initial_product;
     private $initial_photo;
+    private $initial_gallery_photo;
     private $initial_characteristic;
     private $initial_shipping;
 
@@ -50,6 +52,28 @@ class SeedTest
         ];
 
         return $this->initial_characteristic;
+    }
+
+    public function seed_gallery_photo()
+    {
+        $faker = \Faker\Factory::create();
+        $catalogs = $this->seed_gallery();
+
+        $photoGallery = PhotoGallery::create([
+            'gallery_id' => $catalogs['gallery_id'],
+            'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
+            'image' => 'slide_default.png',
+            'description' => $faker->text($maxNbChars = 250),
+            'status' => 1
+        ]);
+
+        $this->initial_gallery_photo = [
+            'gallery_id' => $catalogs['gallery_id'],
+            'photo_id' => $photoGallery->id,
+            'name' => $photoGallery->name
+        ];
+
+        return $this->initial_gallery_photo;
     }
 
     public function seed_photo()

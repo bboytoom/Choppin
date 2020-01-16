@@ -34,6 +34,9 @@ Route::group([
     Route::apiResource('photos', 'PhotoController')->except('index');
     Route::get('/photos/all/{id}', 'PhotoController@index')->name('photos.index');
 
+    Route::apiResource('photosgallery', 'PhotoGalleryController')->except('index');
+    Route::get('/photosgallery/all/{id}', 'PhotoGalleryController@index')->name('photos.index');
+
     Route::apiResource('characteristics', 'CharacteristicController')->except('index');
     Route::get('/characteristics/all/{id}', 'CharacteristicController@index')->name('characteristics.index');
 

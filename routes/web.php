@@ -32,7 +32,7 @@ Route::prefix('admin')->group(function ()
         Route::resource('admins', 'AdminController')->only('index');
         Route::resource('categories', 'CategoryController')->only('index');
         Route::resource('subcategories', 'SubCategoryController')->only('index');
-        Route::resource('galleries', 'GalleryController')->only('index');
+        Route::resource('galleries', 'GalleryController')->only('index', 'edit');
         Route::resource('products', 'ProductController')->only('index', 'edit');
         Route::resource('users/{id}/edit/shippings', 'ShippingController')->only('index');
         Route::resource('products/{id}/edit/characteristic', 'CharacteristicController')->only('index');

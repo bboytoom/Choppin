@@ -23,7 +23,7 @@
       </td>
 
       <td class="text-center">
-        <button type="button" class="btn btn-info btn-circle">
+        <button type="button" class="btn btn-info btn-circle" @click.prevent="complemento(item.id)">
           <i class="fas fa-cog" />
         </button>
       </td>
@@ -103,6 +103,9 @@ export default {
           })
         }
       })
+    },
+    complemento: function (id) {
+      window.location.href = window.location + '/' + btoa(id) + '/edit'
     },
     editStatus: function (id, attr, categoryId) {
       this.$swal.fire({
