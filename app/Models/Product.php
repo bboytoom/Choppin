@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Events\Productupdated;
 
 class Product extends Model
 {
@@ -28,28 +27,6 @@ class Product extends Model
         'price',
         'status',
     ];
-
-    /**
-    * The event map for the model.
-    *
-    * @var array
-    */
-    protected $dispatchesEvents = [
-        'updated' => Productupdated::class,
-    ];
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::saving(function ($product) {
-            $product->name = e(strtolower($product->name));
-            $product->slug = \Str::slug($product->name, '-');
-            $product->extract = e(strtolower($product->extract));
-            $product->description = e(strtolower($product->description));
-            $product->price = e(strtolower($product->price));
-        });
-    }
 
     public function subcategory()
     {

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Events\SubCategoryupdated;
 
 class SubCategory extends Model
 {
@@ -26,26 +25,6 @@ class SubCategory extends Model
         'description',
         'status',
     ];
-
-    /**
-    * The event map for the model.
-    *
-    * @var array
-    */
-    protected $dispatchesEvents = [
-        'updated' => SubCategoryupdated::class,
-    ];
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::saving(function ($subcategory) {
-            $subcategory->name = e(strtolower($subcategory->name));
-            $subcategory->slug = \Str::slug($subcategory->name, '-');
-            $subcategory->description = e(strtolower($subcategory->description));
-        });
-    }
 
     public function category()
     {

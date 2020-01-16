@@ -6,12 +6,6 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
-use App\Events\Categoryupdated;
-use App\Listeners\CategoryUpdatedListener;
-use App\Events\Productupdated;
-use App\Listeners\ProductUpdatedListener;
-use App\Events\SubCategoryupdated;
-use App\Listeners\SubCategoryUpdatedListener;
 use App\Events\PhotoImageUpdated;
 use App\Listeners\PhotoImageUpdatedListener;
 
@@ -25,15 +19,6 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-        ],
-        Categoryupdated::class => [
-            CategoryUpdatedListener::class,
-        ],
-        Productupdated::class => [
-            ProductUpdatedListener::class,
-        ],
-        SubCategoryupdated::class => [
-            SubCategoryUpdatedListener::class,
         ],
         PhotoImageUpdated::class => [
             PhotoImageUpdatedListener::class,
