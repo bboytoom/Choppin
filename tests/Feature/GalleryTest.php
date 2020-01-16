@@ -159,7 +159,7 @@ class GalleryTest extends TestCase
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
         ])->json('PUT', "/api/v1/galleries/{$gallery['gallery_id']}", $update);
-        $response->assertStatus(200);
+        $response->assertStatus(422);
     }
 
     public function test_gallery_delete()

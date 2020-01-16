@@ -11,6 +11,7 @@ use App\User;
 use App\Models\Characteristic;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\Gallery;
 use App\Models\Product;
 use App\Models\Photo;
 use App\Models\Shipping;
