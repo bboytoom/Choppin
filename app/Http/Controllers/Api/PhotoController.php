@@ -40,7 +40,7 @@ class PhotoController extends Controller
     {
         if (config('app.key') == $request->header('x-api-key')) {
             $photo = Photo::create($request->except(['type', 'base']));
-            
+
             if (!is_null($request->base)) {
                 event(new PhotoImageUpdated($photo->id, $photo->image, $request->base, $request->type));
             }

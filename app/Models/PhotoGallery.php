@@ -26,6 +26,16 @@ class PhotoGallery extends Model
         'status',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($photosgallery) {
+            $photosgallery->name = e(strtolower($photosgallery->name));
+            $photosgallery->description = e(strtolower($photosgallery->description));
+        });
+    }
+
     public function gallery()
     {
         return $this->belongsTo('App\Models\Gallery', 'gallery_id');

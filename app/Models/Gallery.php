@@ -29,4 +29,9 @@ class Gallery extends Model
     {
         return $this->belongsTo('App\Models\Category', 'category_id');
     }
+
+    public function photogallery()
+    {
+        return $this->hasMany('App\Models\PhotoGallery', 'gallery_id');
+    }
 }

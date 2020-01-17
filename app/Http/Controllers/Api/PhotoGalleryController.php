@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PhotoGalleryRequest;
 use App\Http\Resources\PhotoGallery\PhotoGalleryResource;
 use App\Http\Resources\PhotoGallery\PhotoGalleryCollection;
+use App\Events\PhotoGalleryUpdate;
 use App\Models\PhotoGallery;
 
 class PhotoGalleryController extends Controller
@@ -38,11 +39,13 @@ class PhotoGalleryController extends Controller
     public function store(PhotoGalleryRequest $request)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $photoGallery = PhotoGallery::create($request->except(['type', 'base']));
-            
+            $photosgallery = PhotoGallery::create($request->except(['type', 'base']));
+
             if (!is_null($request->base)) {
-                // evento
+                event(new PhotoGalleryUpdate($photosgallery->id, $photosgallery->image, $request->base, $request->type));
             }
+
+            return response(null, 201);
         } else {
             abort(401);
         }
@@ -51,14 +54,14 @@ class PhotoGalleryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PhotoGallery  $photoGallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, PhotoGallery $photoGallery)
+    public function show(Request $request, PhotoGallery $photosgallery)
     {
         if (config('app.key') == $request->header('x-api-key')) {
             PhotoGalleryResource::withoutWrapping();
-            return new PhotoGalleryResource($photoGallery);
+            return new PhotoGalleryResource($photosgallery);
         } else {
             abort(401);
         }
@@ -68,18 +71,18 @@ class PhotoGalleryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PhotoGallery  $photoGallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PhotoGalleryRequest $request, PhotoGallery $photoGallery)
+    public function update(PhotoGalleryRequest $request, PhotoGallery $photosgallery)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $photoGallery->update($request->except(['type', 'base']));
-            
+            $photosgallery->update($request->except(['type', 'base']));
+
             if (!is_null($request->base)) {
-                // evento
+                event(new PhotoGalleryUpdate($photosgallery->id, $photosgallery->image, $request->base, $request->type));
             }
-            
+
             return response(null, 200);
         } else {
             abort(401);
@@ -89,13 +92,13 @@ class PhotoGalleryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PhotoGallery  $photoGallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, PhotoGallery $photoGallery)
+    public function destroy(Request $request, PhotoGallery $photosgallery)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $photoGallery->delete();
+            $photosgallery->delete();
             return response(null, 204);
         } else {
             abort(401);

@@ -57,20 +57,21 @@ class SeedTest
     public function seed_gallery_photo()
     {
         $faker = \Faker\Factory::create();
-        $catalogs = $this->seed_gallery();
+        $gallery = $this->seed_gallery();
+        $name = $faker->unique()->sentence($nbWords = 2, $variableNbWords = true);
 
-        $photoGallery = PhotoGallery::create([
-            'gallery_id' => $catalogs['gallery_id'],
-            'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),
-            'image' => 'slide_default.png',
+        $photogallery = PhotoGallery::create([
+            'gallery_id' => $gallery['gallery_id'],
+            'name' => $name,
+            'image' => 'slide_default.jpg',
             'description' => $faker->text($maxNbChars = 250),
             'status' => 1
         ]);
 
         $this->initial_gallery_photo = [
-            'gallery_id' => $catalogs['gallery_id'],
-            'photo_id' => $photoGallery->id,
-            'name' => $photoGallery->name
+            'gallery_id' => $gallery['gallery_id'],
+            'gallery_photo_id' => $photogallery->id,
+            'name' => $photogallery->name
         ];
 
         return $this->initial_gallery_photo;

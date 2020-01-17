@@ -56,7 +56,7 @@ class PhotoTest extends TestCase
     {
         $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
-        
+
         $data = [
             'product_id' => 0,
             'name' => $faker->unique()->sentence($nbWords = 2, $variableNbWords = true),

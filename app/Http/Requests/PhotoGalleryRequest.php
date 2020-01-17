@@ -34,7 +34,7 @@ class PhotoGalleryRequest extends FormRequest
                 'required',
                 'min:3',
                 'max:100',
-                Rule::unique('photo_galleries', 'name')->ignore($this->photoGallery)
+                Rule::unique('photo_galleries', 'name')->ignore($this->photosgallery)
             ],
             'image' => 'min:6|max:100',
             'type' => 'min:8|max:11',
