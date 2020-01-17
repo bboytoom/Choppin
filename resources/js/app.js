@@ -62,6 +62,7 @@ Vue.component('characteristic-component', require('./components/Characteristics/
 Vue.component('photo-component', require('./components/Photos/Photos.vue').default)
 Vue.component('shipping-component', require('./components/Shippings/Shippings.vue').default)
 Vue.component('gallery-component', require('./components/Galleries/Galleries.vue').default)
+Vue.component('photo-gallery-component', require('./components/PhotoGallery/PhotoGallery.vue').default)
 
 Vue.component('validation-provider', ValidationProvider)
 Vue.component('validation-observer', ValidationObserver)

@@ -6,7 +6,7 @@
 
     <h1 class="h3 mb-2 text-gray-800 mb-4">Imagenes de la galeria {{ $name }}</h1>
     
-    <!--photo-component :galleryid="{{ $id }}"></photo-component-->
+    <photo-gallery-component :galleryid="{{ $id }}"></photo-gallery-component>
 
     <div class="col-md-12 mt-5 text-right">
         <a href="{{ route('galleries.index') }}" type="button" class="btn btn-secondary btn-icon-split">
