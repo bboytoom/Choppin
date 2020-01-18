@@ -5471,11 +5471,194 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PhotoGalleryTable_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhotoGalleryTable.vue */ "./resources/js/components/PhotoGallery/PhotoGalleryTable.vue");
+/* harmony import */ var _PhotoGalleryUpdate_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PhotoGalleryUpdate.vue */ "./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue");
+/* harmony import */ var _PhotoGalleryStore_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PhotoGalleryStore.vue */ "./resources/js/components/PhotoGallery/PhotoGalleryStore.vue");
 //
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    tablePhotoGallery: _PhotoGalleryTable_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    updatePhotoGallery: _PhotoGalleryUpdate_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    storePhotoGallery: _PhotoGalleryStore_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  props: {
+    galleryid: {
+      type: Number,
+      "default": 0
+    }
+  },
+  data: function data() {
+    return {
+      photosgalleries: [],
+      number_page: 0,
+      page_state: 1,
+      searchPhotosGallery: '',
+      photogallery: {
+        id: 0,
+        name: '',
+        image: '',
+        url: '',
+        temp: '',
+        description: '',
+        gallery: {
+          id: 0,
+          name: ''
+        }
+      }
+    };
+  },
+  computed: {
+    filtroPhotoGallery: function filtroPhotoGallery() {
+      var _this = this;
+
+      if (this.searchPhotosGallery) {
+        return this.photosgalleries.filter(function (item) {
+          return item.attributes.name.includes(_this.searchPhotosGallery);
+        });
+      } else {
+        return this.photosgalleries;
+      }
+    }
+  },
+  created: function created() {
+    this.index();
+  },
+  methods: {
+    index: function index(page) {
+      var _this2 = this;
+
+      this.$http.get('/api/v1/photosgalleries/all/' + this.galleryid + '?page=' + page).then(function (response) {
+        _this2.page_state = page;
+        _this2.number_page = parseInt(response.data.meta.last_page);
+        _this2.photosgalleries = response.data.data;
+      });
+    },
+    create: function create() {
+      this.photogallery.url = '/storage/images/small/20200111034735_producto_default.png';
+      $('#createPhotoGallery').modal('show');
+    },
+    dataEdit: function dataEdit(value) {
+      this.photogallery.id = value.id;
+      this.photogallery.name = value.name;
+      this.photogallery.image = value.image;
+      this.photogallery.url = value.url;
+      this.photogallery.temp = value.url;
+      this.photogallery.description = value.description;
+      this.photogallery.gallery.name = value.gallery.name;
+      $('#updatePhotoGallery').modal('show');
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryForm.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PhotoGallery/PhotoGalleryForm.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 //
 //
 //
@@ -5551,8 +5734,123 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {},
   props: {
+    photogallery: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    }
+  },
+  data: function data() {
+    return {
+      profilePic: null
+    };
+  },
+  methods: {
+    removeFileData: function removeFileData(fileData) {
+      this.photogallery.url = this.photogallery.temp;
+      this.profilePic = null;
+      return this.$refs.vfaGalleryRef.removeFileData(fileData);
+    },
+    onSelect: function onSelect(fileData) {
+      var _this = this;
+
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this.photogallery.url = reader.result;
+
+        _this.$emit('imageSelect', {
+          image: fileData[0].file.name,
+          type: fileData[0].file.type,
+          base: reader.result
+        });
+      };
+
+      reader.readAsDataURL(fileData[0].file);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryStore.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PhotoGallery/PhotoGalleryStore.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PhotoGalleryForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhotoGalleryForm.vue */ "./resources/js/components/PhotoGallery/PhotoGalleryForm.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    modalPhotoGalleryForm: _PhotoGalleryForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: {
+    photogallery: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    },
+    index: {
+      type: Function,
+      "default": function _default() {
+        return 1;
+      }
+    },
+    state: {
+      type: Number,
+      "default": 0
+    },
     galleryid: {
       type: Number,
       "default": 0
@@ -5560,63 +5858,350 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      photosgalleries: [],
-      number_page: 0,
-      page_state: 1,
-      searchPhotosGallery: '',
-      photogallery: {
-        id: 0,
-        name: '',
-        image: '',
-        url: '',
-        temp: '',
-        description: '',
-        gallery: {
-          id: 0,
-          name: ''
-        }
-      }
+      imageData: null,
+      errorCreate: []
     };
   },
-  computed: {
-    filtroPhotoGallery: function filtroPhotoGallery() {
+  methods: {
+    createPhotoGallerySubmit: function createPhotoGallerySubmit(photogallery) {
       var _this = this;
 
-      if (this.searchPhotosGallery) {
-        return this.photosgalleries.filter(function (item) {
-          return item.attributes.name.includes(_this.searchPhotosGallery);
+      if (this.imageData !== null) {
+        var data = {
+          gallery_id: this.galleryid,
+          name: photogallery.name.toLowerCase(),
+          image: this.imageData.image,
+          type: this.imageData.type,
+          base: this.imageData.base,
+          description: photogallery.description.toLowerCase(),
+          status: 1
+        };
+        this.$refs.formphotogallerycreate.validate().then(function (success) {
+          if (!success) {
+            return;
+          }
+
+          _this.$http.post('/api/v1/photosgalleries/', data).then(function (response) {
+            if (response.status === 201) {
+              $('#createPhotoGallery').modal('hide');
+
+              _this.index(_this.state);
+
+              _this.createPhotoGalleryReset();
+
+              _this.$toad.toad('La imagen se agrego correctamente');
+            }
+          });
         });
       } else {
-        return this.photosgalleries;
+        this.errorCreate = ['Necesita ingresar una imagen'];
       }
+    },
+    createPhotoGalleryReset: function createPhotoGalleryReset() {
+      this.photogallery.id = 0;
+      this.photogallery.name = '';
+      this.photogallery.image = '';
+      this.photogallery.url = '';
+      this.photogallery.temp = '';
+      this.photogallery.description = '';
+      this.photogallery.gallery.name = '';
+      this.errorCreate = [];
+      this.imageData = null;
+      this.$refs.formphotogallerycreate.reset();
+      this.$refs.photoGalleryForm.removeFileData();
+    },
+    imageSelect: function imageSelect(value) {
+      this.imageData = value;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryTable.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PhotoGallery/PhotoGalleryTable.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    photosgalleries: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    index: {
+      type: Function,
+      "default": function _default() {
+        return 1;
+      }
+    },
+    state: {
+      type: Number,
+      "default": 0
+    },
+    galleryid: {
+      type: Number,
+      "default": 0
     }
   },
-  created: function created() {
-    this.index();
-  },
   methods: {
-    index: function index(page) {
-      var _this2 = this;
+    edit: function edit(id) {
+      var _this = this;
 
-      this.$http.get('/api/v1/photosgalleries/all/' + this.productoid + '?page=' + page).then(function (response) {
-        _this2.page_state = page;
-        _this2.number_page = parseInt(response.data.meta.last_page);
-        _this2.photosgalleries = response.data.data;
+      this.$http.get('/api/v1/photosgalleries/' + id).then(function (response) {
+        _this.$emit('dataEdit', {
+          id: response.data.id,
+          name: response.data.attributes.name,
+          image: response.data.attributes.image,
+          url: response.data.url,
+          temp: response.data.url,
+          description: response.data.attributes.description,
+          gallery: {
+            name: response.data.gallery.name
+          }
+        });
       });
     },
-    create: function create() {
-      this.photogallery.url = '/storage/images/small/20200111034735_producto_default.png';
-      $('#createPhotoGallery').modal('show');
+    deleted: function deleted(id) {
+      var _this2 = this;
+
+      this.$swal.fire({
+        html: '<h6><strong>Seguro que quiere eliminar la imagen</strong></h6>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        width: '21rem',
+        preConfirm: function preConfirm() {
+          _this2.$http["delete"]('/api/v1/photosgalleries/' + id).then(function (response) {
+            if (response.status === 204) {
+              _this2.$http.get('/api/v1/photosgalleries/all/' + _this2.galleryid).then(function (response) {
+                if (_this2.state > parseInt(response.data.meta.last_page)) {
+                  _this2.index(parseInt(response.data.meta.last_page));
+                } else {
+                  _this2.index(_this2.state);
+                }
+
+                _this2.$toad.toad('La imagen se elimino correctamente');
+              });
+            }
+          });
+        }
+      });
     },
-    dataEdit: function dataEdit(value) {
-      this.photogallery.id = value.id;
-      this.photogallery.name = value.name;
-      this.photogallery.image = value.image;
-      this.photogallery.url = value.url;
-      this.photogallery.temp = value.url;
-      this.photogallery.description = value.description;
-      this.photo.gallery.name = value.gallery.name;
-      $('#updatePhotoGallery').modal('show');
+    editStatus: function editStatus(id, attr) {
+      var _this3 = this;
+
+      this.$swal.fire({
+        html: '<h6><strong>Desea cambiar el estatus de la imagen</strong></h6>',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        width: '21rem',
+        preConfirm: function preConfirm() {
+          _this3.$http.put('/api/v1/photosgalleries/' + id, {
+            gallery_id: _this3.galleryid,
+            name: attr.name,
+            description: attr.description,
+            status: attr.status === 1 ? 0 : 1
+          }).then(function (response) {
+            if (response.status === 200) {
+              _this3.index(_this3.state);
+            }
+          });
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PhotoGalleryForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhotoGalleryForm.vue */ "./resources/js/components/PhotoGallery/PhotoGalleryForm.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    modalPhotoGalleryForm: _PhotoGalleryForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: {
+    photogallery: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    },
+    index: {
+      type: Function,
+      "default": function _default() {
+        return 1;
+      }
+    },
+    state: {
+      type: Number,
+      "default": 0
+    },
+    galleryid: {
+      type: Number,
+      "default": 0
+    }
+  },
+  data: function data() {
+    return {
+      imageData: null
+    };
+  },
+  methods: {
+    updatePhotoGallerySubmit: function updatePhotoGallerySubmit(photogallery) {
+      var _this = this;
+
+      var data = {};
+
+      if (this.imageData === null) {
+        data = {
+          gallery_id: this.galleryid,
+          name: photogallery.name.toLowerCase(),
+          description: photogallery.description.toLowerCase(),
+          status: 1
+        };
+      } else {
+        data = {
+          gallery_id: this.galleryid,
+          name: photogallery.name.toLowerCase(),
+          image: this.imageData.image,
+          type: this.imageData.type,
+          base: this.imageData.base,
+          description: photogallery.description.toLowerCase(),
+          status: 1
+        };
+      }
+
+      this.$refs.formphotogalleryupdate.validate().then(function (success) {
+        if (!success) {
+          return;
+        }
+
+        _this.$http.put('/api/v1/photosgalleries/' + photogallery.id, data).then(function (response) {
+          if (response.status === 200) {
+            $('#updatePhotoGallery').modal('hide');
+
+            _this.index(_this.state);
+
+            _this.updatePhotoGalleryReset();
+
+            _this.$toad.toad('La imagen se actualizo correctamente');
+          }
+        });
+      });
+    },
+    updatePhotoGalleryReset: function updatePhotoGalleryReset() {
+      this.photogallery.id = 0;
+      this.photogallery.name = '';
+      this.photogallery.image = '';
+      this.photogallery.url = '';
+      this.photogallery.temp = '';
+      this.photogallery.description = '';
+      this.photogallery.gallery.name = '';
+      this.imageData = null;
+      this.$refs.formphotogalleryupdate.reset();
+      this.$refs.photoGalleryForm.removeFileData();
+    },
+    imageSelect: function imageSelect(value) {
+      this.imageData = value;
     }
   }
 });
@@ -6067,6 +6652,7 @@ __webpack_require__.r(__webpack_exports__);
       this.photo.description = '';
       this.photo.product.name = '';
       this.errorCreate = [];
+      this.imageData = null;
       this.$refs.formphotocreate.reset();
       this.$refs.photoForm.removeFileData();
     },
@@ -6356,6 +6942,7 @@ __webpack_require__.r(__webpack_exports__);
       this.photo.temp = '';
       this.photo.description = '';
       this.photo.product.name = '';
+      this.imageData = null;
       this.$refs.formphotoupdate.reset();
       this.$refs.photoForm.removeFileData();
     },
@@ -23948,91 +24535,134 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card shadow mb-4" }, [
-    _c("div", { staticClass: "card-header py-3 text-right" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "input-group mb-2" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.searchPhotosGallery,
-                  expression: "searchPhotosGallery"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", placeholder: "Busca la imagen" },
-              domProps: { value: _vm.searchPhotosGallery },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+  return _c(
+    "div",
+    { staticClass: "card shadow mb-4" },
+    [
+      _c("div", { staticClass: "card-header py-3 text-right" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "input-group mb-2" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.searchPhotosGallery,
+                    expression: "searchPhotosGallery"
                   }
-                  _vm.searchPhotosGallery = $event.target.value
-                }
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary btn-icon-split btn-sm",
-              attrs: { type: "button" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.create()
-                }
-              }
-            },
-            [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("span", { staticClass: "text" }, [_vm._v("Agregar")])
-            ]
-          )
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-body" }, [
-      _vm.photosgalleries.length == 0
-        ? _c("h4", { staticClass: "text-center" }, [
-            _vm._v("\n      No cuentas con imagenes\n    ")
-          ])
-        : _c(
-            "div",
-            { staticClass: "table-responsive" },
-            [
-              _vm._m(2),
-              _vm._v(" "),
-              _c("paginate", {
-                attrs: {
-                  "page-count": _vm.number_page,
-                  "prev-text": "Anterior",
-                  "next-text": "Siguiente",
-                  "container-class": "pagination",
-                  "page-class": "page-item",
-                  "page-link-class": "page-link",
-                  "next-class": "page-item",
-                  "next-link-class": "page-link",
-                  "prev-class": "page-item",
-                  "prev-link-class": "page-link",
-                  "click-handler": _vm.index
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "Busca la imagen" },
+                domProps: { value: _vm.searchPhotosGallery },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.searchPhotosGallery = $event.target.value
+                  }
                 }
               })
-            ],
-            1
-          )
-    ])
-  ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-6" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary btn-icon-split btn-sm",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.create()
+                  }
+                }
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("span", { staticClass: "text" }, [_vm._v("Agregar")])
+              ]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _vm.photosgalleries.length == 0
+          ? _c("h4", { staticClass: "text-center" }, [
+              _vm._v("\n      No cuentas con imagenes\n    ")
+            ])
+          : _c(
+              "div",
+              { staticClass: "table-responsive" },
+              [
+                _c(
+                  "table",
+                  {
+                    staticClass: "table table-bordered table-hover",
+                    attrs: { width: "100%", cellspacing: "0" }
+                  },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("tablePhotoGallery", {
+                      attrs: {
+                        index: _vm.index,
+                        photosgalleries: _vm.filtroPhotoGallery,
+                        galleryid: _vm.galleryid,
+                        state: _vm.page_state
+                      },
+                      on: { dataEdit: _vm.dataEdit }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("paginate", {
+                  attrs: {
+                    "page-count": _vm.number_page,
+                    "prev-text": "Anterior",
+                    "next-text": "Siguiente",
+                    "container-class": "pagination",
+                    "page-class": "page-item",
+                    "page-link-class": "page-link",
+                    "next-class": "page-item",
+                    "next-link-class": "page-link",
+                    "prev-class": "page-item",
+                    "prev-link-class": "page-link",
+                    "click-handler": _vm.index
+                  }
+                })
+              ],
+              1
+            )
+      ]),
+      _vm._v(" "),
+      _c("storePhotoGallery", {
+        attrs: {
+          photogallery: _vm.photogallery,
+          galleryid: _vm.galleryid,
+          index: _vm.index,
+          state: _vm.page_state
+        }
+      }),
+      _vm._v(" "),
+      _c("updatePhotoGallery", {
+        attrs: {
+          photogallery: _vm.photogallery,
+          galleryid: _vm.galleryid,
+          index: _vm.index,
+          state: _vm.page_state
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -24057,40 +24687,742 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "table",
-      {
-        staticClass: "table table-bordered table-hover",
-        attrs: { width: "100%", cellspacing: "0" }
-      },
-      [
-        _c("thead", [
-          _c("tr", [
-            _c("th", [_vm._v("\n              galleria\n            ")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("\n              Nombre\n            ")]),
-            _vm._v(" "),
-            _c("th", { attrs: { width: "100" } }, [
-              _vm._v("\n              Imagen\n            ")
-            ]),
-            _vm._v(" "),
-            _c("th", { staticClass: "text-center", attrs: { width: "100" } }, [
-              _vm._v("\n              Estado\n            ")
-            ]),
-            _vm._v(" "),
-            _c("th", { staticClass: "text-center", attrs: { width: "110" } }, [
-              _vm._v("\n              Editar\n            ")
-            ]),
-            _vm._v(" "),
-            _c("th", { staticClass: "text-center", attrs: { width: "110" } }, [
-              _vm._v("\n              Eliminar\n            ")
-            ])
-          ])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("\n              galleria\n            ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("\n              Nombre\n            ")]),
+        _vm._v(" "),
+        _c("th", { attrs: { width: "100" } }, [
+          _vm._v("\n              Imagen\n            ")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center", attrs: { width: "100" } }, [
+          _vm._v("\n              Estado\n            ")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center", attrs: { width: "110" } }, [
+          _vm._v("\n              Editar\n            ")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center", attrs: { width: "110" } }, [
+          _vm._v("\n              Eliminar\n            ")
         ])
-      ]
-    )
+      ])
+    ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryForm.vue?vue&type=template&id=d6be6150&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PhotoGallery/PhotoGalleryForm.vue?vue&type=template&id=d6be6150& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "modal-body vfa-demo" },
+    [
+      _c("VueFileAgent", {
+        ref: "vfaGalleryRef",
+        staticClass: "upload-block",
+        attrs: {
+          multiple: false,
+          deletable: true,
+          theme: "list",
+          "max-size": "2MB",
+          "error-text": {
+            type: "Archivo no valido",
+            size: "El tamaño maximo es de 1MB "
+          }
+        },
+        on: {
+          select: function($event) {
+            return _vm.onSelect($event)
+          }
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "before-outer",
+            fn: function() {
+              return [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-12 text-center" }, [
+                    _c("img", {
+                      staticClass: "img-thumbnail rounded",
+                      staticStyle: { width: "50x0px" },
+                      attrs: {
+                        src: "" + _vm.photogallery.url,
+                        alt: "" + _vm.photogallery.name
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-12 mt-4" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Nombre")]),
+                        _vm._v(" "),
+                        _c("validation-provider", {
+                          attrs: {
+                            name: "Nombre",
+                            rules: "min:3|max:100|required"
+                          },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "default",
+                              fn: function(ref) {
+                                var errors = ref.errors
+                                var classes = ref.classes
+                                return [
+                                  _c(
+                                    "div",
+                                    { staticClass: "control", class: classes },
+                                    [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.photogallery.name,
+                                            expression: "photogallery.name"
+                                          }
+                                        ],
+                                        staticClass: "form-control lower--mdf",
+                                        attrs: {
+                                          type: "text",
+                                          placeholder: "Ingresa el nombre",
+                                          maxlength: "101"
+                                        },
+                                        domProps: {
+                                          value: _vm.photogallery.name
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.photogallery,
+                                              "name",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("span", [
+                                        _vm._v(
+                                          "\n                  " +
+                                            _vm._s(errors[0]) +
+                                            "\n                "
+                                        )
+                                      ])
+                                    ]
+                                  )
+                                ]
+                              }
+                            }
+                          ])
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Descripcion")]),
+                        _vm._v(" "),
+                        _c("validation-provider", {
+                          attrs: {
+                            name: "Descripcion",
+                            rules: "min:4|max:250"
+                          },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "default",
+                              fn: function(ref) {
+                                var errors = ref.errors
+                                var classes = ref.classes
+                                return [
+                                  _c(
+                                    "div",
+                                    { staticClass: "control", class: classes },
+                                    [
+                                      _c("textarea", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.photogallery.description,
+                                            expression:
+                                              "photogallery.description"
+                                          }
+                                        ],
+                                        staticClass: "form-control lower--mdf",
+                                        attrs: {
+                                          rows: "5",
+                                          placeholder:
+                                            "Ingresa la descripcion de la caracteristica",
+                                          maxlength: "251"
+                                        },
+                                        domProps: {
+                                          value: _vm.photogallery.description
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.photogallery,
+                                              "description",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("span", [
+                                        _vm._v(
+                                          "\n                  " +
+                                            _vm._s(errors[0]) +
+                                            "\n                "
+                                        )
+                                      ])
+                                    ]
+                                  )
+                                ]
+                              }
+                            }
+                          ])
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              ]
+            },
+            proxy: true
+          },
+          {
+            key: "file-preview",
+            fn: function(slotProps) {
+              return [
+                _c(
+                  "div",
+                  {
+                    key: slotProps.index,
+                    staticClass: "grid-box-item file-row"
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "close remove",
+                        attrs: { type: "button", "aria-label": "Remove" },
+                        on: {
+                          click: function($event) {
+                            return _vm.removeFileData(slotProps.fileData)
+                          }
+                        }
+                      },
+                      [
+                        _c("span", { attrs: { "aria-hidden": "true" } }, [
+                          _vm._v("×")
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v(_vm._s(slotProps.fileData.name()))]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "text-muted" }, [
+                      _vm._v("(" + _vm._s(slotProps.fileData.size()) + ")")
+                    ])
+                  ]
+                )
+              ]
+            }
+          },
+          {
+            key: "file-preview-new",
+            fn: function() {
+              return [
+                _c("div", { key: "new" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary btn-sm btn-block rounded-0",
+                      attrs: { title: "after-inner" }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-upload" }),
+                      _vm._v(" Subir imagen\n        ")
+                    ]
+                  )
+                ])
+              ]
+            },
+            proxy: true
+          }
+        ]),
+        model: {
+          value: _vm.profilePic,
+          callback: function($$v) {
+            _vm.profilePic = $$v
+          },
+          expression: "profilePic"
+        }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryStore.vue?vue&type=template&id=09d6ff06&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PhotoGallery/PhotoGalleryStore.vue?vue&type=template&id=09d6ff06& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "createPhotoGallery",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-hidden": "true",
+        "data-backdrop": "static",
+        "data-keyboard": "false"
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog modal-dialog-centered",
+          attrs: { role: "document" }
+        },
+        [
+          _c("validation-observer", {
+            ref: "formphotogallerycreate",
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(ref) {
+                  var invalid = ref.invalid
+                  return [
+                    _c(
+                      "form",
+                      {
+                        staticClass: "modal-content",
+                        attrs: { method: "POST", autocomplete: "off" },
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.createPhotoGallerySubmit(
+                              _vm.photogallery
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "modal-header bg-success text-white" },
+                          [
+                            _c(
+                              "h5",
+                              { staticClass: "modal-title title-form__elem" },
+                              [_vm._v("\n            Crear imagen\n          ")]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.errorCreate.length
+                          ? _c(
+                              "div",
+                              _vm._l(_vm.errorCreate, function(createerror) {
+                                return _c(
+                                  "div",
+                                  {
+                                    key: createerror,
+                                    staticClass:
+                                      "alert alert-danger text-center rounded-0",
+                                    attrs: { role: "alert" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n            " +
+                                        _vm._s(createerror) +
+                                        "\n          "
+                                    )
+                                  ]
+                                )
+                              }),
+                              0
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("modalPhotoGalleryForm", {
+                          ref: "photoGalleryForm",
+                          attrs: { photogallery: _vm.photogallery },
+                          on: { imageSelect: _vm.imageSelect }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "modal-footer" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-secondary btn-icon-split",
+                              attrs: { type: "reset", "data-dismiss": "modal" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.createPhotoGalleryReset()
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "span",
+                                { staticClass: "icon text-white-50" },
+                                [_c("i", { staticClass: "fas fa-arrow-left" })]
+                              ),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "text" }, [
+                                _vm._v("\n              Cancelar\n            ")
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success btn-icon-split",
+                              attrs: { type: "submit", disabled: invalid }
+                            },
+                            [
+                              _c(
+                                "span",
+                                { staticClass: "icon text-white-50" },
+                                [_c("i", { staticClass: "fas fa-check" })]
+                              ),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "text" }, [
+                                _vm._v("\n              Guardar\n            ")
+                              ])
+                            ]
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryTable.vue?vue&type=template&id=1fb484ea&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PhotoGallery/PhotoGalleryTable.vue?vue&type=template&id=1fb484ea& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "tbody",
+    _vm._l(_vm.photosgalleries, function(item) {
+      return _c("tr", { key: item.id }, [
+        _c("td", [
+          _vm._v(
+            "\n      " +
+              _vm._s(_vm._f("capitalize")(item.gallery.name)) +
+              "\n    "
+          )
+        ]),
+        _vm._v(" "),
+        _c("td", [
+          _vm._v(
+            "\n      " +
+              _vm._s(_vm._f("capitalize")(item.attributes.name)) +
+              "\n    "
+          )
+        ]),
+        _vm._v(" "),
+        _c("td", [
+          _c("img", {
+            staticClass: "img-thumbnail rounded",
+            attrs: { src: "" + item.url, alt: "" + item.attributes.name }
+          })
+        ]),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-center" }, [
+          _c("div", { staticClass: "custom-control custom-switch" }, [
+            _c("input", {
+              staticClass: "custom-control-input",
+              attrs: { id: "status_" + item.id, type: "checkbox" },
+              domProps: { checked: item.attributes.status == 1 },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.editStatus(item.id, item.attributes)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", {
+              staticClass: "custom-control-label",
+              attrs: { for: "status_" + item.id }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-center" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-warning btn-circle",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.edit(item.id)
+                }
+              }
+            },
+            [_c("i", { staticClass: "fas fa-pen" })]
+          )
+        ]),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-center" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-danger btn-circle",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.deleted(item.id)
+                }
+              }
+            },
+            [_c("i", { staticClass: "fas fa-trash-alt" })]
+          )
+        ])
+      ])
+    }),
+    0
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue?vue&type=template&id=2184e1dd&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue?vue&type=template&id=2184e1dd& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "updatePhotoGallery",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-hidden": "true",
+        "data-backdrop": "static",
+        "data-keyboard": "false"
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog modal-dialog-centered",
+          attrs: { role: "document" }
+        },
+        [
+          _c("validation-observer", {
+            ref: "formphotogalleryupdate",
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(ref) {
+                  var invalid = ref.invalid
+                  return [
+                    _c(
+                      "form",
+                      {
+                        staticClass: "modal-content",
+                        attrs: { method: "POST", autocomplete: "off" },
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.updatePhotoGallerySubmit(
+                              _vm.photogallery
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "modal-header bg-success text-white" },
+                          [
+                            _c(
+                              "h5",
+                              { staticClass: "modal-title title-form__elem" },
+                              [
+                                _vm._v(
+                                  "\n            Editar imagen\n          "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("modalPhotoGalleryForm", {
+                          ref: "photoGalleryForm",
+                          attrs: { photogallery: _vm.photogallery },
+                          on: { imageSelect: _vm.imageSelect }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "modal-footer" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-secondary btn-icon-split",
+                              attrs: { type: "reset", "data-dismiss": "modal" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.updatePhotoGalleryReset()
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "span",
+                                { staticClass: "icon text-white-50" },
+                                [_c("i", { staticClass: "fas fa-arrow-left" })]
+                              ),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "text" }, [
+                                _vm._v("\n              Cancelar\n            ")
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success btn-icon-split",
+                              attrs: { type: "submit", disabled: invalid }
+                            },
+                            [
+                              _c(
+                                "span",
+                                { staticClass: "icon text-white-50" },
+                                [_c("i", { staticClass: "fas fa-check" })]
+                              ),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "text" }, [
+                                _vm._v("\n              Guardar\n            ")
+                              ])
+                            ]
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      )
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -43681,6 +45013,282 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGallery_vue_vue_type_template_id_718bae74___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGallery_vue_vue_type_template_id_718bae74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PhotoGallery/PhotoGalleryForm.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/PhotoGallery/PhotoGalleryForm.vue ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PhotoGalleryForm_vue_vue_type_template_id_d6be6150___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhotoGalleryForm.vue?vue&type=template&id=d6be6150& */ "./resources/js/components/PhotoGallery/PhotoGalleryForm.vue?vue&type=template&id=d6be6150&");
+/* harmony import */ var _PhotoGalleryForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PhotoGalleryForm.vue?vue&type=script&lang=js& */ "./resources/js/components/PhotoGallery/PhotoGalleryForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PhotoGalleryForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PhotoGalleryForm_vue_vue_type_template_id_d6be6150___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PhotoGalleryForm_vue_vue_type_template_id_d6be6150___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PhotoGallery/PhotoGalleryForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PhotoGallery/PhotoGalleryForm.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/PhotoGallery/PhotoGalleryForm.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PhotoGalleryForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PhotoGallery/PhotoGalleryForm.vue?vue&type=template&id=d6be6150&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/PhotoGallery/PhotoGalleryForm.vue?vue&type=template&id=d6be6150& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryForm_vue_vue_type_template_id_d6be6150___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./PhotoGalleryForm.vue?vue&type=template&id=d6be6150& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryForm.vue?vue&type=template&id=d6be6150&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryForm_vue_vue_type_template_id_d6be6150___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryForm_vue_vue_type_template_id_d6be6150___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PhotoGallery/PhotoGalleryStore.vue":
+/*!********************************************************************!*\
+  !*** ./resources/js/components/PhotoGallery/PhotoGalleryStore.vue ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PhotoGalleryStore_vue_vue_type_template_id_09d6ff06___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhotoGalleryStore.vue?vue&type=template&id=09d6ff06& */ "./resources/js/components/PhotoGallery/PhotoGalleryStore.vue?vue&type=template&id=09d6ff06&");
+/* harmony import */ var _PhotoGalleryStore_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PhotoGalleryStore.vue?vue&type=script&lang=js& */ "./resources/js/components/PhotoGallery/PhotoGalleryStore.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PhotoGalleryStore_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PhotoGalleryStore_vue_vue_type_template_id_09d6ff06___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PhotoGalleryStore_vue_vue_type_template_id_09d6ff06___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PhotoGallery/PhotoGalleryStore.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PhotoGallery/PhotoGalleryStore.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/PhotoGallery/PhotoGalleryStore.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryStore_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PhotoGalleryStore.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryStore.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryStore_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PhotoGallery/PhotoGalleryStore.vue?vue&type=template&id=09d6ff06&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/PhotoGallery/PhotoGalleryStore.vue?vue&type=template&id=09d6ff06& ***!
+  \***************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryStore_vue_vue_type_template_id_09d6ff06___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./PhotoGalleryStore.vue?vue&type=template&id=09d6ff06& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryStore.vue?vue&type=template&id=09d6ff06&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryStore_vue_vue_type_template_id_09d6ff06___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryStore_vue_vue_type_template_id_09d6ff06___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PhotoGallery/PhotoGalleryTable.vue":
+/*!********************************************************************!*\
+  !*** ./resources/js/components/PhotoGallery/PhotoGalleryTable.vue ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PhotoGalleryTable_vue_vue_type_template_id_1fb484ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhotoGalleryTable.vue?vue&type=template&id=1fb484ea& */ "./resources/js/components/PhotoGallery/PhotoGalleryTable.vue?vue&type=template&id=1fb484ea&");
+/* harmony import */ var _PhotoGalleryTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PhotoGalleryTable.vue?vue&type=script&lang=js& */ "./resources/js/components/PhotoGallery/PhotoGalleryTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PhotoGalleryTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PhotoGalleryTable_vue_vue_type_template_id_1fb484ea___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PhotoGalleryTable_vue_vue_type_template_id_1fb484ea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PhotoGallery/PhotoGalleryTable.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PhotoGallery/PhotoGalleryTable.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/PhotoGallery/PhotoGalleryTable.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PhotoGalleryTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PhotoGallery/PhotoGalleryTable.vue?vue&type=template&id=1fb484ea&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/PhotoGallery/PhotoGalleryTable.vue?vue&type=template&id=1fb484ea& ***!
+  \***************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryTable_vue_vue_type_template_id_1fb484ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./PhotoGalleryTable.vue?vue&type=template&id=1fb484ea& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryTable.vue?vue&type=template&id=1fb484ea&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryTable_vue_vue_type_template_id_1fb484ea___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryTable_vue_vue_type_template_id_1fb484ea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PhotoGalleryUpdate_vue_vue_type_template_id_2184e1dd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhotoGalleryUpdate.vue?vue&type=template&id=2184e1dd& */ "./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue?vue&type=template&id=2184e1dd&");
+/* harmony import */ var _PhotoGalleryUpdate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PhotoGalleryUpdate.vue?vue&type=script&lang=js& */ "./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PhotoGalleryUpdate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PhotoGalleryUpdate_vue_vue_type_template_id_2184e1dd___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PhotoGalleryUpdate_vue_vue_type_template_id_2184e1dd___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryUpdate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PhotoGalleryUpdate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryUpdate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue?vue&type=template&id=2184e1dd&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue?vue&type=template&id=2184e1dd& ***!
+  \****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryUpdate_vue_vue_type_template_id_2184e1dd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./PhotoGalleryUpdate.vue?vue&type=template&id=2184e1dd& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PhotoGallery/PhotoGalleryUpdate.vue?vue&type=template&id=2184e1dd&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryUpdate_vue_vue_type_template_id_2184e1dd___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PhotoGalleryUpdate_vue_vue_type_template_id_2184e1dd___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

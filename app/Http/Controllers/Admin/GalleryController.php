@@ -33,7 +33,7 @@ class GalleryController extends Controller
         $gallery =  Gallery::findOrFail(base64_decode($id));
 
         return view('admin.gallery.edit', [
-            'id' => $id,
+            'id' => $gallery['id'],
             'name' => $gallery['name']
         ]);
     }

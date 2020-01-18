@@ -54,7 +54,13 @@
             </tr>
           </thead>
 
-          <!-- tabla -->
+          <tablePhotoGallery
+            :index="index"
+            :photosgalleries="filtroPhotoGallery"
+            :galleryid="galleryid"
+            :state="page_state"
+            @dataEdit="dataEdit"
+          />
         </table>
 
         <paginate
@@ -73,15 +79,32 @@
       </div>
     </div>
 
-    <!-- modal -->
+    <storePhotoGallery
+      :photogallery="photogallery"
+      :galleryid="galleryid"
+      :index="index"
+      :state="page_state"
+    />
+    <updatePhotoGallery
+      :photogallery="photogallery"
+      :galleryid="galleryid"
+      :index="index"
+      :state="page_state"
+    />
   </div>
 </template>
 
 <script>
 
+import tablePhotoGallery from './PhotoGalleryTable.vue'
+import updatePhotoGallery from './PhotoGalleryUpdate.vue'
+import storePhotoGallery from './PhotoGalleryStore.vue'
+
 export default {
   components: {
-
+    tablePhotoGallery: tablePhotoGallery,
+    updatePhotoGallery: updatePhotoGallery,
+    storePhotoGallery: storePhotoGallery
   },
   props: {
     galleryid: {
@@ -125,7 +148,7 @@ export default {
   },
   methods: {
     index: function (page) {
-      this.$http.get('/api/v1/photosgalleries/all/' + this.productoid + '?page=' + page).then((response) => {
+      this.$http.get('/api/v1/photosgalleries/all/' + this.galleryid + '?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
         this.photosgalleries = response.data.data
@@ -143,7 +166,7 @@ export default {
       this.photogallery.url = value.url
       this.photogallery.temp = value.url
       this.photogallery.description = value.description
-      this.photo.gallery.name = value.gallery.name
+      this.photogallery.gallery.name = value.gallery.name
 
       $('#updatePhotoGallery').modal('show')
     }

@@ -1,8 +1,8 @@
 <template>
-  <div id="createPhoto" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div id="createPhotoGallery" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <validation-observer v-slot="{ invalid }" ref="formphotocreate">
-        <form method="POST" class="modal-content" autocomplete="off" @submit.prevent="createPhotoSubmit(photo)">
+      <validation-observer v-slot="{ invalid }" ref="formphotogallerycreate">
+        <form method="POST" class="modal-content" autocomplete="off" @submit.prevent="createPhotoGallerySubmit(photogallery)">
           <div class="modal-header bg-success text-white">
             <h5 class="modal-title title-form__elem">
               Crear imagen
@@ -15,10 +15,10 @@
             </div>
           </div>
 
-          <modalPhotoForm ref="photoForm" :photo="photo" @imageSelect="imageSelect" />
+          <modalPhotoGalleryForm ref="photoGalleryForm" :photogallery="photogallery" @imageSelect="imageSelect" />
 
           <div class="modal-footer">
-            <button type="reset" class="btn btn-secondary btn-icon-split" data-dismiss="modal" @click.prevent="createPhotoReset()">
+            <button type="reset" class="btn btn-secondary btn-icon-split" data-dismiss="modal" @click.prevent="createPhotoGalleryReset()">
               <span class="icon text-white-50">
                 <i class="fas fa-arrow-left" />
               </span>
@@ -44,14 +44,14 @@
 
 <script>
 
-import modalPhotoForm from './PhotosForm.vue'
+import modalPhotoGalleryForm from './PhotoGalleryForm.vue'
 
 export default {
   components: {
-    modalPhotoForm: modalPhotoForm
+    modalPhotoGalleryForm: modalPhotoGalleryForm
   },
   props: {
-    photo: {
+    photogallery: {
       type: Object,
       default: function () {
         return {}
@@ -67,7 +67,7 @@ export default {
       type: Number,
       default: 0
     },
-    productoid: {
+    galleryid: {
       type: Number,
       default: 0
     }
@@ -79,29 +79,29 @@ export default {
     }
   },
   methods: {
-    createPhotoSubmit: function (photo) {
+    createPhotoGallerySubmit: function (photogallery) {
       if (this.imageData !== null) {
         var data = {
-          product_id: this.productoid,
-          name: photo.name.toLowerCase(),
+          gallery_id: this.galleryid,
+          name: photogallery.name.toLowerCase(),
           image: this.imageData.image,
           type: this.imageData.type,
           base: this.imageData.base,
-          description: photo.description.toLowerCase(),
+          description: photogallery.description.toLowerCase(),
           status: 1
         }
 
-        this.$refs.formphotocreate.validate().then(success => {
+        this.$refs.formphotogallerycreate.validate().then(success => {
           if (!success) {
             return
           }
 
-          this.$http.post('/api/v1/photos/', data).then((response) => {
+          this.$http.post('/api/v1/photosgalleries/', data).then((response) => {
             if (response.status === 201) {
-              $('#createPhoto').modal('hide')
+              $('#createPhotoGallery').modal('hide')
 
               this.index(this.state)
-              this.createPhotoReset()
+              this.createPhotoGalleryReset()
 
               this.$toad.toad('La imagen se agrego correctamente')
             }
@@ -111,18 +111,18 @@ export default {
         this.errorCreate = ['Necesita ingresar una imagen']
       }
     },
-    createPhotoReset: function () {
-      this.photo.id = 0
-      this.photo.name = ''
-      this.photo.image = ''
-      this.photo.url = ''
-      this.photo.temp = ''
-      this.photo.description = ''
-      this.photo.product.name = ''
+    createPhotoGalleryReset: function () {
+      this.photogallery.id = 0
+      this.photogallery.name = ''
+      this.photogallery.image = ''
+      this.photogallery.url = ''
+      this.photogallery.temp = ''
+      this.photogallery.description = ''
+      this.photogallery.gallery.name = ''
       this.errorCreate = []
       this.imageData = null
-      this.$refs.formphotocreate.reset()
-      this.$refs.photoForm.removeFileData()
+      this.$refs.formphotogallerycreate.reset()
+      this.$refs.photoGalleryForm.removeFileData()
     },
     imageSelect: function (value) {
       this.imageData = value
