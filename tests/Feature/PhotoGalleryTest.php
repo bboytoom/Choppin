@@ -29,7 +29,7 @@ class PhotoGalleryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/photosgalleries', $data);
+        ])->json('POST', $this->baseUrl . 'photosgalleries', $data);
         $response->assertStatus(201);
     }
 
@@ -49,7 +49,7 @@ class PhotoGalleryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/photosgalleries', $data);
+        ])->json('POST', $this->baseUrl . 'photosgalleries', $data);
         $response->assertStatus(422);
     }
 
@@ -68,7 +68,7 @@ class PhotoGalleryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/photosgalleries', $data);
+        ])->json('POST', $this->baseUrl . 'photosgalleries', $data);
         $response->assertStatus(422);
     }
 
@@ -87,7 +87,7 @@ class PhotoGalleryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/photosgalleries', $data);
+        ])->json('POST', $this->baseUrl . 'photosgalleries', $data);
         $response->assertStatus(422);
     }
 
@@ -107,7 +107,7 @@ class PhotoGalleryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/photosgalleries', $data);
+        ])->json('POST', $this->baseUrl . 'photosgalleries', $data);
         $response->assertStatus(422);
     }
 
@@ -129,7 +129,7 @@ class PhotoGalleryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/photosgalleries/{$photogallery['gallery_photo_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "photosgalleries/{$photogallery['gallery_photo_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -151,7 +151,7 @@ class PhotoGalleryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/photosgalleries/{$photogallery['gallery_photo_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "photosgalleries/{$photogallery['gallery_photo_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -171,7 +171,7 @@ class PhotoGalleryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/photosgalleries/{$photogallery['gallery_photo_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "photosgalleries/{$photogallery['gallery_photo_id']}", $update);
         $response->assertStatus(422);
     }
 
@@ -182,7 +182,7 @@ class PhotoGalleryTest extends TestCase
 
         $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('DELETE', "/api/v1/photosgalleries/{$photogallery['gallery_photo_id']}")->assertStatus(204);
+        ])->json('DELETE', $this->baseUrl . "photosgalleries/{$photogallery['gallery_photo_id']}")->assertStatus(204);
         $this->assertNull(PhotoGallery::find($photogallery['gallery_id']));
     }
 }

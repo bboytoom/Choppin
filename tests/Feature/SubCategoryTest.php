@@ -26,10 +26,8 @@ class SubCategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/subcategories', $data);
+        ])->json('POST', $this->baseUrl . 'subcategories', $data);
         $response->assertStatus(201);
-
-        $this->assertDatabaseHas('sub_categories', $data);
     }
 
     public function test_subcategory_same_create()
@@ -47,7 +45,7 @@ class SubCategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/subcategories', $data);
+        ])->json('POST', $this->baseUrl . 'subcategories', $data);
         $response->assertStatus(422);
     }
 
@@ -64,7 +62,7 @@ class SubCategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/subcategories', $data);
+        ])->json('POST', $this->baseUrl . 'subcategories', $data);
         $response->assertStatus(422);
     }
 
@@ -83,7 +81,7 @@ class SubCategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/subcategories', $data);
+        ])->json('POST', $this->baseUrl . 'subcategories', $data);
         $response->assertStatus(422);
     }
 
@@ -101,7 +99,7 @@ class SubCategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/subcategories', $data);
+        ])->json('POST', $this->baseUrl . 'subcategories', $data);
         $response->assertStatus(422);
     }
 
@@ -120,7 +118,7 @@ class SubCategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/subcategories/{$subcategory['subcategoria_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "subcategories/{$subcategory['subcategoria_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -139,7 +137,7 @@ class SubCategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/subcategories/{$subcategory['subcategoria_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "subcategories/{$subcategory['subcategoria_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -158,7 +156,7 @@ class SubCategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/subcategories/{$subcategory['subcategoria_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "subcategories/{$subcategory['subcategoria_id']}", $update);
         $response->assertStatus(422);
     }
 
@@ -169,7 +167,7 @@ class SubCategoryTest extends TestCase
 
         $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('DELETE', "/api/v1/subcategories/{$subcategory['subcategoria_id']}")->assertStatus(204);
+        ])->json('DELETE', $this->baseUrl . "subcategories/{$subcategory['subcategoria_id']}")->assertStatus(204);
         $this->assertNull(SubCategory::find($subcategory['subcategoria_id']));
     }
 }

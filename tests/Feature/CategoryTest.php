@@ -23,10 +23,8 @@ class CategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/categories', $data);
+        ])->json('POST', $this->baseUrl . 'categories', $data);
         $response->assertStatus(201);
-
-        $this->assertDatabaseHas('categories', $data);
     }
 
     public function test_category_same_create()
@@ -43,7 +41,7 @@ class CategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/categories', $data);
+        ])->json('POST', $this->baseUrl . 'categories', $data);
         $response->assertStatus(422);
     }
 
@@ -59,7 +57,7 @@ class CategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/categories', $data);
+        ])->json('POST', $this->baseUrl . 'categories', $data);
         $response->assertStatus(422);
     }
 
@@ -75,7 +73,7 @@ class CategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/categories', $data);
+        ])->json('POST', $this->baseUrl . 'categories', $data);
         $response->assertStatus(422);
     }
 
@@ -85,7 +83,7 @@ class CategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/categories', $data);
+        ])->json('POST', $this->baseUrl . 'categories', $data);
         $response->assertStatus(422);
     }
 
@@ -104,7 +102,7 @@ class CategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/categories/{$category['category_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "categories/{$category['category_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -123,7 +121,7 @@ class CategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/categories/{$category['category_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "categories/{$category['category_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -134,7 +132,7 @@ class CategoryTest extends TestCase
 
         $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('DELETE', "/api/v1/categories/{$category['category_id']}")->assertStatus(204);
+        ])->json('DELETE', $this->baseUrl . "categories/{$category['category_id']}")->assertStatus(204);
         $this->assertNull(Category::find($category['category_id']));
     }
 }

@@ -32,7 +32,7 @@ class ShippingTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/shippings', $data);
+        ])->json('POST', $this->baseUrl . 'shippings', $data);
         $response->assertStatus(201);
     }
 
@@ -57,7 +57,7 @@ class ShippingTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/shippings', $data);
+        ])->json('POST', $this->baseUrl . 'shippings', $data);
         $response->assertStatus(422);
     }
 
@@ -82,7 +82,7 @@ class ShippingTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/shippings', $data);
+        ])->json('POST', $this->baseUrl . 'shippings', $data);
         $response->assertStatus(422);
     }
 
@@ -105,7 +105,7 @@ class ShippingTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/shippings', $data);
+        ])->json('POST', $this->baseUrl . 'shippings', $data);
         $response->assertStatus(422);
     }
 
@@ -130,7 +130,7 @@ class ShippingTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/shippings/{$shipping['shipping_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "shippings/{$shipping['shipping_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -155,7 +155,7 @@ class ShippingTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/shippings/{$shipping['shipping_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "shippings/{$shipping['shipping_id']}", $update);
         $response->assertStatus(422);
     }
 
@@ -166,7 +166,7 @@ class ShippingTest extends TestCase
 
         $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('DELETE', "/api/v1/shippings/{$shipping['shipping_id']}")->assertStatus(204);
+        ])->json('DELETE', $this->baseUrl . "shippings/{$shipping['shipping_id']}")->assertStatus(204);
         $this->assertNull(Shipping::find($shipping['shipping_id']));
     }
 }

@@ -25,10 +25,8 @@ class AdminsTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/admins', $data);
+        ])->json('POST', $this->baseUrl . 'admins', $data);
         $response->assertStatus(201);
-
-        $this->assertDatabaseHas('admins', $data);
     }
 
     public function test_admin_same_create()
@@ -46,7 +44,7 @@ class AdminsTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/admins', $data);
+        ])->json('POST', $this->baseUrl . 'admins', $data);
         $response->assertStatus(422);
     }
 
@@ -56,7 +54,7 @@ class AdminsTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/admins', $data);
+        ])->json('POST', $this->baseUrl . 'admins', $data);
         $response->assertStatus(422);
     }
 
@@ -73,7 +71,7 @@ class AdminsTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/admins', $data);
+        ])->json('POST', $this->baseUrl . 'admins', $data);
         $response->assertStatus(422);
     }
 
@@ -90,7 +88,7 @@ class AdminsTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/admins', $data);
+        ])->json('POST', $this->baseUrl . 'admins', $data);
         $response->assertStatus(422);
     }
 
@@ -107,7 +105,7 @@ class AdminsTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/admins', $data);
+        ])->json('POST', $this->baseUrl . 'admins', $data);
         $response->assertStatus(422);
     }
 
@@ -127,7 +125,7 @@ class AdminsTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/admins/{$admin->id}", $update);
+        ])->json('PUT', $this->baseUrl . "admins/{$admin->id}", $update);
         $response->assertStatus(200);
     }
 
@@ -146,7 +144,7 @@ class AdminsTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/admins/{$admin->id}", $update);
+        ])->json('PUT', $this->baseUrl . "admins/{$admin->id}", $update);
         $response->assertStatus(200);
     }
 
@@ -157,7 +155,7 @@ class AdminsTest extends TestCase
 
         $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('DELETE', "/api/v1/admins/{$admin->id}")->assertStatus(204);
+        ])->json('DELETE', $this->baseUrl . "admins/{$admin->id}")->assertStatus(204);
         $this->assertNull(Admin::find($admin->id));
     }
 }

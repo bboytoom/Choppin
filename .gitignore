@@ -5,3 +5,4 @@ after.sh
 aliases
 Homestead.yaml
 .env
+:memory

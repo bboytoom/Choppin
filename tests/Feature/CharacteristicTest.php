@@ -26,10 +26,8 @@ class CharacteristicTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/characteristics', $data);
+        ])->json('POST', $this->baseUrl . 'characteristics', $data);
         $response->assertStatus(201);
-
-        $this->assertDatabaseHas('characteristics', $data);
     }
 
     public function test_characteristic_same_create()
@@ -47,7 +45,7 @@ class CharacteristicTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/characteristics', $data);
+        ])->json('POST', $this->baseUrl . 'characteristics', $data);
         $response->assertStatus(422);
     }
 
@@ -65,7 +63,7 @@ class CharacteristicTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/characteristics', $data);
+        ])->json('POST', $this->baseUrl . 'characteristics', $data);
         $response->assertStatus(422);
     }
 
@@ -83,7 +81,7 @@ class CharacteristicTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/characteristics', $data);
+        ])->json('POST', $this->baseUrl . 'characteristics', $data);
         $response->assertStatus(422);
     }
 
@@ -102,7 +100,7 @@ class CharacteristicTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/characteristics', $data);
+        ])->json('POST', $this->baseUrl . 'characteristics', $data);
         $response->assertStatus(422);
     }
 
@@ -121,7 +119,7 @@ class CharacteristicTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/characteristics/{$characteristic['characteristic_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "characteristics/{$characteristic['characteristic_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -140,7 +138,7 @@ class CharacteristicTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/characteristics/{$characteristic['characteristic_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "characteristics/{$characteristic['characteristic_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -159,7 +157,7 @@ class CharacteristicTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/characteristics/{$characteristic['characteristic_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "characteristics/{$characteristic['characteristic_id']}", $update);
         $response->assertStatus(422);
     }
 
@@ -170,7 +168,7 @@ class CharacteristicTest extends TestCase
 
         $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('DELETE', "/api/v1/characteristics/{$characteristic['characteristic_id']}")->assertStatus(204);
+        ])->json('DELETE', $this->baseUrl . "characteristics/{$characteristic['characteristic_id']}")->assertStatus(204);
         $this->assertNull(Characteristic::find($characteristic['characteristic_id']));
     }
 }

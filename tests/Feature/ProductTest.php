@@ -29,10 +29,8 @@ class ProductTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/products', $data);
+        ])->json('POST', $this->baseUrl . 'products', $data);
         $response->assertStatus(201);
-
-        $this->assertDatabaseHas('products', $data);
     }
 
     public function test_product_same_create()
@@ -52,7 +50,7 @@ class ProductTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/products', $data);
+        ])->json('POST', $this->baseUrl . 'products', $data);
         $response->assertStatus(422);
     }
 
@@ -73,7 +71,7 @@ class ProductTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/products', $data);
+        ])->json('POST', $this->baseUrl . 'products', $data);
         $response->assertStatus(422);
     }
 
@@ -88,7 +86,7 @@ class ProductTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/products', $data);
+        ])->json('POST', $this->baseUrl . 'products', $data);
         $response->assertStatus(422);
     }
 
@@ -108,7 +106,7 @@ class ProductTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/products', $data);
+        ])->json('POST', $this->baseUrl . 'products', $data);
         $response->assertStatus(422);
     }
 
@@ -129,7 +127,7 @@ class ProductTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('POST', '/api/v1/products', $data);
+        ])->json('POST', $this->baseUrl . 'products', $data);
         $response->assertStatus(422);
     }
 
@@ -150,7 +148,7 @@ class ProductTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/products/{$product['product_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "products/{$product['product_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -171,7 +169,7 @@ class ProductTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/products/{$product['product_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "products/{$product['product_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -192,7 +190,7 @@ class ProductTest extends TestCase
 
         $response = $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('PUT', "/api/v1/products/{$product['product_id']}", $update);
+        ])->json('PUT', $this->baseUrl . "products/{$product['product_id']}", $update);
         $response->assertStatus(422);
     }
     
@@ -203,7 +201,7 @@ class ProductTest extends TestCase
 
         $this->withHeaders([
             'x-api-key' => config('app.key'),
-        ])->json('DELETE', "/api/v1/products/{$product['product_id']}")->assertStatus(204);
+        ])->json('DELETE', $this->baseUrl . "products/{$product['product_id']}")->assertStatus(204);
         $this->assertNull(Product::find($product['product_id']));
     }
 }
