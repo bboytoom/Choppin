@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ConfigurationRequest;
-use App\Http\Resources\Configuration\ConfigurationResource;
-use App\Http\Resources\Configuration\ConfigurationCollection;
-use App\Models\Configuration;
+use App\Http\Requests\GalleryRequest;
+use App\Http\Resources\Gallery\GalleryResource;
+use App\Http\Resources\Gallery\GalleryCollection;
+use App\Models\Gallery;
 
-class ConfigurationController extends Controller
+class GalleyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,11 @@ class ConfigurationController extends Controller
     public function index(Request $request)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            return new ConfigurationCollection(Configuration::paginate(10));
+            $gallery = Gallery::whereHas('category', function ($galleryEstatus) {
+                $galleryEstatus->where('status', 1); 
+            })->paginate(10);
+
+            return new GalleryCollection($gallery);
         } else {
             abort(401);
         }
@@ -31,10 +35,10 @@ class ConfigurationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ConfigurationRequest $request)
+    public function store(GalleryRequest $request)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            Configuration::create($request->all());
+            Gallery::create($request->all());
             return response(null, 201);
         } else {
             abort(401);
@@ -44,14 +48,14 @@ class ConfigurationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Configuration $configuration)
+    public function show(Request $request, Gallery $gallery)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            ConfigurationResource::withoutWrapping();
-            return new ConfigurationResource($configuration);
+            GalleryResource::withoutWrapping();
+            return new GalleryResource($gallery);
         } else {
             abort(401);
         }
@@ -61,13 +65,13 @@ class ConfigurationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
-    public function update(ConfigurationRequest $request, Configuration $configuration)
+    public function update(GalleryRequest $request, Gallery $gallery)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $configuration->update($request->all());
+            $gallery->update($request->all());
             return response(null, 200);
         } else {
             abort(401);
@@ -77,13 +81,13 @@ class ConfigurationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Configuration $configuration)
+    public function destroy(Request $request, Gallery $gallery)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $configuration->delete();
+            $gallery->delete();
             return response(null, 204);
         } else {
             abort(401);

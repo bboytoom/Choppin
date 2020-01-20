@@ -1,25 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CharacteristicRequest;
+use App\Http\Resources\Characteristic\CharacteristicResource;
+use App\Http\Resources\Characteristic\CharacteristicCollection;
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
-use App\Http\Resources\User\UserResource;
-use App\Http\Resources\User\UserCollection;
-use App\User;
+use App\Models\Characteristic;
 
-class UserController extends Controller
+class CharacteristicController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $id)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            return new UserCollection(User::paginate(10));
+            $characteristics = Characteristic::whereHas('product', function ($characteristicsEstatus) {
+                $characteristicsEstatus->where('status', 1); 
+            })->where('product_id', $id)->paginate(10);
+
+            return new CharacteristicCollection($characteristics);
         } else {
             abort(401);
         }
@@ -31,10 +35,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(CharacteristicRequest $request)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            User::create($request->all());
+            Characteristic::create($request->all());
             return response(null, 201);
         } else {
             abort(401);
@@ -47,11 +51,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, User $user)
+    public function show(Request $request, Characteristic $characteristic)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            UserResource::withoutWrapping();
-            return new UserResource($user);
+            CharacteristicResource::withoutWrapping();
+            return new CharacteristicResource($characteristic);
         } else {
             abort(401);
         }
@@ -64,10 +68,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update(CharacteristicRequest $request, Characteristic $characteristic)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $user->update($request->all());
+            $characteristic->update($request->all());
             return response(null, 200);
         } else {
             abort(401);
@@ -80,10 +84,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, User $user)
+    public function destroy(Request $request, Characteristic $characteristic)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $user->delete();
+            $characteristic->delete();
             return response(null, 204);
         } else {
             abort(401);

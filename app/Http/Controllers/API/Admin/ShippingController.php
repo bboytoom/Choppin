@@ -1,25 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
-use App\Http\Resources\Category\CategoryResource;
-use App\Http\Resources\Category\CategoryCollection;
-use App\Models\Category;
+use App\Http\Requests\ShippingRequest;
+use App\Http\Resources\Shipping\ShippingResource;
+use App\Http\Resources\Shipping\ShippingCollection;
+use Illuminate\Http\Request;
+use App\Models\Shipping;
 
-class CategoryController extends Controller
+class ShippingController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $id)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            return new CategoryCollection(Category::paginate(10));
+            $shippings = Shipping::whereHas('user', function ($shippingsEstatus) {
+                $shippingsEstatus->where('status', 1); 
+            })->where('user_id', $id)->paginate(10);
+
+            return new ShippingCollection($shippings);
         } else {
             abort(401);
         }
@@ -31,10 +35,10 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(ShippingRequest $request)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            Category::create($request->all());
+            Shipping::create($request->all());
             return response(null, 201);
         } else {
             abort(401);
@@ -47,11 +51,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Category $category)
+    public function show(Request $request, Shipping $shipping)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            CategoryResource::withoutWrapping();
-            return new CategoryResource($category);
+            ShippingResource::withoutWrapping();
+            return new ShippingResource($shipping);
         } else {
             abort(401);
         }
@@ -64,10 +68,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(ShippingRequest $request, Shipping $shipping)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $category->update($request->all());
+            $shipping->update($request->all());
             return response(null, 200);
         } else {
             abort(401);
@@ -80,10 +84,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Category $category)
-    {
+    public function destroy(Request $request, Shipping $shipping)
+    {   
         if (config('app.key') == $request->header('x-api-key')) {
-            $category->delete();
+            $shipping->delete();
             return response(null, 204);
         } else {
             abort(401);

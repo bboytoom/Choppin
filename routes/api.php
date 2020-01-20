@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group([
     "prefix" => "v1",
-    "namespace" => "Api"
+    "namespace" => "API\Admin"
 ], function(){
     Route::apiResources([
         'admins' => 'AdminController',

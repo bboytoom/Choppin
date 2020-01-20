@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PhotoGalleryRequest;
-use App\Http\Resources\PhotoGallery\PhotoGalleryResource;
-use App\Http\Resources\PhotoGallery\PhotoGalleryCollection;
-use App\Events\PhotoGalleryUpdate;
-use App\Models\PhotoGallery;
+use Illuminate\Http\Request;
+use App\Http\Requests\PhotoRequest;
+use App\Http\Resources\Photo\PhotoResource;
+use App\Http\Resources\Photo\PhotoCollection;
+use App\Events\PhotoImageUpdated;
+use App\Models\Photo;
 
-class PhotoGalleryController extends Controller
+class PhotoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,11 +20,11 @@ class PhotoGalleryController extends Controller
     public function index(Request $request, $id)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $photosGallery = PhotoGallery::whereHas('gallery', function ($photosGalleryEstatus) {
-                $photosGalleryEstatus->where('status', 1);
-            })->where('gallery_id', $id)->paginate(10);
+            $photos = Photo::whereHas('product', function ($photosEstatus) {
+                $photosEstatus->where('status', 1);
+            })->where('product_id', $id)->paginate(10);
 
-            return new PhotoGalleryCollection($photosGallery);
+            return new PhotoCollection($photos);
         } else {
             abort(401);
         }
@@ -36,13 +36,13 @@ class PhotoGalleryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PhotoGalleryRequest $request)
+    public function store(PhotoRequest $request)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $photosgallery = PhotoGallery::create($request->except(['type', 'base']));
+            $photo = Photo::create($request->except(['type', 'base']));
 
             if (!is_null($request->base)) {
-                event(new PhotoGalleryUpdate($photosgallery->id, $photosgallery->image, $request->base, $request->type));
+                event(new PhotoImageUpdated($photo->id, $photo->image, $request->base, $request->type));
             }
 
             return response(null, 201);
@@ -57,11 +57,11 @@ class PhotoGalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, PhotoGallery $photosgallery)
+    public function show(Request $request, Photo $photo)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            PhotoGalleryResource::withoutWrapping();
-            return new PhotoGalleryResource($photosgallery);
+            PhotoResource::withoutWrapping();
+            return new PhotoResource($photo);
         } else {
             abort(401);
         }
@@ -74,15 +74,15 @@ class PhotoGalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PhotoGalleryRequest $request, PhotoGallery $photosgallery)
+    public function update(PhotoRequest $request, Photo $photo)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $photosgallery->update($request->except(['type', 'base']));
-
+            $photo->update($request->except(['type', 'base']));
+            
             if (!is_null($request->base)) {
-                event(new PhotoGalleryUpdate($photosgallery->id, $photosgallery->image, $request->base, $request->type));
+                event(new PhotoImageUpdated($photo->id, $photo->image, $request->base, $request->type));
             }
-
+            
             return response(null, 200);
         } else {
             abort(401);
@@ -95,10 +95,10 @@ class PhotoGalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, PhotoGallery $photosgallery)
+    public function destroy(Request $request, Photo $photo)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $photosgallery->delete();
+            $photo->delete();
             return response(null, 204);
         } else {
             abort(401);

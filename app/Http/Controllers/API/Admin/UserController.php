@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\AdminRequest;
-use App\Http\Resources\Admin\AdminResource;
-use App\Http\Resources\Admin\AdminCollection;
-use App\Admin;
+use App\Http\Requests\UserRequest;
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\UserCollection;
+use App\User;
 
-class AdminController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            return new AdminCollection(Admin::paginate(10));
+            return new UserCollection(User::paginate(10));
         } else {
             abort(401);
         }
@@ -31,10 +31,10 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AdminRequest $request)
+    public function store(UserRequest $request)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            Admin::create($request->all());
+            User::create($request->all());
             return response(null, 201);
         } else {
             abort(401);
@@ -47,11 +47,11 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Admin $admin)
+    public function show(Request $request, User $user)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            AdminResource::withoutWrapping();
-            return new AdminResource($admin);
+            UserResource::withoutWrapping();
+            return new UserResource($user);
         } else {
             abort(401);
         }
@@ -64,10 +64,10 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AdminRequest $request, Admin $admin)
+    public function update(UserRequest $request, User $user)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $admin->update($request->all());
+            $user->update($request->all());
             return response(null, 200);
         } else {
             abort(401);
@@ -80,10 +80,10 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Admin $admin)
+    public function destroy(Request $request, User $user)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $admin->delete();
+            $user->delete();
             return response(null, 204);
         } else {
             abort(401);

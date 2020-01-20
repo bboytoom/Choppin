@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GalleryRequest;
-use App\Http\Resources\Gallery\GalleryResource;
-use App\Http\Resources\Gallery\GalleryCollection;
-use App\Models\Gallery;
+use Illuminate\Http\Request;
+use App\Http\Requests\AdminRequest;
+use App\Http\Resources\Admin\AdminResource;
+use App\Http\Resources\Admin\AdminCollection;
+use App\Admin;
 
-class GalleyController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,11 +19,7 @@ class GalleyController extends Controller
     public function index(Request $request)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $gallery = Gallery::whereHas('category', function ($galleryEstatus) {
-                $galleryEstatus->where('status', 1); 
-            })->paginate(10);
-
-            return new GalleryCollection($gallery);
+            return new AdminCollection(Admin::paginate(10));
         } else {
             abort(401);
         }
@@ -35,10 +31,10 @@ class GalleyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(GalleryRequest $request)
+    public function store(AdminRequest $request)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            Gallery::create($request->all());
+            Admin::create($request->all());
             return response(null, 201);
         } else {
             abort(401);
@@ -48,14 +44,14 @@ class GalleyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Gallery  $gallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Gallery $gallery)
+    public function show(Request $request, Admin $admin)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            GalleryResource::withoutWrapping();
-            return new GalleryResource($gallery);
+            AdminResource::withoutWrapping();
+            return new AdminResource($admin);
         } else {
             abort(401);
         }
@@ -65,13 +61,13 @@ class GalleyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Gallery  $gallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(GalleryRequest $request, Gallery $gallery)
+    public function update(AdminRequest $request, Admin $admin)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $gallery->update($request->all());
+            $admin->update($request->all());
             return response(null, 200);
         } else {
             abort(401);
@@ -81,13 +77,13 @@ class GalleyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Gallery  $gallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Gallery $gallery)
+    public function destroy(Request $request, Admin $admin)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $gallery->delete();
+            $admin->delete();
             return response(null, 204);
         } else {
             abort(401);

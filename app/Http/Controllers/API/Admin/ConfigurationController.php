@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SubCategoryRequest;
-use App\Http\Resources\SubCategory\SubCategoryResource;
-use App\Http\Resources\SubCategory\SubCategoryCollection;
-use App\Models\SubCategory;
+use App\Http\Requests\ConfigurationRequest;
+use App\Http\Resources\Configuration\ConfigurationResource;
+use App\Http\Resources\Configuration\ConfigurationCollection;
+use App\Models\Configuration;
 
-class SubCategoryController extends Controller
+class ConfigurationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,11 +19,7 @@ class SubCategoryController extends Controller
     public function index(Request $request)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $subCategories = SubCategory::whereHas('category', function ($subCategoriesEstatus) {
-                $subCategoriesEstatus->where('status', 1); 
-            })->paginate(10);
-
-            return new SubCategoryCollection($subCategories);
+            return new ConfigurationCollection(Configuration::paginate(10));
         } else {
             abort(401);
         }
@@ -35,10 +31,10 @@ class SubCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SubCategoryRequest $request)
+    public function store(ConfigurationRequest $request)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            SubCategory::create($request->all());
+            Configuration::create($request->all());
             return response(null, 201);
         } else {
             abort(401);
@@ -51,11 +47,11 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, SubCategory $subcategory)
+    public function show(Request $request, Configuration $configuration)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            SubCategoryResource::withoutWrapping();
-            return new SubCategoryResource($subcategory);
+            ConfigurationResource::withoutWrapping();
+            return new ConfigurationResource($configuration);
         } else {
             abort(401);
         }
@@ -68,10 +64,10 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SubCategoryRequest $request, SubCategory $subcategory)
+    public function update(ConfigurationRequest $request, Configuration $configuration)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $subcategory->update($request->all());
+            $configuration->update($request->all());
             return response(null, 200);
         } else {
             abort(401);
@@ -84,10 +80,10 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, SubCategory $subcategory)
+    public function destroy(Request $request, Configuration $configuration)
     {
         if (config('app.key') == $request->header('x-api-key')) {
-            $subcategory->delete();
+            $configuration->delete();
             return response(null, 204);
         } else {
             abort(401);
