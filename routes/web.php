@@ -11,10 +11,7 @@
 |
 */
 
-Route::namespace('Store')->group(function () 
-{
-    Route::get('/', 'HomeController@index')->name('home');
-});
+Route::get('/', 'StoreController@index')->name('store');
 
 Auth::routes();
 
@@ -37,15 +34,5 @@ Route::prefix('admin')->group(function ()
         Route::resource('users/{id}/edit/shippings', 'ShippingController')->only('index');
         Route::resource('products/{id}/edit/characteristic', 'CharacteristicController')->only('index');
         Route::resource('products/{id}/edit/photo', 'PhotoController')->only('index');
-    });
-});
-
-Route::prefix('user')->group(function () 
-{
-    Route::get('/logout', 'Auth\LoginController@userLogout')->name('user.logout');
-
-    Route::namespace('Users')->group(function () 
-    {
-        Route::get('/', 'HomeController@index')->name('user.home');
     });
 });

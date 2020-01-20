@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Store;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class StoreController extends Controller
 {
     /**
      * Show the application dashboard.
@@ -14,6 +14,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('store.index');
+        return view('store');
     }
 }

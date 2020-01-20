@@ -33,11 +33,6 @@
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-
-            @if (Auth::guard('web')->check())
-                @include('layouts.components.user_nav_left')
-            @endif
-
             @if (Auth::guard('admin')->check())
                 @include('layouts.components.admin_nav_left')
             @endif

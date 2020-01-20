@@ -10,7 +10,7 @@
     <ul class="navbar-nav ml-auto">
 
         <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="{{ route('home') }}" role="button">
+            <a class="nav-link dropdown-toggle" href="{{ route('store') }}" role="button">
 				<i class="fas fa-store"></i>
 			</a>
         </li>
@@ -30,19 +30,10 @@
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                @if (Auth::guard('web')->check())
-                    <a class="dropdown-item" href="{{ route('user.logout') }}">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> 
-                        Salir
-                    </a>
-                @endif
-
-                @if (Auth::guard('admin')->check())
-                    <a class="dropdown-item" href="{{ route('admin.logout') }}">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> 
-                        Salir
-                    </a>
-                @endif
+                <a class="dropdown-item" href="{{ route('admin.logout') }}">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> 
+                    Salir
+                </a>
             </div>
         </li>
     </ul>
