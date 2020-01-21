@@ -1,22 +1,12 @@
 <template>
   <tbody>
-    <tr v-for="item in configurations" :key="item.id">
-      <td class="text-center">
-        <button type="button" class="btn" @click.prevent="editImage(item.id)">
-          <img class="img-thumbnail rounded" :src="`${item.url}`" :alt="`${item.attributes.logo}`">
-        </button>
-      </td>
-
+    <tr v-for="item in photosgalleries" :key="item.id">
       <td>
         {{ item.attributes.name | capitalize }}
       </td>
 
       <td>
-        {{ item.attributes.email }}
-      </td>
-
-      <td>
-        {{ item.attributes.phone }}
+        <img class="img-thumbnail rounded" :src="`${item.url}`" :alt="`${item.attributes.name}`">
       </td>
 
       <td class="text-center">
@@ -24,12 +14,6 @@
           <input :id="`status_${item.id}`" type="checkbox" class="custom-control-input" :checked="item.attributes.status == 1" @click.prevent="editStatus(item.id, item.attributes)">
           <label class="custom-control-label" :for="`status_${item.id}`" />
         </div>
-      </td>
-
-      <td class="text-center">
-        <button type="button" class="btn btn-info btn-circle" @click.prevent="complemento(item.id)">
-          <i class="fas fa-cog" />
-        </button>
       </td>
 
       <td class="text-center">
@@ -51,7 +35,7 @@
 
 export default {
   props: {
-    configurations: {
+    photosslide: {
       type: Array,
       default: function () {
         return []
@@ -66,25 +50,31 @@ export default {
     state: {
       type: Number,
       default: 0
+    },
+    slideid: {
+      type: Number,
+      default: 0
     }
   },
   methods: {
     edit: function (id) {
-      this.$http.get('/api/v1/configurations/' + id).then((response) => {
+      this.$http.get('/api/v1/photoslide/' + id).then((response) => {
         this.$emit('dataEdit', {
           id: response.data.id,
-          domain: response.data.attributes.domain,
           name: response.data.attributes.name,
-          business_name: response.data.attributes.business_name,
-          slogan: response.data.attributes.slogan,
-          email: response.data.attributes.email,
-          phone: response.data.attributes.phone
+          image: response.data.attributes.image,
+          url: response.data.url,
+          temp: response.data.url,
+          description: response.data.attributes.description,
+          gallery: {
+            name: response.data.configuration.name
+          }
         })
       })
     },
     deleted: function (id) {
       this.$swal.fire({
-        html: '<h6><strong>Seguro que quiere eliminar la configuracion</strong></h6>',
+        html: '<h6><strong>Seguro que quiere eliminar la imagen</strong></h6>',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -93,28 +83,25 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          this.$http.delete('/api/v1/configurations/' + id).then((response) => {
+          this.$http.delete('/api/v1/photoslide/' + id).then((response) => {
             if (response.status === 204) {
-              this.$http.get('/api/v1/configurations').then((response) => {
+              this.$http.get('/api/v1/photoslide/all/' + this.slideid).then((response) => {
                 if (this.state > parseInt(response.data.meta.last_page)) {
                   this.index(parseInt(response.data.meta.last_page))
                 } else {
                   this.index(this.state)
                 }
 
-                this.$toad.toad('La configuracion se elimino correctamente')
+                this.$toad.toad('La imagen se elimino correctamente')
               })
             }
           })
         }
       })
     },
-    complemento: function (id) {
-      window.location.href = window.location + '/' + btoa(id) + '/edit'
-    },
     editStatus: function (id, attr) {
       this.$swal.fire({
-        html: '<h6><strong>Desea cambiar el estatus de la configuracion</strong></h6>',
+        html: '<h6><strong>Desea cambiar el estatus de la imagen</strong></h6>',
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -123,11 +110,10 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          this.$http.put('/api/v1/configurations/' + id, {
-            domain: attr.domain,
+          this.$http.put('/api/v1/photoslide/' + id, {
+            configuration_id: this.slideid,
             name: attr.name,
-            email: attr.email,
-            phone: attr.phone,
+            description: attr.description,
             status: (attr.status === 1) ? 0 : 1
           }).then((response) => {
             if (response.status === 200) {
@@ -135,15 +121,6 @@ export default {
             }
           })
         }
-      })
-    },
-    editImage: function (id) {
-      this.$http.get('/api/v1/configurations/' + id).then((response) => {
-        this.$emit('dataEditImage', {
-          id: response.data.id,
-          logo: response.data.attributes.logo,
-          image: response.data.image
-        })
       })
     }
   }

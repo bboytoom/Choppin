@@ -63,6 +63,7 @@ Vue.component('photo-component', require('./components/Admin/Photos/Photos.vue')
 Vue.component('shipping-component', require('./components/Admin/Shippings/Shippings.vue').default)
 Vue.component('gallery-component', require('./components/Admin/Galleries/Galleries.vue').default)
 Vue.component('photo-gallery-component', require('./components/Admin/PhotoGallery/PhotoGallery.vue').default)
+Vue.component('photo-slide-component', require('./components/Admin/PhotoSlide/PhotoSlide.vue').default)
 
 Vue.component('validation-provider', ValidationProvider)
 Vue.component('validation-observer', ValidationObserver)

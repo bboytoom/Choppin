@@ -31,6 +31,9 @@ Route::group([
         'configurations' => 'ConfigurationController'
     ]);
 
+    Route::apiResource('photoslide', 'PhotoSlideController')->except('index');
+    Route::get('/photoslide/all/{id}', 'PhotoSlideController@index')->name('photoslide.index');
+
     Route::apiResource('photos', 'PhotoController')->except('index');
     Route::get('/photos/all/{id}', 'PhotoController@index')->name('photos.index');
 

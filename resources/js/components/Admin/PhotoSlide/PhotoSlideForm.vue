@@ -17,7 +17,7 @@
       <template v-slot:before-outer>
         <div class="row">
           <div class="col-md-12 text-center">
-            <img class="img-thumbnail rounded" :src="`${photogallery.url}`" :alt="`${photogallery.name}`" style="width: 50x0px;">
+            <img class="img-thumbnail rounded" :src="`${photoslide.url}`" :alt="`${photoslide.name}`" style="width: 50x0px;">
           </div>
 
           <div class="col-md-12 mt-4">
@@ -25,7 +25,7 @@
               <label>Nombre</label>
               <validation-provider v-slot="{ errors, classes }" name="Nombre" rules="min:3|max:100|required">
                 <div class="control" :class="classes">
-                  <input v-model="photogallery.name" type="text" class="form-control lower--mdf" placeholder="Ingresa el nombre" maxlength="101">
+                  <input v-model="photoslide.name" type="text" class="form-control lower--mdf" placeholder="Ingresa el nombre" maxlength="101">
                   <span>
                     {{ errors[0] }}
                   </span>
@@ -39,7 +39,7 @@
               <label>Descripcion</label>
               <validation-provider v-slot="{ errors, classes }" name="Descripcion" rules="min:4|max:250">
                 <div class="control" :class="classes">
-                  <textarea v-model="photogallery.description" class="form-control lower--mdf" rows="5" placeholder="Ingresa la descripcion de la caracteristica" maxlength="251" />
+                  <textarea v-model="photoslide.description" class="form-control lower--mdf" rows="5" placeholder="Ingresa la descripcion de la caracteristica" maxlength="251" />
                   <span>
                     {{ errors[0] }}
                   </span>
@@ -76,7 +76,7 @@
 
 export default {
   props: {
-    photogallery: {
+    photoslide: {
       type: Object,
       default: function () {
         return {}
@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     removeFileData: function (fileData) {
-      this.photogallery.url = this.photogallery.temp
+      this.photoslide.url = this.photoslide.temp
       this.profilePic = null
 
       return this.$refs.vfaGalleryRef.removeFileData(fileData)
@@ -99,7 +99,7 @@ export default {
       var reader = new FileReader()
 
       reader.onload = (e) => {
-        this.photogallery.url = reader.result
+        this.photoslide.url = reader.result
 
         this.$emit('imageSelect', {
           image: fileData[0].file.name,

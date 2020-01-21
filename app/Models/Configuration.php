@@ -41,4 +41,9 @@ class Configuration extends Model
             $configuration->phone = e(strtolower($configuration->phone));
         });
     }
+
+    public function photoconfiguration()
+    {
+        return $this->hasMany('App\Models\PhotoSlide', 'configuration_id');
+    }
 }

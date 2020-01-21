@@ -9,7 +9,7 @@
                 <i class="fas fa-search" />
               </div>
             </div>
-            <input v-model="searchConfigurations" type="text" class="form-control" placeholder="Busca la configuracion">
+            <input v-model="searchPhotosSlide" type="text" class="form-control" placeholder="Busca la imagen">
           </div>
         </div>
 
@@ -25,28 +25,19 @@
     </div>
 
     <div class="card-body">
-      <h4 v-if="configurations.length == 0" class="text-center">
-        No cuentas con ninguna configuracion
+      <h4 v-if="photosslide.length == 0" class="text-center">
+        No cuentas con imagenes
       </h4>
 
       <div v-else class="table-responsive">
         <table class="table table-bordered table-hover" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th class="text-center" width="140">
-                Logo
-              </th>
               <th>
-                name
+                Nombre
               </th>
-              <th>
-                Correo
-              </th>
-              <th>
-                telefono
-              </th>
-              <th class="text-center" width="110">
-                Imagenes
+              <th width="100">
+                Imagen
               </th>
               <th class="text-center" width="100">
                 Estado
@@ -60,12 +51,12 @@
             </tr>
           </thead>
 
-          <tableConfiguration
+          <photoSlideTabla
             :index="index"
-            :configurations="filtroConfiguration"
+            :photosslide="filtroPhotoSlide"
+            :slideid="slideid"
             :state="page_state"
             @dataEdit="dataEdit"
-            @dataEditImage="dataEditImage"
           />
         </table>
 
@@ -85,18 +76,15 @@
       </div>
     </div>
 
-    <storeConfiguration
-      :configuration="configuration"
+    <photoSlideStore
+      :photoslide="photoslide"
+      :slideid="slideid"
       :index="index"
       :state="page_state"
     />
-    <updateConfiguration
-      :configuration="configuration"
-      :index="index"
-      :state="page_state"
-    />
-    <imageConfiguration
-      :configuration="configuration"
+    <photoSlideupdate
+      :photoslide="photoslide"
+      :slideid="slideid"
       :index="index"
       :state="page_state"
     />
@@ -105,48 +93,50 @@
 
 <script>
 
-import tableConfiguration from './ConfigurationsTable.vue'
-import storeConfiguration from './ConfigurationsStore.vue'
-import updateConfiguration from './ConfigurationsUpdate.vue'
-import imageConfiguration from './ConfigurationsImage.vue'
+import photoSlideTabla from './PhotoSlideTabla.vue'
+import photoSlideStore from './PhotoSlideStore.vue'
+import photoSlideupdate from './PhotoSlideupdate.vue'
 
 export default {
   components: {
-    tableConfiguration,
-    storeConfiguration,
-    updateConfiguration,
-    imageConfiguration
+    photoSlideTabla,
+    photoSlideupdate,
+    photoSlideStore
+  },
+  props: {
+    slideid: {
+      type: Number,
+      default: 0
+    }
   },
   data: function () {
     return {
-      configurations: [],
+      photosslide: [],
       number_page: 0,
       page_state: 1,
-      searchConfigurations: '',
-      configuration: {
+      searchPhotosSlide: '',
+      photoslide: {
         id: 0,
-        domain: '',
         name: '',
-        business_name: '',
-        slogan: '',
-        email: '',
-        phone: '',
-        logo: {
-          name: '',
-          size: 0,
-          image: ''
+        image: '',
+        url: '',
+        temp: '',
+        description: '',
+        configuration: {
+          id: 0,
+          name: ''
         }
       }
     }
   },
   computed: {
-    filtroConfiguration: function () {
-      if (this.searchConfigurations) {
-        return this.configurations.filter((item) => {
-          return item.attributes.name.includes(this.searchConfigurations)
+    filtroPhotoSlide: function () {
+      if (this.searchPhotosSlide) {
+        return this.photosslide.filter((item) => {
+          return item.attributes.name.includes(this.searchPhotosSlide)
         })
       } else {
-        return this.configurations
+        return this.photosslide
       }
     }
   },
@@ -155,32 +145,28 @@ export default {
   },
   methods: {
     index: function (page) {
-      this.$http.get('/api/v1/configurations?page=' + page).then((response) => {
+      this.$http.get('/api/v1/photoslide/all/' + this.slideid + '?page=' + page).then((response) => {
+        console.log(response)
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
-        this.configurations = response.data.data
+        this.photosslide = response.data.data
       })
     },
     create: function () {
-      $('#createConfiguration').modal('show')
+      this.photoslide.url = '/storage/images/small/20200111034735_producto_default.png'
+
+      $('#createPhotoSlide').modal('show')
     },
     dataEdit: function (value) {
-      this.configuration.id = value.id
-      this.configuration.domain = value.domain
-      this.configuration.name = value.name
-      this.configuration.business_name = value.business_name
-      this.configuration.slogan = value.slogan
-      this.configuration.email = value.email
-      this.configuration.phone = value.phone
+      this.photoslide.id = value.id
+      this.photoslide.name = value.name
+      this.photoslide.image = value.image
+      this.photoslide.url = value.url
+      this.photoslide.temp = value.url
+      this.photoslide.description = value.description
+      this.photoslide.configuration.name = value.configuration.name
 
-      $('#updateConfiguration').modal('show')
-    },
-    dataEditImage: function (value) {
-      this.configuration.id = value.id
-      this.configuration.logo.name = value.logo
-      this.configuration.logo.image = value.image
-
-      $('#imageConfiguration').modal('show')
+      $('#updatePhotoSlide').modal('show')
     }
   }
 }
