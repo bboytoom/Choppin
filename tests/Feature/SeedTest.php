@@ -15,6 +15,7 @@ use App\Models\Gallery;
 use App\Models\Product;
 use App\Models\Photo;
 use App\Models\PhotoGallery;
+use App\Models\PhotoSlide;
 use App\Models\Shipping;
 
 class SeedTest
@@ -30,6 +31,7 @@ class SeedTest
     private $initial_product;
     private $initial_photo;
     private $initial_gallery_photo;
+    private $initial_slide_photo;
     private $initial_characteristic;
     private $initial_shipping;
 
@@ -52,6 +54,29 @@ class SeedTest
         ];
 
         return $this->initial_characteristic;
+    }
+
+    public function seed_slide_photo()
+    {
+        $faker = \Faker\Factory::create();
+        $configuration = $this->seed_configuration();
+        $name = $faker->unique()->sentence($nbWords = 2, $variableNbWords = true);
+
+        $photoslide = PhotoSlide::create([
+            'configuration_id' => $configuration['configuration_id'],
+            'name' => $name,
+            'image' => 'slide_default.jpg',
+            'description' => $faker->text($maxNbChars = 250),
+            'status' => 1
+        ]);
+
+        $this->initial_slide_photo = [
+            'configuration_id' => $configuration['configuration_id'],
+            'slide_photo_id' => $photoslide->id,
+            'name' => $photoslide->name
+        ];
+
+        return $this->initial_slide_photo;
     }
 
     public function seed_gallery_photo()
@@ -265,7 +290,8 @@ class SeedTest
 
         $this->initial_configuration = [
             'configuration_id' => $configuration->id,
-            'domain' => $configuration->domain
+            'domain' => $configuration->domain,
+            'name' => $configuration->name
         ];
 
         return $this->initial_configuration;

@@ -78,7 +78,7 @@ class PhotoSlideController extends Controller
     {
         if (config('app.key') == $request->header('x-api-key')) {
             $photoslide->update($request->except(['type', 'base']));
-
+            
             if (!is_null($request->base)) {
                 event(new PhotoSlideUpdate($photoslide->id, $photoslide->image, $request->base, $request->type));
             }

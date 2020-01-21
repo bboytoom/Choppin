@@ -1,6 +1,6 @@
 <template>
   <tbody>
-    <tr v-for="item in photosgalleries" :key="item.id">
+    <tr v-for="item in photosslide" :key="item.id">
       <td>
         {{ item.attributes.name | capitalize }}
       </td>
@@ -66,7 +66,7 @@ export default {
           url: response.data.url,
           temp: response.data.url,
           description: response.data.attributes.description,
-          gallery: {
+          configuration: {
             name: response.data.configuration.name
           }
         })

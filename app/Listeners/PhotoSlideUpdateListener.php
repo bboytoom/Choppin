@@ -36,7 +36,7 @@ class PhotoSlideUpdateListener
         }
     }
 
-    private function uploadImage(PhotoGalleryUpdate $event, $name)
+    private function uploadImage(PhotoSlideUpdate $event, $name)
     {
         $base_64toImage = str_replace('data:'. $event->type .';base64,', '', $event->base);
         $image = base64_decode($base_64toImage);

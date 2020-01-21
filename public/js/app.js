@@ -6374,7 +6374,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.$http.get('/api/v1/photoslide/all/' + this.slideid + '?page=' + page).then(function (response) {
-        console.log(response);
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.photosslide = response.data.data;
@@ -6742,7 +6741,7 @@ __webpack_require__.r(__webpack_exports__);
           url: response.data.url,
           temp: response.data.url,
           description: response.data.attributes.description,
-          gallery: {
+          configuration: {
             name: response.data.configuration.name
           }
         });
@@ -6913,6 +6912,7 @@ __webpack_require__.r(__webpack_exports__);
         };
       }
 
+      console.log(data);
       this.$refs.formphotoslideupdate.validate().then(function (success) {
         if (!success) {
           return;
@@ -26853,7 +26853,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "tbody",
-    _vm._l(_vm.photosgalleries, function(item) {
+    _vm._l(_vm.photosslide, function(item) {
       return _c("tr", { key: item.id }, [
         _c("td", [
           _vm._v(
