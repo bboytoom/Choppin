@@ -12,7 +12,9 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import { ToadAlert } from './components/helpers'
 
-axios.defaults.headers.common['x-api-key'] = 'base64:aIqY2kyeOcEUJkK97Jq56oFzTDhVnzJu26wM6mOXeCc='
+axios.defaults.headers.common['x-api-key'] = 'base64:uoB382KLuZjmVcs6igvBghnfUGTlHI+jwKZlMFClSyg='
+axios.defaults.headers.post['Content-Type'] = 'application/json'
+axios.defaults.baseURL = '/api/v1'
 
 Vue.prototype.$http = axios
 Vue.prototype.$swal = Swal

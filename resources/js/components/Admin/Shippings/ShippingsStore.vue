@@ -86,7 +86,7 @@ export default {
           return
         }
 
-        this.$http.post('/api/v1/shippings/', data).then((response) => {
+        this.$http.post('/shippings/', data).then((response) => {
           if (response.status === 201) {
             $('#createShipping').modal('hide')
 

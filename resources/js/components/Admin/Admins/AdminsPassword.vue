@@ -109,7 +109,7 @@ export default {
           return
         }
 
-        this.$http.put('/api/v1/adminpassword/' + admin.id, data).then((response) => {
+        this.$http.put('/adminpassword/' + admin.id, data).then((response) => {
           if (response.status === 200) {
             $('#passwordAdmin').modal('hide')
 

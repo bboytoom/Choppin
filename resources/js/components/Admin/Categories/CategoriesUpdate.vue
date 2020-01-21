@@ -75,7 +75,7 @@ export default {
           return
         }
 
-        this.$http.put('/api/v1/categories/' + category.id, data).then((response) => {
+        this.$http.put('/categories/' + category.id, data).then((response) => {
           if (response.status === 200) {
             $('#updateCategory').modal('hide')
 

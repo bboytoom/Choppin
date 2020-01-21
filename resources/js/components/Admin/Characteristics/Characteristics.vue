@@ -142,7 +142,7 @@ export default {
   },
   methods: {
     index: function (page) {
-      this.$http.get('/api/v1/characteristics/all/' + this.productoid + '?page=' + page).then((response) => {
+      this.$http.get('/characteristics/all/' + this.productoid + '?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
         this.characteristics = response.data.data

@@ -93,7 +93,7 @@ export default {
           return
         }
 
-        this.$http.put('/api/v1/galleries/' + gallery.id, data).then((response) => {
+        this.$http.put('/galleries/' + gallery.id, data).then((response) => {
           if (response.status === 200) {
             $('#updateGallery').modal('hide')
 

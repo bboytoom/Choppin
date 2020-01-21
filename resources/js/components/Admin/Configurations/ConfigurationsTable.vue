@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     edit: function (id) {
-      this.$http.get('/api/v1/configurations/' + id).then((response) => {
+      this.$http.get('/configurations/' + id).then((response) => {
         this.$emit('dataEdit', {
           id: response.data.id,
           domain: response.data.attributes.domain,
@@ -93,9 +93,9 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          this.$http.delete('/api/v1/configurations/' + id).then((response) => {
+          this.$http.delete('/configurations/' + id).then((response) => {
             if (response.status === 204) {
-              this.$http.get('/api/v1/configurations').then((response) => {
+              this.$http.get('/configurations').then((response) => {
                 if (this.state > parseInt(response.data.meta.last_page)) {
                   this.index(parseInt(response.data.meta.last_page))
                 } else {
@@ -123,7 +123,7 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          this.$http.put('/api/v1/configurations/' + id, {
+          this.$http.put('/configurations/' + id, {
             domain: attr.domain,
             name: attr.name,
             email: attr.email,
@@ -138,7 +138,7 @@ export default {
       })
     },
     editImage: function (id) {
-      this.$http.get('/api/v1/configurations/' + id).then((response) => {
+      this.$http.get('/configurations/' + id).then((response) => {
         this.$emit('dataEditImage', {
           id: response.data.id,
           logo: response.data.attributes.logo,

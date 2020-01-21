@@ -148,7 +148,7 @@ export default {
   },
   methods: {
     index: function (page) {
-      this.$http.get('/api/v1/photos/all/' + this.productoid + '?page=' + page).then((response) => {
+      this.$http.get('/photos/all/' + this.productoid + '?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
         this.photos = response.data.data

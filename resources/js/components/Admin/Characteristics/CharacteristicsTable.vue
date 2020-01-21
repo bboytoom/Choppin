@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     edit: function (id) {
-      this.$http.get('/api/v1/characteristics/' + id).then((response) => {
+      this.$http.get('/characteristics/' + id).then((response) => {
         this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -80,9 +80,9 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          this.$http.delete('/api/v1/characteristics/' + id).then((response) => {
+          this.$http.delete('/characteristics/' + id).then((response) => {
             if (response.status === 204) {
-              this.$http.get('/api/v1/characteristics/all/' + this.productoid).then((response) => {
+              this.$http.get('/characteristics/all/' + this.productoid).then((response) => {
                 if (this.state > parseInt(response.data.meta.last_page)) {
                   this.index(parseInt(response.data.meta.last_page))
                 } else {
@@ -107,7 +107,7 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          this.$http.put('/api/v1/characteristics/' + id, {
+          this.$http.put('/characteristics/' + id, {
             product_id: this.productoid,
             name: attr.name,
             description: attr.description,

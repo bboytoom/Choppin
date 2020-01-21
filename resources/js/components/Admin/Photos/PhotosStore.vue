@@ -96,7 +96,7 @@ export default {
             return
           }
 
-          this.$http.post('/api/v1/photos/', data).then((response) => {
+          this.$http.post('/photos/', data).then((response) => {
             if (response.status === 201) {
               $('#createPhoto').modal('hide')
 

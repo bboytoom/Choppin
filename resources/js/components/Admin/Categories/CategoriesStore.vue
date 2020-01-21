@@ -75,7 +75,7 @@ export default {
           return
         }
 
-        this.$http.post('/api/v1/categories/', data).then((response) => {
+        this.$http.post('/categories/', data).then((response) => {
           if (response.status === 201) {
             $('#createCategory').modal('hide')
 

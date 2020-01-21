@@ -80,7 +80,7 @@ export default {
           return
         }
 
-        this.$http.post('/api/v1/configurations/', data).then((response) => {
+        this.$http.post('/configurations/', data).then((response) => {
           if (response.status === 201) {
             $('#createConfiguration').modal('hide')
 

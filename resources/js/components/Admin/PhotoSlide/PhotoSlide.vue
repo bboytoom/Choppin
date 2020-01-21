@@ -145,7 +145,7 @@ export default {
   },
   methods: {
     index: function (page) {
-      this.$http.get('/api/v1/photoslide/all/' + this.slideid + '?page=' + page).then((response) => {
+      this.$http.get('/photoslide/all/' + this.slideid + '?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
         this.photosslide = response.data.data

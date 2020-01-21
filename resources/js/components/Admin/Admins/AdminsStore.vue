@@ -88,7 +88,7 @@ export default {
           return
         }
 
-        this.$http.post('/api/v1/admins/', data).then((response) => {
+        this.$http.post('/admins/', data).then((response) => {
           if (response.status === 201) {
             $('#createAdmin').modal('hide')
 

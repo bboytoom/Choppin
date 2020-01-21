@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     edit: function (id) {
-      this.$http.get('/api/v1/shippings/' + id).then((response) => {
+      this.$http.get('/shippings/' + id).then((response) => {
         this.$emit('dataEdit', {
           id: response.data.id,
           street_one: response.data.attributes.street_one,
@@ -91,9 +91,9 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          this.$http.delete('/api/v1/shippings/' + id).then((response) => {
+          this.$http.delete('/shippings/' + id).then((response) => {
             if (response.status === 204) {
-              this.$http.get('/api/v1/shippings/all/' + this.userid).then((response) => {
+              this.$http.get('/shippings/all/' + this.userid).then((response) => {
                 if (this.state > parseInt(response.data.meta.last_page)) {
                   this.index(parseInt(response.data.meta.last_page))
                 } else {
@@ -118,7 +118,7 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          this.$http.put('/api/v1/shippings/' + id, {
+          this.$http.put('/shippings/' + id, {
             user_id: this.userid,
             street_one: attr.street_one,
             street_two: attr.street_two,

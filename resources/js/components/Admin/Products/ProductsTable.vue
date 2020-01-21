@@ -85,7 +85,7 @@ export default {
       return prueba
     },
     edit: function (id) {
-      this.$http.get('/api/v1/products/' + id).then((response) => {
+      this.$http.get('/products/' + id).then((response) => {
         this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -111,9 +111,9 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          this.$http.delete('/api/v1/products/' + id).then((response) => {
+          this.$http.delete('/products/' + id).then((response) => {
             if (response.status === 204) {
-              this.$http.get('/api/v1/products').then((response) => {
+              this.$http.get('/products').then((response) => {
                 if (this.state > parseInt(response.data.meta.last_page)) {
                   this.index(parseInt(response.data.meta.last_page))
                 } else {
@@ -141,7 +141,7 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          this.$http.put('/api/v1/products/' + id, {
+          this.$http.put('/products/' + id, {
             subcategory_id: subcategoryId,
             name: attr.name,
             extract: attr.extract,

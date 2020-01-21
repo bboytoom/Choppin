@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     edit: function (id) {
-      this.$http.get('/api/v1/users/' + id).then((response) => {
+      this.$http.get('/users/' + id).then((response) => {
         this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -89,9 +89,9 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          this.$http.delete('/api/v1/users/' + id).then((response) => {
+          this.$http.delete('/users/' + id).then((response) => {
             if (response.status === 204) {
-              this.$http.get('/api/v1/users').then((response) => {
+              this.$http.get('/users').then((response) => {
                 if (this.state > parseInt(response.data.meta.last_page)) {
                   this.index(parseInt(response.data.meta.last_page))
                 } else {
@@ -106,7 +106,7 @@ export default {
       })
     },
     password: function (id) {
-      this.$http.get('/api/v1/users/' + id).then((response) => {
+      this.$http.get('/users/' + id).then((response) => {
         this.$emit('passwordEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -129,7 +129,7 @@ export default {
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: () => {
-          this.$http.put('/api/v1/users/' + id, {
+          this.$http.put('/users/' + id, {
             name: attr.name,
             father_surname: attr.father_surname,
             email: attr.email,

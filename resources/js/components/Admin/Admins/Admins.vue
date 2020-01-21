@@ -133,7 +133,7 @@ export default {
   },
   methods: {
     index: function (page) {
-      this.$http.get('/api/v1/admins?page=' + page).then((response) => {
+      this.$http.get('/admins?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
         this.admins = response.data.data

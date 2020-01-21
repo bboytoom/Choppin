@@ -93,7 +93,7 @@ export default {
           return
         }
 
-        this.$http.post('/api/v1/subcategories/', data).then((response) => {
+        this.$http.post('/subcategories/', data).then((response) => {
           if (response.status === 201) {
             $('#createSubCategory').modal('hide')
 

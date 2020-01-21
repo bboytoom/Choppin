@@ -107,7 +107,7 @@ export default {
           type: this.profilePic.file.type
         }
 
-        this.$http.put('/api/v1/configurations/image/' + this.configuration.id, data).then((response) => {
+        this.$http.put('/configurations/image/' + this.configuration.id, data).then((response) => {
           if (response.status === 200) {
             $('#imageConfiguration').modal('hide')
             this.index(this.state)

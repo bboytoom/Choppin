@@ -2072,7 +2072,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      this.$http.get('/api/v1/admins?page=' + page).then(function (response) {
+      this.$http.get('/admins?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.admins = response.data.data;
@@ -2304,7 +2304,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.put('/api/v1/adminpassword/' + admin.id, data).then(function (response) {
+        _this.$http.put('/adminpassword/' + admin.id, data).then(function (response) {
           if (response.status === 200) {
             $('#passwordAdmin').modal('hide');
 
@@ -2430,7 +2430,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.post('/api/v1/admins/', data).then(function (response) {
+        _this.$http.post('/admins/', data).then(function (response) {
           if (response.status === 201) {
             $('#createAdmin').modal('hide');
 
@@ -2531,7 +2531,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      this.$http.get('/api/v1/admins/' + id).then(function (response) {
+      this.$http.get('/admins/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -2554,9 +2554,9 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this2.$http["delete"]('/api/v1/admins/' + id).then(function (response) {
+          _this2.$http["delete"]('/admins/' + id).then(function (response) {
             if (response.status === 204) {
-              _this2.$http.get('/api/v1/admins').then(function (response) {
+              _this2.$http.get('/admins').then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
@@ -2573,7 +2573,7 @@ __webpack_require__.r(__webpack_exports__);
     password: function password(id) {
       var _this3 = this;
 
-      this.$http.get('/api/v1/admins/' + id).then(function (response) {
+      this.$http.get('/admins/' + id).then(function (response) {
         _this3.$emit('passwordEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -2595,7 +2595,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this4.$http.put('/api/v1/admins/' + id, {
+          _this4.$http.put('/admins/' + id, {
             name: attr.name,
             father_surname: attr.father_surname,
             email: attr.email,
@@ -2711,7 +2711,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.put('/api/v1/admins/' + admin.id, data).then(function (response) {
+        _this.$http.put('/admins/' + admin.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateAdmin').modal('hide');
 
@@ -2884,7 +2884,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      this.$http.get('/api/v1/categories?page=' + page).then(function (response) {
+      this.$http.get('/categories?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.categories = response.data.data;
@@ -3045,7 +3045,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.post('/api/v1/categories/', data).then(function (response) {
+        _this.$http.post('/categories/', data).then(function (response) {
           if (response.status === 201) {
             $('#createCategory').modal('hide');
 
@@ -3134,7 +3134,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      this.$http.get('/api/v1/categories/' + id).then(function (response) {
+      this.$http.get('/categories/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -3155,9 +3155,9 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this2.$http["delete"]('/api/v1/categories/' + id).then(function (response) {
+          _this2.$http["delete"]('/categories/' + id).then(function (response) {
             if (response.status === 204) {
-              _this2.$http.get('/api/v1/categories').then(function (response) {
+              _this2.$http.get('/categories').then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
@@ -3184,7 +3184,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this3.$http.put('/api/v1/categories/' + id, {
+          _this3.$http.put('/categories/' + id, {
             name: attr.name,
             description: attr.description,
             status: attr.status === 1 ? 0 : 1
@@ -3286,7 +3286,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.put('/api/v1/categories/' + category.id, data).then(function (response) {
+        _this.$http.put('/categories/' + category.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateCategory').modal('hide');
 
@@ -3467,7 +3467,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      this.$http.get('/api/v1/characteristics/all/' + this.productoid + '?page=' + page).then(function (response) {
+      this.$http.get('/characteristics/all/' + this.productoid + '?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.characteristics = response.data.data;
@@ -3613,7 +3613,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      this.$http.get('/api/v1/characteristics/' + id).then(function (response) {
+      this.$http.get('/characteristics/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -3637,9 +3637,9 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this2.$http["delete"]('/api/v1/characteristics/' + id).then(function (response) {
+          _this2.$http["delete"]('/characteristics/' + id).then(function (response) {
             if (response.status === 204) {
-              _this2.$http.get('/api/v1/characteristics/all/' + _this2.productoid).then(function (response) {
+              _this2.$http.get('/characteristics/all/' + _this2.productoid).then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
@@ -3666,7 +3666,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this3.$http.put('/api/v1/characteristics/' + id, {
+          _this3.$http.put('/characteristics/' + id, {
             product_id: _this3.productoid,
             name: attr.name,
             description: attr.description,
@@ -3774,7 +3774,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.put('/api/v1/characteristics/' + characteristic.id, data).then(function (response) {
+        _this.$http.put('/characteristics/' + characteristic.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateCharacteristic').modal('hide');
 
@@ -3890,7 +3890,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.post('/api/v1/characteristics/', data).then(function (response) {
+        _this.$http.post('/characteristics/', data).then(function (response) {
           if (response.status === 201) {
             $('#createCharacteristic').modal('hide');
 
@@ -4087,7 +4087,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      this.$http.get('/api/v1/configurations?page=' + page).then(function (response) {
+      this.$http.get('/configurations?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.configurations = response.data.data;
@@ -4347,7 +4347,7 @@ __webpack_require__.r(__webpack_exports__);
           type: _this.profilePic.file.type
         };
 
-        _this.$http.put('/api/v1/configurations/image/' + _this.configuration.id, data).then(function (response) {
+        _this.$http.put('/configurations/image/' + _this.configuration.id, data).then(function (response) {
           if (response.status === 200) {
             $('#imageConfiguration').modal('hide');
 
@@ -4465,7 +4465,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.post('/api/v1/configurations/', data).then(function (response) {
+        _this.$http.post('/configurations/', data).then(function (response) {
           if (response.status === 201) {
             $('#createConfiguration').modal('hide');
 
@@ -4576,7 +4576,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      this.$http.get('/api/v1/configurations/' + id).then(function (response) {
+      this.$http.get('/configurations/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           domain: response.data.attributes.domain,
@@ -4601,9 +4601,9 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this2.$http["delete"]('/api/v1/configurations/' + id).then(function (response) {
+          _this2.$http["delete"]('/configurations/' + id).then(function (response) {
             if (response.status === 204) {
-              _this2.$http.get('/api/v1/configurations').then(function (response) {
+              _this2.$http.get('/configurations').then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
@@ -4633,7 +4633,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this3.$http.put('/api/v1/configurations/' + id, {
+          _this3.$http.put('/configurations/' + id, {
             domain: attr.domain,
             name: attr.name,
             email: attr.email,
@@ -4650,7 +4650,7 @@ __webpack_require__.r(__webpack_exports__);
     editImage: function editImage(id) {
       var _this4 = this;
 
-      this.$http.get('/api/v1/configurations/' + id).then(function (response) {
+      this.$http.get('/configurations/' + id).then(function (response) {
         _this4.$emit('dataEditImage', {
           id: response.data.id,
           logo: response.data.attributes.logo,
@@ -4753,7 +4753,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.put('/api/v1/configurations/' + configuration.id, data).then(function (response) {
+        _this.$http.put('/configurations/' + configuration.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateConfiguration').modal('hide');
 
@@ -4937,7 +4937,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      this.$http.get('/api/v1/galleries?page=' + page).then(function (response) {
+      this.$http.get('/galleries?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.galleries = response.data.data;
@@ -5136,7 +5136,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.post('/api/v1/galleries/', data).then(function (response) {
+        _this.$http.post('/galleries/', data).then(function (response) {
           if (response.status === 201) {
             $('#createGallery').modal('hide');
 
@@ -5240,7 +5240,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      this.$http.get('/api/v1/galleries/' + id).then(function (response) {
+      this.$http.get('/galleries/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -5264,9 +5264,9 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this2.$http["delete"]('/api/v1/galleries/' + id).then(function (response) {
+          _this2.$http["delete"]('/galleries/' + id).then(function (response) {
             if (response.status === 204) {
-              _this2.$http.get('/api/v1/galleries').then(function (response) {
+              _this2.$http.get('/galleries').then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
@@ -5296,7 +5296,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this3.$http.put('/api/v1/galleries/' + id, {
+          _this3.$http.put('/galleries/' + id, {
             category_id: categoryId,
             name: attr.name,
             status: attr.status === 1 ? 0 : 1
@@ -5321,7 +5321,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this4.$http.put('/api/v1/galleries/' + id, {
+          _this4.$http.put('/galleries/' + id, {
             category_id: categoryId,
             name: attr.name,
             active: attr.active === 1 ? 0 : 1
@@ -5441,7 +5441,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.put('/api/v1/galleries/' + gallery.id, data).then(function (response) {
+        _this.$http.put('/galleries/' + gallery.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateGallery').modal('hide');
 
@@ -5630,7 +5630,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      this.$http.get('/api/v1/photosgalleries/all/' + this.galleryid + '?page=' + page).then(function (response) {
+      this.$http.get('/photosgalleries/all/' + this.galleryid + '?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.photosgalleries = response.data.data;
@@ -5886,7 +5886,7 @@ __webpack_require__.r(__webpack_exports__);
             return;
           }
 
-          _this.$http.post('/api/v1/photosgalleries/', data).then(function (response) {
+          _this.$http.post('/photosgalleries/', data).then(function (response) {
             if (response.status === 201) {
               $('#createPhotoGallery').modal('hide');
 
@@ -5996,7 +5996,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      this.$http.get('/api/v1/photosgalleries/' + id).then(function (response) {
+      this.$http.get('/photosgalleries/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -6023,9 +6023,9 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this2.$http["delete"]('/api/v1/photosgalleries/' + id).then(function (response) {
+          _this2.$http["delete"]('/photosgalleries/' + id).then(function (response) {
             if (response.status === 204) {
-              _this2.$http.get('/api/v1/photosgalleries/all/' + _this2.galleryid).then(function (response) {
+              _this2.$http.get('/photosgalleries/all/' + _this2.galleryid).then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
@@ -6052,7 +6052,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this3.$http.put('/api/v1/photosgalleries/' + id, {
+          _this3.$http.put('/photosgalleries/' + id, {
             gallery_id: _this3.galleryid,
             name: attr.name,
             description: attr.description,
@@ -6180,7 +6180,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.put('/api/v1/photosgalleries/' + photogallery.id, data).then(function (response) {
+        _this.$http.put('/photosgalleries/' + photogallery.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updatePhotoGallery').modal('hide');
 
@@ -6373,7 +6373,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      this.$http.get('/api/v1/photoslide/all/' + this.slideid + '?page=' + page).then(function (response) {
+      this.$http.get('/photoslide/all/' + this.slideid + '?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.photosslide = response.data.data;
@@ -6629,7 +6629,7 @@ __webpack_require__.r(__webpack_exports__);
             return;
           }
 
-          _this.$http.post('/api/v1/photoslide/', data).then(function (response) {
+          _this.$http.post('/photoslide/', data).then(function (response) {
             if (response.status === 201) {
               $('#createPhotoSlide').modal('hide');
 
@@ -6733,7 +6733,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      this.$http.get('/api/v1/photoslide/' + id).then(function (response) {
+      this.$http.get('/photoslide/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -6760,9 +6760,9 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this2.$http["delete"]('/api/v1/photoslide/' + id).then(function (response) {
+          _this2.$http["delete"]('/photoslide/' + id).then(function (response) {
             if (response.status === 204) {
-              _this2.$http.get('/api/v1/photoslide/all/' + _this2.slideid).then(function (response) {
+              _this2.$http.get('/photoslide/all/' + _this2.slideid).then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
@@ -6789,7 +6789,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this3.$http.put('/api/v1/photoslide/' + id, {
+          _this3.$http.put('/photoslide/' + id, {
             configuration_id: _this3.slideid,
             name: attr.name,
             description: attr.description,
@@ -6912,13 +6912,12 @@ __webpack_require__.r(__webpack_exports__);
         };
       }
 
-      console.log(data);
       this.$refs.formphotoslideupdate.validate().then(function (success) {
         if (!success) {
           return;
         }
 
-        _this.$http.put('/api/v1/photoslide/' + photoslide.id, data).then(function (response) {
+        _this.$http.put('/photoslide/' + photoslide.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updatePhotoSlide').modal('hide');
 
@@ -7114,7 +7113,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      this.$http.get('/api/v1/photos/all/' + this.productoid + '?page=' + page).then(function (response) {
+      this.$http.get('/photos/all/' + this.productoid + '?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.photos = response.data.data;
@@ -7370,7 +7369,7 @@ __webpack_require__.r(__webpack_exports__);
             return;
           }
 
-          _this.$http.post('/api/v1/photos/', data).then(function (response) {
+          _this.$http.post('/photos/', data).then(function (response) {
             if (response.status === 201) {
               $('#createPhoto').modal('hide');
 
@@ -7480,7 +7479,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      this.$http.get('/api/v1/photos/' + id).then(function (response) {
+      this.$http.get('/photos/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -7507,9 +7506,9 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this2.$http["delete"]('/api/v1/photos/' + id).then(function (response) {
+          _this2.$http["delete"]('/photos/' + id).then(function (response) {
             if (response.status === 204) {
-              _this2.$http.get('/api/v1/photos/all/' + _this2.productoid).then(function (response) {
+              _this2.$http.get('/photos/all/' + _this2.productoid).then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
@@ -7536,7 +7535,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this3.$http.put('/api/v1/photos/' + id, {
+          _this3.$http.put('/photos/' + id, {
             product_id: _this3.productoid,
             name: attr.name,
             description: attr.description,
@@ -7664,7 +7663,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.put('/api/v1/photos/' + photo.id, data).then(function (response) {
+        _this.$http.put('/photos/' + photo.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updatePhoto').modal('hide');
 
@@ -7858,7 +7857,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      this.$http.get('/api/v1/products?page=' + page).then(function (response) {
+      this.$http.get('/products?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.products = response.data.data;
@@ -8135,7 +8134,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.post('/api/v1/products/', data).then(function (response) {
+        _this.$http.post('/products/', data).then(function (response) {
           if (response.status === 201) {
             $('#createProduct').modal('hide');
 
@@ -8258,7 +8257,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      this.$http.get('/api/v1/products/' + id).then(function (response) {
+      this.$http.get('/products/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -8286,9 +8285,9 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this2.$http["delete"]('/api/v1/products/' + id).then(function (response) {
+          _this2.$http["delete"]('/products/' + id).then(function (response) {
             if (response.status === 204) {
-              _this2.$http.get('/api/v1/products').then(function (response) {
+              _this2.$http.get('/products').then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
@@ -8318,7 +8317,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this3.$http.put('/api/v1/products/' + id, {
+          _this3.$http.put('/products/' + id, {
             subcategory_id: subcategoryId,
             name: attr.name,
             extract: attr.extract,
@@ -8443,7 +8442,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.put('/api/v1/products/' + product.id, data).then(function (response) {
+        _this.$http.put('/products/' + product.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateProduct').modal('hide');
 
@@ -8546,7 +8545,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      this.$http.get('/api/v1/shippings/' + id).then(function (response) {
+      this.$http.get('/shippings/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           street_one: response.data.attributes.street_one,
@@ -8577,9 +8576,9 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this2.$http["delete"]('/api/v1/shippings/' + id).then(function (response) {
+          _this2.$http["delete"]('/shippings/' + id).then(function (response) {
             if (response.status === 204) {
-              _this2.$http.get('/api/v1/shippings/all/' + _this2.userid).then(function (response) {
+              _this2.$http.get('/shippings/all/' + _this2.userid).then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
@@ -8606,7 +8605,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this3.$http.put('/api/v1/shippings/' + id, {
+          _this3.$http.put('/shippings/' + id, {
             user_id: _this3.userid,
             street_one: attr.street_one,
             street_two: attr.street_two,
@@ -8790,7 +8789,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      this.$http.get('/api/v1/shippings/all/' + this.userid + '?page=' + page).then(function (response) {
+      this.$http.get('/shippings/all/' + this.userid + '?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.shippings = response.data.data;
@@ -9054,7 +9053,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.post('/api/v1/shippings/', data).then(function (response) {
+        _this.$http.post('/shippings/', data).then(function (response) {
           if (response.status === 201) {
             $('#createShipping').modal('hide');
 
@@ -9182,7 +9181,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.put('/api/v1/shippings/' + shipping.id, data).then(function (response) {
+        _this.$http.put('/shippings/' + shipping.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateShipping').modal('hide');
 
@@ -9368,7 +9367,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      this.$http.get('/api/v1/subcategories?page=' + page).then(function (response) {
+      this.$http.get('/subcategories?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.subcategories = response.data.data;
@@ -9582,7 +9581,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.post('/api/v1/subcategories/', data).then(function (response) {
+        _this.$http.post('/subcategories/', data).then(function (response) {
           if (response.status === 201) {
             $('#createSubCategory').modal('hide');
 
@@ -9713,7 +9712,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.put('/api/v1/subcategories/' + subcategory.id, data).then(function (response) {
+        _this.$http.put('/subcategories/' + subcategory.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateSubCategory').modal('hide');
 
@@ -9810,7 +9809,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      this.$http.get('/api/v1/subcategories/' + id).then(function (response) {
+      this.$http.get('/subcategories/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -9835,9 +9834,9 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this2.$http["delete"]('/api/v1/subcategories/' + id).then(function (response) {
+          _this2.$http["delete"]('/subcategories/' + id).then(function (response) {
             if (response.status === 204) {
-              _this2.$http.get('/api/v1/subcategories').then(function (response) {
+              _this2.$http.get('/subcategories').then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
@@ -9864,7 +9863,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this3.$http.put('/api/v1/subcategories/' + id, {
+          _this3.$http.put('/subcategories/' + id, {
             category_id: categoryId,
             name: attr.name,
             description: attr.description,
@@ -10035,7 +10034,7 @@ __webpack_require__.r(__webpack_exports__);
     index: function index(page) {
       var _this2 = this;
 
-      this.$http.get('/api/v1/users?page=' + page).then(function (response) {
+      this.$http.get('/users?page=' + page).then(function (response) {
         _this2.page_state = page;
         _this2.number_page = parseInt(response.data.meta.last_page);
         _this2.users = response.data.data;
@@ -10266,7 +10265,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.put('/api/v1/userpassword/' + user.id, data).then(function (response) {
+        _this.$http.put('/userpassword/' + user.id, data).then(function (response) {
           if (response.status === 200) {
             $('#passwordUser').modal('hide');
 
@@ -10392,7 +10391,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.post('/api/v1/users/', data).then(function (response) {
+        _this.$http.post('/users/', data).then(function (response) {
           if (response.status === 201) {
             $('#createUser').modal('hide');
 
@@ -10500,7 +10499,7 @@ __webpack_require__.r(__webpack_exports__);
     edit: function edit(id) {
       var _this = this;
 
-      this.$http.get('/api/v1/users/' + id).then(function (response) {
+      this.$http.get('/users/' + id).then(function (response) {
         _this.$emit('dataEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -10523,9 +10522,9 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this2.$http["delete"]('/api/v1/users/' + id).then(function (response) {
+          _this2.$http["delete"]('/users/' + id).then(function (response) {
             if (response.status === 204) {
-              _this2.$http.get('/api/v1/users').then(function (response) {
+              _this2.$http.get('/users').then(function (response) {
                 if (_this2.state > parseInt(response.data.meta.last_page)) {
                   _this2.index(parseInt(response.data.meta.last_page));
                 } else {
@@ -10542,7 +10541,7 @@ __webpack_require__.r(__webpack_exports__);
     password: function password(id) {
       var _this3 = this;
 
-      this.$http.get('/api/v1/users/' + id).then(function (response) {
+      this.$http.get('/users/' + id).then(function (response) {
         _this3.$emit('passwordEdit', {
           id: response.data.id,
           name: response.data.attributes.name,
@@ -10567,7 +10566,7 @@ __webpack_require__.r(__webpack_exports__);
         allowOutsideClick: false,
         width: '21rem',
         preConfirm: function preConfirm() {
-          _this4.$http.put('/api/v1/users/' + id, {
+          _this4.$http.put('/users/' + id, {
             name: attr.name,
             father_surname: attr.father_surname,
             email: attr.email,
@@ -10683,7 +10682,7 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this.$http.put('/api/v1/users/' + user.id, data).then(function (response) {
+        _this.$http.put('/users/' + user.id, data).then(function (response) {
           if (response.status === 200) {
             $('#updateUser').modal('hide');
 
@@ -25502,10 +25501,10 @@ var render = function() {
           multiple: false,
           deletable: true,
           theme: "list",
-          "max-size": "2MB",
+          "max-size": "1MB",
           "error-text": {
             type: "Archivo no valido",
-            size: "El tamaño maximo es de 2MB "
+            size: "El tamaño maximo es de 1MB "
           }
         },
         on: {
@@ -25522,7 +25521,7 @@ var render = function() {
                   _c("div", { staticClass: "col-md-12 text-center" }, [
                     _c("img", {
                       staticClass: "img-thumbnail rounded",
-                      staticStyle: { width: "50x0px" },
+                      staticStyle: { width: "500px" },
                       attrs: {
                         src: "" + _vm.photogallery.url,
                         alt: "" + _vm.photogallery.name
@@ -26409,10 +26408,10 @@ var render = function() {
           multiple: false,
           deletable: true,
           theme: "list",
-          "max-size": "2MB",
+          "max-size": "1MB",
           "error-text": {
             type: "Archivo no valido",
-            size: "El tamaño maximo es de 2MB "
+            size: "El tamaño maximo es de 1MB "
           }
         },
         on: {
@@ -26429,7 +26428,7 @@ var render = function() {
                   _c("div", { staticClass: "col-md-12 text-center" }, [
                     _c("img", {
                       staticClass: "img-thumbnail rounded",
-                      staticStyle: { width: "50x0px" },
+                      staticStyle: { width: "500px" },
                       attrs: {
                         src: "" + _vm.photoslide.url,
                         alt: "" + _vm.photoslide.name
@@ -44687,7 +44686,9 @@ var vee_validate_dist_locale_es_json__WEBPACK_IMPORTED_MODULE_5___namespace = /*
 
 
 
-axios__WEBPACK_IMPORTED_MODULE_7___default.a.defaults.headers.common['x-api-key'] = 'base64:aIqY2kyeOcEUJkK97Jq56oFzTDhVnzJu26wM6mOXeCc=';
+axios__WEBPACK_IMPORTED_MODULE_7___default.a.defaults.headers.common['x-api-key'] = 'base64:uoB382KLuZjmVcs6igvBghnfUGTlHI+jwKZlMFClSyg=';
+axios__WEBPACK_IMPORTED_MODULE_7___default.a.defaults.headers.post['Content-Type'] = 'application/json';
+axios__WEBPACK_IMPORTED_MODULE_7___default.a.defaults.baseURL = '/api/v1';
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_7___default.a;
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$swal = sweetalert2__WEBPACK_IMPORTED_MODULE_8___default.a;
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$toad = _components_helpers__WEBPACK_IMPORTED_MODULE_9__["ToadAlert"];

@@ -145,7 +145,7 @@ export default {
   },
   methods: {
     index: function (page) {
-      this.$http.get('/api/v1/shippings/all/' + this.userid + '?page=' + page).then((response) => {
+      this.$http.get('/shippings/all/' + this.userid + '?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
         this.shippings = response.data.data

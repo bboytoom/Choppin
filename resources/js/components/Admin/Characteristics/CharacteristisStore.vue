@@ -80,7 +80,7 @@ export default {
           return
         }
 
-        this.$http.post('/api/v1/characteristics/', data).then((response) => {
+        this.$http.post('/characteristics/', data).then((response) => {
           if (response.status === 201) {
             $('#createCharacteristic').modal('hide')
 

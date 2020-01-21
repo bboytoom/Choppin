@@ -95,7 +95,7 @@ export default {
           return
         }
 
-        this.$http.put('/api/v1/products/' + product.id, data).then((response) => {
+        this.$http.put('/products/' + product.id, data).then((response) => {
           if (response.status === 200) {
             $('#updateProduct').modal('hide')
 

@@ -88,7 +88,7 @@ export default {
           return
         }
 
-        this.$http.post('/api/v1/users/', data).then((response) => {
+        this.$http.post('/users/', data).then((response) => {
           if (response.status === 201) {
             $('#createUser').modal('hide')
 

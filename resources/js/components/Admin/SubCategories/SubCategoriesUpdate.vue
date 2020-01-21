@@ -93,7 +93,7 @@ export default {
           return
         }
 
-        this.$http.put('/api/v1/subcategories/' + subcategory.id, data).then((response) => {
+        this.$http.put('/subcategories/' + subcategory.id, data).then((response) => {
           if (response.status === 200) {
             $('#updateSubCategory').modal('hide')
 

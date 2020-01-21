@@ -10,6 +10,8 @@ use App\Events\PhotoImageUpdated;
 use App\Listeners\PhotoImageUpdatedListener;
 use App\Events\PhotoGalleryUpdate;
 use App\Listeners\PhotoGalleryUpdateListener;
+use App\Events\PhotoSlideUpdate;
+use App\Listeners\PhotoSlideUpdateListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         PhotoGalleryUpdate::class => [
             PhotoGalleryUpdateListener::class,
+        ],
+        PhotoSlideUpdate::class => [
+            PhotoSlideUpdateListener::class,
         ]
     ];
 

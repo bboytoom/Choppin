@@ -80,7 +80,7 @@ export default {
           return
         }
 
-        this.$http.put('/api/v1/configurations/' + configuration.id, data).then((response) => {
+        this.$http.put('/configurations/' + configuration.id, data).then((response) => {
           if (response.status === 200) {
             $('#updateConfiguration').modal('hide')
 

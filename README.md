@@ -26,9 +26,9 @@ php vendor/bin/homestead make
 2. En consola se tienen que ejecutar en orden los siguientes comandos
 ```
 php artisan key:generate
-php artisan storage:link
 vagrant up
 vagrant ssh
+php artisan storage:link
 ```
 
 3. En la variable **x-api-key** del archivo *app.js* que se encuentra en el directorio resources/js ingresar la clave generada por el comando *php artisan key:generate*

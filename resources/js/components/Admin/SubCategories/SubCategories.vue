@@ -139,7 +139,7 @@ export default {
   },
   methods: {
     index: function (page) {
-      this.$http.get('/api/v1/subcategories?page=' + page).then((response) => {
+      this.$http.get('/subcategories?page=' + page).then((response) => {
         this.page_state = page
         this.number_page = parseInt(response.data.meta.last_page)
         this.subcategories = response.data.data

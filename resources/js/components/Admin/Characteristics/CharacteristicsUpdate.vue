@@ -80,7 +80,7 @@ export default {
           return
         }
 
-        this.$http.put('/api/v1/characteristics/' + characteristic.id, data).then((response) => {
+        this.$http.put('/characteristics/' + characteristic.id, data).then((response) => {
           if (response.status === 200) {
             $('#updateCharacteristic').modal('hide')
 

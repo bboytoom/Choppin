@@ -7,17 +7,17 @@
       :multiple="false"
       :deletable="true"
       :theme="'list'"
-      :max-size="'2MB'"
+      :max-size="'1MB'"
       :error-text="{
         type: 'Archivo no valido',
-        size: 'El tamaño maximo es de 2MB ',
+        size: 'El tamaño maximo es de 1MB ',
       }"
       @select="onSelect($event)"
     >
       <template v-slot:before-outer>
         <div class="row">
           <div class="col-md-12 text-center">
-            <img class="img-thumbnail rounded" :src="`${photogallery.url}`" :alt="`${photogallery.name}`" style="width: 50x0px;">
+            <img class="img-thumbnail rounded" :src="`${photogallery.url}`" :alt="`${photogallery.name}`" style="width: 500px;">
           </div>
 
           <div class="col-md-12 mt-4">
