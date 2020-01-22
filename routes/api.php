@@ -19,8 +19,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group([
     "prefix" => "v1",
+    "namespace" => "API\Store"
+], function () {
+    Route::apiResource('store', 'IndexController')->only('index', 'show');
+});
+
+Route::group([
+    "prefix" => "v1",
     "namespace" => "API\Admin"
-], function(){
+], function () {
     Route::apiResources([
         'admins' => 'AdminController',
         'users' => 'UserController',

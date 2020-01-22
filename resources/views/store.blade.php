@@ -9,7 +9,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>
-            @yield('title', 'nombrede la tienda')
+            @yield('title', \Str::title($sitio))
         </title>
 
         <meta name="description:" content="E-commerce de productos">
@@ -31,7 +31,7 @@
     </head>
     <body>
         <!-- Page Wrapper -->
-        <main id="wrapper">s</main>
+        <main id="wrapper"></main>
         <!-- End of Page Wrapper -->
 
          <!-- Scripts -->
