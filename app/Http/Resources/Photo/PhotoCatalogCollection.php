@@ -17,9 +17,10 @@ class PhotoCatalogCollection extends ResourceCollection
     {
         return $this->collection->transform(function ($element) {
             return [
-                'name' => $element->name,
-                'description' => $element->description,
-                'url' => Storage::disk('photo_big')->url($element->image),
+                'id' => $element->id,
+                'src' => Storage::disk('photo_big')->url($element->image),
+                'thumbnail' => Storage::disk('photo_small')->url($element->image),
+                'alt' => $element->name
             ];
         });
     }

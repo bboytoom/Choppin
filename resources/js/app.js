@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import router from './router/store-router'
 import { ValidationProvider, ValidationObserver, extend, localize, configure } from 'vee-validate'
 import Paginate from 'vuejs-paginate'
 import VueFileAgent from 'vue-file-agent'
@@ -11,6 +12,8 @@ import * as rules from 'vee-validate/dist/rules'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { ToadAlert } from './components/helpers'
+
+// configuracion
 
 axios.defaults.headers.common['x-api-key'] = 'base64:uoB382KLuZjmVcs6igvBghnfUGTlHI+jwKZlMFClSyg='
 axios.defaults.headers.post['Content-Type'] = 'application/json'
@@ -54,6 +57,8 @@ configure({
   }
 })
 
+// Admin
+
 Vue.component('configuration-component', require('./components/Admin/Configurations/Configurations.vue').default)
 Vue.component('admin-component', require('./components/Admin/Admins/Admins.vue').default)
 Vue.component('user-component', require('./components/Admin/Users/Users.vue').default)
@@ -67,9 +72,18 @@ Vue.component('gallery-component', require('./components/Admin/Galleries/Galleri
 Vue.component('photo-gallery-component', require('./components/Admin/PhotoGallery/PhotoGallery.vue').default)
 Vue.component('photo-slide-component', require('./components/Admin/PhotoSlide/PhotoSlide.vue').default)
 
+// Store
+
+Vue.component('store-component', require('./components/Store/Store.vue').default)
+
+// librerias
+
 Vue.component('validation-provider', ValidationProvider)
 Vue.component('validation-observer', ValidationObserver)
 Vue.component('paginate', Paginate)
 
-var vm = new Vue()
+var vm = new Vue({
+  router
+})
+
 vm.$mount('#wrapper')

@@ -21,6 +21,7 @@ class IndexResource extends JsonResource
             'id' => $this->id,
             'attributes' => [
                 'name' => $this->name,
+                'slug' => $this->slug,
                 'extract' => $this->extract,
                 'price' =>  $this->price,
             ],

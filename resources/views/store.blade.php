@@ -31,7 +31,9 @@
     </head>
     <body>
         <!-- Page Wrapper -->
-        <main id="wrapper"></main>
+        <main id="wrapper">
+            <store-component></store-component>
+        </main>
         <!-- End of Page Wrapper -->
 
          <!-- Scripts -->
