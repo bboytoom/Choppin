@@ -30,7 +30,7 @@
     <nav class="navbar navbar-light bg-light">
       <div class="container">
         <a class="navbar-brand" href="#">
-          Logo
+          logo
         </a>
       </div>
     </nav>
@@ -41,8 +41,13 @@
 
 <script>
 
+import { mapState } from 'vuex'
+
 export default {
-  name: 'Store'
+  name: 'Store',
+  computed: {
+
+  }
 }
 
 </script>

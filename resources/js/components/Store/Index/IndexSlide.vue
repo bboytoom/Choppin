@@ -26,11 +26,6 @@ export default {
         return []
       }
     }
-  },
-  data: function () {
-    return {
-
-    }
   }
 }
 

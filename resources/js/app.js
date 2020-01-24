@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import router from './router/store-router'
+import store from './store/store'
 import { ValidationProvider, ValidationObserver, extend, localize, configure } from 'vee-validate'
 import Paginate from 'vuejs-paginate'
 import VueFileAgent from 'vue-file-agent'
@@ -82,8 +83,9 @@ Vue.component('validation-provider', ValidationProvider)
 Vue.component('validation-observer', ValidationObserver)
 Vue.component('paginate', Paginate)
 
-var vm = new Vue({
-  router
+const vm = new Vue({
+  router,
+  store
 })
 
 vm.$mount('#wrapper')
