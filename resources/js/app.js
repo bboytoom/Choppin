@@ -1,31 +1,10 @@
 import Vue from 'vue'
-import router from './router/store-router'
-import store from './store/store'
-import { ValidationProvider, ValidationObserver, extend, localize, configure } from 'vee-validate'
-import Paginate from 'vuejs-paginate'
-import VueFileAgent from 'vue-file-agent'
+import router from './router'
+import store from './store'
 
-// eslint-disable-next-line no-unused-vars
-import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css'
+require('./plugins/')
 
-import es from 'vee-validate/dist/locale/es.json'
-import * as rules from 'vee-validate/dist/rules'
-import axios from 'axios'
-import Swal from 'sweetalert2'
-import { ToadAlert } from './components/helpers'
-
-// configuracion
-
-axios.defaults.headers.common['x-api-key'] = 'base64:uoB382KLuZjmVcs6igvBghnfUGTlHI+jwKZlMFClSyg='
-axios.defaults.headers.post['Content-Type'] = 'application/json'
-axios.defaults.baseURL = '/api/v1'
-
-Vue.prototype.$http = axios
-Vue.prototype.$swal = Swal
-Vue.prototype.$toad = ToadAlert
 Vue.config.productionTip = false
-
-Vue.use(VueFileAgent)
 
 Vue.filter('capitalize', function (value) {
   if (!value) {
@@ -36,52 +15,20 @@ Vue.filter('capitalize', function (value) {
   return value.charAt(0).toUpperCase() + value.slice(1)
 })
 
-Object.keys(rules).forEach(rule => {
-  extend(rule, rules[rule])
-})
+Vue.component('admin-component', require('./views/Administrator/Admins.vue').default)
+Vue.component('category-component', require('./views/Administrator/Categories.vue').default)
+Vue.component('characteristic-component', require('./views/Administrator/Characteristics.vue').default)
+Vue.component('configuration-component', require('./views/Administrator/Configurations.vue').default)
+Vue.component('gallery-component', require('./views/Administrator/Galleries.vue').default)
+Vue.component('photo-gallery-component', require('./views/Administrator/PhotoGallery.vue').default)
+Vue.component('photo-component', require('./views/Administrator/Photos.vue').default)
+Vue.component('photo-slide-component', require('./views/Administrator/PhotoSlide.vue').default)
+Vue.component('product-component', require('./views/Administrator/Products.vue').default)
+Vue.component('shipping-component', require('./views/Administrator/Shippings.vue').default)
+Vue.component('subcategory-component', require('./views/Administrator/SubCategories.vue').default)
+Vue.component('user-component', require('./views/Administrator/Users.vue').default)
 
-localize('es', es)
-
-extend('password', {
-  params: ['target'],
-
-  validate (value, { target }) {
-    return value === target
-  },
-  message: 'Las contraseñas no coinciden'
-})
-
-configure({
-  inputclass: {
-    valid: 'is-valid',
-    invalid: 'is-invalid'
-  }
-})
-
-// Admin
-
-Vue.component('configuration-component', require('./components/Admin/Configurations/Configurations.vue').default)
-Vue.component('admin-component', require('./components/Admin/Admins/Admins.vue').default)
-Vue.component('user-component', require('./components/Admin/Users/Users.vue').default)
-Vue.component('category-component', require('./components/Admin/Categories/Categories.vue').default)
-Vue.component('subcategory-component', require('./components/Admin/SubCategories/SubCategories.vue').default)
-Vue.component('product-component', require('./components/Admin/Products/Products.vue').default)
-Vue.component('characteristic-component', require('./components/Admin/Characteristics/Characteristics.vue').default)
-Vue.component('photo-component', require('./components/Admin/Photos/Photos.vue').default)
-Vue.component('shipping-component', require('./components/Admin/Shippings/Shippings.vue').default)
-Vue.component('gallery-component', require('./components/Admin/Galleries/Galleries.vue').default)
-Vue.component('photo-gallery-component', require('./components/Admin/PhotoGallery/PhotoGallery.vue').default)
-Vue.component('photo-slide-component', require('./components/Admin/PhotoSlide/PhotoSlide.vue').default)
-
-// Store
-
-Vue.component('store-component', require('./components/Store/Store.vue').default)
-
-// librerias
-
-Vue.component('validation-provider', ValidationProvider)
-Vue.component('validation-observer', ValidationObserver)
-Vue.component('paginate', Paginate)
+Vue.component('store-component', require('./views/ShoppingCart/ShoppingCart.vue').default)
 
 const vm = new Vue({
   router,

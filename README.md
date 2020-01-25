@@ -31,7 +31,7 @@ vagrant ssh
 php artisan storage:link
 ```
 
-3. En la variable **x-api-key** del archivo *app.js* que se encuentra en el directorio resources/js ingresar la clave generada por el comando *php artisan key:generate*
+3. En la variable **x-api-key** del archivo *axios.js* que se encuentra en el directorio resources/js/plugins ingresar la clave generada por el comando *php artisan key:generate*
 ```
 axios.defaults.headers.common['x-api-key'] = 'ingresar llave'
 ```
