@@ -27,16 +27,20 @@
       </div>
     </nav>
 
+    <index-cart />
+
     <router-view />
   </div>
 </template>
 
 <script>
 
+import IndexCart from './components/Index/IndexCart'
+
 export default {
   name: 'ShoppingCart',
-  computed: {
-
+  components: {
+    IndexCart
   }
 }
 
