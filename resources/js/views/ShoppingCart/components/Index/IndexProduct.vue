@@ -13,7 +13,9 @@
         </div>
         <div class="card-footer text-center">
           <a href="#" class="btn btn-primary">ver mas</a>
-          <a href="#" class="btn btn-primary">Comprar</a>
+          <button type="button" class="btn btn-primary" @click="addToCart(item)">
+            Comprar
+          </button>
         </div>
       </div>
     </div>
@@ -27,6 +29,8 @@
 
 <script>
 
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'IndexProduct',
   props: {
@@ -36,6 +40,12 @@ export default {
       default: function () {
         return []
       }
+    }
+  },
+  methods: {
+    ...mapMutations('cart', ['addProduct']),
+    addToCart: function (product) {
+      this.addProduct(product)
     }
   }
 }

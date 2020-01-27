@@ -21,7 +21,7 @@ Route::group([
     "prefix" => "v1",
     "namespace" => "API\Store"
 ], function () {
-    Route::apiResource('store', 'IndexController')->only('index', 'show');
+    Route::apiResource('store', 'IndexController')->except('update');
 });
 
 Route::group([
