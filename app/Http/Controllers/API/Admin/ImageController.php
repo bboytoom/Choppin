@@ -11,21 +11,21 @@ use App\Models\Configuration;
 
 class ImageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("authheader");
+    }
+
     public function updateImageConfiguration(ImageConfigurationRequest $request, $id)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $configuration = Configuration::find($id);
+        $configuration = Configuration::find($id);
 
-            if (!is_null($configuration) and !is_null($request->logo)) {
-                $name = date('YmdHis_').$request->name;
+        if (!is_null($configuration) and !is_null($request->logo)) {
+            $name = date('YmdHis_').$request->name;
 
-                $this->uploadImage($request, $id, $name);
-            } else {
-                abort(404);
-            }
-        }
-        else {
-            abort(401);
+            $this->uploadImage($request, $id, $name);
+        } else {
+            abort(404);
         }
     }
 

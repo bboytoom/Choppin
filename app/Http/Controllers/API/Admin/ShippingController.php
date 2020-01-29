@@ -11,22 +11,23 @@ use App\Models\Shipping;
 
 class ShippingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("authheader");
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $id)
+    public function index($id)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $shippings = Shipping::whereHas('user', function ($shippingsEstatus) {
-                $shippingsEstatus->where('status', 1); 
-            })->where('user_id', $id)->paginate(10);
+        $shippings = Shipping::whereHas('user', function ($shippingsEstatus) {
+            $shippingsEstatus->where('status', 1); 
+        })->where('user_id', $id)->paginate(10);
 
-            return new ShippingCollection($shippings);
-        } else {
-            abort(401);
-        }
+        return new ShippingCollection($shippings);
     }
 
     /**
@@ -37,12 +38,8 @@ class ShippingController extends Controller
      */
     public function store(ShippingRequest $request)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            Shipping::create($request->all());
-            return response(null, 201);
-        } else {
-            abort(401);
-        }
+        Shipping::create($request->all());
+        return response(null, 201);
     }
 
     /**
@@ -51,14 +48,10 @@ class ShippingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Shipping $shipping)
+    public function show(Shipping $shipping)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            ShippingResource::withoutWrapping();
-            return new ShippingResource($shipping);
-        } else {
-            abort(401);
-        }
+        ShippingResource::withoutWrapping();
+        return new ShippingResource($shipping);
     }
 
     /**
@@ -70,12 +63,8 @@ class ShippingController extends Controller
      */
     public function update(ShippingRequest $request, Shipping $shipping)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $shipping->update($request->all());
-            return response(null, 200);
-        } else {
-            abort(401);
-        }
+        $shipping->update($request->all());
+        return response(null, 200);
     }
 
     /**
@@ -84,13 +73,9 @@ class ShippingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Shipping $shipping)
+    public function destroy(Shipping $shipping)
     {   
-        if (config('app.key') == $request->header('x-api-key')) {
-            $shipping->delete();
-            return response(null, 204);
-        } else {
-            abort(401);
-        }
+        $shipping->delete();
+        return response(null, 204);
     }
 }

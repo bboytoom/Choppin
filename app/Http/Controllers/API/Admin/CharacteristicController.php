@@ -11,22 +11,23 @@ use App\Models\Characteristic;
 
 class CharacteristicController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("authheader");
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $id)
+    public function index($id)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $characteristics = Characteristic::whereHas('product', function ($characteristicsEstatus) {
-                $characteristicsEstatus->where('status', 1); 
-            })->where('product_id', $id)->paginate(10);
+        $characteristics = Characteristic::whereHas('product', function ($characteristicsEstatus) {
+            $characteristicsEstatus->where('status', 1); 
+        })->where('product_id', $id)->paginate(10);
 
-            return new CharacteristicCollection($characteristics);
-        } else {
-            abort(401);
-        }
+        return new CharacteristicCollection($characteristics);
     }
 
     /**
@@ -37,12 +38,8 @@ class CharacteristicController extends Controller
      */
     public function store(CharacteristicRequest $request)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            Characteristic::create($request->all());
-            return response(null, 201);
-        } else {
-            abort(401);
-        }
+        Characteristic::create($request->all());
+        return response(null, 201);
     }
 
     /**
@@ -51,14 +48,10 @@ class CharacteristicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Characteristic $characteristic)
+    public function show(Characteristic $characteristic)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            CharacteristicResource::withoutWrapping();
-            return new CharacteristicResource($characteristic);
-        } else {
-            abort(401);
-        }
+        CharacteristicResource::withoutWrapping();
+        return new CharacteristicResource($characteristic);
     }
 
     /**
@@ -70,12 +63,8 @@ class CharacteristicController extends Controller
      */
     public function update(CharacteristicRequest $request, Characteristic $characteristic)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $characteristic->update($request->all());
-            return response(null, 200);
-        } else {
-            abort(401);
-        }
+        $characteristic->update($request->all());
+        return response(null, 200);
     }
 
     /**
@@ -84,13 +73,9 @@ class CharacteristicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Characteristic $characteristic)
+    public function destroy(Characteristic $characteristic)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $characteristic->delete();
-            return response(null, 204);
-        } else {
-            abort(401);
-        }
+        $characteristic->delete();
+        return response(null, 204);
     }
 }

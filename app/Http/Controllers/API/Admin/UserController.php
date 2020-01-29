@@ -11,18 +11,19 @@ use App\User;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("authheader");
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            return new UserCollection(User::paginate(10));
-        } else {
-            abort(401);
-        }
+        return new UserCollection(User::paginate(10));
     }
 
     /**
@@ -33,12 +34,8 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            User::create($request->all());
-            return response(null, 201);
-        } else {
-            abort(401);
-        }
+        User::create($request->all());
+        return response(null, 201);
     }
 
     /**
@@ -47,14 +44,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, User $user)
+    public function show(User $user)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            UserResource::withoutWrapping();
-            return new UserResource($user);
-        } else {
-            abort(401);
-        }
+        UserResource::withoutWrapping();
+        return new UserResource($user);
     }
 
     /**
@@ -66,12 +59,8 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $user->update($request->all());
-            return response(null, 200);
-        } else {
-            abort(401);
-        }
+        $user->update($request->all());
+        return response(null, 200);
     }
 
     /**
@@ -80,13 +69,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, User $user)
+    public function destroy(User $user)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $user->delete();
-            return response(null, 204);
-        } else {
-            abort(401);
-        }
+        $user->delete();
+        return response(null, 204);
     }
 }

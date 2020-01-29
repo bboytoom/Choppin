@@ -11,22 +11,23 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("authheader");
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $products = Product::whereHas('subcategory', function ($productsEstatus) {
-                $productsEstatus->where('status', 1); 
-            })->paginate(10);
+        $products = Product::whereHas('subcategory', function ($productsEstatus) {
+            $productsEstatus->where('status', 1); 
+        })->paginate(10);
 
-            return new ProductCollection($products);
-        } else {
-            abort(401);
-        }
+        return new ProductCollection($products);
     }
 
     /**
@@ -37,12 +38,8 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        if (config('app.key') == $request->header('x-api-key')) { 
-            Product::create($request->all());
-            return response(null, 201);
-        } else {
-            abort(401);
-        }
+        Product::create($request->all());
+        return response(null, 201);
     }
 
     /**
@@ -51,14 +48,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Product $product)
+    public function show(Product $product)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            ProductResource::withoutWrapping();
-            return new ProductResource($product);
-        } else {
-            abort(401);
-        }
+        ProductResource::withoutWrapping();
+        return new ProductResource($product);
     }
 
     /**
@@ -70,12 +63,8 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $product->update($request->all());
-            return response(null, 200);
-        } else {
-            abort(401);
-        }
+        $product->update($request->all());
+        return response(null, 200);
     }
 
     /**
@@ -84,13 +73,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Product $product)
+    public function destroy(Product $product)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $product->delete();
-            return response(null, 204);
-        } else {
-            abort(401);
-        }
+        $product->delete();
+        return response(null, 204);
     }
 }

@@ -11,22 +11,23 @@ use App\Models\Gallery;
 
 class GalleyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("authheader");
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $gallery = Gallery::whereHas('category', function ($galleryEstatus) {
-                $galleryEstatus->where('status', 1); 
-            })->paginate(10);
+        $gallery = Gallery::whereHas('category', function ($galleryEstatus) {
+            $galleryEstatus->where('status', 1); 
+        })->paginate(10);
 
-            return new GalleryCollection($gallery);
-        } else {
-            abort(401);
-        }
+        return new GalleryCollection($gallery);
     }
 
     /**
@@ -37,12 +38,8 @@ class GalleyController extends Controller
      */
     public function store(GalleryRequest $request)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            Gallery::create($request->all());
-            return response(null, 201);
-        } else {
-            abort(401);
-        }
+        Gallery::create($request->all());
+        return response(null, 201);
     }
 
     /**
@@ -51,14 +48,10 @@ class GalleyController extends Controller
      * @param  \App\Models\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Gallery $gallery)
+    public function show(Gallery $gallery)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            GalleryResource::withoutWrapping();
-            return new GalleryResource($gallery);
-        } else {
-            abort(401);
-        }
+        GalleryResource::withoutWrapping();
+        return new GalleryResource($gallery);
     }
 
     /**
@@ -70,12 +63,8 @@ class GalleyController extends Controller
      */
     public function update(GalleryRequest $request, Gallery $gallery)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $gallery->update($request->all());
-            return response(null, 200);
-        } else {
-            abort(401);
-        }
+        $gallery->update($request->all());
+        return response(null, 200);
     }
 
     /**
@@ -84,13 +73,9 @@ class GalleyController extends Controller
      * @param  \App\Models\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Gallery $gallery)
+    public function destroy(Gallery $gallery)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $gallery->delete();
-            return response(null, 204);
-        } else {
-            abort(401);
-        }
+        $gallery->delete();
+        return response(null, 204);
     }
 }

@@ -12,22 +12,23 @@ use App\Models\PhotoGallery;
 
 class PhotoGalleryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("authheader");
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $id)
+    public function index($id)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $photosGallery = PhotoGallery::whereHas('gallery', function ($photosGalleryEstatus) {
-                $photosGalleryEstatus->where('status', 1);
-            })->where('gallery_id', $id)->paginate(10);
+        $photosGallery = PhotoGallery::whereHas('gallery', function ($photosGalleryEstatus) {
+            $photosGalleryEstatus->where('status', 1);
+        })->where('gallery_id', $id)->paginate(10);
 
-            return new PhotoGalleryCollection($photosGallery);
-        } else {
-            abort(401);
-        }
+        return new PhotoGalleryCollection($photosGallery);
     }
 
     /**
@@ -38,17 +39,13 @@ class PhotoGalleryController extends Controller
      */
     public function store(PhotoGalleryRequest $request)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $photosgallery = PhotoGallery::create($request->except(['type', 'base']));
+        $photosgallery = PhotoGallery::create($request->except(['type', 'base']));
 
-            if (!is_null($request->base)) {
-                event(new PhotoGalleryUpdate($photosgallery->id, $photosgallery->image, $request->base, $request->type));
-            }
-
-            return response(null, 201);
-        } else {
-            abort(401);
+        if (!is_null($request->base)) {
+            event(new PhotoGalleryUpdate($photosgallery->id, $photosgallery->image, $request->base, $request->type));
         }
+
+        return response(null, 201);
     }
 
     /**
@@ -57,14 +54,10 @@ class PhotoGalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, PhotoGallery $photosgallery)
+    public function show(PhotoGallery $photosgallery)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            PhotoGalleryResource::withoutWrapping();
-            return new PhotoGalleryResource($photosgallery);
-        } else {
-            abort(401);
-        }
+        PhotoGalleryResource::withoutWrapping();
+        return new PhotoGalleryResource($photosgallery);
     }
 
     /**
@@ -76,17 +69,13 @@ class PhotoGalleryController extends Controller
      */
     public function update(PhotoGalleryRequest $request, PhotoGallery $photosgallery)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $photosgallery->update($request->except(['type', 'base']));
+        $photosgallery->update($request->except(['type', 'base']));
 
-            if (!is_null($request->base)) {
-                event(new PhotoGalleryUpdate($photosgallery->id, $photosgallery->image, $request->base, $request->type));
-            }
-
-            return response(null, 200);
-        } else {
-            abort(401);
+        if (!is_null($request->base)) {
+            event(new PhotoGalleryUpdate($photosgallery->id, $photosgallery->image, $request->base, $request->type));
         }
+
+        return response(null, 200);
     }
 
     /**
@@ -95,13 +84,9 @@ class PhotoGalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, PhotoGallery $photosgallery)
+    public function destroy(PhotoGallery $photosgallery)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $photosgallery->delete();
-            return response(null, 204);
-        } else {
-            abort(401);
-        }
+        $photosgallery->delete();
+        return response(null, 204);
     }
 }

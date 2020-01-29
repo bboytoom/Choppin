@@ -11,18 +11,19 @@ use App\Models\Configuration;
 
 class ConfigurationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("authheader");
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            return new ConfigurationCollection(Configuration::paginate(10));
-        } else {
-            abort(401);
-        }
+        return new ConfigurationCollection(Configuration::paginate(10));
     }
 
     /**
@@ -33,12 +34,8 @@ class ConfigurationController extends Controller
      */
     public function store(ConfigurationRequest $request)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            Configuration::create($request->all());
-            return response(null, 201);
-        } else {
-            abort(401);
-        }
+        Configuration::create($request->all());
+        return response(null, 201);
     }
 
     /**
@@ -47,14 +44,10 @@ class ConfigurationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Configuration $configuration)
+    public function show(Configuration $configuration)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            ConfigurationResource::withoutWrapping();
-            return new ConfigurationResource($configuration);
-        } else {
-            abort(401);
-        }
+        ConfigurationResource::withoutWrapping();
+        return new ConfigurationResource($configuration);
     }
 
     /**
@@ -66,12 +59,8 @@ class ConfigurationController extends Controller
      */
     public function update(ConfigurationRequest $request, Configuration $configuration)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $configuration->update($request->all());
-            return response(null, 200);
-        } else {
-            abort(401);
-        }
+        $configuration->update($request->all());
+        return response(null, 200);
     }
 
     /**
@@ -80,13 +69,9 @@ class ConfigurationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Configuration $configuration)
+    public function destroy(Configuration $configuration)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $configuration->delete();
-            return response(null, 204);
-        } else {
-            abort(401);
-        }
+        $configuration->delete();
+        return response(null, 204);
     }
 }

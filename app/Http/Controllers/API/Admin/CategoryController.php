@@ -11,18 +11,19 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("authheader");
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            return new CategoryCollection(Category::paginate(10));
-        } else {
-            abort(401);
-        }
+        return new CategoryCollection(Category::paginate(10));
     }
 
     /**
@@ -33,12 +34,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            Category::create($request->all());
-            return response(null, 201);
-        } else {
-            abort(401);
-        }
+        Category::create($request->all());
     }
 
     /**
@@ -47,14 +43,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Category $category)
+    public function show(Category $category)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            CategoryResource::withoutWrapping();
-            return new CategoryResource($category);
-        } else {
-            abort(401);
-        }
+        CategoryResource::withoutWrapping();
+        return new CategoryResource($category);
     }
 
     /**
@@ -66,12 +58,8 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $category->update($request->all());
-            return response(null, 200);
-        } else {
-            abort(401);
-        }
+        $category->update($request->all());
+        return response(null, 200);
     }
 
     /**
@@ -80,13 +68,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Category $category)
+    public function destroy(Category $category)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $category->delete();
-            return response(null, 204);
-        } else {
-            abort(401);
-        }
+        $category->delete();
+        return response(null, 204);
     }
 }

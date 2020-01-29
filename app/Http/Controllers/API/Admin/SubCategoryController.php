@@ -11,22 +11,23 @@ use App\Models\SubCategory;
 
 class SubCategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("authheader");
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $subCategories = SubCategory::whereHas('category', function ($subCategoriesEstatus) {
-                $subCategoriesEstatus->where('status', 1); 
-            })->paginate(10);
+        $subCategories = SubCategory::whereHas('category', function ($subCategoriesEstatus) {
+            $subCategoriesEstatus->where('status', 1); 
+        })->paginate(10);
 
-            return new SubCategoryCollection($subCategories);
-        } else {
-            abort(401);
-        }
+        return new SubCategoryCollection($subCategories);
     }
 
     /**
@@ -37,12 +38,8 @@ class SubCategoryController extends Controller
      */
     public function store(SubCategoryRequest $request)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            SubCategory::create($request->all());
-            return response(null, 201);
-        } else {
-            abort(401);
-        }
+        SubCategory::create($request->all());
+        return response(null, 201);
     }
 
     /**
@@ -51,14 +48,10 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, SubCategory $subcategory)
+    public function show(SubCategory $subcategory)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            SubCategoryResource::withoutWrapping();
-            return new SubCategoryResource($subcategory);
-        } else {
-            abort(401);
-        }
+        SubCategoryResource::withoutWrapping();
+        return new SubCategoryResource($subcategory);
     }
 
     /**
@@ -70,12 +63,8 @@ class SubCategoryController extends Controller
      */
     public function update(SubCategoryRequest $request, SubCategory $subcategory)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $subcategory->update($request->all());
-            return response(null, 200);
-        } else {
-            abort(401);
-        }
+        $subcategory->update($request->all());
+        return response(null, 200);
     }
 
     /**
@@ -84,13 +73,9 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, SubCategory $subcategory)
+    public function destroy(SubCategory $subcategory)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $subcategory->delete();
-            return response(null, 204);
-        } else {
-            abort(401);
-        }
+        $subcategory->delete();
+        return response(null, 204);
     }
 }

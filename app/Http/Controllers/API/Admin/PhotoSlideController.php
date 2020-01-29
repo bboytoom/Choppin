@@ -12,22 +12,23 @@ use App\Models\PhotoSlide;
 
 class PhotoSlideController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("authheader");
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $id)
+    public function index($id)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $photosSlide = PhotoSlide::whereHas('configuration', function ($photosSlideEstatus) {
-                $photosSlideEstatus->where('status', 1);
-            })->paginate(5);
+        $photosSlide = PhotoSlide::whereHas('configuration', function ($photosSlideEstatus) {
+            $photosSlideEstatus->where('status', 1);
+        })->paginate(5);
 
-            return new PhotoSlideCollection($photosSlide);
-        } else {
-            abort(401);
-        }
+        return new PhotoSlideCollection($photosSlide);
     }
 
     /**
@@ -38,17 +39,13 @@ class PhotoSlideController extends Controller
      */
     public function store(PhotoSlideRequest $request)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $photoslide = PhotoSlide::create($request->except(['type', 'base']));
+        $photoslide = PhotoSlide::create($request->except(['type', 'base']));
 
-            if (!is_null($request->base)) {
-                event(new PhotoSlideUpdate($photoslide->id, $photoslide->image, $request->base, $request->type));
-            }
-
-            return response(null, 201);
-        } else {
-            abort(401);
+        if (!is_null($request->base)) {
+            event(new PhotoSlideUpdate($photoslide->id, $photoslide->image, $request->base, $request->type));
         }
+
+        return response(null, 201);
     }
 
     /**
@@ -57,14 +54,10 @@ class PhotoSlideController extends Controller
      * @param  \App\Models\PhotoSlide  $photoSlide
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, PhotoSlide $photoslide)
+    public function show(PhotoSlide $photoslide)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            PhotoSlideResource::withoutWrapping();
-            return new PhotoSlideResource($photoslide);
-        } else {
-            abort(401);
-        }
+        PhotoSlideResource::withoutWrapping();
+        return new PhotoSlideResource($photoslide);
     }
 
     /**
@@ -76,17 +69,13 @@ class PhotoSlideController extends Controller
      */
     public function update(PhotoSlideRequest $request, PhotoSlide $photoslide)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $photoslide->update($request->except(['type', 'base']));
+        $photoslide->update($request->except(['type', 'base']));
     
-            if (!is_null($request->base)) {
-                event(new PhotoSlideUpdate($photoslide->id, $photoslide->image, $request->base, $request->type));
-            }
-
-            return response(null, 200);
-        } else {
-            abort(401);
+        if (!is_null($request->base)) {
+            event(new PhotoSlideUpdate($photoslide->id, $photoslide->image, $request->base, $request->type));
         }
+
+        return response(null, 200);
     }
 
     /**
@@ -95,13 +84,9 @@ class PhotoSlideController extends Controller
      * @param  \App\Models\PhotoSlide  $photoSlide
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, PhotoSlide $photoslide)
+    public function destroy(PhotoSlide $photoslide)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $photoslide->delete();
-            return response(null, 204);
-        } else {
-            abort(401);
-        }
+        $photoslide->delete();
+        return response(null, 204);
     }
 }

@@ -10,29 +10,26 @@ use App\User;
 
 class UserPasswordController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("authheader");
+    }
+
     public function updateAdmin(PasswordRequest $request, $id)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            Admin::where('id', $id)->update([
-                'password' => \Hash::make($request->get('password')) 
-            ]);
+        Admin::where('id', $id)->update([
+            'password' => \Hash::make($request->get('password')) 
+        ]);
 
-            return response(null, 200);
-        } else {
-            abort(401);
-        }
+        return response(null, 200);
     }
 
     public function updateUser(PasswordRequest $request, $id)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            User::where('id', $id)->update([
-                'password' => \Hash::make($request->get('password')) 
-            ]);
+        User::where('id', $id)->update([
+            'password' => \Hash::make($request->get('password')) 
+        ]);
 
-            return response(null, 200);
-        } else {
-            abort(401);
-        }
+        return response(null, 200);
     }
 }
