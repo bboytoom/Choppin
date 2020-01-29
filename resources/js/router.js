@@ -19,6 +19,11 @@ export default new VueRouter({
       path: '/carrito',
       name: 'shopping',
       component: () => import('./views/ShoppingCart/Cart.vue')
+    },
+    {
+      path: '/login',
+      name: 'authuser',
+      component: () => import('./views/ShoppingCart/AuthUser')
     }
   ]
 })

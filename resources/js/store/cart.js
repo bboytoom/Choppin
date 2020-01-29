@@ -19,15 +19,6 @@ const getters = {
   }
 }
 
-const actions = {
-  inaertInShoppingCart: async function () {
-
-  },
-  deleteInShoppingCart: async function () {
-
-  }
-}
-
 const mutations = {
   addProduct: function (state, product) {
     const productInCart = find(state.cart, { id: product.id })
@@ -50,6 +41,5 @@ export default {
   namespaced: true,
   state,
   getters,
-  actions,
   mutations
 }

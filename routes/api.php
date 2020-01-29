@@ -21,7 +21,8 @@ Route::group([
     "prefix" => "v1",
     "namespace" => "API\Store"
 ], function () {
-    Route::apiResource('store', 'IndexController')->except('update');
+    Route::apiResource('store', 'IndexController')->except('update', 'destroy');
+    Route::post('checkauthuser', 'AuthUserController@logIn');
 });
 
 Route::group([

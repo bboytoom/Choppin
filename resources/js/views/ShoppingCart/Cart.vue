@@ -47,6 +47,10 @@
 
         <div class="alert alert-primary text-right" role="alert">
           total: {{ totalCost }}
+
+          <button type="button" class="btn btn-dark">
+            Comprar
+          </button>
         </div>
       </div>
 

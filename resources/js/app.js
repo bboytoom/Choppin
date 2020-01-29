@@ -28,6 +28,7 @@ Vue.component('shipping-component', require('./views/Administrator/Shippings.vue
 Vue.component('subcategory-component', require('./views/Administrator/SubCategories.vue').default)
 Vue.component('user-component', require('./views/Administrator/Users.vue').default)
 
+Vue.component('admin-component', require('./views/Admin/Admin.vue').default)
 Vue.component('store-component', require('./views/ShoppingCart/ShoppingCart.vue').default)
 
 const vm = new Vue({

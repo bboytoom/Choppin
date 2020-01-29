@@ -22,6 +22,11 @@
                 Contacto
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link :to="{ name: 'authuser' }" class="nav-link">
+                login
+              </router-link>
+            </li>
           </ul>
         </div>
       </div>

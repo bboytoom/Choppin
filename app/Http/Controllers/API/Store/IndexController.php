@@ -68,19 +68,4 @@ class IndexController extends Controller
             abort(401);
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request, $identity, $product_id)
-    {
-        if (config('app.key') == $request->header('x-api-key')) {
-            return response(null, 204);
-        } else {
-            abort(401);
-        }
-    }
 }
