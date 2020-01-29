@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Configuration;
 
 class StoreController extends Controller
 {
@@ -15,10 +14,6 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $configuracion = Configuration::where('status', 1)->first();
-
-        return view('store', [
-            'sitio' => $configuracion['name']
-        ]);
+        return view('store');
     }
 }

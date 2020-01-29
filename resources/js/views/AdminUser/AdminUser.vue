@@ -1,13 +1,13 @@
 <template>
-  <div id="admin">
-    admin
+  <div id="adminuser">
+    Administracion de usuario
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'Admin'
+  name: 'AdminUser'
 }
 
 </script>

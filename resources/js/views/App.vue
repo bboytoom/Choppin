@@ -1,13 +1,13 @@
 <template>
-  <div id="shoppingcart">
-    parte publica
+  <div id="app">
+    app
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'ShoppingCart'
+  name: 'App'
 }
 
 </script>
