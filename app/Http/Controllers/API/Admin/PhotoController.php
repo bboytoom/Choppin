@@ -12,11 +12,6 @@ use App\Models\Photo;
 
 class PhotoController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware("authheader");
-    }
-
     /**
      * Display a listing of the resource.
      *

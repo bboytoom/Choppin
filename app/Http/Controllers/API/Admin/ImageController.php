@@ -11,11 +11,6 @@ use App\Models\Configuration;
 
 class ImageController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware("authheader");
-    }
-
     public function updateImageConfiguration(ImageConfigurationRequest $request, $id)
     {
         $configuration = Configuration::find($id);

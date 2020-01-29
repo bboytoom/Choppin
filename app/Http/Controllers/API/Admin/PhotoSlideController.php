@@ -12,11 +12,6 @@ use App\Models\PhotoSlide;
 
 class PhotoSlideController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware("authheader");
-    }
-
     /**
      * Display a listing of the resource.
      *

@@ -11,11 +11,6 @@ use App\Models\SubCategory;
 
 class SubCategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware("authheader");
-    }
-
     /**
      * Display a listing of the resource.
      *

@@ -5,18 +5,18 @@ namespace App\Http\Controllers\API\Store;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\User;
+use App\Admin;
 use Auth;
 
-class AuthUserController extends Controller
+class AuthAdminController extends Controller
 {
     public function logIn(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $admin = Admin::where('email', $request->email)->first();
 
-        if ($user) {
-            if (Hash::check($request->password, $user->password)) {
-                $token = $user->createToken('soy usuarios')->accessToken;
+        if($admin) {
+            if (Hash::check($request->password, $admin->password)) {
+                $token = $admin->createToken('soy administrador')->accessToken;
                 return response()->json([
                     'token' => $token
                 ], 200);

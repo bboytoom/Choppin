@@ -10,11 +10,6 @@ use App\User;
 
 class UserPasswordController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware("authheader");
-    }
-
     public function updateAdmin(PasswordRequest $request, $id)
     {
         Admin::where('id', $id)->update([

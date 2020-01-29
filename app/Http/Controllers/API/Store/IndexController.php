@@ -13,7 +13,7 @@ class IndexController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("shoppingcart")->only('store');
+        $this->middleware('shoppingcart')->only('store');
     }
 
     /**
@@ -21,14 +21,10 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $products = Product::all()->where('status', 1)->random(6);
-            return new IndexCollection($products);
-        } else {
-            abort(401);
-        }
+        $products = Product::all()->where('status', 1)->random(6);
+        return new IndexCollection($products);
     }
 
     /**
@@ -39,18 +35,14 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            $shoppingcart = $request->shopping_cart;
+        $shoppingcart = $request->shopping_cart;
             
-            InShoppingCart::create([
-                'shopping_cart_id' => $shoppingcart->id,
-                'product_id' => $request->product_id
-            ]);
+        InShoppingCart::create([
+            'shopping_cart_id' => $shoppingcart->id,
+            'product_id' => $request->product_id
+        ]);
 
-            return response(null, 200);
-        } else {
-            abort(401);
-        }
+        return response(null, 200);
     }
 
     /**
@@ -59,13 +51,9 @@ class IndexController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Product $store)
+    public function show(Product $store)
     {
-        if (config('app.key') == $request->header('x-api-key')) {
-            StoreProductResource::withoutWrapping();
-            return new StoreProductResource($store);
-        } else {
-            abort(401);
-        }
+        StoreProductResource::withoutWrapping();
+        return new StoreProductResource($store);
     }
 }

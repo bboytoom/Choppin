@@ -11,11 +11,6 @@ use App\Models\Gallery;
 
 class GalleyController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware("authheader");
-    }
-
     /**
      * Display a listing of the resource.
      *

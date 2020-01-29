@@ -13,21 +13,28 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::group([
-    "prefix" => "v1",
-    "namespace" => "API\Store"
+    'prefix' => 'v1',
+    'namespace' => 'API\Store',
+    'middleware' => ['authheader']
 ], function () {
     Route::apiResource('store', 'IndexController')->except('update', 'destroy');
     Route::post('checkauthuser', 'AuthUserController@logIn');
+    Route::post('checkauthadmin', 'AuthAdminController@logIn');
 });
 
 Route::group([
-    "prefix" => "v1",
-    "namespace" => "API\Admin"
+    'prefix' => 'v1',
+    'namespace' => 'API\User',
+    'middleware' => ['authheader']
+], function () {
+    Route::apiResource('user', 'AdminController')->only('index');
+});
+
+Route::group([
+    'prefix' => 'v1',
+    'namespace' => 'API\Admin',
+    'middleware' => ['authheader']
 ], function () {
     Route::apiResources([
         'admins' => 'AdminController',

@@ -11,11 +11,6 @@ use App\Models\Configuration;
 
 class ConfigurationController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware("authheader");
-    }
-
     /**
      * Display a listing of the resource.
      *
