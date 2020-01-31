@@ -30,6 +30,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         Category::create($request->all());
+        return response(null, 201);
     }
 
     /**

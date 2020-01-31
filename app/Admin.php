@@ -5,11 +5,10 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
 
 class Admin extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use Notifiable;
 
     protected $guard = 'admin';
 
@@ -32,6 +31,8 @@ class Admin extends Authenticatable
         'father_surname',
         'mother_surname',
         'status',
+        'created_at',
+        'updated_at'
     ];
 
     /**
