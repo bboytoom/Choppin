@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\User;
 
+/**
+ * @testdox Accion eliminar en el modulo de usuario
+ */
 class UsersTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_user_delete()
     {
         $seed = InitSeed::getInstance()->getSeed();

@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Admin;
 
+/**
+ * @testdox Accion eliminar en el modulo de administracion
+ */
 class AdminsDeleteTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_admin_delete()
     {
         $seed = InitSeed::getInstance()->getSeed();

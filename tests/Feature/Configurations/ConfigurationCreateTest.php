@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Configuration;
 
+/**
+ * @testdox Accion crear en el modulo de configuracion
+ */
 class ConfigurationCreateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_configuration_create()
     {
         $faker = \Faker\Factory::create();
@@ -30,6 +36,9 @@ class ConfigurationCreateTest extends TestCase
         $response->assertStatus(201);
     }
 
+    /**
+     * @testdox nombre similar de la configuracion
+     */
     public function test_configuration_same_create()
     {
         $faker = \Faker\Factory::create();
@@ -50,6 +59,9 @@ class ConfigurationCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox sobrepasa el el numero de caracteres requeridos
+     */
     public function test_configuration_max_field_create()
     {
         $faker = \Faker\Factory::create();
@@ -68,6 +80,9 @@ class ConfigurationCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox no cuenta con el minimo de caracteres reueridos
+     */
     public function test_configuration_min_field_create()
     {
         $data = [
@@ -84,6 +99,9 @@ class ConfigurationCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox Los parametros no se encuentras
+     */
     public function test_configuration_empy_create()
     {
         $data = [];

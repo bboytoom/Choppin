@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Category;
 
+/**
+ * @testdox Accion actualizar en el modulo de categorias
+ */
 class CategoryUpdateTest extends TestCase 
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_category_update()
     {
         $faker = \Faker\Factory::create();
@@ -29,6 +35,9 @@ class CategoryUpdateTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @testdox Nombre similar de la categoria
+     */
     public function test_category_same_update()
     {
         $faker = \Faker\Factory::create();

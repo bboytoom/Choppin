@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Gallery;
 
+/**
+ * @testdox Accion actualizar en el modulo de galeria de la categoria
+ */
 class GalleryUpdateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_gallery_update()
     {
         $faker = \Faker\Factory::create();
@@ -29,6 +35,9 @@ class GalleryUpdateTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @testdox nombre de la galeria similar
+     */
     public function test_gallery_same_update()
     {
         $faker = \Faker\Factory::create();
@@ -46,6 +55,9 @@ class GalleryUpdateTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @testdox no existe la categoria 
+     */
     public function test_gallery_category_no_exist_update()
     {
         $faker = \Faker\Factory::create();

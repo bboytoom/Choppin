@@ -48,9 +48,7 @@ npm run dev
 
 ### Pruebas funcionales
 
-```
-vendor/bin/phpunit
-```
+[Ejecutando pruebas](https://github.com/bboytoom/Ecommerce/wiki/Ejecutando-pruebas)
 
 ### Pruebas de sintaxis en componentes Vue
 

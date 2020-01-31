@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\User;
 
+/**
+ * @testdox Accion crear en el modulo de usuarios
+ */
 class UsersCreateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_user_create()
     {
         $faker = \Faker\Factory::create();
@@ -28,6 +34,9 @@ class UsersCreateTest extends TestCase
         $response->assertStatus(201);
     }
 
+    /**
+     * @testdox el correo del usuario es similar
+     */
     public function test_user_same_create()
     {
         $seed = InitSeed::getInstance()->getSeed();
@@ -44,6 +53,9 @@ class UsersCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox el envio de la categoria esta vacio
+     */
     public function test_user_empty_create()
     {
         $data = [];
@@ -52,6 +64,9 @@ class UsersCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox sobrepasa los caracteres requeridos
+     */
     public function test_user_max_field_create()
     {
         $faker = \Faker\Factory::create();
@@ -67,6 +82,9 @@ class UsersCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox no cuenta con el minimo de caracteres requeridos
+     */
     public function test_user_min_field_create()
     {
         $faker = \Faker\Factory::create();
@@ -82,6 +100,9 @@ class UsersCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox el correo fallo
+     */
     public function test_user_email_faild_create()
     {
         $faker = \Faker\Factory::create();

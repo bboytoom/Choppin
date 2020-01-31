@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Shipping;
 
+/**
+ * @testdox Accion actualizar en el modulo de envios
+ */
 class ShippingUpdateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_shipping_update()
     {
         $faker = \Faker\Factory::create();
@@ -35,6 +41,9 @@ class ShippingUpdateTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @testdox no existe el usuarios
+     */
     public function test_shipping_user_no_exist_update()
     {
         $faker = \Faker\Factory::create();

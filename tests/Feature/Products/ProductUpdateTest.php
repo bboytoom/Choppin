@@ -9,10 +9,16 @@ use Illuminate\Support\Str;
 use Tests\TestCase;
 use App\Models\Product;
 
+/**
+ * @testdox Accion actualizar en el modulo de producto
+ */
 class ProductUpdateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_product_update()
     {
         $faker = \Faker\Factory::create();
@@ -32,6 +38,9 @@ class ProductUpdateTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @testdox nombre del producto similar
+     */
     public function test_product_same_update()
     {
         $faker = \Faker\Factory::create();
@@ -51,6 +60,9 @@ class ProductUpdateTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @testdox no existe la subcategoria 
+     */
     public function test_product_subcategory_no_exist_update()
     {
         $faker = \Faker\Factory::create();

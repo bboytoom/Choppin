@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\SubCategory;
 
+/**
+ * @testdox Accion actualizar en el modulo de subcategoria
+ */
 class SubCategoryUpdateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_subcategory_update()
     {
         $faker = \Faker\Factory::create();
@@ -29,6 +35,9 @@ class SubCategoryUpdateTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @testdox nombre de la subcategoria similar
+     */
     public function test_subcategory_same_update()
     {
         $faker = \Faker\Factory::create();
@@ -46,6 +55,9 @@ class SubCategoryUpdateTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @testdox no existe la categoria 
+     */
     public function test_subcategory_category_no_exist_update()
     {
         $faker = \Faker\Factory::create();

@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Category;
 
+/**
+ * @testdox Accion eliminar en el modulo de categorias
+ */
 class CategoryDeleteTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_category_delete()
     {
         $seed = InitSeed::getInstance()->getSeed();

@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\SubCategory;
 
+/**
+ * @testdox Accion actualizar en el modulo de subcateria
+ */
 class SubCategoryCreateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_subcategory_create()
     {
         $faker = \Faker\Factory::create();
@@ -29,6 +35,9 @@ class SubCategoryCreateTest extends TestCase
         $response->assertStatus(201);
     }
 
+    /**
+     * @testdox nombre de la subcategoria similar
+     */
     public function test_subcategory_same_create()
     {
         $faker = \Faker\Factory::create();
@@ -46,6 +55,9 @@ class SubCategoryCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox no existe la categoria 
+     */
     public function test_subcategory_category_no_exist_create()
     {
         $faker = \Faker\Factory::create();
@@ -61,6 +73,9 @@ class SubCategoryCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox sobrepasa los caracteres requeridos
+     */
     public function test_subcategory_max_field_create()
     {
         $faker = \Faker\Factory::create();
@@ -78,6 +93,9 @@ class SubCategoryCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox no cuenta con el minimo de caracteres requeridos
+     */
     public function test_subcategory_min_field_create()
     {
         $seed = InitSeed::getInstance()->getSeed();

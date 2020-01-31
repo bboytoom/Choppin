@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Admin;
 
+/**
+ * @testdox Accion crear en el modulo de administracion
+ */
 class AdminsCreateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_admin_create()
     {
         $faker = \Faker\Factory::create();
@@ -28,6 +34,9 @@ class AdminsCreateTest extends TestCase
         $response->assertStatus(201);
     }
 
+    /**
+     * @testdox El correo de usuario se repite
+     */
     public function test_admin_same_create()
     {
         $seed = InitSeed::getInstance()->getSeed();
@@ -45,6 +54,9 @@ class AdminsCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox Los parametros se ecuentran vacio
+     */
     public function test_admin_empty_create()
     {
         $data = [];
@@ -53,6 +65,9 @@ class AdminsCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox Sobrepasa el tamaño del campo 
+     */
     public function test_admin_max_field_create()
     {
         $faker = \Faker\Factory::create();
@@ -68,6 +83,9 @@ class AdminsCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox Minimo de caracteres requeridos
+     */
     public function test_admin_min_field_create()
     {
         $faker = \Faker\Factory::create();
@@ -76,21 +94,6 @@ class AdminsCreateTest extends TestCase
            'name' => 'sd',
            'father_surname' => 'sd',
            'email' => $faker->unique()->safeEmail,
-           'status' => 1
-        ];
-
-        $response = $this->json('POST', $this->baseUrl . 'admins', $data);
-        $response->assertStatus(422);
-    }
-
-    public function test_admin_email_faild_create()
-    {
-        $faker = \Faker\Factory::create();
-
-        $data = [
-           'name' => $faker->name,
-           'father_surname' => $faker->lastName,
-           'email' => $faker->safeEmailDomain,
            'status' => 1
         ];
 

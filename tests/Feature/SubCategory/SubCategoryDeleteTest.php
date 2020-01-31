@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\SubCategory;
 
+/**
+ * @testdox Accion eliminar en el modulo de subcategoria
+ */
 class SubCategoryDeleteTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_subcategory_delete()
     {
         $seed = InitSeed::getInstance()->getSeed();

@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Category;
 
+/**
+ * @testdox Accion crear en el modulo de categorias
+ */
 class CategoryCreateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_category_create()
     {
         $faker = \Faker\Factory::create();
@@ -26,6 +32,9 @@ class CategoryCreateTest extends TestCase
         $response->assertStatus(201);
     }
 
+    /**
+     * @testdox Nombre de la categoria similar
+     */
     public function test_category_same_create()
     {
         $faker = \Faker\Factory::create();
@@ -42,6 +51,9 @@ class CategoryCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox Sobrepasa el tamaño reuerido
+     */
     public function test_category_max_field_create()
     {
         $faker = \Faker\Factory::create();
@@ -56,6 +68,9 @@ class CategoryCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox No cuenta con el minimo de caracteres minimos
+     */
     public function test_category_min_field_create()
     {
         $seed = InitSeed::getInstance()->getSeed();
@@ -70,6 +85,9 @@ class CategoryCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox Parametros vacios
+     */
     public function test_category_empty_create()
     {
         $data = [];

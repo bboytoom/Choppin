@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Photo;
 
+/**
+ * @testdox Accion eliminar en el modulo de imagenes del producto
+ */
 class PhotoDeleteTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_photo_delete()
     {
         $seed = InitSeed::getInstance()->getSeed();

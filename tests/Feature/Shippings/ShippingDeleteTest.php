@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Shipping;
 
+/**
+ * @testdox Accion eliminar en el modulo de envios
+ */
 class ShippingDeleteTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_shipping_delete()
     {
         $seed = InitSeed::getInstance()->getSeed();

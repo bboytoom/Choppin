@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Configuration;
 
+/**
+ * @testdox Accion actualizar en el modulo de configuracion
+ */
 class ConfigurationUpdateTest extends TestCase
 { 
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_configuration_update()
     {
         $faker = \Faker\Factory::create();
@@ -33,6 +39,9 @@ class ConfigurationUpdateTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @testdox El nombre del dominio es similar
+     */
     public function test_configuration_same_update()
     {
         $faker = \Faker\Factory::create();

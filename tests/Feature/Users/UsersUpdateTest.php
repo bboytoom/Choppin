@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\User;
 
+/**
+ * @testdox Accion actualizar en el modulo de usuario
+ */
 class UsersUpdateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_user_update()
     {
         $faker = \Faker\Factory::create();
@@ -30,7 +36,10 @@ class UsersUpdateTest extends TestCase
         $response = $this->json('PUT', $this->baseUrl . "users/{$user->id}", $update);
         $response->assertStatus(200);
     }
-
+    
+    /**
+     * @testdox nombre del usuario es similar
+     */
     public function test_user_email_same_update()
     {
         $seed = InitSeed::getInstance()->getSeed();

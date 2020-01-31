@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Shipping;
 
+/**
+ * @testdox Accion crear en el modulo de envios
+ */
 class ShippingCreateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_shipping_create()
     {
         $faker = \Faker\Factory::create();
@@ -35,6 +41,9 @@ class ShippingCreateTest extends TestCase
         $response->assertStatus(201);
     }
 
+    /**
+     * @testdox sobrepasa los caracteres requeridos
+     */
     public function test_shipping_max_field_create()
     {
         $faker = \Faker\Factory::create();
@@ -58,6 +67,9 @@ class ShippingCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox no cuenta con el minimo de caracteres requeridos
+     */
     public function test_shipping_min_field_create()
     {
         $faker = \Faker\Factory::create();
@@ -81,6 +93,9 @@ class ShippingCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox no existe el usuario 
+     */
     public function test_shipping_user_no_exist_create()
     {
         $faker = \Faker\Factory::create();

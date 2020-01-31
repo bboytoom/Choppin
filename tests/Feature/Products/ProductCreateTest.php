@@ -9,10 +9,16 @@ use Illuminate\Support\Str;
 use Tests\TestCase;
 use App\Models\Product;
 
+/**
+ * @testdox Accion crear en el modulo de productos
+ */
 class ProductCreateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_product_create()
     {
         $faker = \Faker\Factory::create();
@@ -32,6 +38,9 @@ class ProductCreateTest extends TestCase
         $response->assertStatus(201);
     }
 
+    /**
+     * @testdox nombre del producto similar
+     */
     public function test_product_same_create()
     {
         $faker = \Faker\Factory::create();
@@ -51,6 +60,9 @@ class ProductCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox no existe la subcategora 
+     */
     public function test_product_subcategory_no_exist_create()
     {
         $faker = \Faker\Factory::create();
@@ -70,6 +82,9 @@ class ProductCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox el producto se encuentra vacio
+     */
     public function test_product_empty_create()
     {
         $seed = InitSeed::getInstance()->getSeed();
@@ -83,6 +98,9 @@ class ProductCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox no cuenta con el minimo de caracteres requeridos
+     */
     public function test_product_min_field_create()
     {
         $seed = InitSeed::getInstance()->getSeed();
@@ -101,6 +119,9 @@ class ProductCreateTest extends TestCase
         $response->assertStatus(422);
     }
 
+    /**
+     * @testdox sobrepasa los caracteres requeridos
+     */
     public function test_product_max_field_create()
     {
         $faker = \Faker\Factory::create();

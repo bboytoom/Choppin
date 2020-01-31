@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Configuration;
 
+/**
+ * @testdox Accion eliminar en el modulo de configuracion
+ */
 class ConfigurationDeleteTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_configuration_same_delete()
     {
         $seed = InitSeed::getInstance()->getSeed();

@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\PhotoSlide;
 
+/**
+ * @testdox Accion crear en el modulo de imagenes del slide
+ */
 class PhotoSlideDeleteTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_photo_gallery_delete() 
     {
         $seed = InitSeed::getInstance()->getSeed();

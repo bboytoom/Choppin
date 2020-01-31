@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Admin;
 
+/**
+ * @testdox Accion actualizar en el modulo de administracion
+ */
 class AdminsUpdateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_admin_update()
     {
         $faker = \Faker\Factory::create();
@@ -30,6 +36,9 @@ class AdminsUpdateTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @testdox Correo similar al actualizar
+     */
     public function test_admin_email_same_update()
     {
         $seed = InitSeed::getInstance()->getSeed();

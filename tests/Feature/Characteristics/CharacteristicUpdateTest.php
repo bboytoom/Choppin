@@ -8,10 +8,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Characteristic;
 
+/**
+ * @testdox Accion actualizar en el modulo de caracteristicas del producto
+ */
 class CharacteristicUpdateTest extends TestCase 
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Parametros optimos
+     */
     public function test_characteristic_update()
     {
         $faker = \Faker\Factory::create();
@@ -29,6 +35,9 @@ class CharacteristicUpdateTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @testdox el nombre de la caracteristica es similar
+     */
     public function test_characteristic_same_update()
     {
         $faker = \Faker\Factory::create();
@@ -46,6 +55,9 @@ class CharacteristicUpdateTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @testdox el id del producto no existe
+     */
     public function test_characteristic_product_no_exist_update()
     {
         $faker = \Faker\Factory::create();
