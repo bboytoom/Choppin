@@ -2,14 +2,15 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Gallery;
 
-class GalleryTest extends TestCase
+class GalleryDeleteTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithoutMiddleware;
 
     public function test_gallery_create()
     {
@@ -24,9 +25,7 @@ class GalleryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('POST', $this->baseUrl . 'galleries', $data);
+        $response = $this->json('POST', $this->baseUrl . 'galleries', $data);
         $response->assertStatus(201);
     }
 
@@ -43,9 +42,7 @@ class GalleryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('POST', $this->baseUrl . 'galleries', $data);
+        $response = $this->json('POST', $this->baseUrl . 'galleries', $data);
         $response->assertStatus(422);
     }
 
@@ -60,9 +57,7 @@ class GalleryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('POST', $this->baseUrl . 'galleries', $data);
+        $response = $this->json('POST', $this->baseUrl . 'galleries', $data);
         $response->assertStatus(422);
     }
 
@@ -79,9 +74,7 @@ class GalleryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('POST', $this->baseUrl . 'galleries', $data);
+        $response = $this->json('POST', $this->baseUrl . 'galleries', $data);
         $response->assertStatus(422);
     }
 
@@ -97,9 +90,7 @@ class GalleryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('POST', $this->baseUrl . 'galleries', $data);
+        $response = $this->json('POST', $this->baseUrl . 'galleries', $data);
         $response->assertStatus(422);
     }
 
@@ -116,9 +107,7 @@ class GalleryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('PUT', $this->baseUrl . "galleries/{$gallery['gallery_id']}", $update);
+        $response = $this->json('PUT', $this->baseUrl . "galleries/{$gallery['gallery_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -135,9 +124,7 @@ class GalleryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('PUT', $this->baseUrl . "galleries/{$gallery['gallery_id']}", $update);
+        $response = $this->json('PUT', $this->baseUrl . "galleries/{$gallery['gallery_id']}", $update);
         $response->assertStatus(200);
     }
 
@@ -154,9 +141,7 @@ class GalleryTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('PUT', $this->baseUrl . "galleries/{$gallery['gallery_id']}", $update);
+        $response = $this->json('PUT', $this->baseUrl . "galleries/{$gallery['gallery_id']}", $update);
         $response->assertStatus(422);
     }
 
@@ -165,9 +150,6 @@ class GalleryTest extends TestCase
         $seed = InitSeed::getInstance()->getSeed();
         $gallery = $seed->seed_gallery();
 
-        $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('DELETE', $this->baseUrl . "galleries/{$gallery['gallery_id']}")->assertStatus(204);
-        $this->assertNull(Gallery::find($gallery['gallery_id']));
+        $this->json('DELETE', $this->baseUrl . "galleries/{$gallery['gallery_id']}")->assertStatus(204);
     }
 }

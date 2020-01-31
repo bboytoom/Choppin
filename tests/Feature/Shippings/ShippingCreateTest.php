@@ -2,14 +2,15 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Shipping;
 
-class ShippingTest extends TestCase
+class ShippingCreateTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithoutMiddleware;
 
     public function test_shipping_create()
     {
@@ -30,9 +31,7 @@ class ShippingTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('POST', $this->baseUrl . 'shippings', $data);
+        $response = $this->json('POST', $this->baseUrl . 'shippings', $data);
         $response->assertStatus(201);
     }
 
@@ -55,9 +54,7 @@ class ShippingTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('POST', $this->baseUrl . 'shippings', $data);
+        $response = $this->json('POST', $this->baseUrl . 'shippings', $data);
         $response->assertStatus(422);
     }
 
@@ -80,9 +77,7 @@ class ShippingTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('POST', $this->baseUrl . 'shippings', $data);
+        $response = $this->json('POST', $this->baseUrl . 'shippings', $data);
         $response->assertStatus(422);
     }
 
@@ -103,70 +98,7 @@ class ShippingTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('POST', $this->baseUrl . 'shippings', $data);
+        $response = $this->json('POST', $this->baseUrl . 'shippings', $data);
         $response->assertStatus(422);
-    }
-
-    public function test_shipping_update()
-    {
-        $faker = \Faker\Factory::create();
-        $seed = InitSeed::getInstance()->getSeed();
-        $shipping = $seed->seed_shipping();
-
-        $update = [
-            'user_id' => $shipping['user_id'],
-            'street_one' => $faker->streetAddress,
-            'street_two' => $faker->streetAddress,
-            'addres' => $faker->address,
-            'suburb' => $faker->citySuffix,
-            'town' => $faker->city,
-            'state' => $faker->state,
-            'country' => 'mexico',
-            'postal_code' => $faker->numerify('0 ####'),
-            'status' => 1
-        ];
-
-        $response = $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('PUT', $this->baseUrl . "shippings/{$shipping['shipping_id']}", $update);
-        $response->assertStatus(200);
-    }
-
-    public function test_shipping_user_no_exist_update()
-    {
-        $faker = \Faker\Factory::create();
-        $seed = InitSeed::getInstance()->getSeed();
-        $shipping = $seed->seed_shipping();
-
-        $update = [
-            'user_id' => 0,
-            'street_one' => $faker->streetAddress,
-            'street_two' => $faker->streetAddress,
-            'addres' => $faker->address,
-            'suburb' => $faker->citySuffix,
-            'town' => $faker->city,
-            'state' => $faker->state,
-            'country' => 'mexico',
-            'postal_code' => $faker->numerify('0 ####'),
-            'status' => 1
-        ];
-
-        $response = $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('PUT', $this->baseUrl . "shippings/{$shipping['shipping_id']}", $update);
-        $response->assertStatus(422);
-    }
-
-    public function test_shipping_delete()
-    {
-        $seed = InitSeed::getInstance()->getSeed();
-        $shipping = $seed->seed_shipping();
-
-        $this->withHeaders([
-            'x-api-key' => config('app.key'),
-        ])->json('DELETE', $this->baseUrl . "shippings/{$shipping['shipping_id']}")->assertStatus(204);
-        $this->assertNull(Shipping::find($shipping['shipping_id']));
     }
 }
