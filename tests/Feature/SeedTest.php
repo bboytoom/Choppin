@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use App\Models\Configuration;
-use App\Admin;
 use App\User;
 use App\Models\Characteristic;
 use App\Models\Category;
@@ -24,7 +23,6 @@ class SeedTest
     
     private $initial_configuration;
     private $initial_user;
-    private $initial_admin;
     private $initial_category;
     private $initial_subcategory;
     private $initial_gallery;
@@ -213,22 +211,6 @@ class SeedTest
         ];
 
         return $this->initial_category;
-    }
-
-    public function seed_admin()
-    {
-        $faker = \Faker\Factory::create();
-        
-        $this->initial_admin = Admin::create([
-           'name' => $faker->name,
-           'mother_surname' => $faker->lastName,
-           'father_surname' => $faker->lastName,
-           'email' => $faker->unique()->safeEmail,
-           'password' => \Hash::make('@Admins2907'),
-           'status' => 1
-        ]);
-
-        return $this->initial_admin;
     }
 
     public function seed_shipping()

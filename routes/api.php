@@ -20,7 +20,6 @@ Route::group([
 ], function () {
     Route::apiResource('store', 'IndexController')->except('update', 'destroy');
     Route::post('checkauthuser', 'AuthUserController@logIn');
-    Route::post('checkauthadmin', 'AuthAdminController@logIn');
 });
 
 Route::group([
@@ -37,7 +36,6 @@ Route::group([
     'middleware' => ['authheader']
 ], function () {
     Route::apiResources([
-        'admins' => 'AdminController',
         'users' => 'UserController',
         'categories' => 'CategoryController',
         'subcategories' => 'SubCategoryController',

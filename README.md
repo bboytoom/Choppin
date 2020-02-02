@@ -29,6 +29,7 @@ php artisan key:generate
 vagrant up
 vagrant ssh
 php artisan storage:link
+php artisan jwt:secret
 ```
 
 3. En la variable **x-api-key** del archivo *axios.js* que se encuentra en el directorio resources/js/plugins ingresar la clave generada por el comando *php artisan key:generate*
@@ -46,7 +47,7 @@ npm run dev
 ## Ejecutando pruebas
 
 
-### Pruebas funcionales
+### Pruebas funcionales de php
 
 [Ejecutando pruebas](https://github.com/bboytoom/Ecommerce/wiki/Ejecutando-pruebas)
 
