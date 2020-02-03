@@ -12,11 +12,7 @@ use App\Models\PhotoGallery;
 
 class PhotoGalleryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index($id)
     {
         $photosGallery = PhotoGallery::whereHas('gallery', function ($photosGalleryEstatus) {
@@ -26,12 +22,6 @@ class PhotoGalleryController extends Controller
         return new PhotoGalleryCollection($photosGallery);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(PhotoGalleryRequest $request)
     {
         $photosgallery = PhotoGallery::create($request->except(['type', 'base']));
@@ -43,25 +33,12 @@ class PhotoGalleryController extends Controller
         return response(null, 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(PhotoGallery $photosgallery)
     {
         PhotoGalleryResource::withoutWrapping();
         return new PhotoGalleryResource($photosgallery);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(PhotoGalleryRequest $request, PhotoGallery $photosgallery)
     {
         $photosgallery->update($request->except(['type', 'base']));
@@ -73,12 +50,6 @@ class PhotoGalleryController extends Controller
         return response(null, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(PhotoGallery $photosgallery)
     {
         $photosgallery->delete();

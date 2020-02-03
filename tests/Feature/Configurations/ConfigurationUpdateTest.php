@@ -28,8 +28,8 @@ class ConfigurationUpdateTest extends TestCase
             'business_name' => $faker->sentence($nbWords = 4, $variableNbWords = true),
             'slogan' => $faker->text($maxNbChars = 100),
             'email' => $faker->email,
-            'phone' => $faker->tollFreePhoneNumber,
-            'status' => 1
+            'logo' => 'logo.png',
+            'phone' => $faker->tollFreePhoneNumber
         ];
 
         $seed = InitSeed::getInstance()->getSeed();
@@ -54,9 +54,9 @@ class ConfigurationUpdateTest extends TestCase
             'name' => $faker->domainWord,
             'business_name' => $faker->sentence($nbWords = 4, $variableNbWords = true),
             'slogan' => $faker->text($maxNbChars = 100),
+            'logo' => 'logo.png',
             'email' => $faker->email,
-            'phone' => $faker->tollFreePhoneNumber,
-            'status' => 1
+            'phone' => $faker->tollFreePhoneNumber
         ];
 
         $response = $this->json('PUT', $this->baseUrl . "configurations/{$configuration['configuration_id']}", $update);

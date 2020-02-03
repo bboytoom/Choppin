@@ -1,4 +1,4 @@
-# Ecommerce
+# Choppin
 
 Es una tienda en línea de código abierto que tiene la capacidad de poder extender sus funcionalidades dependiendo de las necesidades que se tengan.
 
@@ -32,9 +32,9 @@ php artisan storage:link
 php artisan jwt:secret
 ```
 
-3. En la variable **x-api-key** del archivo *axios.js* que se encuentra en el directorio resources/js/plugins ingresar la clave generada por el comando *php artisan key:generate*
+3. En la variable **x-api-key** del archivo *axios.js* que se encuentra en el directorio resources/js/plugins ingresar la clave de autorizacion que se encuentra en el archivo .env
 ```
-axios.defaults.headers.common['x-api-key'] = 'ingresar llave'
+axios.defaults.headers.common['x-api-key'] = 'clave de autorizacion'
 ```
 
 4. En consola se tienen que ejecutar en orden los siguientes comandos

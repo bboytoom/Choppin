@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 | API Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
+| API\Store: Rutas publicas 
+| 
+| API\User: Rutas perteneciente al administrador del usuario
+|
+| API\Admin: Rutas de la administracion de la tienda
 |
 */
 
@@ -19,7 +21,8 @@ Route::group([
     'middleware' => ['authheader']
 ], function () {
     Route::apiResource('store', 'IndexController')->except('update', 'destroy');
-    Route::post('checkauthuser', 'AuthUserController@logIn');
+    Route::post('checkauth', 'AuthUserController@logIn');
+    Route::post('logout', 'AuthUserController@logOut');
 });
 
 Route::group([
@@ -36,7 +39,6 @@ Route::group([
     'middleware' => ['auth.token']
 ], function () {
     Route::apiResources([
-        'configurations' => 'ConfigurationController',
         'users' => 'UserController',
         'categories' => 'CategoryController',
         'subcategories' => 'SubCategoryController',
@@ -44,6 +46,8 @@ Route::group([
         'products' => 'ProductController'
     ]);
 
+    Route::apiResource('configurations', 'ConfigurationController')->except('store', 'destroy');
+    
     Route::apiResource('photoslide', 'PhotoSlideController')->except('index');
     Route::get('/photoslide/all/{id}', 'PhotoSlideController@index')->name('photoslide.index');
 
@@ -61,5 +65,4 @@ Route::group([
 
     Route::put('/adminpassword/{id}', 'UserPasswordController@updateAdmin')->name('admins.password.update');
     Route::put('/userpassword/{id}', 'UserPasswordController@updateUser')->name('users.password.update');
-    Route::put('/configurations/image/{id}', 'ImageController@updateImageConfiguration')->name('configurations.image.update');
 });

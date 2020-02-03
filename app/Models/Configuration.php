@@ -20,12 +20,13 @@ class Configuration extends Model
      */
     protected $fillable = [
         'domain',
+        'logo',
         'name',
         'business_name',
         'slogan',
         'email',
         'phone',
-        'status',
+        'status'
     ];
 
     public static function boot()

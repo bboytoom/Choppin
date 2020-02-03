@@ -43,7 +43,7 @@ class ConfigurationRequest extends FormRequest
                 'string',
                 Rule::unique('configurations', 'name')->ignore($this->configuration)
             ],
-            'business_name' => 'min:6|max:150|string',
+            'business_name' => 'required|min:6|max:150|string',
             'slogan' => 'min:6|max:255|string',
             'email' => [
                 'required',
@@ -59,7 +59,9 @@ class ConfigurationRequest extends FormRequest
                 'max:15',
                 Rule::unique('configurations', 'phone')->ignore($this->configuration)
             ],
-            'status' => 'boolean'
+            'logo' => 'min:6|max:100',
+            'type' => 'min:8|max:11',
+            'base' => 'min:100',
         ];
     }
 

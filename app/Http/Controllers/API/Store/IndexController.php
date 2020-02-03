@@ -16,23 +16,17 @@ class IndexController extends Controller
         $this->middleware('shoppingcart')->only('store');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $products = Product::all()->where('status', 1)->random(6);
+        $products = Product::all()->where('status', 1);
+
+        if ($products->count() > 6) {
+            return new IndexCollection($products->random(6));
+        }
+
         return new IndexCollection($products);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $shoppingcart = $request->shopping_cart;
@@ -45,12 +39,6 @@ class IndexController extends Controller
         return response(null, 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Product $store)
     {
         StoreProductResource::withoutWrapping();

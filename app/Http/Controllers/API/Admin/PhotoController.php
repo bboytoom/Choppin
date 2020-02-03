@@ -12,11 +12,7 @@ use App\Models\Photo;
 
 class PhotoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index($id)
     {
         $photos = Photo::whereHas('product', function ($photosEstatus) {
@@ -26,12 +22,6 @@ class PhotoController extends Controller
         return new PhotoCollection($photos);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(PhotoRequest $request)
     {
         $photo = Photo::create($request->except(['type', 'base']));
@@ -43,25 +33,12 @@ class PhotoController extends Controller
         return response(null, 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Photo $photo)
     {
         PhotoResource::withoutWrapping();
         return new PhotoResource($photo);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(PhotoRequest $request, Photo $photo)
     {
         $photo->update($request->except(['type', 'base']));
@@ -73,12 +50,6 @@ class PhotoController extends Controller
         return response(null, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Photo $photo)
     {
         $photo->delete();

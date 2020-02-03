@@ -11,11 +11,7 @@ use App\Models\Characteristic;
 
 class CharacteristicController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index($id)
     {
         $characteristics = Characteristic::whereHas('product', function ($characteristicsEstatus) {
@@ -25,49 +21,24 @@ class CharacteristicController extends Controller
         return new CharacteristicCollection($characteristics);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(CharacteristicRequest $request)
     {
         Characteristic::create($request->all());
         return response(null, 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Characteristic $characteristic)
     {
         CharacteristicResource::withoutWrapping();
         return new CharacteristicResource($characteristic);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(CharacteristicRequest $request, Characteristic $characteristic)
     {
         $characteristic->update($request->all());
         return response(null, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Characteristic $characteristic)
     {
         $characteristic->delete();
