@@ -25,7 +25,7 @@ Route::group([
 Route::group([
     'prefix' => 'v1',
     'namespace' => 'API\User',
-    'middleware' => ['authheader']
+    'middleware' => ['auth.token']
 ], function () {
     Route::apiResource('user', 'AdminController')->only('index');
 });
@@ -33,15 +33,15 @@ Route::group([
 Route::group([
     'prefix' => 'v1',
     'namespace' => 'API\Admin',
-    'middleware' => ['authheader']
+    'middleware' => ['auth.token']
 ], function () {
     Route::apiResources([
+        'configurations' => 'ConfigurationController',
         'users' => 'UserController',
         'categories' => 'CategoryController',
         'subcategories' => 'SubCategoryController',
         'galleries' => 'GalleyController',
-        'products' => 'ProductController',
-        'configurations' => 'ConfigurationController'
+        'products' => 'ProductController'
     ]);
 
     Route::apiResource('photoslide', 'PhotoSlideController')->except('index');

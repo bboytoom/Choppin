@@ -42,6 +42,11 @@ class Kernel extends HttpKernel
             'bindings',
         ],
 
+        'auth.token' => [
+            'auth.jwt',
+            'authheader'
+        ],
+
     ];
 
     /**
@@ -64,6 +69,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'shoppingcart' => \App\Http\Middleware\SetShoppingCart::class,
         'authheader' => \App\Http\Middleware\AuthHeader::class,
+        'auth.jwt'  =>  \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
     ];
 
     /**
