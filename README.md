@@ -1,6 +1,6 @@
 # Ecommerce
 
-Es una tienda en línea genérica que tiene la capacidad de poder extender sus funcionalidades dependiendo de las necesidades que se tengan en el momento, además de cumplir con los objetivos básicos.
+Es una tienda en línea de código abierto que tiene la capacidad de poder extender sus funcionalidades dependiendo de las necesidades que se tengan.
 
 ### Pre-requisitos
 
