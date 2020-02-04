@@ -30,9 +30,9 @@ class PhotoSlide extends Model
     {
         parent::boot();
 
-        static::saving(function ($photoslide) {
-            $photoslide->name = e(strtolower($photoslide->name));
-            $photoslide->description = e(strtolower($photoslide->description));
+        static::saving(function ($slide) {
+            $slide->name = e(strtolower($slide->name));
+            $slide->description = e(strtolower($slide->description));
         });
     }
 

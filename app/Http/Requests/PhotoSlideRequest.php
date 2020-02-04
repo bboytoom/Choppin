@@ -11,21 +11,11 @@ use Illuminate\Validation\Rule;
 
 class PhotoSlideRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
@@ -34,7 +24,7 @@ class PhotoSlideRequest extends FormRequest
                 'required',
                 'min:3',
                 'max:100',
-                Rule::unique('photo_slides', 'name')->ignore($this->photoslide)
+                Rule::unique('photo_slides', 'name')->ignore($this->slide)
             ],
             'image' => 'min:6|max:100',
             'type' => 'min:8|max:11',

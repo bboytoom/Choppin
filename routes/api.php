@@ -47,9 +47,8 @@ Route::group([
     ]);
 
     Route::apiResource('configurations', 'ConfigurationController')->except('store', 'destroy');
-    
-    Route::apiResource('photoslide', 'PhotoSlideController')->except('index');
-    Route::get('/photoslide/all/{id}', 'PhotoSlideController@index')->name('photoslide.index');
+    Route::get('/configurations/slide/all/{id}', 'PhotoSlideController@index')->name('configurations.slide.index');
+    Route::apiResource('configurations/slide', 'PhotoSlideController')->except('index');
 
     Route::apiResource('photos', 'PhotoController')->except('index');
     Route::get('/photos/all/{id}', 'PhotoController@index')->name('photos.index');

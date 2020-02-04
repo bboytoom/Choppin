@@ -12,7 +12,6 @@ use App\Models\PhotoSlide;
 
 class PhotoSlideController extends Controller
 {
-
     public function index($id)
     {
         $photosSlide = PhotoSlide::whereHas('configuration', function ($photosSlideEstatus) {
@@ -30,29 +29,35 @@ class PhotoSlideController extends Controller
             event(new PhotoSlideUpdate($photoslide->id, $photoslide->image, $request->base, $request->type));
         }
 
-        return response(null, 201);
+        return response([
+            'message' => 'Se agrego correctamente'
+        ], 201);
     }
 
-    public function show(PhotoSlide $photoslide)
+    public function show(PhotoSlide $slide)
     {
         PhotoSlideResource::withoutWrapping();
-        return new PhotoSlideResource($photoslide);
+        return new PhotoSlideResource($slide);
     }
 
-    public function update(PhotoSlideRequest $request, PhotoSlide $photoslide)
+    public function update(PhotoSlideRequest $request, PhotoSlide $slide)
     {
-        $photoslide->update($request->except(['type', 'base']));
-    
+        $slide->update($request->except(['type', 'base']));
+
         if (!is_null($request->base)) {
-            event(new PhotoSlideUpdate($photoslide->id, $photoslide->image, $request->base, $request->type));
+            event(new PhotoSlideUpdate($slide->id, $slide->image, $request->base, $request->type));
         }
 
-        return response(null, 200);
+        return response([
+            'message' => 'Se actualizò correctamente'
+        ], 200);
     }
 
-    public function destroy(PhotoSlide $photoslide)
+    public function destroy(PhotoSlide $slide)
     {
-        $photoslide->delete();
-        return response(null, 204);
+        $slide->delete();
+        return response([
+            'message' => 'Se elimino correctamente'
+        ], 204);
     }
 }
