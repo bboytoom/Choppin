@@ -15,6 +15,8 @@ class UserPasswordController extends Controller
             'password' => \Hash::make($request->get('password')) 
         ]);
 
-        return response(null, 200);
+        return response([
+            'message' => 'Se actualizò correctamente'
+        ], 200);
     }
 }

@@ -11,7 +11,6 @@ use App\Models\Gallery;
 
 class GalleyController extends Controller
 {
-
     public function index()
     {
         $gallery = Gallery::whereHas('category', function ($galleryEstatus) {
@@ -24,7 +23,10 @@ class GalleyController extends Controller
     public function store(GalleryRequest $request)
     {
         Gallery::create($request->all());
-        return response(null, 201);
+        
+        return response([
+            'message' => 'Se agrego correctamente'
+        ], 201);
     }
 
     public function show(Gallery $gallery)
@@ -36,7 +38,10 @@ class GalleyController extends Controller
     public function update(GalleryRequest $request, Gallery $gallery)
     {
         $gallery->update($request->all());
-        return response(null, 200);
+        
+        return response([
+            'message' => 'Se actualizò correctamente'
+        ], 200);
     }
 
     public function destroy(Gallery $gallery)

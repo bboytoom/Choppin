@@ -12,7 +12,6 @@ use App\Models\Photo;
 
 class PhotoController extends Controller
 {
-
     public function index($id)
     {
         $photos = Photo::whereHas('product', function ($photosEstatus) {
@@ -30,7 +29,9 @@ class PhotoController extends Controller
             event(new PhotoImageUpdated($photo->id, $photo->image, $request->base, $request->type));
         }
 
-        return response(null, 201);
+        return response([
+            'message' => 'Se agrego correctamente'
+        ], 201);
     }
 
     public function show(Photo $photo)
@@ -46,8 +47,10 @@ class PhotoController extends Controller
         if (!is_null($request->base)) {
             event(new PhotoImageUpdated($photo->id, $photo->image, $request->base, $request->type));
         }
-            
-        return response(null, 200);
+
+        return response([
+            'message' => 'Se actualizò correctamente'
+        ], 200);
     }
 
     public function destroy(Photo $photo)

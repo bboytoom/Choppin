@@ -12,7 +12,6 @@ use App\Models\PhotoGallery;
 
 class PhotoGalleryController extends Controller
 {
-
     public function index($id)
     {
         $photosGallery = PhotoGallery::whereHas('gallery', function ($photosGalleryEstatus) {
@@ -30,7 +29,9 @@ class PhotoGalleryController extends Controller
             event(new PhotoGalleryUpdate($photosgallery->id, $photosgallery->image, $request->base, $request->type));
         }
 
-        return response(null, 201);
+        return response([
+            'message' => 'Se agrego correctamente'
+        ], 201);
     }
 
     public function show(PhotoGallery $photosgallery)
@@ -47,7 +48,9 @@ class PhotoGalleryController extends Controller
             event(new PhotoGalleryUpdate($photosgallery->id, $photosgallery->image, $request->base, $request->type));
         }
 
-        return response(null, 200);
+        return response([
+            'message' => 'Se actualizò correctamente'
+        ], 200);
     }
 
     public function destroy(PhotoGallery $photosgallery)

@@ -11,7 +11,6 @@ use App\User;
 
 class UserController extends Controller
 {
-
     public function index()
     {
         return new UserCollection(User::paginate(10));
@@ -20,7 +19,10 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         User::create($request->all());
-        return response(null, 201);
+        
+        return response([
+            'message' => 'Se agrego correctamente'
+        ], 201);
     }
 
     public function show(User $user)
@@ -32,7 +34,10 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         $user->update($request->all());
-        return response(null, 200);
+        
+        return response([
+            'message' => 'Se actualizò correctamente'
+        ], 200);
     }
 
     public function destroy(User $user)

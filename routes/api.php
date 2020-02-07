@@ -38,30 +38,32 @@ Route::group([
     'namespace' => 'API\Admin',
     'middleware' => ['auth.token']
 ], function () {
-    Route::apiResources([
-        'users' => 'UserController',
-        'categories' => 'CategoryController',
-        'subcategories' => 'SubCategoryController',
-        'galleries' => 'GalleyController',
-        'products' => 'ProductController'
-    ]);
+    Route::apiResource('subcategories', 'SubCategoryController');
 
+    // Rutas del modulo de configuraciòn
     Route::apiResource('configurations', 'ConfigurationController')->except('store', 'destroy');
     Route::get('/configurations/slide/all/{id}', 'PhotoSlideController@index')->name('configurations.slide.index');
     Route::apiResource('configurations/slide', 'PhotoSlideController')->except('index');
 
-    Route::apiResource('photos', 'PhotoController')->except('index');
-    Route::get('/photos/all/{id}', 'PhotoController@index')->name('photos.index');
 
-    Route::apiResource('photosgalleries', 'PhotoGalleryController')->except('index');
-    Route::get('/photosgalleries/all/{id}', 'PhotoGalleryController@index')->name('photosgalleries.index');
+    // Rutas del modulo de categorias
+    Route::apiResource('categories', 'CategoryController');
+    Route::apiResource('categories/galleries', 'GalleyController');
+    Route::get('/galleries/slide/all/{id}', 'PhotoGalleryController@index')->name('galleries.slide.index');
+    Route::apiResource('galleries/slide', 'PhotoGalleryController')->except('index');
 
-    Route::apiResource('characteristics', 'CharacteristicController')->except('index');
-    Route::get('/characteristics/all/{id}', 'CharacteristicController@index')->name('characteristics.index');
 
-    Route::apiResource('shippings', 'ShippingController')->except('index');
-    Route::get('/shippings/all/{id}', 'ShippingController@index')->name('shippings.index');
+    // Rutas del modulo de productos
+    Route::apiResource('products', 'ProductController');
+    Route::get('/products/photos/all/{id}', 'PhotoController@index')->name('photos.index');
+    Route::apiResource('products/photos', 'PhotoController')->except('index');
+    Route::apiResource('products/characteristics', 'CharacteristicController')->except('index');
+    Route::get('/products/characteristics/all/{id}', 'CharacteristicController@index')->name('characteristics.index');
 
-    Route::put('/adminpassword/{id}', 'UserPasswordController@updateAdmin')->name('admins.password.update');
-    Route::put('/userpassword/{id}', 'UserPasswordController@updateUser')->name('users.password.update');
+
+    // Rutas del modulo de usuario
+    Route::apiResource('users', 'UserController');
+    Route::get('/users/shippings/all/{id}', 'ShippingController@index')->name('shippings.index');
+    Route::apiResource('users/shippings', 'ShippingController')->except('index');
+    Route::put('/users/password/{id}', 'UserPasswordController@updateUser')->name('users.password.update');
 });

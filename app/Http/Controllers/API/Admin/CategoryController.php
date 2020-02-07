@@ -19,7 +19,10 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         Category::create($request->all());
-        return response(null, 201);
+
+        return response([
+            'message' => 'Se agrego correctamente'
+        ], 201);
     }
 
     public function show(Category $category)
@@ -31,7 +34,10 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->all());
-        return response(null, 200);
+        
+        return response([
+            'message' => 'Se actualizò correctamente'
+        ], 200);
     }
 
     public function destroy(Category $category)

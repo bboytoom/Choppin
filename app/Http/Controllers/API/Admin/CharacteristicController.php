@@ -11,7 +11,6 @@ use App\Models\Characteristic;
 
 class CharacteristicController extends Controller
 {
-
     public function index($id)
     {
         $characteristics = Characteristic::whereHas('product', function ($characteristicsEstatus) {
@@ -24,7 +23,10 @@ class CharacteristicController extends Controller
     public function store(CharacteristicRequest $request)
     {
         Characteristic::create($request->all());
-        return response(null, 201);
+    
+        return response([
+            'message' => 'Se agrego correctamente'
+        ], 201);
     }
 
     public function show(Characteristic $characteristic)
@@ -36,7 +38,10 @@ class CharacteristicController extends Controller
     public function update(CharacteristicRequest $request, Characteristic $characteristic)
     {
         $characteristic->update($request->all());
-        return response(null, 200);
+        
+        return response([
+            'message' => 'Se actualizò correctamente'
+        ], 200);
     }
 
     public function destroy(Characteristic $characteristic)

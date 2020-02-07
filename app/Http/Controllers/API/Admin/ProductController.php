@@ -11,7 +11,6 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-
     public function index()
     {
         $products = Product::whereHas('subcategory', function ($productsEstatus) {
@@ -24,7 +23,10 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         Product::create($request->all());
-        return response(null, 201);
+        
+        return response([
+            'message' => 'Se agrego correctamente'
+        ], 201);
     }
 
     public function show(Product $product)
@@ -36,7 +38,10 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
         $product->update($request->all());
-        return response(null, 200);
+        
+        return response([
+            'message' => 'Se actualizò correctamente'
+        ], 200);
     }
 
     public function destroy(Product $product)

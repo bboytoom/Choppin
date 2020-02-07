@@ -11,7 +11,6 @@ use App\Models\SubCategory;
 
 class SubCategoryController extends Controller
 {
-
     public function index()
     {
         $subCategories = SubCategory::whereHas('category', function ($subCategoriesEstatus) {
@@ -24,7 +23,10 @@ class SubCategoryController extends Controller
     public function store(SubCategoryRequest $request)
     {
         SubCategory::create($request->all());
-        return response(null, 201);
+        
+        return response([
+            'message' => 'Se agrego correctamente'
+        ], 201);
     }
 
     public function show(SubCategory $subcategory)
@@ -36,7 +38,10 @@ class SubCategoryController extends Controller
     public function update(SubCategoryRequest $request, SubCategory $subcategory)
     {
         $subcategory->update($request->all());
-        return response(null, 200);
+        
+        return response([
+            'message' => 'Se actualizò correctamente'
+        ], 200);
     }
 
     public function destroy(SubCategory $subcategory)

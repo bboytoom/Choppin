@@ -56,8 +56,6 @@ class PhotoSlideController extends Controller
     public function destroy(PhotoSlide $slide)
     {
         $slide->delete();
-        return response([
-            'message' => 'Se elimino correctamente'
-        ], 204);
+        return response(null, 204);
     }
 }
