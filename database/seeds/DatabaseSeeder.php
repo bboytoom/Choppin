@@ -40,9 +40,6 @@ class DatabaseSeeder extends Seeder
                     $prod->image()->createMany(factory(\App\Models\Photo::class, 4)->make()->toArray());
                 });
             });
-
-            $gallery = $category->gallery()->save(factory(\App\Models\Gallery::class)->make());
-            $gallery->photogallery()->createMany(factory(\App\Models\PhotoGallery::class, 3)->make()->toArray());
         });
     }
 }

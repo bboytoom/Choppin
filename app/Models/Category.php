@@ -29,9 +29,4 @@ class Category extends Model
     {
         return $this->hasMany('App\Models\SubCategory', 'category_id');
     }
-
-    public function gallery()
-    {
-        return $this->hasMany('App\Models\Gallery', 'category_id');
-    }
 }

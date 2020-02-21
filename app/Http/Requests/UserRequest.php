@@ -19,7 +19,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'in:user,admin',
+            'type' => 'in:administrador,staff,cliente',
             'name' => 'required|min:3|max:40',
             'mother_surname' => 'max:30',
             'father_surname' => 'required|min:4|max:30',

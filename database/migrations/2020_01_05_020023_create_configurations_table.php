@@ -14,15 +14,15 @@ class CreateConfigurationsTable extends Migration
     public function up()
     {
         Schema::create('configurations', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('domain', 80)->unique();
             $table->string('name', 100)->unique();
             $table->string('business_name', 150);
             $table->text('slogan')->nullable();
-            $table->string('logo', 100)->nullable();
-            $table->string('email')->unique();
+            $table->string('logo', 50)->nullable();
+            $table->string('email', 70)->unique();
             $table->string('phone', 15)->unique();
-            $table->boolean('status');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

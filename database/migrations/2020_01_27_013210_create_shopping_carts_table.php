@@ -14,10 +14,10 @@ class CreateShoppingCartsTable extends Migration
     public function up()
     {
         Schema::create('shopping_carts', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('indentity');
-            $table->string('email')->nullable();
-            $table->boolean('status');
+            $table->increments('id');
+            $table->string('indentity', 150);
+            $table->string('email', 70)->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

@@ -36,7 +36,7 @@ class UsersUpdateTest extends TestCase
         $response = $this->json('PUT', $this->baseUrl . "users/{$user->id}", $update);
         $response->assertStatus(200);
     }
-    
+
     /**
      * @testdox nombre del usuario es similar
      */

@@ -14,15 +14,15 @@ class CreatePhotosTable extends Migration
     public function up()
     {
         Schema::create('photos', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('product_id');
+            $table->increments('id');
+            $table->unsignedInteger('product_id');
             $table->foreign('product_id')
                 ->references('id')->on('products')
                 ->onDelete('cascade');
-            $table->string('name', 255)->unique();
-            $table->string('image', 100);
+            $table->string('name', 100)->unique();
+            $table->string('image', 50);
             $table->text('description');
-            $table->boolean('status');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

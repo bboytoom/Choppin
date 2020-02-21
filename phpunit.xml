@@ -66,6 +66,10 @@
         <testsuite name="Users">
             <directory suffix="Test.php">./tests/Feature/Users</directory>
         </testsuite>
+
+        <testsuite name="Administrator">
+            <directory suffix="Test.php">./tests/Feature/Administrator</directory>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">

@@ -35,9 +35,4 @@ class PhotoGallery extends Model
             $photosgallery->description = e(strtolower($photosgallery->description));
         });
     }
-
-    public function gallery()
-    {
-        return $this->belongsTo('App\Models\Gallery', 'gallery_id');
-    }
 }

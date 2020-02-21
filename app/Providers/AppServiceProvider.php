@@ -6,8 +6,6 @@ use App\Providers\TelescopeServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\UserObserver;
 use App\User;
-use App\Observers\GalleryObserver;
-use App\Models\Gallery;
 use App\Observers\SubCategoryObserver;
 use App\Models\SubCategory;
 use App\Observers\CategoryObserver;
@@ -38,7 +36,6 @@ class AppServiceProvider extends ServiceProvider
     {
         User::observe(UserObserver::class);
         Category::observe(CategoryObserver::class);
-        Gallery::observe(GalleryObserver::class);
         SubCategory::observe(SubCategoryObserver::class);
         Product::observe(ProductObserver::class);
     }

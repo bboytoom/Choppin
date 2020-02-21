@@ -10,7 +10,6 @@ use App\User;
 use App\Models\Characteristic;
 use App\Models\Category;
 use App\Models\SubCategory;
-use App\Models\Gallery;
 use App\Models\Product;
 use App\Models\Photo;
 use App\Models\PhotoGallery;
@@ -25,7 +24,6 @@ class SeedTest
     private $initial_user;
     private $initial_category;
     private $initial_subcategory;
-    private $initial_gallery;
     private $initial_product;
     private $initial_photo;
     private $initial_gallery_photo;
@@ -148,28 +146,6 @@ class SeedTest
         return $this->initial_product;
     }
 
-    public function seed_gallery()
-    {
-        $faker = \Faker\Factory::create();
-        $category = $this->seed_category();
-        $nameGalley = $faker->unique()->sentence($nbWords = 2, $variableNbWords = true);
-
-        $gallery = Gallery::create([
-            'category_id' => $category['category_id'],
-            'name' => $nameGalley,
-            'active' => 1,
-            'status' => 1
-        ]);
-
-        $this->initial_gallery = [
-            'category_id' => $category['category_id'],
-            'gallery_id' => $gallery->id,
-            'name' => $gallery->name,
-        ];
-
-        return $this->initial_gallery;
-    }
-
     public function seed_subcategory()
     {
         $faker = \Faker\Factory::create();
@@ -253,6 +229,22 @@ class SeedTest
         ]);
 
         return $this->initial_user;
+    }
+
+    public function seed_administrator_staff()
+    {
+        $faker = \Faker\Factory::create();
+
+        $administrador = User::create([
+           'type' => 'staff',
+           'name' => $faker->name,
+           'mother_surname' => $faker->lastName,
+           'father_surname' => $faker->lastName,
+           'email' => $faker->unique()->safeEmail,
+           'status' => 1
+        ]);
+
+        return $admin_staff;
     }
 
     public function seed_configuration()

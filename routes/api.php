@@ -40,6 +40,11 @@ Route::group([
 ], function () {
     Route::apiResource('subcategories', 'SubCategoryController');
 
+
+    // Rutas del modulo de administradores
+    Route::apiResource('administration', 'AdministratorController');
+
+
     // Rutas del modulo de configuraciòn
     Route::apiResource('configurations', 'ConfigurationController')->except('store', 'destroy');
     Route::get('/configurations/slide/all/{id}', 'PhotoSlideController@index')->name('configurations.slide.index');
@@ -48,9 +53,8 @@ Route::group([
 
     // Rutas del modulo de categorias
     Route::apiResource('categories', 'CategoryController');
-    Route::apiResource('categories/galleries', 'GalleyController');
-    Route::get('/galleries/slide/all/{id}', 'PhotoGalleryController@index')->name('galleries.slide.index');
-    Route::apiResource('galleries/slide', 'PhotoGalleryController')->except('index');
+    Route::get('/categories/slide/all/{id}', 'PhotoGalleryController@index')->name('categories.slide.index');
+    Route::apiResource('categories/slide', 'PhotoGalleryController')->except('index');
 
 
     // Rutas del modulo de productos

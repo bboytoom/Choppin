@@ -14,15 +14,15 @@ class CreatePhotoGalleriesTable extends Migration
     public function up()
     {
         Schema::create('photo_galleries', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('gallery_id');
-            $table->foreign('gallery_id')
-                ->references('id')->on('galleries')
+            $table->increments('id');
+            $table->unsignedInteger('category_id');
+            $table->foreign('category_id')	
+                ->references('id')->on('categories')	
                 ->onDelete('cascade');
-            $table->string('name', 255)->unique();
-            $table->string('image', 100);
+            $table->string('name', 100)->unique();
+            $table->string('image', 50);
             $table->text('description');
-            $table->boolean('status');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

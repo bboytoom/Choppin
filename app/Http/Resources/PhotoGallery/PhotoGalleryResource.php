@@ -3,7 +3,6 @@
 namespace App\Http\Resources\PhotoGallery;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Gallery\GalleryIdentifierResource;
 use Illuminate\Support\Facades\Storage;
 
 class PhotoGalleryResource extends JsonResource
@@ -25,8 +24,7 @@ class PhotoGalleryResource extends JsonResource
                 'description' => $this->description,
                 'status' => $this->status
             ],
-            'url' => Storage::disk('slide')->url($this->image),
-            'gallery' => new GalleryIdentifierResource($this->gallery)
+            'url' => Storage::disk('slide')->url($this->image)
         ];
     }
 }
