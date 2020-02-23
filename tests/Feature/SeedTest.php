@@ -235,16 +235,32 @@ class SeedTest
     {
         $faker = \Faker\Factory::create();
 
-        $administrador = User::create([
+        return User::create([
            'type' => 'staff',
            'name' => $faker->name,
            'mother_surname' => $faker->lastName,
            'father_surname' => $faker->lastName,
            'email' => $faker->unique()->safeEmail,
+           'password' => '@Staff2907',
+           'password_confirmation' => '@Staff2907',
            'status' => 1
         ]);
+    }
 
-        return $admin_staff;
+    public function seed_administrator_admin()
+    {
+        $faker = \Faker\Factory::create();
+
+        return User::create([
+           'type' => 'administrador',
+           'name' => $faker->name,
+           'mother_surname' => $faker->lastName,
+           'father_surname' => $faker->lastName,
+           'email' => $faker->unique()->safeEmail,
+           'password' => '@Admin2907',
+           'password_confirmation' => '@Admin2907',
+           'status' => 1
+        ]);
     }
 
     public function seed_configuration()

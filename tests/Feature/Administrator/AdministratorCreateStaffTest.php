@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Administrator;
+namespace Tests\Feature;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,13 +21,17 @@ namespace Tests\Feature\Administrator;
 |
 | 6) test_administrador_create_min_limit_superior()
 |
-| 7) test_administrador_create_email()
+| 7) test_administrador_create_email_fail()
 |
 | 8) test_administrador_email_same_create()
 |
 | 9) test_administrator_create_vacio()
 |
 | 10) test_administrator_create_vacio_requerido()
+|
+| 11) test_administrator_create_administrador()
+|
+| 12) test_administrator_create_deshabilitado()
 |
 */
 
@@ -53,17 +57,24 @@ class AdministratorCreateStaffTest extends TestCase
     {
         $faker = \Faker\Factory::create();
 
+        $correo = $faker->unique()->safeEmail;
+
         $data = [
            'type' => 'staff',
            'name' => $faker->name,
            'mother_surname' => $faker->lastName,
            'father_surname' => $faker->lastName,
-           'email' => $faker->unique()->safeEmail,
-           'status' => 1
+           'email' => $correo,
+           'password' => '@Staff2907',
+           'password_confirmation' => '@Staff2907'
         ];
 
         $response = $this->json('POST', $this->baseUrl . 'administration', $data);
-        dd($response);
+        $response->assertStatus(201);
+    
+        $this->assertDatabaseHas('users', [
+            'email' => $correo,
+        ]);
     }
 
     /**
@@ -78,11 +89,16 @@ class AdministratorCreateStaffTest extends TestCase
            'name' => $faker->name,
            'father_surname' => $faker->lastName,
            'email' => $faker->unique()->safeEmail,
-           'status' => 1
+           'password' => '@Staff2907',
+           'password_confirmation' => '@Staff2907'
         ];
 
         $response = $this->json('POST', $this->baseUrl . 'administration', $data);
         $response->assertStatus(201);
+
+        $this->assertDatabaseHas('users', [
+            'mother_surname' => '',
+        ]);
     }
 
     /**
@@ -98,7 +114,8 @@ class AdministratorCreateStaffTest extends TestCase
            'mother_surname' => $faker->text($maxNbChars = 38),
            'father_surname' => $faker->text($maxNbChars = 38),
            'email' => $faker->unique()->safeEmail,
-           'status' => 1
+           'password' => '@Staff2907',
+           'password_confirmation' => '@Staff2907'
         ];
 
         $response = $this->json('POST', $this->baseUrl . 'administration', $data);
@@ -114,11 +131,12 @@ class AdministratorCreateStaffTest extends TestCase
 
         $data = [
            'type' => 'staff',
-           'name' => $faker->text($maxNbChars = 50),
-           'mother_surname' => $faker->text($maxNbChars = 40),
-           'father_surname' => $faker->text($maxNbChars = 40),
+           'name' => 'Consecteturhjsfacereprovidenterrorprovidentdeserun',
+           'mother_surname' => 'Consecteturhjsfacereprovidenterrorprsfd', 
+           'father_surname' => 'Consecteturhjsfacereprovidenterrorprsfd',
            'email' => $faker->unique()->safeEmail,
-           'status' => 1
+           'password' => '@Staff2907',
+           'password_confirmation' => '@Staff2907'
         ];
 
         $response = $this->json('POST', $this->baseUrl . 'administration', $data);
@@ -134,11 +152,12 @@ class AdministratorCreateStaffTest extends TestCase
 
         $data = [
            'type' => 'staff',
-           'name' => $faker->text($maxNbChars = 2),
-           'mother_surname' => $faker->text($maxNbChars = 3),
-           'father_surname' => $faker->text($maxNbChars = 3),
+           'name' => 'as',
+           'mother_surname' => 'dfg',
+           'father_surname' => 'dfg',
            'email' => $faker->unique()->safeEmail,
-           'status' => 1
+           'password' => '@Staff2907',
+           'password_confirmation' => '@Staff2907'
         ];
 
         $response = $this->json('POST', $this->baseUrl . 'administration', $data);
@@ -154,11 +173,12 @@ class AdministratorCreateStaffTest extends TestCase
 
         $data = [
            'type' => 'staff',
-           'name' => $faker->text($maxNbChars = 4),
+           'name' => $faker->text($maxNbChars = 5),
            'mother_surname' => $faker->text($maxNbChars = 5),
            'father_surname' => $faker->text($maxNbChars = 5),
            'email' => $faker->unique()->safeEmail,
-           'status' => 1
+           'password' => '@Staff2907',
+           'password_confirmation' => '@Staff2907'
         ];
 
         $response = $this->json('POST', $this->baseUrl . 'administration', $data);
@@ -168,17 +188,18 @@ class AdministratorCreateStaffTest extends TestCase
     /**
      * @testdox Correo no valido para el usuario con rol de staff
      */
-    public function test_administrador_create_email()
+    public function test_administrador_create_email_fail()
     {
         $faker = \Faker\Factory::create();
 
         $data = [
            'type' => 'staff',
-           'name' => $faker->text($maxNbChars = 4),
-           'mother_surname' => $faker->text($maxNbChars = 5),
-           'father_surname' => $faker->text($maxNbChars = 5),
+           'name' => $faker->name,
+           'mother_surname' => $faker->lastName,
+           'father_surname' => $faker->lastName,
            'email' => 'correonovalido.com',
-           'status' => 1
+           'password' => '@Staff2907',
+           'password_confirmation' => '@Staff2907'
         ];
 
         $response = $this->json('POST', $this->baseUrl . 'administration', $data);
@@ -192,6 +213,7 @@ class AdministratorCreateStaffTest extends TestCase
     {
         $seed = InitSeed::getInstance()->getSeed();
         $user_staff = $seed->seed_administrator_staff();
+        
         $faker = \Faker\Factory::create();
 
         $data = [
@@ -199,8 +221,9 @@ class AdministratorCreateStaffTest extends TestCase
            'name' => $faker->name,
            'mother_surname' => $faker->lastName,
            'father_surname' => $faker->lastName,
-           'email' => $admin->email,
-           'status' => 1
+           'email' => $user_staff->email,
+           'password' => '@Staff2907',
+           'password_confirmation' => '@Staff2907'
         ];
 
         $response = $this->json('POST', $this->baseUrl . 'administration', $data);
@@ -231,5 +254,52 @@ class AdministratorCreateStaffTest extends TestCase
 
         $response = $this->json('POST', $this->baseUrl . 'administration', $data);
         $response->assertStatus(422);
+    }
+
+    /**
+     * @testdox Se crea un usuario tipo administrador
+     */
+    public function test_administrator_create_administrador()
+    {
+        $faker = \Faker\Factory::create();
+
+        $data = [
+           'type' => 'administrador',
+           'name' => $faker->name,
+           'mother_surname' => $faker->lastName,
+           'father_surname' => $faker->lastName,
+           'email' => $faker->unique()->safeEmail,
+           'password' => '@Staff2907',
+           'password_confirmation' => '@Staff2907'
+        ];
+
+        $response = $this->json('POST', $this->baseUrl . 'administration', $data);
+        $response->assertStatus(422);
+    }
+
+    /**
+     * @testdox Se crea un usuario con estatus deshabilitado
+     */
+    public function test_administrator_create_deshabilitado()
+    {
+        $faker = \Faker\Factory::create();
+
+        $data = [
+           'type' => 'staff',
+           'name' => $faker->name,
+           'mother_surname' => $faker->lastName,
+           'father_surname' => $faker->lastName,
+           'email' => $faker->unique()->safeEmail,
+           'password' => '@Staff2907',
+           'password_confirmation' => '@Staff2907',
+           'status' => 0
+        ];
+
+        $response = $this->json('POST', $this->baseUrl . 'administration', $data);
+        $response->assertStatus(201);
+       
+        $this->assertDatabaseHas('users', [
+            'status' => 1,
+        ]);
     }
 }

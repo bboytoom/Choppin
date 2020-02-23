@@ -9,7 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UserRequest extends FormRequest
+class AdministratorRequest extends FormRequest
 {
     public function authorize()
     {
@@ -19,18 +19,18 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'in:cliente',
+            'type' => 'in:administrador,staff',
             'name' => 'required|min:3|max:49',
             'mother_surname' => 'min:3|max:39',
             'father_surname' => 'required|min:4|max:39',
-            'password' => 'required|min:8|max:19|confirmed',
+            'password' => 'min:8|max:19|confirmed',
             'email' => [
                 'required',
                 'min:8',
                 'max:69',
                 'email',
                 'string',
-                Rule::unique('users', 'email')->ignore($this->user)
+                Rule::unique('users', 'email')->ignore($this->administration)
             ],
             'status' => 'boolean'
         ];

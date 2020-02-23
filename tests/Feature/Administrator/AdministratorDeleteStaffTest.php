@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Administrator;
+namespace Tests\Feature;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,6 +10,8 @@ namespace Tests\Feature\Administrator;
 |--------------------------------------------------------------------------
 |
 | 1) test_administrator_delete()
+|
+| 2) test_administrator_delete_no_id()
 |
 */
 
@@ -28,11 +30,25 @@ class AdministratorDeleteStaffTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
+    /**
+     * @testdox Caso optimo para eliminar un usuario con rol de staff
+     */
     public function test_administrator_delete()
     {
         $seed = InitSeed::getInstance()->getSeed();
         $admin = $seed->seed_administrator_staff();
         
         $this->json('DELETE', $this->baseUrl . "administration/{$admin->id}")->assertStatus(204);
+    }
+
+    /**
+     * @testdox Eliminar usuario que no existe
+     */
+    public function test_administrator_delete_no_id()
+    {
+        $seed = InitSeed::getInstance()->getSeed();
+        $admin = $seed->seed_administrator_staff();
+        
+        $this->json('DELETE', $this->baseUrl . "administration/10")->assertStatus(404);
     }
 }

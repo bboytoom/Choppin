@@ -4,37 +4,41 @@ namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\AdministratorRequest;
+use App\Repositories\AdministratorRepository;
 use App\User;
 
 class AdministratorController extends Controller
 {
+    protected $usuario;
+
+    public function __construct(AdministratorRepository $usuario)
+    {
+        $this->usuario = $usuario;
+    }
+
     public function index()
     {
         //
     }
 
-    public function store(UserRequest $request)
+    public function store(AdministratorRequest $request)
     {
-        User::create($request->all());
-
-        return response([
-            'message' => 'Se agrego correctamente'
-        ], 201);
+        return response(null, $this->usuario->createAdministrator($request));
     }
 
-    public function show(User $user)
+    public function show(User $administration)
     {
         //
     }
 
-    public function update(UserRequest $request, User $user)
+    public function update(AdministratorRequest $request, User $administration)
     {
-        //
+        return response(null, $this->usuario->updateAdministrator($request));
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        //
+        return response(null, $this->usuario->deleteAdministrator($id));
     }
 }
