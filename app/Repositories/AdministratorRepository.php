@@ -19,12 +19,6 @@ class AdministratorRepository
 
     public function updateAdministrator(Request $request)
     {
-        $numAdmin = User::where($request->type, 'administrador')->count();
-
-        if($numAdmin == 1) {
-            return 422;
-        }
-        
         User::where('id', $request->id)->update($request->except(['password_confirmation']));
         return 200;
     }

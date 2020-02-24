@@ -19,6 +19,10 @@ class UserObserver
 
     public function updating(User $user)
     {
+        if ($user->type == 'administrador') {
+            $user->status = 1;
+        }
+        
         if(isset($user->password)) {
             $user->password = \Hash::make($user->password);
         }

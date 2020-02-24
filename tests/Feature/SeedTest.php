@@ -263,6 +263,22 @@ class SeedTest
         ]);
     }
 
+    public function seed_administrator_cliente()
+    {
+        $faker = \Faker\Factory::create();
+
+        return User::create([
+           'type' => 'cliente',
+           'name' => $faker->name,
+           'mother_surname' => $faker->lastName,
+           'father_surname' => $faker->lastName,
+           'email' => $faker->unique()->safeEmail,
+           'password' => '@Cliente2907',
+           'password_confirmation' => '@Cliente2907',
+           'status' => 1
+        ]);
+    }
+
     public function seed_configuration()
     {
         $faker = \Faker\Factory::create();

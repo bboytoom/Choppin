@@ -23,10 +23,10 @@ use App\User;
 
 /**
  * 
- * @testdox Eliminar el usuario con rol de STAFF 
+ * @testdox Como usuario con rol de administrador quiero eliminar a un usuario con rol de staff por què ya no es requerido.
  * 
  */
-class AdministratorDeleteStaffTest extends TestCase
+class AdministratorDeleteTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 

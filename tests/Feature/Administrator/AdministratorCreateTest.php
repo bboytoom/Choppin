@@ -27,11 +27,9 @@ namespace Tests\Feature;
 |
 | 9) test_administrator_create_vacio()
 |
-| 10) test_administrator_create_vacio_requerido()
+| 10) test_administrator_create_administrador()
 |
-| 11) test_administrator_create_administrador()
-|
-| 12) test_administrator_create_deshabilitado()
+| 11) test_administrator_create_deshabilitado()
 |
 */
 
@@ -43,15 +41,15 @@ use App\User;
 
 /**
  * 
- * @testdox Crear el usuario con rol de STAFF 
+ * @testdox Como usuario con rol de administrador quiero crear un usuario con rol de staff para ayudarme en la gestión de la tienda.
  * 
  */
-class AdministratorCreateStaffTest extends TestCase
+class AdministratorCreateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
     /**
-     * @testdox Caso optimo para crear un usuario con rol de STAFF
+     * @testdox Caso optimo para crear un usuario con rol de staff
      */
     public function test_administrator_create_optimo()
     {
@@ -78,7 +76,7 @@ class AdministratorCreateStaffTest extends TestCase
     }
 
     /**
-     * @testdox Caso optimo sin datos opcionales
+     * @testdox El apellido materno es opcional
      */
     public function test_administrator_create_sin_opcionales()
     {
@@ -186,7 +184,7 @@ class AdministratorCreateStaffTest extends TestCase
     }
 
     /**
-     * @testdox Correo no valido para el usuario con rol de staff
+     * @testdox Correo no valido
      */
     public function test_administrador_create_email_fail()
     {
@@ -207,7 +205,7 @@ class AdministratorCreateStaffTest extends TestCase
     }
 
     /**
-     * @testdox Correo que ya existe para el usuario con rol de staff
+     * @testdox El correo debe ser único.
      */
     public function test_administrador_email_same_create()
     {
@@ -242,22 +240,7 @@ class AdministratorCreateStaffTest extends TestCase
     }
 
     /**
-     * @testdox No se ingreso un campo requerido
-     */
-    public function test_administrator_create_vacio_requerido()
-    {
-        $faker = \Faker\Factory::create();
-
-        $data = [
-           'mother_surname' => $faker->lastName
-        ];
-
-        $response = $this->json('POST', $this->baseUrl . 'administration', $data);
-        $response->assertStatus(422);
-    }
-
-    /**
-     * @testdox Se crea un usuario tipo administrador
+     * @testdox Solo puede existir un usuario con rol de administrador
      */
     public function test_administrator_create_administrador()
     {
@@ -278,7 +261,7 @@ class AdministratorCreateStaffTest extends TestCase
     }
 
     /**
-     * @testdox Se crea un usuario con estatus deshabilitado
+     * @testdox Cuando se crea el nuevo usuario su estado predeterminado es activo
      */
     public function test_administrator_create_deshabilitado()
     {

@@ -11,15 +11,11 @@ namespace Tests\Feature;
 |
 | 1) test_administrator_update_optimo()
 |
-| 2) test_administrator_update_sin_opcionales()
+| 2) test_administrator_update_correo_similar()
 |
-| 3) test_administrator_update_correo_similar()
+| 3) test_administrator_update_estatus_deshabilitado()
 |
-| 4) test_administrator_update_estatus_deshabilitado()
-|
-| 5) test_administrator_update_password()
-|
-| 6) test_administrator_update_cambio_rol()
+| 4) test_administrator_update_password()
 |
 */
 
@@ -32,15 +28,15 @@ use App\User;
 
 /**
  * 
- * @testdox Actualizar el usuario con rol de STAFF 
+ * @testdox Como usuario con privilegios quiero actualizar mi información de usuario por què tuve un error algunos datos.
  * 
  */
-class AdministratorUpdateStaffTest extends TestCase
+class AdministratorUpdateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
     /**
-     * @testdox Caso optimo para actualizar un usuario con rol de STAFF
+     * @testdox Caso optimo para actualizar un usuario con rol de staff
      */
     public function test_administrator_update_optimo()
     {
@@ -60,34 +56,10 @@ class AdministratorUpdateStaffTest extends TestCase
         
         $response = $this->json('PUT', $this->baseUrl . "administration/{$admin->id}", $update);
         $response->assertStatus(200);
-
-
     }
 
     /**
-     * @testdox Caso optimo sin datos opcionales
-     */
-    public function test_administrator_update_sin_opcionales()
-    {
-        $faker = \Faker\Factory::create();
-
-        $update = [
-           'type' => 'staff',
-           'name' => $faker->name,
-           'father_surname' => $faker->lastName,
-           'email' => $faker->unique()->safeEmail,
-           'status' => 1
-        ];
-
-        $seed = InitSeed::getInstance()->getSeed();
-        $admin = $seed->seed_administrator_staff();
-
-        $response = $this->json('PUT', $this->baseUrl . "administration/{$admin->id}", $update);
-        $response->assertStatus(200);
-    }
-
-    /**
-     * @testdox update con el mismo correo del usuario con rol de staff
+     * @testdox Solo se actualiza el nombre del usuario con rol de staff
      */
     public function test_administrator_update_correo_similar()
     {
@@ -109,7 +81,7 @@ class AdministratorUpdateStaffTest extends TestCase
     }
 
     /**
-     * @testdox deshabilitando el estatus del usuario
+     * @testdox El usuario con rol de administrador no puede tener el estatus de deshabilitado
      */
     public function test_administrator_update_estatus_deshabilitado()
     {
@@ -118,7 +90,7 @@ class AdministratorUpdateStaffTest extends TestCase
         $faker = \Faker\Factory::create();
 
         $update = [
-           'type' => 'staff',
+           'type' => 'administrador',
            'name' => $faker->name,
            'father_surname' => $faker->lastName,
            'email' => $faker->unique()->safeEmail,
@@ -130,7 +102,7 @@ class AdministratorUpdateStaffTest extends TestCase
     }
 
     /**
-     * @testdox Cambio de contraseña del usuario con rol de staff
+     * @testdox Cambio de contraseña
      */
     public function test_administrator_update_password()
     {
@@ -152,28 +124,5 @@ class AdministratorUpdateStaffTest extends TestCase
         
         $response = $this->json('PUT', $this->baseUrl . "administration/{$admin->id}", $update);
         $response->assertStatus(200);
-    }
-
-    /**
-     * @testdox Cambio de rol de staff a administrador
-     */
-    public function test_administrator_update_cambio_rol()
-    {
-        $faker = \Faker\Factory::create();
-        
-        $update = [
-           'type' => 'administrador',
-           'name' => $faker->name,
-           'mother_surname' => $faker->lastName,
-           'father_surname' => $faker->lastName,
-           'email' => $faker->unique()->safeEmail,
-           'status' => 1
-        ];
-
-        $seed = InitSeed::getInstance()->getSeed();
-        $admin = $seed->seed_administrator_admin();
-        
-        $response = $this->json('PUT', $this->baseUrl . "administration/{$admin->id}", $update);
-        $response->assertStatus(422);
     }
 }

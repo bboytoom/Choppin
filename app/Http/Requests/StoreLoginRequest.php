@@ -19,8 +19,8 @@ class StoreLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|email|max:80|min:6',
-            'password'  => 'required|string|min:7|max:20'
+            'email' => 'required|string|email|min:8|max:69',
+            'password'  => 'required|string|min:8|max:19'
         ];
     }
 

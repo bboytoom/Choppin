@@ -21,8 +21,10 @@ Route::group([
     'middleware' => ['authheader']
 ], function () {
     Route::apiResource('store', 'IndexController')->except('update', 'destroy');
-    Route::post('checkauth', 'AuthUserController@logIn');
+    Route::post('login', 'AuthUserController@logIn');
     Route::post('logout', 'AuthUserController@logOut');
+    Route::post('myuser', 'AuthUserController@getUser');
+    Route::post('refresh', 'AuthUserController@refreshToken');
 });
 
 Route::group([
