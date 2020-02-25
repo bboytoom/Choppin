@@ -7,8 +7,9 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class PasswordRequest extends FormRequest
+class CustomerRequest extends FormRequest
 {
     public function authorize()
     {
@@ -18,7 +19,20 @@ class PasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'password' => 'required|string|min:7|max:20|confirmed'
+            'type' => 'in:cliente',
+            'name' => 'required|min:3|max:49',
+            'mother_surname' => 'min:3|max:39',
+            'father_surname' => 'required|min:4|max:39',
+            'password' => 'min:8|max:19|confirmed',
+            'email' => [
+                'required',
+                'min:8',
+                'max:69',
+                'email',
+                'string',
+                Rule::unique('users', 'email')->ignore($this->cliente)
+            ],
+            'status' => 'boolean'
         ];
     }
 
@@ -29,8 +43,8 @@ class PasswordRequest extends FormRequest
         throw new HttpResponseException(
             response()->json(
                 [
-                    'errors' => $errors
-                ],
+                'errors' => $errors
+            ],
                 JsonResponse::HTTP_UNPROCESSABLE_ENTITY
             )
         );

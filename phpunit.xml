@@ -35,8 +35,8 @@
             <directory suffix="Test.php">./tests/Feature/Configurations</directory>
         </testsuite>
 
-        <testsuite name="Galleries">
-            <directory suffix="Test.php">./tests/Feature/Galleries</directory>
+        <testsuite name="Perfil">
+            <directory suffix="Test.php">./tests/Feature/Perfil</directory>
         </testsuite>
 
         <testsuite name="Photos">
@@ -63,8 +63,8 @@
             <directory suffix="Test.php">./tests/Feature/SubCategory</directory>
         </testsuite>
 
-        <testsuite name="Users">
-            <directory suffix="Test.php">./tests/Feature/Users</directory>
+        <testsuite name="Customers">
+            <directory suffix="Test.php">./tests/Feature/Customers</directory>
         </testsuite>
 
         <testsuite name="Administrator">

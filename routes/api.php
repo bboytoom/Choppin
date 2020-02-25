@@ -47,6 +47,16 @@ Route::group([
     Route::apiResource('administration', 'AdministratorController');
 
 
+    // Rutas del Perfil del usuario con rol de staff
+    Route::apiResource('perfil', 'PerfilController')->only('update', 'show');
+
+
+    // Rutas del modulo de usuario
+    Route::apiResource('clientes', 'CustomersController')->except('store');
+    Route::get('/clientes/envio/all/{id}', 'ShippingController@index')->name('shippings.index');
+    Route::apiResource('clientes/envio', 'ShippingController')->except('index');
+
+
     // Rutas del modulo de configuraciòn
     Route::apiResource('configurations', 'ConfigurationController')->except('store', 'destroy');
     Route::get('/configurations/slide/all/{id}', 'PhotoSlideController@index')->name('configurations.slide.index');
@@ -65,11 +75,4 @@ Route::group([
     Route::apiResource('products/photos', 'PhotoController')->except('index');
     Route::apiResource('products/characteristics', 'CharacteristicController')->except('index');
     Route::get('/products/characteristics/all/{id}', 'CharacteristicController@index')->name('characteristics.index');
-
-
-    // Rutas del modulo de usuario
-    Route::apiResource('users', 'UserController');
-    Route::get('/users/shippings/all/{id}', 'ShippingController@index')->name('shippings.index');
-    Route::apiResource('users/shippings', 'ShippingController')->except('index');
-    Route::put('/users/password/{id}', 'UserPasswordController@updateUser')->name('users.password.update');
 });

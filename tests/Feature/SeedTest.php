@@ -215,22 +215,6 @@ class SeedTest
         return $this->initial_shipping;
     }
 
-    public function seed_user()
-    {
-        $faker = \Faker\Factory::create();
-
-        $this->initial_user = User::create([
-           'name' => $faker->name,
-           'mother_surname' => $faker->lastName,
-           'father_surname' => $faker->lastName,
-           'email' => $faker->unique()->safeEmail,
-           'password' => \Hash::make('@Admins2907'),
-           'status' => 1
-        ]);
-
-        return $this->initial_user;
-    }
-
     public function seed_administrator_staff()
     {
         $faker = \Faker\Factory::create();

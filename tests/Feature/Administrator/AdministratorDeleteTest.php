@@ -9,9 +9,11 @@ namespace Tests\Feature;
 | Descripcion: El módulo de administradores contiene los datos de los usuarios con el rol de STAFF y ADMINISTRADOR
 |--------------------------------------------------------------------------
 |
-| 1) test_administrator_delete()
+| 1) test_administrator_delete_staff()
 |
-| 2) test_administrator_delete_no_id()
+| 2) test_administrator_delete_administrador()
+|
+| 3) test_administrator_delete_no_id()
 |
 */
 
@@ -33,12 +35,23 @@ class AdministratorDeleteTest extends TestCase
     /**
      * @testdox Caso optimo para eliminar un usuario con rol de staff
      */
-    public function test_administrator_delete()
+    public function test_administrator_delete_staff()
     {
         $seed = InitSeed::getInstance()->getSeed();
         $admin = $seed->seed_administrator_staff();
         
         $this->json('DELETE', $this->baseUrl . "administration/{$admin->id}")->assertStatus(204);
+    }
+
+    /**
+     * @testdox El usuario con rol de administrador no puede eliminarse
+     */
+    public function test_administrator_delete_administrador()
+    {
+        $seed = InitSeed::getInstance()->getSeed();
+        $admin = $seed->seed_administrator_admin();
+        
+        $this->json('DELETE', $this->baseUrl . "administration/{$admin->id}")->assertStatus(422);
     }
 
     /**

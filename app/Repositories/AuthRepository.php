@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\User;
 
@@ -9,11 +10,8 @@ class AuthRepository
 {
     public function autenticacion(Request $request)
     {
-        $user = User::where('email', $request->email)->where('status', 1);
-        $credentials = request(['email', 'password']);
-
-        if (! $token = auth()->attempt($credentials)) {
-            return response(null, 401);
+        if (! $token = Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {
+            return false;
         }
 
         return $this->respondWithToken($token);

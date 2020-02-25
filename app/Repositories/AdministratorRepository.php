@@ -26,8 +26,12 @@ class AdministratorRepository
     public function deleteAdministrator($id)
     {
         $user = User::findOrFail($id);
-        $user->delete();
         
+        if($user->type == 'administrador') {
+            return 422;
+        }
+        
+        $user->delete();
         return 204;
     }
 }

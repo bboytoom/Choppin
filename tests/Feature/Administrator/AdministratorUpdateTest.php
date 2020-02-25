@@ -9,17 +9,18 @@ namespace Tests\Feature;
 | Descripcion: El módulo de administradores contiene los datos de los usuarios con el rol de STAFF y ADMINISTRADOR
 |--------------------------------------------------------------------------
 |
-| 1) test_administrator_update_optimo()
+| 1) test_administrator_update_optimo_staff()
 |
-| 2) test_administrator_update_correo_similar()
+| 2) test_administrator_update_optimo_administrador()
 |
-| 3) test_administrator_update_estatus_deshabilitado()
+| 3) test_administrator_update_correo_similar()
 |
-| 4) test_administrator_update_password()
+| 4) test_administrator_update_estatus_deshabilitado()
+|
+| 5) test_administrator_update_password()
 |
 */
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -38,16 +39,39 @@ class AdministratorUpdateTest extends TestCase
     /**
      * @testdox Caso optimo para actualizar un usuario con rol de staff
      */
-    public function test_administrator_update_optimo()
+    public function test_administrator_update_optimo_staff()
     {
         $faker = \Faker\Factory::create();
         
         $update = [
            'type' => 'staff',
+           'name' => 'prueba',
+           'mother_surname' => $faker->lastName,
+           'father_surname' => $faker->lastName,
+           'email' => $faker->unique()->safeEmail,
+           'status' => 1
+        ];
+
+        $seed = InitSeed::getInstance()->getSeed();
+        $admin = $seed->seed_administrator_staff();
+        
+        $response = $this->json('PUT', $this->baseUrl . "administration/{$admin->id}", $update);
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @testdox Caso optimo para actualizar un usuario con rol de administrador
+     */
+    public function test_administrator_update_optimo_administrador()
+    {
+        $faker = \Faker\Factory::create();
+        
+        $update = [
+           'type' => 'administrador',
            'name' => $faker->name,
            'mother_surname' => $faker->lastName,
            'father_surname' => $faker->lastName,
-           'email' => 'prueba@correo.com',
+           'email' => $faker->unique()->safeEmail,
            'status' => 1
         ];
 
@@ -86,7 +110,7 @@ class AdministratorUpdateTest extends TestCase
     public function test_administrator_update_estatus_deshabilitado()
     {
         $seed = InitSeed::getInstance()->getSeed();
-        $admin = $seed->seed_administrator_staff();
+        $admin = $seed->seed_administrator_admin();
         $faker = \Faker\Factory::create();
 
         $update = [

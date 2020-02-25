@@ -10,11 +10,11 @@ use App\User;
 
 class AdministratorController extends Controller
 {
-    protected $usuario;
+    protected $user;
 
-    public function __construct(AdministratorRepository $usuario)
+    public function __construct(AdministratorRepository $user)
     {
-        $this->usuario = $usuario;
+        $this->user = $user;
     }
 
     public function index()
@@ -24,7 +24,7 @@ class AdministratorController extends Controller
 
     public function store(AdministratorRequest $request)
     {
-        return response(null, $this->usuario->createAdministrator($request));
+        return response(null, $this->user->createAdministrator($request));
     }
 
     public function show(User $administration)
@@ -32,13 +32,13 @@ class AdministratorController extends Controller
         //
     }
 
-    public function update(AdministratorRequest $request, User $administration)
+    public function update(AdministratorRequest $request)
     {
-        return response(null, $this->usuario->updateAdministrator($request));
+        return response(null, $this->user->updateAdministrator($request));
     }
 
     public function destroy($id)
     {
-        return response(null, $this->usuario->deleteAdministrator($id));
+        return response(null, $this->user->deleteAdministrator($id));
     }
 }

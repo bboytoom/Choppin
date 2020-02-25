@@ -19,6 +19,8 @@ namespace Tests\Feature;
 |
 | 5) test_autenticacion_vacio()
 |
+| 6) test_autenticacion_password_fail_multi()
+|
 */
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -117,6 +119,34 @@ class AutenticationTest extends TestCase
 
         $response = $this->json('POST', $this->baseUrl . 'login', $data);
         $response->assertStatus(401);
+    }
+
+    /**
+     * @testdox Si tengo tres intentos fallidos mi cuenta se bloquea por 15 minutos
+     */
+    public function test_autenticacion_password_fail_multi()
+    {
+        $seed = InitSeed::getInstance()->getSeed();
+        $admin = $seed->seed_administrator_admin();
+        $correo = $admin->email;
+
+        for($i = 0; $i < 3; $i++) {
+            $data = [
+                'email' => $correo,
+                'password' => '@PruebaJAJA'
+            ];
+
+            $response = $this->json('POST', $this->baseUrl . 'login', $data);
+            $response->assertStatus(401);
+        }
+
+        $data = [
+            'email' => $correo,
+            'password' => '@PruebaJAJA'
+        ];
+
+        $response = $this->json('POST', $this->baseUrl . 'login', $data);
+        $response->assertStatus(429);
     }
 
     /**
