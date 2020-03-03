@@ -2,6 +2,19 @@
 
 namespace Tests\Feature;
 
+/*
+|--------------------------------------------------------------------------
+| Shippings (Indice)
+|
+| Descripcion: Muestra la información de las direcciones de envío del cliente 
+|--------------------------------------------------------------------------
+|
+| 1) test_shipping_delete()
+|
+| 2) test_shipping_delete_no_existe_dato()
+|
+*/
+
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -9,20 +22,30 @@ use Tests\TestCase;
 use App\Models\Shipping;
 
 /**
- * @testdox Accion eliminar en el modulo de envios
+ * @testdox Como usuario con rol de cliente quiero eliminar una dirección de envio por que ya no es necesaria
  */
 class ShippingDeleteTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
     /**
-     * @testdox Parametros optimos
+     * @testdox Caso optimo para eliminar una direccion
      */
     public function test_shipping_delete()
     {
         $seed = InitSeed::getInstance()->getSeed();
         $shipping = $seed->seed_shipping();
 
-        $this->json('DELETE', $this->baseUrl . "shippings/{$shipping['shipping_id']}")->assertStatus(204);
+        $response = $this->json('DELETE', $this->baseUrl . "clientes/envio/{$shipping['shipping_id']}");
+        $response->assertStatus(204);
+    }
+
+    /**
+     * @testdox No existe el usuario
+     */
+    public function test_shipping_delete_no_existe_dato()
+    {
+        $response = $this->json('DELETE', $this->baseUrl . "clientes/envio/122");
+        $response->assertStatus(422);
     }
 }

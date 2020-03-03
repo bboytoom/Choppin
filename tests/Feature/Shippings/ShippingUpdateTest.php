@@ -2,6 +2,19 @@
 
 namespace Tests\Feature;
 
+/*
+|--------------------------------------------------------------------------
+| Shippings (Indice)
+|
+| Descripcion: Muestra la información de las direcciones de envío del cliente 
+|--------------------------------------------------------------------------
+|
+| 1) test_shipping_update_optimo()
+|
+| 2) test_shipping_user_no_exist()
+|
+*/
+
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -9,7 +22,7 @@ use Tests\TestCase;
 use App\Models\Shipping;
 
 /**
- * @testdox Accion actualizar en el modulo de envios
+ * @testdox Como usuario con rol de cliente quiero actualizar la información de envío
  */
 class ShippingUpdateTest extends TestCase
 {
@@ -18,7 +31,7 @@ class ShippingUpdateTest extends TestCase
     /**
      * @testdox Parametros optimos
      */
-    public function test_shipping_update()
+    public function test_shipping_update_optimo()
     {
         $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
@@ -37,14 +50,14 @@ class ShippingUpdateTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('PUT', $this->baseUrl . "shippings/{$shipping['shipping_id']}", $update);
+        $response = $this->json('PUT', $this->baseUrl . "clientes/envio/{$shipping['shipping_id']}", $update);
         $response->assertStatus(200);
     }
 
     /**
      * @testdox no existe el usuarios
      */
-    public function test_shipping_user_no_exist_update()
+    public function test_shipping_user_no_exist()
     {
         $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
@@ -63,7 +76,7 @@ class ShippingUpdateTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('PUT', $this->baseUrl . "shippings/{$shipping['shipping_id']}", $update);
+        $response = $this->json('PUT', $this->baseUrl . "clientes/envio/{$shipping['shipping_id']}", $update);
         $response->assertStatus(422);
     }
 }

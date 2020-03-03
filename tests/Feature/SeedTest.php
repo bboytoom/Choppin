@@ -29,8 +29,7 @@ class SeedTest
     private $initial_gallery_photo;
     private $initial_slide_photo;
     private $initial_characteristic;
-    private $initial_shipping;
-
+ 
     public function seed_characteristic()
     {
         $faker = \Faker\Factory::create();
@@ -192,7 +191,7 @@ class SeedTest
     public function seed_shipping()
     {
         $faker = \Faker\Factory::create();
-        $user = $this->seed_user();
+        $user = $this->seed_administrator_cliente();
 
         $shipping = Shipping::create([
             'user_id' => $user->id,
@@ -203,16 +202,13 @@ class SeedTest
             'town' => $faker->city,
             'state' => $faker->state,
             'country' => 'mexico',
-            'postal_code' => $faker->numerify('0 ####'),
-            'status' => 1
+            'postal_code' => $faker->numerify('0 ####')
         ]);
 
-        $this->initial_shipping = [
+        return [
             'user_id' => $user->id,
             'shipping_id' => $shipping->id
         ];
-
-        return $this->initial_shipping;
     }
 
     public function seed_administrator_staff()

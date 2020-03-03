@@ -3,14 +3,22 @@
 namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\ShippingRequest;
 use App\Http\Resources\Shipping\ShippingResource;
 use App\Http\Resources\Shipping\ShippingCollection;
-use Illuminate\Http\Request;
+use App\Repositories\ShippingRepository;
 use App\Models\Shipping;
 
 class ShippingController extends Controller
 {
+    protected $shippin;
+
+    public function __construct(ShippingRepository $shippin)
+    {
+        $this->shippin = $shippin;
+    }
+
     public function index($id)
     {
         $shippings = Shipping::whereHas('user', function ($shippingsEstatus) {
@@ -22,11 +30,7 @@ class ShippingController extends Controller
 
     public function store(ShippingRequest $request)
     {
-        Shipping::create($request->all());
-        
-        return response([
-            'message' => 'Se agrego correctamente'
-        ], 201);
+        return response(null, $this->shippin->createShipping($request));
     }
 
     public function show(Shipping $shipping)
@@ -35,18 +39,13 @@ class ShippingController extends Controller
         return new ShippingResource($shipping);
     }
 
-    public function update(ShippingRequest $request, Shipping $shipping)
+    public function update(ShippingRequest $request)
     {
-        $shipping->update($request->all());
-        
-        return response([
-            'message' => 'Se actualizò correctamente'
-        ], 200);
+        return response(null, $this->shippin->updateShipping($request));
     }
 
-    public function destroy(Shipping $shipping)
+    public function destroy($id)
     {   
-        $shipping->delete();
-        return response(null, 204);
+        return response(null, $this->shippin->deleteShipping($id));
     }
 }
