@@ -76,7 +76,7 @@ class CategoryUpdateTest extends TestCase
     }
 
     /**
-     * @testdox Caso optimo sin descripcion vacia
+     * @testdox Caso optimo con descripcion vacia
      */
     public function test_category_update_description_empty()
     {

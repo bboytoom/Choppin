@@ -7,10 +7,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SubCategoryRequest;
 use App\Http\Resources\SubCategory\SubCategoryResource;
 use App\Http\Resources\SubCategory\SubCategoryCollection;
+use App\Repositories\SubCategoryRepository;
 use App\Models\SubCategory;
 
 class SubCategoryController extends Controller
 {
+    protected $subcat;
+
+    public function __construct(SubCategoryRepository $subcat)
+    {
+        $this->subcat = $subcat;
+    }
+
     public function index()
     {
         $subCategories = SubCategory::whereHas('category', function ($subCategoriesEstatus) {
@@ -22,11 +30,7 @@ class SubCategoryController extends Controller
 
     public function store(SubCategoryRequest $request)
     {
-        SubCategory::create($request->all());
-        
-        return response([
-            'message' => 'Se agrego correctamente'
-        ], 201);
+        return response(null, $this->subcat->createSubCategory($request));
     }
 
     public function show(SubCategory $subcategory)
@@ -35,18 +39,13 @@ class SubCategoryController extends Controller
         return new SubCategoryResource($subcategory);
     }
 
-    public function update(SubCategoryRequest $request, SubCategory $subcategory)
+    public function update(SubCategoryRequest $request)
     {
-        $subcategory->update($request->all());
-        
-        return response([
-            'message' => 'Se actualizò correctamente'
-        ], 200);
+        return response(null, $this->subcat->updateSubCategory($request));
     }
 
-    public function destroy(SubCategory $subcategory)
+    public function destroy($id)
     {
-        $subcategory->delete();
-        return response(null, 204);
+        return response(null, $this->subcat->deleteSubCategory($id));
     }
 }

@@ -29,7 +29,7 @@ class CategoryDeleteTest extends TestCase
     use RefreshDatabase, WithoutMiddleware;
 
     /**
-     * @testdox Parametros optimos
+     * @testdox Caso optimo
      */
     public function test_category_delete()
     {

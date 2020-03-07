@@ -22,12 +22,12 @@ class SubCategoryRequest extends FormRequest
             'category_id' => 'required|exists:App\Models\Category,id',
             'name' => [
                 'required',
-                'min:4',
-                'max:30',
                 'string',
+                'min:4',
+                'max:29',
                 Rule::unique('sub_categories', 'name')->ignore($this->subcategory)
             ],
-            'description' => 'required|min:4|max:80',
+            'description' => 'min:10|max:79',
             'status' => 'boolean'
         ];
     }
