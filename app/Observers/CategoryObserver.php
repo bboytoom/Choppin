@@ -7,25 +7,22 @@ use App\Models\SubCategory;
 
 class CategoryObserver
 {
-    /**
-     * Handle the category "saving" event.
-     *
-     * @param  \App\Models\Category  $category
-     * @return void
-     */
-    public function saving(Category $category)
+    public function creating(Category $category)
     {
         $category->name = e(strtolower($category->name));
         $category->slug = \Str::slug($category->name, '-');
         $category->description = e(strtolower($category->description));
+        $category->status = 1;
     }
 
-    /**
-     * Handle the category "updated" event.
-     *
-     * @param  \App\Models\Category  $category
-     * @return void
-     */
+    public function updating(Category $category)
+    {
+        $category->name = e(strtolower($category->name));
+        $category->slug = \Str::slug($category->name, '-');
+        $category->description = e(strtolower($category->description));
+        $category->status = $category->status;
+    }
+
     public function updated(Category $category)
     {
         if($category->status == 0)

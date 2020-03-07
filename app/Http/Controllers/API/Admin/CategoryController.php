@@ -7,10 +7,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\Category\CategoryResource;
 use App\Http\Resources\Category\CategoryCollection;
+use App\Repositories\CategoryRepository;
 use App\Models\Category;
 
 class CategoryController extends Controller
 {
+    protected $cat;
+
+    public function __construct(CategoryRepository $cat)
+    {
+        $this->cat = $cat;
+    }
+
     public function index()
     {
         return new CategoryCollection(Category::paginate(10));
@@ -18,11 +26,7 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request)
     {
-        Category::create($request->all());
-
-        return response([
-            'message' => 'Se agrego correctamente'
-        ], 201);
+        return response(null, $this->cat->createCategory($request));
     }
 
     public function show(Category $category)
@@ -31,18 +35,13 @@ class CategoryController extends Controller
         return new CategoryResource($category);
     }
 
-    public function update(CategoryRequest $request, Category $category)
+    public function update(CategoryRequest $request)
     {
-        $category->update($request->all());
-        
-        return response([
-            'message' => 'Se actualizò correctamente'
-        ], 200);
+        return response(null, $this->cat->updateCategory($request));
     }
 
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        $category->delete();
-        return response(null, 204);
+        return response(null, $this->cat->deleteCategory($id));
     }
 }

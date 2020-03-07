@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 | API Routes
 |--------------------------------------------------------------------------
 |
-| API\Store: Rutas publicas 
-| 
-| API\User: Rutas perteneciente al administrador del usuario
+| API\Store: Sección pública
 |
-| API\Admin: Rutas de la administracion de la tienda
+| API\User: Administrador del usuario
+|
+| API\Admin: Administrador principal
 |
 */
 
