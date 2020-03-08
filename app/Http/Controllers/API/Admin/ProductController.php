@@ -7,10 +7,18 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\Product\ProductResource;
 use App\Http\Resources\Product\ProductCollection;
+use App\Repositories\ProductRepository;
 use App\Models\Product;
 
 class ProductController extends Controller
 {
+    protected $prod;
+
+    public function __construct(ProductRepository $prod)
+    {
+        $this->prod = $prod;
+    }
+
     public function index()
     {
         $products = Product::whereHas('subcategory', function ($productsEstatus) {
@@ -22,11 +30,7 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-        Product::create($request->all());
-        
-        return response([
-            'message' => 'Se agrego correctamente'
-        ], 201);
+        return response(null, $this->prod->createProduct($request));
     }
 
     public function show(Product $product)
@@ -35,18 +39,13 @@ class ProductController extends Controller
         return new ProductResource($product);
     }
 
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductRequest $request)
     {
-        $product->update($request->all());
-        
-        return response([
-            'message' => 'Se actualizò correctamente'
-        ], 200);
+        return response(null, $this->prod->updateProduct($request));
     }
 
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        $product->delete();
-        return response(null, 204);
+        return response(null, $this->prod->deleteProduct($id));
     }
 }

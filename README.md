@@ -8,6 +8,7 @@ Se necesita instalar las siguientes herramientas
 ```
 Composer v1.9
 Php v7.3.12
+Virtualbox v6.x
 Vagrant >= 2.2.6
 ```
 
