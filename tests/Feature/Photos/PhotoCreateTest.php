@@ -2,6 +2,30 @@
 
 namespace Tests\Feature;
 
+/*
+|--------------------------------------------------------------------------
+| Imágenes del producto (Indice)
+|
+| Descripcion: Muestra las imágenes de los productos
+| Precondición: Es necesario que el producto se haya creado con anterioridad
+|--------------------------------------------------------------------------
+|
+| 1) test_photo_create_optimo()
+|
+| 2) test_photo_create_max_limit_inferior()
+|
+| 3) test_photo_create_max_limit_superior()
+|
+| 4) test_photo_create_min_limit_inferior()
+|
+| 5) test_photo_create_min_limit_superior()
+|
+| 6) test_photo_same_create()
+|
+| 7) test_photo_product_no_exist_create()
+|
+*/
+
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -9,16 +33,16 @@ use Tests\TestCase;
 use App\Models\Photo;
 
 /**
- * @testdox Accion crear en el modulo de imagenes del producto
+ * @testdox Como usuario con rol de administrador quiero agregar una nueva imagen para el producto
  */
 class PhotoCreateTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
     /**
-     * @testdox Parametros optimos
+     * @testdox Caso optimo para crear una imagen de producto
      */
-    public function test_photo_create()
+    public function test_photo_create_optimo()
     {
         $faker = \Faker\Factory::create();
         $seed = InitSeed::getInstance()->getSeed();
@@ -34,7 +58,99 @@ class PhotoCreateTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', $this->baseUrl . 'photos', $data);
+        $response = $this->json('POST', $this->baseUrl . 'products/photos', $data);
+        $response->assertStatus(201);
+    }
+
+    /**
+     * @testdox Maximo numero de caracteres con limite inferior
+     */
+    public function test_photo_create_max_limit_inferior()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $product = $seed->seed_product();
+
+        $data = [
+            'product_id' => $product['product_id'],
+            'name' => 'jksfnlsngflngklfgndkgnkfjksfjksfnlsngflngklfgnsfjksfnlsngflngklfgndkgnkfjksfjksfnlsngflngklfgnsfdd',
+            'image' => 'sdssfsflngklfgnsfjksfnlsngflproducto_default.png',
+            'type' => 'image/png',
+            'base' => create_image_producto(),
+            'description' => $faker->text($maxNbChars = 250),
+            'status' => 1
+        ];
+
+        $response = $this->json('POST', $this->baseUrl . 'products/photos', $data);
+        $response->assertStatus(201);
+    }    
+
+    /**
+     * @testdox Maximo numero de caracteres con limite superior
+     */
+    public function test_photo_create_max_limit_superior()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $product = $seed->seed_product();
+
+        $data = [
+            'product_id' => $product['product_id'],
+            'name' => 'jksfnlsngflngklfgndkgnkfjksfjksfnlsngflngklfgnsfjksfnlsngflngklfgdsndkgnkfjksfjksfnlsngflngklfgnsfdd',
+            'image' => 'sdssfsflngklfgnsfjksfnlsngflprdsoducto_default.png',
+            'type' => 'image/png',
+            'base' => create_image_producto(),
+            'description' => $faker->text($maxNbChars = 250),
+            'status' => 1
+        ];
+
+        $response = $this->json('POST', $this->baseUrl . 'products/photos', $data);
+        $response->assertStatus(422);
+    }
+
+    /**
+     * @testdox Minimo numero de caracteres con limite inferior
+     */
+    public function test_photo_create_min_limit_inferior()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $product = $seed->seed_product();
+
+        $data = [
+            'product_id' => $product['product_id'],
+            'name' => 'sd',
+            'image' => 's.png',
+            'type' => 'image/png',
+            'base' => create_image_producto(),
+            'description' => $faker->text($maxNbChars = 250),
+            'status' => 1
+        ];
+
+        $response = $this->json('POST', $this->baseUrl . 'products/photos', $data);
+        $response->assertStatus(422);
+    }
+
+    /**
+     * @testdox Minimo numero de caracteres con limite superior
+     */
+    public function test_photo_create_min_limit_superior()
+    {
+        $faker = \Faker\Factory::create();
+        $seed = InitSeed::getInstance()->getSeed();
+        $product = $seed->seed_product();
+
+        $data = [
+            'product_id' => $product['product_id'],
+            'name' => 'sddf',
+            'image' => 'dss.png',
+            'type' => 'image/png',
+            'base' => create_image_producto(),
+            'description' => $faker->text($maxNbChars = 250),
+            'status' => 1
+        ];
+
+        $response = $this->json('POST', $this->baseUrl . 'products/photos', $data);
         $response->assertStatus(201);
     }
 
@@ -54,7 +170,7 @@ class PhotoCreateTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', $this->baseUrl . 'photos', $data);
+        $response = $this->json('POST', $this->baseUrl . 'products/photos', $data);
         $response->assertStatus(422);
     }
 
@@ -74,48 +190,7 @@ class PhotoCreateTest extends TestCase
             'status' => 1
         ];
 
-        $response = $this->json('POST', $this->baseUrl . 'photos', $data);
-        $response->assertStatus(422);
-    }
-
-    /**
-     * @testdox no cuenta con el minimo de caracteres requeridos
-     */
-    public function test_photo_min_field_create()
-    {
-        $seed = InitSeed::getInstance()->getSeed();
-        $product = $seed->seed_product();
-
-        $data = [
-            'product_id' => $product['product_id'],
-            'name' => 's',
-            'image' => 'a',
-            'description' => 's',
-            'status' => 1
-        ];
-
-        $response = $this->json('POST', $this->baseUrl . 'photos', $data);
-        $response->assertStatus(422);
-    }
-
-    /**
-     * @testdox sobrepasa los caracteres requeridos
-     */
-    public function test_photo_max_field_create()
-    {
-        $faker = \Faker\Factory::create();
-        $seed = InitSeed::getInstance()->getSeed();
-        $product = $seed->seed_product();
-
-        $data = [
-            'product_id' => $product['product_id'],
-            'name' => $faker->unique()->sentence($nbWords = 100, $variableNbWords = true),
-            'image' => $faker->text($maxNbChars = 350),
-            'description' => $faker->text($maxNbChars = 350),
-            'status' => 1
-        ];
-
-        $response = $this->json('POST', $this->baseUrl . 'photos', $data);
+        $response = $this->json('POST', $this->baseUrl . 'products/photos', $data);
         $response->assertStatus(422);
     }
 }

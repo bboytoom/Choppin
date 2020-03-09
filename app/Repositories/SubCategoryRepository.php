@@ -13,15 +13,15 @@ class SubCategoryRepository
         return 201;
     }
 
-    public function updateSubCategory(Request $request)
+    public function updateSubCategory(Request $request, $id)
     {
-        $subcategory = SubCategory::find($request->id);
+        $subcategory = SubCategory::find($id);
      
-        if($subcategory) {
+        if(is_null($subcategory)) {
             return 422;
         }
 
-        SubCategory::where('id', $request->id)->update($request->all());
+        SubCategory::where('id', $subcategory->id)->update($request->all());
         return 200;
     }
 

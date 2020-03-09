@@ -13,15 +13,15 @@ class ProductRepository
         return 201;
     }
 
-    public function updateProduct(Request $request)
+    public function updateProduct(Request $request, $id)
     {
-        $product = Product::find($request->id);
+        $product = Product::find($id);
      
-        if($product) {
+        if(is_null($product)) {
             return 422;
         }
 
-        Product::where('id', $request->id)->update($request->all());
+        Product::where('id', $product->id)->update($request->all());
         return 200;
     }
 

@@ -6,18 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photo extends Model
 {
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
     protected $table = 'photos';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'product_id',
         'name',
@@ -25,16 +15,6 @@ class Photo extends Model
         'description',
         'status',
     ];
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::saving(function ($photo) {
-            $photo->name = e(strtolower($photo->name));
-            $photo->description = e(strtolower($photo->description));
-        });
-    }
 
     public function product()
     {

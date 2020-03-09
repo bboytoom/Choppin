@@ -39,9 +39,9 @@ class ShippingController extends Controller
         return new ShippingResource($shipping);
     }
 
-    public function update(ShippingRequest $request)
+    public function update(ShippingRequest $request, $id)
     {
-        return response(null, $this->shippin->updateShipping($request));
+        return response(null, $this->shippin->updateShipping($request, $id));
     }
 
     public function destroy($id)

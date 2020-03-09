@@ -22,7 +22,7 @@ class ProductRequest extends FormRequest
             'subcategory_id' => 'required|exists:App\Models\Subcategory,id',
             'name' => [
                 'required',
-                'min:4',
+                'min:3',
                 'max:99',
                 'string',
                 Rule::unique('products', 'name')->ignore($this->product)

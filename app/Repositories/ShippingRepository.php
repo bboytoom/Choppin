@@ -13,15 +13,15 @@ class ShippingRepository
         return 201;
     }
 
-    public function updateShipping(Request $request)
+    public function updateShipping(Request $request, $id)
     {
-        $shipping = Shipping::find($request->id);
+        $shipping = Shipping::find($id);
      
-        if($shipping) {
+        if(is_null($shipping)) {
             return 422;
         }
 
-        Shipping::where('id', $request->id)->update($request->all());
+        Shipping::where('id', $shipping->id)->update($request->all());
         return 200;
     }
 

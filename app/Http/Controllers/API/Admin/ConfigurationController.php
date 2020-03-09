@@ -7,11 +7,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ConfigurationRequest;
 use App\Http\Resources\Configuration\ConfigurationResource;
 use App\Http\Resources\Configuration\ConfigurationCollection;
-use App\Events\LogoUpdated;
+use App\Repositories\ConfigurationRepository;
 use App\Models\Configuration;
 
 class ConfigurationController extends Controller
 {
+    protected $config;
+
+    public function __construct(ConfigurationRepository $config)
+    {
+        $this->config = $config;
+    }
+
     public function index()
     {
         return new ConfigurationCollection(Configuration::paginate(10));
@@ -23,16 +30,8 @@ class ConfigurationController extends Controller
         return new ConfigurationResource($configuration);
     }
 
-    public function update(ConfigurationRequest $request, Configuration $configuration)
+    public function update(ConfigurationRequest $request, $id)
     {
-        $configuration->update($request->except(['type', 'base']));
-
-        if (!is_null($request->base)) {
-            event(new LogoUpdated($configuration->id, $configuration->logo, $request->base, $request->type));
-        }
-
-        return response([
-            'message' => 'Se actualizò correctamente'
-        ], 200);
+        return response(null, $this->config->updateConfiguration($request, $id));
     }
 }

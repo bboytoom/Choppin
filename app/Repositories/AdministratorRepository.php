@@ -17,9 +17,15 @@ class AdministratorRepository
         return 201;
     }
 
-    public function updateAdministrator(Request $request)
+    public function updateAdministrator(Request $request, $id)
     {
-        User::where('id', $request->id)->update($request->except(['password_confirmation']));
+        $user = User::find($id);
+
+        if(is_null($user)) {
+            return 422;
+        }
+
+        User::where('id', $user->id)->update($request->except(['password_confirmation']));
         return 200;
     }
 

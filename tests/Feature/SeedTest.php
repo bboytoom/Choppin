@@ -277,7 +277,9 @@ class SeedTest
         $this->initial_configuration = [
             'configuration_id' => $configuration->id,
             'domain' => $configuration->domain,
-            'name' => $configuration->name
+            'name' => $configuration->name,
+            'email' => $configuration->email,
+            'phone' => $configuration->phone
         ];
 
         return $this->initial_configuration;

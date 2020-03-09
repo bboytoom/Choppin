@@ -22,12 +22,12 @@ class CharacteristicRequest extends FormRequest
             'product_id' => 'required|exists:App\Models\Product,id',
             'name' => [
                 'required',
-                'min:4',
-                'max:150',
+                'min:3',
+                'max:49',
                 'string',
                 Rule::unique('characteristics', 'name')->ignore($this->characteristic)
             ],
-            'description' => 'required|min:4|max:250',
+            'description' => 'required|min:3|max:399',
             'status' => 'boolean'
         ];
     }

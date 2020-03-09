@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers\API\Admin;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CharacteristicRequest;
 use App\Http\Resources\Characteristic\CharacteristicResource;
 use App\Http\Resources\Characteristic\CharacteristicCollection;
-use Illuminate\Http\Request;
+use App\Repositories\CharacteristicRepository;
 use App\Models\Characteristic;
 
 class CharacteristicController extends Controller
 {
+    protected $charac;
+
+    public function __construct(CharacteristicRepository $charac)
+    {
+        $this->charac = $charac;
+    }
+
     public function index($id)
     {
         $characteristics = Characteristic::whereHas('product', function ($characteristicsEstatus) {
@@ -22,11 +30,7 @@ class CharacteristicController extends Controller
 
     public function store(CharacteristicRequest $request)
     {
-        Characteristic::create($request->all());
-    
-        return response([
-            'message' => 'Se agrego correctamente'
-        ], 201);
+        return response(null,  $this->charac->createCharacteristic($request));
     }
 
     public function show(Characteristic $characteristic)
@@ -35,18 +39,13 @@ class CharacteristicController extends Controller
         return new CharacteristicResource($characteristic);
     }
 
-    public function update(CharacteristicRequest $request, Characteristic $characteristic)
+    public function update(CharacteristicRequest $request, $id)
     {
-        $characteristic->update($request->all());
-        
-        return response([
-            'message' => 'Se actualizò correctamente'
-        ], 200);
+        return response(null, $this->charac->updateCharacteristic($request, $id));
     }
 
-    public function destroy(Characteristic $characteristic)
+    public function destroy($id)
     {
-        $characteristic->delete();
-        return response(null, 204);
+        return response(null, $this->charac->deleteCharacteristic($id));
     }
 }

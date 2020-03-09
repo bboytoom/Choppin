@@ -40,6 +40,7 @@ Route::group([
     'namespace' => 'API\Admin',
     'middleware' => ['auth.token']
 ], function () {
+    // Rutas del modulo de subcategorias
     Route::apiResource('subcategories', 'SubCategoryController');
 
 

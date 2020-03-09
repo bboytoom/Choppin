@@ -13,15 +13,15 @@ class CategoryRepository
         return 201;
     }
 
-    public function updateCategory(Request $request)
+    public function updateCategory(Request $request, $id)
     {
-        $category = Category::find($request->id);
+        $category = Category::find($id);
      
-        if($category) {
+        if(is_null($category)) {
             return 422;
         }
 
-        Category::where('id', $request->id)->update($request->all());
+        Category::where('id', $category->id)->update($request->all());
         return 200;
     }
 

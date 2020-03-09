@@ -25,9 +25,9 @@ class CustomersController extends Controller
     {
     }
 
-    public function update(CustomerRequest $request)
+    public function update(CustomerRequest $request, $id)
     {
-        return response(null, $this->user->updateCustomer($request));
+        return response(null, $this->user->updateCustomer($request, $id));
     }
 
     public function destroy($id)

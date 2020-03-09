@@ -35,9 +35,9 @@ class CategoryController extends Controller
         return new CategoryResource($category);
     }
 
-    public function update(CategoryRequest $request)
+    public function update(CategoryRequest $request, $id)
     {
-        return response(null, $this->cat->updateCategory($request));
+        return response(null, $this->cat->updateCategory($request, $id));
     }
 
     public function destroy($id)

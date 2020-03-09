@@ -21,8 +21,8 @@ class PerfilController extends Controller
     {
     }
 
-    public function update(AdministratorRequest $request)
+    public function update(AdministratorRequest $request, $id)
     {
-        return response(null, $this->user->updatePerfil($request));
+        return response(null, $this->user->updatePerfil($request, $id));
     }
 }

@@ -32,9 +32,9 @@ class AdministratorController extends Controller
         //
     }
 
-    public function update(AdministratorRequest $request)
+    public function update(AdministratorRequest $request, $id)
     {
-        return response(null, $this->user->updateAdministrator($request));
+        return response(null, $this->user->updateAdministrator($request, $id));
     }
 
     public function destroy($id)

@@ -7,11 +7,18 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PhotoRequest;
 use App\Http\Resources\Photo\PhotoResource;
 use App\Http\Resources\Photo\PhotoCollection;
-use App\Events\PhotoImageUpdated;
+use App\Repositories\PhotoRepository;
 use App\Models\Photo;
 
 class PhotoController extends Controller
 {
+    protected $phto;
+
+    public function __construct(PhotoRepository $phto)
+    {
+        $this->phto = $phto;
+    }
+
     public function index($id)
     {
         $photos = Photo::whereHas('product', function ($photosEstatus) {
@@ -23,15 +30,7 @@ class PhotoController extends Controller
 
     public function store(PhotoRequest $request)
     {
-        $photo = Photo::create($request->except(['type', 'base']));
-
-        if (!is_null($request->base)) {
-            event(new PhotoImageUpdated($photo->id, $photo->image, $request->base, $request->type));
-        }
-
-        return response([
-            'message' => 'Se agrego correctamente'
-        ], 201);
+        return response(null, $this->phto->createPhoto($request));
     }
 
     public function show(Photo $photo)
@@ -40,22 +39,13 @@ class PhotoController extends Controller
         return new PhotoResource($photo);
     }
 
-    public function update(PhotoRequest $request, Photo $photo)
+    public function update(PhotoRequest $request, $id)
     {
-        $photo->update($request->except(['type', 'base']));
-            
-        if (!is_null($request->base)) {
-            event(new PhotoImageUpdated($photo->id, $photo->image, $request->base, $request->type));
-        }
-
-        return response([
-            'message' => 'Se actualizò correctamente'
-        ], 200);
+        return response(null, $this->phto->updatePhoto($request, $id));
     }
 
-    public function destroy(Photo $photo)
+    public function destroy($id)
     {
-        $photo->delete();
-        return response(null, 204);
+        return response(null, $this->phto->deletePhoto($id));
     }
 }

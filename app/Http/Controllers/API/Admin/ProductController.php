@@ -39,9 +39,9 @@ class ProductController extends Controller
         return new ProductResource($product);
     }
 
-    public function update(ProductRequest $request)
+    public function update(ProductRequest $request, $id)
     {
-        return response(null, $this->prod->updateProduct($request));
+        return response(null, $this->prod->updateProduct($request, $id));
     }
 
     public function destroy($id)

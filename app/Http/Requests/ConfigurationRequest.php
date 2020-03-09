@@ -21,24 +21,24 @@ class ConfigurationRequest extends FormRequest
         return [
             'domain' => [
                 'required',
-                'min:7',
-                'max:80',
+                'min:8',
+                'max:79',
                 'string',
                 Rule::unique('configurations', 'domain')->ignore($this->configuration)
             ],
             'name' => [
                 'required',
-                'min:4',
-                'max:100',
+                'min:3',
+                'max:99',
                 'string',
                 Rule::unique('configurations', 'name')->ignore($this->configuration)
             ],
-            'business_name' => 'required|min:6|max:150|string',
+            'business_name' => 'required|min:6|max:149|string',
             'slogan' => 'min:6|max:255|string',
             'email' => [
                 'required',
-                'min:7',
-                'max:80',
+                'min:8',
+                'max:69',
                 'email',
                 'string',
                 Rule::unique('configurations', 'email')->ignore($this->configuration)
@@ -46,12 +46,13 @@ class ConfigurationRequest extends FormRequest
             'phone' => [
                 'required',
                 'min:8',
-                'max:15',
+                'max:14',
                 Rule::unique('configurations', 'phone')->ignore($this->configuration)
             ],
-            'logo' => 'min:6|max:100',
+            'logo' => 'min:6|max:50',
             'type' => 'min:8|max:11',
             'base' => 'min:100',
+            'status' => 'boolean'
         ];
     }
 

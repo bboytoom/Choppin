@@ -39,9 +39,9 @@ class SubCategoryController extends Controller
         return new SubCategoryResource($subcategory);
     }
 
-    public function update(SubCategoryRequest $request)
+    public function update(SubCategoryRequest $request, $id)
     {
-        return response(null, $this->subcat->updateSubCategory($request));
+        return response(null, $this->subcat->updateSubCategory($request, $id));
     }
 
     public function destroy($id)
