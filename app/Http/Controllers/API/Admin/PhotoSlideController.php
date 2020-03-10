@@ -7,11 +7,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PhotoSlideRequest;
 use App\Http\Resources\PhotoSlide\PhotoSlideResource;
 use App\Http\Resources\PhotoSlide\PhotoSlideCollection;
-use App\Events\PhotoSlideUpdate;
+use App\Repositories\PhotoSlideRepository;
 use App\Models\PhotoSlide;
 
 class PhotoSlideController extends Controller
 {
+    protected $photo;
+
+    public function __construct(PhotoSlideRepository $photo)
+    {
+        $this->photo = $photo;
+    }
+
     public function index($id)
     {
         $photosSlide = PhotoSlide::whereHas('configuration', function ($photosSlideEstatus) {
@@ -23,15 +30,7 @@ class PhotoSlideController extends Controller
 
     public function store(PhotoSlideRequest $request)
     {
-        $photoslide = PhotoSlide::create($request->except(['type', 'base']));
-
-        if (!is_null($request->base)) {
-            event(new PhotoSlideUpdate($photoslide->id, $photoslide->image, $request->base, $request->type));
-        }
-
-        return response([
-            'message' => 'Se agrego correctamente'
-        ], 201);
+        return response(null, $this->photo->createPhotoSlide($request));
     }
 
     public function show(PhotoSlide $slide)
@@ -40,22 +39,13 @@ class PhotoSlideController extends Controller
         return new PhotoSlideResource($slide);
     }
 
-    public function update(PhotoSlideRequest $request, PhotoSlide $slide)
+    public function update(PhotoSlideRequest $request, $id)
     {
-        $slide->update($request->except(['type', 'base']));
-
-        if (!is_null($request->base)) {
-            event(new PhotoSlideUpdate($slide->id, $slide->image, $request->base, $request->type));
-        }
-
-        return response([
-            'message' => 'Se actualizò correctamente'
-        ], 200);
+        return response(null, $this->photo->updatePhotoSlide($request, $id));
     }
 
-    public function destroy(PhotoSlide $slide)
+    public function destroy($id)
     {
-        $slide->delete();
-        return response(null, 204);
+        return response(null, $this->photo->deletePhotoSlide($id));
     }
 }
