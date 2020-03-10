@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCharacteristicsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('characteristics', function (Blueprint $table) {
@@ -20,17 +15,12 @@ class CreateCharacteristicsTable extends Migration
                 ->references('id')->on('products')
                 ->onDelete('cascade');
             $table->string('name', 50)->unique();
-            $table->text('description');
+            $table->text('description', 400);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('characteristics');

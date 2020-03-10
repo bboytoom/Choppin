@@ -19,14 +19,14 @@ class ShippingRequest extends FormRequest
     {
         return [
             'user_id' => 'required|exists:App\User,id',
-            'street_one' => 'required|min:4|max:100',
-            'street_two' => 'min:4|max:100',
-            'addres' => 'required|min:4|max:80',
-            'suburb' => 'required|min:4|max:80',
-            'town' => 'required|min:4|max:80',
-            'state' => 'required|min:4|max:40',
-            'country' => 'required|min:4|max:20',
-            'postal_code' => 'required|min:5|max:7',
+            'street_one' => 'required|min:4|max:99',
+            'street_two' => 'min:4|max:99',
+            'addres' => 'required|min:4|max:199',
+            'suburb' => 'required|min:4|max:79',
+            'town' => 'required|min:4|max:79',
+            'state' => 'required|min:4|max:39',
+            'country' => 'required|min:4|max:19',
+            'postal_code' => 'required|min:5|max:6',
             'status' => 'boolean'
         ];
     }

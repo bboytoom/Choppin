@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSubCategoriesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('sub_categories', function (Blueprint $table) {
@@ -20,19 +15,14 @@ class CreateSubCategoriesTable extends Migration
                 ->references('id')	
                 ->on('categories')	
                 ->onDelete('cascade');
-            $table->string('name', 100)->unique();
-            $table->string('slug', 150);	
-            $table->text('description');
+            $table->string('name', 30)->unique();
+            $table->string('slug', 40);	
+            $table->text('description', 80);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('sub_categories');

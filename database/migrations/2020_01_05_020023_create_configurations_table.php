@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateConfigurationsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('configurations', function (Blueprint $table) {
@@ -18,7 +13,7 @@ class CreateConfigurationsTable extends Migration
             $table->string('domain', 80)->unique();
             $table->string('name', 100)->unique();
             $table->string('business_name', 150);
-            $table->text('slogan')->nullable();
+            $table->text('slogan', 255)->nullable();
             $table->string('logo', 50)->nullable();
             $table->string('email', 70)->unique();
             $table->string('phone', 15)->unique();
@@ -27,11 +22,6 @@ class CreateConfigurationsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('configurations');

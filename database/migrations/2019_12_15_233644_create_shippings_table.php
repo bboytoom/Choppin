@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateShippingsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('shippings', function (Blueprint $table) {
@@ -19,24 +14,19 @@ class CreateShippingsTable extends Migration
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
-            $table->string('street_one', 200);
-            $table->string('street_two', 200)->nullable();
+            $table->string('street_one', 100);
+            $table->string('street_two', 100)->nullable();
             $table->string('addres', 200);
-            $table->string('suburb', 150);
-            $table->string('town', 150);
-            $table->string('state', 100);
-            $table->string('country', 50);
+            $table->string('suburb', 80);
+            $table->string('town', 80);
+            $table->string('state', 40);
+            $table->string('country', 20);
             $table->string('postal_code', 7);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('shippings');

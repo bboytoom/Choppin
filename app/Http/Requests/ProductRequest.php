@@ -27,8 +27,8 @@ class ProductRequest extends FormRequest
                 'string',
                 Rule::unique('products', 'name')->ignore($this->product)
             ],
-            'extract' => 'required|min:4|max:149',
-            'description' => 'required|min:4|max:499',
+            'extract' => 'required|min:4|max:99',
+            'description' => 'required|min:4|max:399',
             'price' => 'required|max:6',
             'status' => 'boolean'
         ];
