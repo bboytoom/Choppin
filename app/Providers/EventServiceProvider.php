@@ -8,8 +8,6 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Events\PhotoImageUpdated;
 use App\Listeners\PhotoImageUpdatedListener;
-use App\Events\PhotoGalleryUpdate;
-use App\Listeners\PhotoGalleryUpdateListener;
 use App\Events\PhotoSlideUpdate;
 use App\Listeners\PhotoSlideUpdateListener;
 use App\Events\LogoUpdated;
@@ -28,9 +26,6 @@ class EventServiceProvider extends ServiceProvider
         ],
         PhotoImageUpdated::class => [
             PhotoImageUpdatedListener::class,
-        ],
-        PhotoGalleryUpdate::class => [
-            PhotoGalleryUpdateListener::class,
         ],
         PhotoSlideUpdate::class => [
             PhotoSlideUpdateListener::class,

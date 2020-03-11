@@ -66,8 +66,6 @@ Route::group([
 
     // Rutas del modulo de categorias
     Route::apiResource('categories', 'CategoryController');
-    Route::get('/categories/slide/all/{id}', 'PhotoGalleryController@index')->name('categories.slide.index');
-    Route::apiResource('categories/slide', 'PhotoGalleryController')->except('index');
 
 
     // Rutas del modulo de productos

@@ -4,16 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PhotoSlide extends Model
+class Metas extends Model
 {
-    protected $table = 'photo_slides';
+    protected $table = 'metas';
 
     protected $fillable = [
         'configuration_id',
-        'name',
-        'image',
-        'description',
-        'status',
+        'keyword',
+        'description'
     ];
 
     public function configuration()

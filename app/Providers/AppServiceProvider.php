@@ -20,6 +20,9 @@ use App\Observers\PhotoObserver;
 use App\Models\Photo;
 use App\Observers\ConfigurationObserver;
 use App\Models\Configuration;
+use App\Observers\PhotoSlideObserver;
+use App\Models\PhotoSlide;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -50,5 +53,6 @@ class AppServiceProvider extends ServiceProvider
         Characteristic::observe(CharacteristicObserver::class);
         Photo::observe(PhotoObserver::class);
         Configuration::observe(ConfigurationObserver::class);
+        PhotoSlide::observe(PhotoSlideObserver::class);
     }
 }

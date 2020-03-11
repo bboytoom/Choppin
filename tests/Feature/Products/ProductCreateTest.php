@@ -77,7 +77,7 @@ class ProductCreateTest extends TestCase
         $data = [
            'subcategory_id' => $complemento['subcategoria_id'],
            'name' => 'jksfnlsngflngklfgndkgnkfjksfjksfnlsngflngklfgndkgnkfjksfjksfnlsngflngklfgndkgnkfjksfjksfnlsngflngk',
-           'extract' => 'jksfnlsngflngklfgndkgnkfjksfjksfnlsngflngklfgndkgnkfjksfjksfnlsngflngklfgndkgnkfjksfjksfnlsngflngklngklfgndkgnkfjksfjksfnlsngflngklfgndkgnkfjksfjksf',
+           'extract' => 'jksfnlsngflngklfgndkgnkfjksfjksfnlsngflngklfgndkgnkfjksfjksfnlsngflngklfgndkgnkfjksfjksfnlsngflngk',
            'description' => $faker->text($maxNbChars = 250),
            'price' => '33454'
         ];
