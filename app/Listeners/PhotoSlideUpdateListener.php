@@ -11,22 +11,11 @@ use App\Models\PhotoSlide;
 
 class PhotoSlideUpdateListener
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
     public function __construct()
     {
         //
     }
 
-    /**
-     * Handle the event.
-     *
-     * @param  PhotoSlideUpdate  $event
-     * @return void
-     */
     public function handle(PhotoSlideUpdate $event)
     {
         if (!is_null($event->base)) {

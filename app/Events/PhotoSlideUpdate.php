@@ -19,11 +19,6 @@ class PhotoSlideUpdate
     public $base;
     public $type;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
     public function __construct($id, $image, $base, $type)
     {
         $this->id = $id;
@@ -32,11 +27,6 @@ class PhotoSlideUpdate
         $this->type = $type;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
     public function broadcastOn()
     {
         return new PrivateChannel('channel-name');

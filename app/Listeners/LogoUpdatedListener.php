@@ -11,22 +11,11 @@ use App\Models\Configuration;
 
 class LogoUpdatedListener
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
     public function __construct()
     {
         //
     }
 
-    /**
-     * Handle the event.
-     *
-     * @param  LogoUpdated  $event
-     * @return void
-     */
     public function handle(LogoUpdated $event)
     {
         if (!is_null($event->base)) {

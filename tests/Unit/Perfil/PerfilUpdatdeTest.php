@@ -23,6 +23,9 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\User;
 
+/**
+ * @testdox Como usuario con rol de staff quiero actualizar mi información
+ */
 class PerfilUpdatdeTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;

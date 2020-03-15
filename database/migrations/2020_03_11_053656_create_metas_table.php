@@ -14,8 +14,8 @@ class CreateMetasTable extends Migration
             $table->foreign('configuration_id')
                 ->references('id')->on('configurations')
                 ->onDelete('cascade');
-            $table->text('keyword');
-            $table->text('description');
+            $table->text('keyword', 255);
+            $table->text('description', 255);
             $table->timestamps();
         });
     }

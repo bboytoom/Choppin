@@ -7,12 +7,6 @@ use App\Http\Resources\SubCategory\SubCategoryIdentifierResource;
 
 class ProductResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function toArray($request)
     {
         return [

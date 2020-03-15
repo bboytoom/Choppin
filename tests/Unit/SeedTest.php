@@ -13,21 +13,13 @@ use App\Models\SubCategory;
 use App\Models\Product;
 use App\Models\Photo;
 use App\Models\PhotoSlide;
+use App\Models\Metas;
 use App\Models\Shipping;
 
 class SeedTest
 {
     use RefreshDatabase, WithFaker;
-    
-    private $initial_configuration;
-    private $initial_user;
-    private $initial_category;
-    private $initial_subcategory;
-    private $initial_product;
-    private $initial_photo;
-    private $initial_slide_photo;
-    private $initial_characteristic;
- 
+
     public function seed_characteristic()
     {
         $faker = \Faker\Factory::create();
@@ -40,13 +32,30 @@ class SeedTest
             'status' => 1
         ]);
 
-        $this->initial_characteristic = [
+        return [
             'product_id' => $catalogs['product_id'],
             'characteristic_id' => $characteristic->id,
             'name' => $characteristic->name
         ];
+    }
 
-        return $this->initial_characteristic;
+    public function seed_metas()
+    {
+        $faker = \Faker\Factory::create();
+        $configuration = $this->seed_configuration();
+        
+        $meta = Metas::create([
+            'configuration_id' => $configuration['configuration_id'],
+            'keyword' => $faker->sentence($nbWords = 10, $variableNbWords = true),
+            'description' => $faker->text($maxNbChars = 100)
+        ]);
+
+        return [
+            'configuration_id' => $configuration['configuration_id'],
+            'metas_id' => $meta->id,
+            'keyword' => $meta->keyword,
+            'description' => $meta->description
+        ];
     }
 
     public function seed_slide_photo()
@@ -63,13 +72,11 @@ class SeedTest
             'status' => 1
         ]);
 
-        $this->initial_slide_photo = [
+        return [
             'configuration_id' => $configuration['configuration_id'],
             'slide_photo_id' => $photoslide->id,
             'name' => $photoslide->name
         ];
-
-        return $this->initial_slide_photo;
     }
 
     public function seed_photo()
@@ -85,13 +92,11 @@ class SeedTest
             'status' => 1
         ]);
 
-        $this->initial_photo = [
+        return [
             'product_id' => $catalogs['product_id'],
             'photo_id' => $photo->id,
             'name' => $photo->name
         ];
-
-        return $this->initial_photo;
     }
 
     public function seed_product()
@@ -110,14 +115,12 @@ class SeedTest
             'status' => 1
         ]);
 
-        $this->initial_product = [
+        return [
             'category_id' => $catalogs['category_id'],
             'subcategoria_id' => $catalogs['subcategoria_id'],
             'product_id' => $product->id,
             'name' => $product->name
         ];
-
-        return $this->initial_product;
     }
 
     public function seed_subcategory()
@@ -134,13 +137,11 @@ class SeedTest
             'status' => 1
         ]);
 
-        $this->initial_subcategory = [
+        return [
             'category_id' => $category['category_id'],
             'subcategoria_id' => $subcategory->id,
             'name' => $subcategory->name,
         ];
-
-        return $this->initial_subcategory;
     }
 
     public function seed_category()
@@ -155,13 +156,11 @@ class SeedTest
             'status' => 1
         ]);
 
-        $this->initial_category = [
+        return [
             'category_id' => $category->id,
             'name' => $category->name,
             'description' => $category->description
         ];
-
-        return $this->initial_category;
     }
 
     public function seed_shipping()
@@ -250,7 +249,7 @@ class SeedTest
             'status' => 1
         ]);
 
-        $this->initial_configuration = [
+        return [
             'configuration_id' => $configuration->id,
             'domain' => $configuration->domain,
             'name' => $configuration->name,
@@ -258,7 +257,5 @@ class SeedTest
             'phone' => $configuration->phone,
             'slogan' => $configuration->slogan
         ];
-
-        return $this->initial_configuration;
     }
 }

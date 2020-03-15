@@ -40,10 +40,6 @@ Route::group([
     'namespace' => 'API\Admin',
     'middleware' => ['auth.token']
 ], function () {
-    // Rutas del modulo de subcategorias
-    Route::apiResource('subcategories', 'SubCategoryController');
-
-
     // Rutas del modulo de administradores
     Route::apiResource('administration', 'AdministratorController');
 
@@ -62,10 +58,16 @@ Route::group([
     Route::apiResource('configurations', 'ConfigurationController')->except('store', 'destroy');
     Route::get('/configurations/slide/all/{id}', 'PhotoSlideController@index')->name('configurations.slide.index');
     Route::apiResource('configurations/slide', 'PhotoSlideController')->except('index');
+    Route::get('/configurations/meta/all/{id}', 'MetaController@index')->name('configurations.meta.index');
+    Route::apiResource('configurations/meta', 'MetaController')->only('update', 'show');
 
 
     // Rutas del modulo de categorias
     Route::apiResource('categories', 'CategoryController');
+
+
+    // Rutas del modulo de subcategorias
+    Route::apiResource('subcategories', 'SubCategoryController');
 
 
     // Rutas del modulo de productos

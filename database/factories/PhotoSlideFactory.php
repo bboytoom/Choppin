@@ -1,7 +1,5 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-
 use App\Models\PhotoSlide;
 use Faker\Generator as Faker;
 

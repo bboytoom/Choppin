@@ -6,13 +6,6 @@ use Closure;
 
 class AuthHeader
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
     public function handle($request, Closure $next)
     {
         $header = $request->header('x-api-key');

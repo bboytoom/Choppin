@@ -11,22 +11,11 @@ use App\Models\Photo;
 
 class PhotoImageUpdatedListener
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
     public function __construct()
     {
         //
     }
 
-    /**
-     * Handle the event.
-     *
-     * @param  PhotoImageUpdated  $event
-     * @return void
-     */
     public function handle(PhotoImageUpdated $event)
     {
         if (!is_null($event->base)) {
