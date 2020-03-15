@@ -10,7 +10,7 @@ class AuthRepository
 {
     public function autenticacion(Request $request)
     {
-        if (! $token = Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {
+        if (! $token = Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {         
             return false;
         }
 

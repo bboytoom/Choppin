@@ -9,7 +9,16 @@ class ProductRepository
 {
     public function createProduct(Request $request)
     {
-        Product::create($request->all());
+        Product::create([
+            'subcategory_id' => $request->subcategory_id,
+            'name' => e(strtolower($request->name)),
+            'slug' => \Str::slug($request->name, '-'),
+            'extract' => e(strtolower($request->extract)),
+            'description' => e(strtolower($request->description)),
+            'price' => $request->price,
+            'status' => 1
+        ]);
+
         return 201;
     }
 
@@ -21,7 +30,17 @@ class ProductRepository
             return 422;
         }
 
-        Product::where('id', $product->id)->update($request->all());
+        Product::where('id', $product->id)->update([
+            'subcategory_id' => $request->subcategory_id,
+            'name' => e(strtolower($request->name)),
+            'slug' => \Str::slug($request->name, '-'),
+            'extract' => e(strtolower($request->extract)),
+            'description' => e(strtolower($request->description)),
+            'price' => $request->price,
+            'status' => $request->status
+        
+        ]);
+
         return 200;
     }
 

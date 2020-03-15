@@ -34,10 +34,10 @@ class AuthUserController extends Controller
         if (!$this->auth->autenticacion($request)) {
             $this->incrementLoginAttempts($request);
             return response(null, 401);
-        } else {
-            $this->clearLoginAttempts($request);
-            return $this->auth->autenticacion($request);
         }
+
+        $this->clearLoginAttempts($request);
+        return $this->auth->autenticacion($request);
     }
 
     public function getUser()

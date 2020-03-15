@@ -26,7 +26,7 @@ class PhotoSlideRequest extends FormRequest
                 'max:99',
                 Rule::unique('photo_slides', 'name')->ignore($this->slide)
             ],
-            'image' => 'min:6|max:49',
+            'image' => 'min:6|max:33',
             'type' => 'min:8|max:11',
             'base' => 'min:100',
             'description' => 'min:4|max:255',

@@ -9,7 +9,13 @@ class CategoryRepository
 {
     public function createCategory(Request $request)
     {
-        Category::create($request->all());
+        Category::create([
+            'name' => e(strtolower($request->name)),
+            'slug' => \Str::slug($request->name, '-'),
+            'description' => empty($request->description) ? '' : e(strtolower($request->description)),
+            'status' => 1
+        ]);
+
         return 201;
     }
 
@@ -21,7 +27,13 @@ class CategoryRepository
             return 422;
         }
 
-        Category::where('id', $category->id)->update($request->all());
+        Category::where('id', $category->id)->update([
+            'name' => e(strtolower($request->name)),
+            'slug' => \Str::slug($request->name, '-'),
+            'description' => empty($request->description) ? '' : e(strtolower($request->description)),
+            'status' => e(strtolower($request->status))
+        ]);
+
         return 200;
     }
 
@@ -32,7 +44,7 @@ class CategoryRepository
         if(is_null($category)) {
             return 422;
         }
-
+       
         $category->delete();
         return 204;
     }

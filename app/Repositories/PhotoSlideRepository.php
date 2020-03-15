@@ -10,7 +10,15 @@ class PhotoSlideRepository
 {
     public function createPhotoSlide(Request $request)
     {
-        $photoslide = PhotoSlide::create($request->except(['type', 'base']));
+        $data = $request->except(['type', 'base']);
+       
+        $photoslide = PhotoSlide::create([
+            'configuration_id' =>  $data['configuration_id'],
+            'name' => e(strtolower($data['name'])),
+            'image' => e(strtolower($data['image'])),
+            'description' => empty($data['description']) ? '' : e(strtolower($data['description'])),
+            'status' => 1
+        ]);
 
         if (!is_null($request->base)) {
             event(new PhotoSlideUpdate($photoslide->id, $photoslide->image, $request->base, $request->type));
@@ -21,6 +29,7 @@ class PhotoSlideRepository
 
     public function updatePhotoSlide(Request $request, $id)
     {
+        $data = $request->except(['type', 'base']);
         $slide = PhotoSlide::find($id);
     
         if(is_null($slide)) {
@@ -31,7 +40,13 @@ class PhotoSlideRepository
             event(new PhotoSlideUpdate($slide->id, $slide->image, $request->base, $request->type));
         }
 
-        PhotoSlide::where('id', $slide->id)->update($request->except(['type', 'base']));
+        PhotoSlide::where('id', $slide->id)->update([
+            'name' => e(strtolower($data['name'])),
+            'image' => e(strtolower($data['image'])),
+            'description' => empty($data['description']) ? '' : e(strtolower($data['description'])),
+            'status' => $data['status']
+        ]);
+
         return 200;
     }
 
