@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Store;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLoginRequest;
@@ -28,15 +29,21 @@ class AuthUserController extends Controller
     {
         if (method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
+            Log::alert('El usuario ' . $request->email . ' Fue bloqueado por el sistema');
+
             return $this->sendLockoutResponse($request);
         }
 
         if (!$this->auth->autenticacion($request)) {
             $this->incrementLoginAttempts($request);
+            Log::info('Intento fallido del usuario ' . $request->email);
+
             return response(null, 401);
         }
 
         $this->clearLoginAttempts($request);
+        Log::notice('El usuario ' . $request->email . ' Ingreso correctamente');
+
         return $this->auth->autenticacion($request);
     }
 
@@ -53,7 +60,6 @@ class AuthUserController extends Controller
     public function logOut()
     {
         auth()->logout();
-
         return response()->json(['message' => 'Salió correctamente']);
     }
 

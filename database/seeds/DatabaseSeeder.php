@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         factory(\App\Models\Configuration::class, 1)->create()->each(function ($configuration) {
+            $configuration->metaconfiguration()->createMany(factory(\App\Models\Metas::class, 1)->make()->toArray());
             $configuration->photoconfiguration()->createMany(factory(\App\Models\PhotoSlide::class, 4)->make()->toArray());
         });
     }

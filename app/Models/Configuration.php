@@ -23,4 +23,9 @@ class Configuration extends Model
     {
         return $this->hasMany('App\Models\PhotoSlide', 'configuration_id');
     }
+
+    public function metaconfiguration()
+    {
+        return $this->hasMany('App\Models\Metas', 'configuration_id');
+    }
 }
