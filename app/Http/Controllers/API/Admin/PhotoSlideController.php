@@ -13,6 +13,7 @@ use App\Models\PhotoSlide;
 class PhotoSlideController extends Controller
 {
     protected $photo;
+    private $pages = 5;
 
     public function __construct(PhotoSlideRepository $photo)
     {
@@ -23,7 +24,7 @@ class PhotoSlideController extends Controller
     {
         $photosSlide = PhotoSlide::whereHas('configuration', function ($photosSlideEstatus) {
             $photosSlideEstatus->where('status', 1);
-        })->paginate(5);
+        })->paginate($this->pages);
 
         return new PhotoSlideCollection($photosSlide);
     }
@@ -33,8 +34,10 @@ class PhotoSlideController extends Controller
         return response(null, $this->photo->createPhotoSlide($request));
     }
 
-    public function show(PhotoSlide $slide)
+    public function show($id)
     {
+        $slide = PhotoSlide::findOrFail($id);
+
         PhotoSlideResource::withoutWrapping();
         return new PhotoSlideResource($slide);
     }

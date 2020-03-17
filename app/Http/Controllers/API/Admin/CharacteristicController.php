@@ -13,6 +13,7 @@ use App\Models\Characteristic;
 class CharacteristicController extends Controller
 {
     protected $charac;
+    private $pages = 10;
 
     public function __construct(CharacteristicRepository $charac)
     {
@@ -23,7 +24,7 @@ class CharacteristicController extends Controller
     {
         $characteristics = Characteristic::whereHas('product', function ($characteristicsEstatus) {
             $characteristicsEstatus->where('status', 1); 
-        })->where('product_id', $id)->paginate(10);
+        })->where('product_id', $id)->paginate($this->pages);
 
         return new CharacteristicCollection($characteristics);
     }
@@ -33,8 +34,10 @@ class CharacteristicController extends Controller
         return response(null,  $this->charac->createCharacteristic($request));
     }
 
-    public function show(Characteristic $characteristic)
+    public function show($id)
     {
+        $characteristic = Characteristic::findOrFail($id);
+
         CharacteristicResource::withoutWrapping();
         return new CharacteristicResource($characteristic);
     }

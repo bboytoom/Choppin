@@ -13,8 +13,6 @@ namespace Tests\Unit;
 |
 | 2) test_perfil_update_deshabilitado()
 |
-| 3) test_perfil_update_cambio_rol()
-|
 */
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -83,30 +81,5 @@ class PerfilUpdatdeTest extends TestCase
         
         $response = $this->json('PUT', $this->baseUrl . "perfil/{$admin->id}", $update);
         $response->assertStatus(200);
-    }
-
-    /**
-     * @testdox El usuario con rol de staff no puede cambiar de rol.
-     */
-    public function test_perfil_update_cambio_rol()
-    {
-        $faker = \Faker\Factory::create();
-        
-        $update = [
-           'type' => 'administrador',
-           'name' => $faker->name,
-           'mother_surname' => $faker->lastName,
-           'father_surname' => $faker->lastName,
-           'email' => $faker->unique()->safeEmail,
-           'password' => '',
-           'password_confirmation' => '',
-           'status' => 1
-        ];
-
-        $seed = InitSeed::getInstance()->getSeed();
-        $admin = $seed->seed_administrator_staff();
-        
-        $response = $this->json('PUT', $this->baseUrl . "perfil/{$admin->id}", $update);
-        $response->assertStatus(422);
     }
 }

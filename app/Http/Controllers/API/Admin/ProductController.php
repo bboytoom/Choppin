@@ -13,6 +13,7 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     protected $prod;
+    private $pages = 10;
 
     public function __construct(ProductRepository $prod)
     {
@@ -23,7 +24,7 @@ class ProductController extends Controller
     {
         $products = Product::whereHas('subcategory', function ($productsEstatus) {
             $productsEstatus->where('status', 1); 
-        })->paginate(10);
+        })->paginate($this->pages);
 
         return new ProductCollection($products);
     }
@@ -33,8 +34,10 @@ class ProductController extends Controller
         return response(null, $this->prod->createProduct($request));
     }
 
-    public function show(Product $product)
+    public function show($id)
     {
+        $product = Product::findOrFail($id);
+
         ProductResource::withoutWrapping();
         return new ProductResource($product);
     }

@@ -13,6 +13,7 @@ use App\Models\Category;
 class CategoryController extends Controller
 {
     protected $cat;
+    private $pages = 10;
 
     public function __construct(CategoryRepository $cat)
     {
@@ -21,7 +22,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        return new CategoryCollection(Category::paginate(10));
+        return new CategoryCollection(Category::paginate($this->pages));
     }
 
     public function store(CategoryRequest $request)
@@ -29,8 +30,10 @@ class CategoryController extends Controller
         return response(null, $this->cat->createCategory($request));
     }
 
-    public function show(Category $category)
+    public function show($id)
     {
+        $category = Category::findOrFail($id);
+
         CategoryResource::withoutWrapping();
         return new CategoryResource($category);
     }

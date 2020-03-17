@@ -13,6 +13,7 @@ use App\Models\Configuration;
 class ConfigurationController extends Controller
 {
     protected $config;
+    private $pages = 10;
 
     public function __construct(ConfigurationRepository $config)
     {
@@ -21,11 +22,13 @@ class ConfigurationController extends Controller
 
     public function index()
     {
-        return new ConfigurationCollection(Configuration::paginate(10));
+        return new ConfigurationCollection(Configuration::paginate($this->pages));
     }
 
-    public function show(Configuration $configuration)
+    public function show($id)
     {
+        $configuration = Configuration::findOrFail($id);
+
         ConfigurationResource::withoutWrapping();
         return new ConfigurationResource($configuration);
     }

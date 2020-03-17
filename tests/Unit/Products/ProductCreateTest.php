@@ -35,9 +35,7 @@ use Illuminate\Support\Str;
 use Tests\TestCase;
 
 /**
- * 
  * @testdox Como usuario con rol de administrador quiero crear un nuevo producto para vender
- * 
  */
 class ProductCreateTest extends TestCase
 {

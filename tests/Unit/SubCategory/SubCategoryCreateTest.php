@@ -34,9 +34,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 /**
- * 
  * @testdox Como usuario con rol de administrador quiero crear una nueva subcategoría para tener una nueva sección en mi tienda
- * 
  */
 class SubCategoryCreateTest extends TestCase
 {

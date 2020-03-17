@@ -13,6 +13,7 @@ use App\Models\Shipping;
 class ShippingController extends Controller
 {
     protected $shippin;
+    private $pages = 10;
 
     public function __construct(ShippingRepository $shippin)
     {
@@ -23,7 +24,7 @@ class ShippingController extends Controller
     {
         $shippings = Shipping::whereHas('user', function ($shippingsEstatus) {
             $shippingsEstatus->where('status', 1); 
-        })->where('user_id', $id)->paginate(10);
+        })->where('user_id', $id)->paginate($this->pages);
 
         return new ShippingCollection($shippings);
     }
@@ -33,8 +34,10 @@ class ShippingController extends Controller
         return response(null, $this->shippin->createShipping($request));
     }
 
-    public function show(Shipping $shipping)
+    public function show($id)
     {
+        $shipping = Shipping::findOrFail($id);
+
         ShippingResource::withoutWrapping();
         return new ShippingResource($shipping);
     }

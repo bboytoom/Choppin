@@ -29,9 +29,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 /**
- * 
  * @testdox Como usuario quiero ingresar al panel de administración para gestionar mi información.
- * 
  */
 class AutenticationTest extends TestCase
 {

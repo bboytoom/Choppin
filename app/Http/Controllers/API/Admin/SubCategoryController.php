@@ -13,6 +13,7 @@ use App\Models\SubCategory;
 class SubCategoryController extends Controller
 {
     protected $subcat;
+    private $pages = 10;
 
     public function __construct(SubCategoryRepository $subcat)
     {
@@ -23,7 +24,7 @@ class SubCategoryController extends Controller
     {
         $subCategories = SubCategory::whereHas('category', function ($subCategoriesEstatus) {
             $subCategoriesEstatus->where('status', 1); 
-        })->paginate(10);
+        })->paginate($this->pages);
 
         return new SubCategoryCollection($subCategories);
     }
@@ -33,8 +34,10 @@ class SubCategoryController extends Controller
         return response(null, $this->subcat->createSubCategory($request));
     }
 
-    public function show(SubCategory $subcategory)
+    public function show($id)
     {
+        $subcategory = SubCategory::findOrFail($id);
+
         SubCategoryResource::withoutWrapping();
         return new SubCategoryResource($subcategory);
     }

@@ -39,9 +39,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 /**
- * 
  * @testdox Como usuario con rol de administrador quiero crear un usuario con rol de staff para ayudarme en la gestión de la tienda.
- * 
  */
 class AdministratorCreateTest extends TestCase
 {

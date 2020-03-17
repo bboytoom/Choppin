@@ -27,9 +27,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 /**
- * 
  * @testdox  Como usuario con rol de administrador quiero actualizar una categoría
- * 
  */
 class CategoryUpdateTest extends TestCase 
 {

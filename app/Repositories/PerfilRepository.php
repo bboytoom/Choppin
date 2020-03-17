@@ -13,7 +13,7 @@ class PerfilRepository
         $data = $request->except(['password_confirmation']);
         $user = User::find($id);
 
-        if(is_null($user) || $request->type == 'administrador') {
+        if(is_null($user)) {
             return 422;
         }
 

@@ -13,6 +13,7 @@ use App\Models\Photo;
 class PhotoController extends Controller
 {
     protected $phto;
+    private $pages = 10;
 
     public function __construct(PhotoRepository $phto)
     {
@@ -23,7 +24,7 @@ class PhotoController extends Controller
     {
         $photos = Photo::whereHas('product', function ($photosEstatus) {
             $photosEstatus->where('status', 1);
-        })->where('product_id', $id)->paginate(10);
+        })->where('product_id', $id)->paginate($this->pages);
 
         return new PhotoCollection($photos);
     }
@@ -33,8 +34,10 @@ class PhotoController extends Controller
         return response(null, $this->phto->createPhoto($request));
     }
 
-    public function show(Photo $photo)
+    public function show($id)
     {
+        $photo = Photo::findOrFail($id);
+
         PhotoResource::withoutWrapping();
         return new PhotoResource($photo);
     }

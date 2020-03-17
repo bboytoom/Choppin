@@ -24,9 +24,7 @@ use Tests\TestCase;
 use App\User;
 
 /**
- * 
  * @testdox Como usuario con rol de administrador quiero eliminar a un usuario con rol de staff por què ya no es requerido.
- * 
  */
 class AdministratorDeleteTest extends TestCase
 {
