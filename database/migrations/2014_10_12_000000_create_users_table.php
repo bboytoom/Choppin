@@ -10,6 +10,11 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('permission_id');
+            $table->foreign('permission_id')
+                ->references('id')
+                ->on('permissions')
+                ->onDelete('cascade');
             $table->enum('type', ['cliente', 'administrador', 'staff'])->default('cliente');
             $table->string('name', 50);
             $table->string('mother_surname', 40)->nullable();

@@ -14,6 +14,7 @@ class User extends Authenticatable implements JWTSubject
     protected $table = 'users';
 
     protected $fillable = [
+        'permission_id',
         'type',
         'name',
         'email',
@@ -44,5 +45,23 @@ class User extends Authenticatable implements JWTSubject
     public function shipping()
     {
         return $this->hasMany('App\Models\Shipping', 'user_id');
+    }
+
+    public function permission()
+    {
+        return $this->belongsTo('App\Models\Permission', 'permission_id');
+    }
+
+    public function Access(string $access)
+    {
+        $arrayAccess = json_decode($this->permission->permission);
+        
+        foreach ($arrayAccess as $key) {
+            if ($key == $access) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

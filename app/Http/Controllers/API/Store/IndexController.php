@@ -11,6 +11,8 @@ use App\Models\InShoppingCart;
 
 class IndexController extends Controller
 {
+    private $pages = 10;
+
     public function __construct()
     {
         $this->middleware('shoppingcart')->only('store');
@@ -21,7 +23,7 @@ class IndexController extends Controller
         $products = Product::all()->where('status', 1);
 
         if ($products->count() > 6) {
-            return new IndexCollection($products->random(6));
+            return new IndexCollection($products->random($this->pages));
         }
 
         return new IndexCollection($products);

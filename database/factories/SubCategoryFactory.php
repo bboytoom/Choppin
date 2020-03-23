@@ -10,7 +10,7 @@ $factory->define(SubCategory::class, function (Faker $faker) {
     return [
         'name' => $subcategory,
         'slug' => Str::slug($subcategory),
-        'description' => $this->faker->text($maxNbChars = 50),
+        'description' => $this->faker->text($maxNbChars = 10),
         'status'=> 1
     ];
 });

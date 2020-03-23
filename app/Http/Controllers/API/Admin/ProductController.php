@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\API\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\Product\ProductResource;
 use App\Http\Resources\Product\ProductCollection;
@@ -17,6 +17,7 @@ class ProductController extends Controller
 
     public function __construct(ProductRepository $prod)
     {
+        $this->authorizeResource(Product::class, 'product');
         $this->prod = $prod;
     }
 
@@ -34,21 +35,19 @@ class ProductController extends Controller
         return response(null, $this->prod->createProduct($request));
     }
 
-    public function show($id)
+    public function show(Product $product)
     {
-        $product = Product::findOrFail($id);
-
         ProductResource::withoutWrapping();
         return new ProductResource($product);
     }
 
-    public function update(ProductRequest $request, $id)
+    public function update(ProductRequest $request, Product $product)
     {
-        return response(null, $this->prod->updateProduct($request, $id));
+        return response(null, $this->prod->updateProduct($request, $product));
     }
 
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        return response(null, $this->prod->deleteProduct($id));
+        return response(null, $this->prod->deleteProduct($product));
     }
 }

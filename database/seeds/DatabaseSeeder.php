@@ -6,20 +6,34 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        factory(\App\User::class)->create([
-            'type' => 'administrador',
-            'email' => 'admin@correo.com'
-        ]);
+        factory(\App\Models\Permission::class, 1)->create([
+            'name' => 'root',
+            'permission' => json_encode(array('root-permission'))
+        ])->each(function ($permission) {
+            $permission->user()->save(factory(\App\User::class)->make([
+                'type' => 'administrador',
+                'email' => 'admin@correo.com'
+            ]));
+        });
 
-        factory(\App\User::class)->create([
-            'type' => 'staff',
-            'email' => 'staff@correo.com'
-        ]);
+        factory(\App\Models\Permission::class, 1)->create([
+            'name' => 'empaquetador',
+            'permission' => json_encode(array('create-product', 'read-product', 'update-product', 'delete-product', 'detail-product'))
+        ])->each(function ($permission) {
+            $permission->user()->save(factory(\App\User::class)->make([
+                'type' => 'staff',
+                'email' => 'helps@correo.com'
+            ]));
+        });
 
-        factory(\App\User::class, 3)->create([
-            'type' => 'cliente'
-        ])->each(function ($user) {	
-            $user->shipping()->createMany(factory(\App\Models\Shipping::class, 1)->make()->toArray());	
+        factory(\App\Models\Permission::class)->create()->each(function ($permission) {
+            $customers = $permission->user()->saveMany(factory(\App\User::class, 3)->make([
+                'type' => 'cliente'
+            ]));
+
+            $customers->each(function ($user) {
+                $user->shipping()->createMany(factory(\App\Models\Shipping::class, 1)->make()->toArray());
+            });
         });
 
         factory(\App\Models\Configuration::class, 1)->create()->each(function ($configuration) {
@@ -29,6 +43,8 @@ class DatabaseSeeder extends Seeder
 
         factory(\App\Models\Category::class, 3)->create()->each(function ($category) {	
             $subcategoria = $category->subcategory()->saveMany(factory(\App\Models\SubCategory::class, 5)->make());	
+            
+            
             $subcategoria->each(function ($subcat) {	
                 $product = $subcat->product()->saveMany(factory(\App\Models\Product::class, 10)->make());	
                 $product->each(function ($prod) {	
