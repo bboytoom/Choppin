@@ -8,25 +8,23 @@ use App\Models\Metas;
 
 class MetasRepository
 {
-    public function updateMetas(Request $request, $id)
+    public function updateMetas(Request $request, $metum)
     {
-        $meta = Metas::find($id);
-
-        if(is_null($meta)) {
-            return 422;
-        }
-
         try {
-            Metas::where('id', $meta->id)->update([
+            $metaEdit = Metas::where('id', $metum->id)->update([
                 'keyword' => e(strtolower($request->keyword)),
                 'description' => e(strtolower($request->description))
             ]);
 
-            Log::notice('El metadato se actualizo correctamente');
+            if ($metaEdit) {
+                Log::notice('El metadato se actualizo correctamente');
+                return 200;
+            }
 
-            return 200;
+            Log::warning('El metadato se actualizo correctamente');
+            return 400;
         } catch (\Exception $e) {
-            Log::error('Error al actualizar el metadato, ya que muestra la siguiente Exception ' . $e);
+            Log::error('Error al actualizar el metadato, ya que muestra la siguiente Exception ' . $e->getMessage());
         }
     }
 }

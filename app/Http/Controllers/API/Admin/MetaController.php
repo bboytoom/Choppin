@@ -17,6 +17,7 @@ class MetaController extends Controller
 
     public function __construct(MetasRepository $meta)
     {
+        $this->authorizeResource(Metas::class, 'metum');
         $this->meta = $meta;
     }
 
@@ -29,16 +30,14 @@ class MetaController extends Controller
         return new MetaCollection($metas);
     }
 
-    public function show($id)
+    public function show(Metas $metum)
     {
-        $metas = Metas::findOrFail($id);
-
         MetaResource::withoutWrapping();
-        return new MetaResource($metas);
+        return new MetaResource($metum);
     }
 
-    public function update(MetasRequest $request, $id)
+    public function update(MetasRequest $request, Metas $metum)
     {
-        return response(null, $this->meta->updateMetas($request, $id));
+        return response(null, $this->meta->updateMetas($request, $metum));
     }
 }

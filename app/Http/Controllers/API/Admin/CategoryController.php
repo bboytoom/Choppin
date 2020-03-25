@@ -17,6 +17,7 @@ class CategoryController extends Controller
 
     public function __construct(CategoryRepository $cat)
     {
+        $this->authorizeResource(Category::class, 'category');
         $this->cat = $cat;
     }
 
@@ -30,21 +31,19 @@ class CategoryController extends Controller
         return response(null, $this->cat->createCategory($request));
     }
 
-    public function show($id)
+    public function show(Category $category)
     {
-        $category = Category::findOrFail($id);
-
         CategoryResource::withoutWrapping();
         return new CategoryResource($category);
     }
 
-    public function update(CategoryRequest $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        return response(null, $this->cat->updateCategory($request, $id));
+        return response(null, $this->cat->updateCategory($request, $category));
     }
 
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        return response(null, $this->cat->deleteCategory($id));
+        return response(null, $this->cat->deleteCategory($category));
     }
 }

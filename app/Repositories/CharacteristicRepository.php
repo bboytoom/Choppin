@@ -11,57 +11,57 @@ class CharacteristicRepository
     public function createCharacteristic(Request $request)
     {
         try {
-            Characteristic::create([
+            $charact = Characteristic::create([
                 'product_id' => $request->product_id,
                 'name' => e(strtolower($request->name)),
                 'description' => e(strtolower($request->description)),
                 'status' => 1
             ]);
 
-            Log::notice('La caracteristica ' . $request->name . ' se creo correctamente');
+            if ($charact) {
+                Log::notice('La caracteristica ' . $request->name . ' se creo correctamente');
+                return 201;
+            }
 
-            return 201;
+            Log::warning('La caracteristica ' . $request->name . ' no se creo');
+            return 400;
         } catch (\Exception $e) {
-            Log::error('Error al crear la caracteristica ' . $request->name . ', ya que muestra la siguiente Exception ' . $e);
+            Log::error('Error al crear la caracteristica ' . $request->name . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
     }
 
-    public function updateCharacteristic(Request $request, $id)
+    public function updateCharacteristic(Request $request, $characteristic)
     {
-        $characteristic = Characteristic::find($id);
-        
-        if(is_null($characteristic)) {
-            return 422;
-        }
-
         try {
-            Characteristic::where('id', $characteristic->id)->update([
+            $charact = Characteristic::where('id', $characteristic->id)->update([
                 'product_id' => $request->product_id,
                 'name' => e(strtolower($request->name)),
                 'description' => e(strtolower($request->description)),
                 'status' => $request->status
             ]);
 
-            Log::notice('La caracteristica ' . $request->name . ' se actualizo correctamente');
+            if ($charact) {
+                Log::notice('La caracteristica ' . $request->name . ' se actualizo correctamente');
+                return 200;
+            }
 
-            return 200;
+            Log::warning('La caracteristica ' . $request->name . ' no se actualizo');
+            return 400;
         } catch (\Exception $e) {
-            Log::error('Error al actualizar la caracteristica ' . $request->name . ', ya que muestra la siguiente Exception ' . $e);
+            Log::error('Error al actualizar la caracteristica ' . $request->name . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
     }
 
-    public function deleteCharacteristic($id)
+    public function deleteCharacteristic($characteristic)
     {
-        $characteristic = Characteristic::find($id);
-        
-        if(is_null($characteristic)) {
-            return 422;
+        $charact = $characteristic->delete();
+
+        if ($charact) {
+            Log::notice('La caracteristica ' . $characteristic->name . ' se elimino correctamente');
+            return 204;
         }
 
-        $characteristic->delete();
-
-        Log::notice('La caracteristica ' . $characteristic->name . ' se elimino correctamente');
-        
-        return 204;
+        Log::warning('La caracteristica ' . $characteristic->name . ' no se elimino');
+        return 400;
     }
 }

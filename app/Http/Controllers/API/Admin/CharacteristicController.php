@@ -17,6 +17,7 @@ class CharacteristicController extends Controller
 
     public function __construct(CharacteristicRepository $charac)
     {
+        $this->authorizeResource(Characteristic::class, 'characteristic');
         $this->charac = $charac;
     }
 
@@ -34,21 +35,19 @@ class CharacteristicController extends Controller
         return response(null,  $this->charac->createCharacteristic($request));
     }
 
-    public function show($id)
+    public function show(Characteristic $characteristic)
     {
-        $characteristic = Characteristic::findOrFail($id);
-
         CharacteristicResource::withoutWrapping();
         return new CharacteristicResource($characteristic);
     }
 
-    public function update(CharacteristicRequest $request, $id)
+    public function update(CharacteristicRequest $request, Characteristic $characteristic)
     {
-        return response(null, $this->charac->updateCharacteristic($request, $id));
+        return response(null, $this->charac->updateCharacteristic($request, $characteristic));
     }
 
-    public function destroy($id)
+    public function destroy(Characteristic $characteristic)
     {
-        return response(null, $this->charac->deleteCharacteristic($id));
+        return response(null, $this->charac->deleteCharacteristic($characteristic));
     }
 }

@@ -17,6 +17,7 @@ class SubCategoryController extends Controller
 
     public function __construct(SubCategoryRepository $subcat)
     {
+        $this->authorizeResource(SubCategory::class, 'subcategory');
         $this->subcat = $subcat;
     }
 
@@ -34,21 +35,19 @@ class SubCategoryController extends Controller
         return response(null, $this->subcat->createSubCategory($request));
     }
 
-    public function show($id)
+    public function show(SubCategory $subcategory)
     {
-        $subcategory = SubCategory::findOrFail($id);
-
         SubCategoryResource::withoutWrapping();
         return new SubCategoryResource($subcategory);
     }
 
-    public function update(SubCategoryRequest $request, $id)
+    public function update(SubCategoryRequest $request, SubCategory $subcategory)
     {
-        return response(null, $this->subcat->updateSubCategory($request, $id));
+        return response(null, $this->subcat->updateSubCategory($request, $subcategory));
     }
 
-    public function destroy($id)
+    public function destroy(SubCategory $subcategory)
     {
-        return response(null, $this->subcat->deleteSubCategory($id));
+        return response(null, $this->subcat->deleteSubCategory($subcategory));
     }
 }

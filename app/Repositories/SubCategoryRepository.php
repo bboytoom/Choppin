@@ -11,7 +11,7 @@ class SubCategoryRepository
     public function createSubCategory(Request $request)
     {
         try {
-            SubCategory::create([
+            $subcat = SubCategory::create([
                 'category_id' => $request->category_id,
                 'name' => e(strtolower($request->name)),
                 'slug' => \Str::slug($request->name, '-'),
@@ -19,24 +19,22 @@ class SubCategoryRepository
                 'status' => 1
             ]);
 
-            Log::notice('La subcategoria ' . $request->name . ' se creo correctamente');
+            if ($subcat) {
+                Log::notice('La subcategoria ' . $request->name . ' se creo correctamente');
+                return 201;
+            }
 
-            return 201;
+            Log::warning('La subcategoria ' . $request->name . ' no se creo');
+            return 400;
         } catch (\Exception $e) {
-            Log::error('Error al crear la subcategoria ' . $request->name . ', ya que muestra la siguiente Exception ' . $e);
+            Log::error('Error al crear la subcategoria ' . $request->name . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
     }
 
-    public function updateSubCategory(Request $request, $id)
+    public function updateSubCategory(Request $request, $subcategory)
     {
-        $subcategory = SubCategory::find($id);
-     
-        if(is_null($subcategory)) {
-            return 422;
-        }
-
         try {
-            SubCategory::where('id', $subcategory->id)->update([
+            $subcat = SubCategory::where('id', $subcategory->id)->update([
                 'category_id' => $request->category_id,
                 'name' => e(strtolower($request->name)),
                 'slug' => \Str::slug($request->name, '-'),
@@ -44,26 +42,28 @@ class SubCategoryRepository
                 'status' => $request->status
             ]);
 
-            Log::notice('La subcategoria ' . $request->name . ' se actualizo correctamente');
+            if ($subcat) {
+                Log::notice('La subcategoria ' . $request->name . ' se actualizo correctamente');
+                return 200;
+            }
 
-            return 200;
+            Log::warning('La subcategoria ' . $request->name . ' no se actualizo');
+            return 400;
         } catch (\Exception $e) {
-            Log::error('Error al actualizar la subcategoria ' . $request->name . ', ya que muestra la siguiente Exception ' . $e);
+            Log::error('Error al actualizar la subcategoria ' . $request->name . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
     }
 
-    public function deleteSubCategory($id)
+    public function deleteSubCategory($subcategory)
     {
-        $subcategory = SubCategory::find($id);
+        $subcat = $subcategory->delete();
         
-        if(is_null($subcategory)) {
-            return 422;
+        if ($subcat) {
+            Log::notice('La subcategoria ' . $subcategory->name . ' se elimino correctamente');
+            return 204;
         }
 
-        $subcategory->delete();
-        
-        Log::notice('La subcategoria ' . $subcategory->name . ' se elimino correctamente');
-
-        return 204;
+        Log::warning('La subcategoria ' . $subcategory->name . ' no se elimino');
+        return 400;
     }
 }

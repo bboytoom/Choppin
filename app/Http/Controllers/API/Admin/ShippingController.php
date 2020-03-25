@@ -17,6 +17,7 @@ class ShippingController extends Controller
 
     public function __construct(ShippingRepository $shippin)
     {
+        $this->authorizeResource(Shipping::class, 'envio');
         $this->shippin = $shippin;
     }
 
@@ -34,21 +35,19 @@ class ShippingController extends Controller
         return response(null, $this->shippin->createShipping($request));
     }
 
-    public function show($id)
+    public function show(Shipping $envio)
     {
-        $shipping = Shipping::findOrFail($id);
-
         ShippingResource::withoutWrapping();
-        return new ShippingResource($shipping);
+        return new ShippingResource($envio);
     }
 
-    public function update(ShippingRequest $request, $id)
+    public function update(ShippingRequest $request, Shipping $envio)
     {
-        return response(null, $this->shippin->updateShipping($request, $id));
+        return response(null, $this->shippin->updateShipping($request, $envio));
     }
 
-    public function destroy($id)
+    public function destroy(Shipping $envio)
     {   
-        return response(null, $this->shippin->deleteShipping($id));
+        return response(null, $this->shippin->deleteShipping($envio));
     }
 }

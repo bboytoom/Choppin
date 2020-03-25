@@ -11,7 +11,7 @@ class ShippingRepository
     public function createShipping(Request $request)
     {
         try {
-            Shipping::create([
+            $envio = Shipping::create([
                 'user_id' => $request->user_id,
                 'street_one' => e(strtolower($request->street_one)),
                 'street_two' => empty($request->street_two) ? '' : e(strtolower($request->street_two)),
@@ -24,24 +24,22 @@ class ShippingRepository
                 'status' => 1
             ]);
 
-            Log::notice('La direccion de envio ' . $request->street_one . ' se creo correctamente');
+            if ($envio) {
+                Log::notice('La direccion de envio ' . $request->street_one . ' se creo correctamente');
+                return 201;
+            }
 
-            return 201;
+            Log::warning('La direccion de envio ' . $request->street_one . ' no se creo');
+            return 400;
         } catch (\Exception $e) {
-            Log::error('Error al crear la direccion de envio ' . $request->street_one . ', ya que muestra la siguiente Exception ' . $e);
+            Log::error('Error al crear la direccion de envio ' . $request->street_one . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
     }
 
-    public function updateShipping(Request $request, $id)
+    public function updateShipping(Request $request, $shipping)
     {
-        $shipping = Shipping::find($id);
-     
-        if(is_null($shipping)) {
-            return 422;
-        }
-
         try {
-            Shipping::where('id', $shipping->id)->update([
+            $envio = Shipping::where('id', $shipping->id)->update([
                 'street_one' => e(strtolower($request->street_one)),
                 'street_two' => empty($request->street_two) ? '' : e(strtolower($request->street_two)),
                 'addres' => e(strtolower($request->addres)),
@@ -53,26 +51,28 @@ class ShippingRepository
                 'status' => $request->status
             ]);
 
-            Log::notice('La direccion de envio ' . $request->street_one . ' se actualizo correctamente');
+            if ($envio) {
+                Log::notice('La direccion de envio ' . $request->street_one . ' se actualizo correctamente');
+                return 200;
+            }
 
-            return 200;
+            Log::warning('La direccion de envio ' . $request->street_one . ' no se actualizo');
+            return 400;
         } catch (\Exception $e) {
-            Log::error('Error al actualizar la direccion de envio ' . $request->street_one . ', ya que muestra la siguiente Exception ' . $e);
+            Log::error('Error al actualizar la direccion de envio ' . $request->street_one . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
     }
 
-    public function deleteShipping($id)
+    public function deleteShipping($shipping)
     {
-        $shipping = Shipping::find($id);
+        $envio = $shipping->delete();
         
-        if(is_null($shipping)) {
-            return 422;
+        if ($envio) {
+            Log::notice('La direccion de envio ' . $shipping->street_one . ' se elimino correctamente');
+            return 204;
         }
 
-        $shipping->delete();
-        
-        Log::notice('La direccion de envio ' . $shipping->street_one . ' se elimino correctamente');
-
-        return 204;
+        Log::warning('La direccion de envio ' . $shipping->street_one . ' no se elimino');
+        return 400;
     }
 }

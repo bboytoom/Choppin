@@ -17,6 +17,7 @@ class ConfigurationController extends Controller
 
     public function __construct(ConfigurationRepository $config)
     {
+        $this->authorizeResource(Configuration::class, 'configuration');
         $this->config = $config;
     }
 
@@ -25,16 +26,14 @@ class ConfigurationController extends Controller
         return new ConfigurationCollection(Configuration::paginate($this->pages));
     }
 
-    public function show($id)
+    public function show(Configuration $configuration)
     {
-        $configuration = Configuration::findOrFail($id);
-
         ConfigurationResource::withoutWrapping();
         return new ConfigurationResource($configuration);
     }
 
-    public function update(ConfigurationRequest $request, $id)
+    public function update(ConfigurationRequest $request, Configuration $configuration)
     {
-        return response(null, $this->config->updateConfiguration($request, $id));
+        return response(null, $this->config->updateConfiguration($request, $configuration));
     }
 }
