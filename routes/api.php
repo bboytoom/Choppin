@@ -40,6 +40,10 @@ Route::group([
     'namespace' => 'API\Admin',
     'middleware' => ['auth.token']
 ], function () {
+    // Rutas del modulo para permisos
+    Route::apiResource('permissions', 'PermissionController');
+
+    
     // Rutas del modulo de administradores
     Route::apiResource('administration', 'AdministratorController');
 

@@ -27,7 +27,7 @@ class SubCategoryRequest extends FormRequest
                 'max:29',
                 Rule::unique('sub_categories', 'name')->ignore($this->subcategory)
             ],
-            'description' => 'min:10|max:79',
+            'description' => 'max:79',
             'status' => 'boolean'
         ];
     }

@@ -34,7 +34,7 @@ class ConfigurationRequest extends FormRequest
                 Rule::unique('configurations', 'name')->ignore($this->configuration)
             ],
             'business_name' => 'required|min:6|max:149|string',
-            'slogan' => 'min:6|max:254|string',
+            'slogan' => 'max:254',
             'email' => [
                 'required',
                 'min:8',

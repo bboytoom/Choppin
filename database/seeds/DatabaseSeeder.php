@@ -26,7 +26,10 @@ class DatabaseSeeder extends Seeder
             ]));
         });
 
-        factory(\App\Models\Permission::class)->create()->each(function ($permission) {
+        factory(\App\Models\Permission::class, 1)->create([
+            'name' => 'cliente',
+            'permission' => json_encode(array('whithout-permission'))
+        ])->each(function ($permission) {
             $customers = $permission->user()->saveMany(factory(\App\User::class, 3)->make([
                 'type' => 'cliente'
             ]));

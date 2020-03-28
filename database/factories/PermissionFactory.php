@@ -10,6 +10,7 @@ $factory->define(Permission::class, function (Faker $faker) {
    
     return [
         'name' => $name,
-        'permission' => json_encode(array(Str::slug($name, '-')))
+        'permission' => json_encode(array(Str::slug($name, '-'))),
+        'status' => true
     ];
 });
