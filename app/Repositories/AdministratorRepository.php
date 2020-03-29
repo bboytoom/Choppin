@@ -10,12 +10,13 @@ class AdministratorRepository
 {
     public function createAdministrator(Request $request)
     {
-        if ($request->type == 'administrador') {
+        if ($request->type != 'staff') {
             return 422;
         }
 
         try {
-            User::create([
+            $admin = User::create([
+                'permission_id' => $request->permission_id, 
                 'type' => $request->type,
                 'name' => e(strtolower($request->name)),
                 'mother_surname' => empty($request->mother_surname) ? '' : e(strtolower($request->mother_surname)),
@@ -25,53 +26,52 @@ class AdministratorRepository
                 'status' => 1
             ]);
 
-            Log::notice('El usuario ' . $request->email . ' se creo correctamente');
+            if ($admin) {
+                Log::notice('El usuario ' . $request->email . ' se creo correctamente');
+                return 201;
+            }
 
-            return 201;
+            Log::warning('El usuario ' . $request->email . ' no se creo');
+            return 400;
         } catch (\Exception $e) {
-            Log::error('Error al crear el usuario ' . $request->email . ', ya que muestra la siguiente Exception ' . $e);
+            Log::error('Error al crear el usuario ' . $request->email . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
     }
 
-    public function updateAdministrator(Request $request, $id)
+    public function updateAdministrator(Request $request, $administration)
     {
-        $data = $request->except(['password_confirmation']);
-        $user = User::find($id);
-
-        if(is_null($user)) {
-            return 422;
-        }
-        
         try {
-            User::where('id', $user->id)->update([
-                'name' => e(strtolower($data['name'])),
-                'mother_surname' => empty($data['mother_surname']) ? '' : e(strtolower($data['mother_surname'])),
-                'father_surname' => e(strtolower($data['father_surname'])),
-                'email' => e(strtolower($data['email'])),
-                'password' => empty($data['password']) ? $user->password : \Hash::make($data['password']),
-                'status' => ($user->type == 'administrador') ? 1 : $data['status']
+            $admin = User::where('id', $administration->id)->update([
+                'name' => e(strtolower($request->name)),
+                'mother_surname' => empty($request->mother_surname) ? '' : e(strtolower($request->mother_surname)),
+                'father_surname' => e(strtolower($request->father_surname)),
+                'email' => e(strtolower($request->email)),
+                'password' => empty($request->password) ? $administration->password : \Hash::make($request->password),
+                'status' => ($administration->type == 'administrador') ? 1 : $request->status
             ]);
 
-            Log::notice('El usuario ' . $request->email . ' se actualizo correctamente');
+            if ($admin) {
+                Log::notice('El usuario ' . $request->email . ' se actualizo correctamente');
+                return 200;
+            }
 
-            return 200;
+            Log::warning('El usuario ' . $request->email . ' no se actualizo');
+            return 400;
         } catch (\Exception $e) {
-            Log::error('Error al actualizar el usuario ' . $request->email . ', ya que muestra la siguiente Exception ' . $e);
+            Log::error('Error al actualizar el usuario ' . $request->email . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
     }
 
-    public function deleteAdministrator($id)
+    public function deleteAdministrator($administration)
     {
-        $user = User::findOrFail($id);
-        
-        if($user->type == 'administrador') {
-            return 422;
+        $admin = $administration->delete();
+
+        if ($admin) {
+            Log::notice('El usuario ' . $administration->email . ' se elimino correctamente');
+            return 204;
         }
-        
-        $user->delete();
 
-        Log::notice('El usuario ' . $user->email . ' se elimino correctamente');
-
-        return 204;
+        Log::notice('El usuario ' . $administration->email . ' no se elimino');
+        return 400;
     }
 }

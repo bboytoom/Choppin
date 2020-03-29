@@ -8,30 +8,27 @@ use App\User;
 
 class PerfilRepository
 {
-    public function updatePerfil(Request $request, $id)
+    public function updatePerfil(Request $request, $perfil)
     {
-        $data = $request->except(['password_confirmation']);
-        $user = User::find($id);
-
-        if(is_null($user)) {
-            return 422;
-        }
-
         try {
-            User::where('id', $user->id)->update([
-                'name' => e(strtolower($data['name'])),
-                'mother_surname' => empty($data['mother_surname']) ? '' : e(strtolower($data['mother_surname'])),
-                'father_surname' => e(strtolower($data['father_surname'])),
-                'email' => e(strtolower($data['email'])),
-                'password' => empty($data['password']) ? $user->password : \Hash::make($data['password']),
+            $per = User::where('id', $perfil->id)->update([
+                'name' => e(strtolower($request->name)),
+                'mother_surname' => empty($request->mother_surname) ? '' : e(strtolower($request->mother_surname)),
+                'father_surname' => e(strtolower($request->father_surname)),
+                'email' => e(strtolower($request->email)),
+                'password' => empty($request->password) ? $perfil->password : \Hash::make($request->password),
                 'status' => 1
             ]);
 
-            Log::notice('El perfil del usuario ' . $data['email'] . ' se actualizo correctamente');
+            if ($per) {
+                Log::notice('El perfil del usuario ' . $request->email . ' se actualizo correctamente');
+                return 200;
+            }
 
-            return 200;
+            Log::warning('El perfil del usuario ' . $request->email . ' no se actualizo');
+            return 400;
         } catch (\Exception $e) {
-            Log::error('Error al actualizar el perfil del usuario' .$data['email'] . ', ya que muestra la siguiente Exception ' . $e);
+            Log::error('Error al actualizar el perfil del usuario' . $request->email . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
     }
 }

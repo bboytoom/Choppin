@@ -19,9 +19,10 @@ class AdministratorRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'in:administrador,staff',
+            'permission_id' => 'required|exists:App\Models\Permission,id',
+            'type' => 'in:staff',
             'name' => 'required|min:3|max:49',
-            'mother_surname' => 'min:3|max:39',
+            'mother_surname' => 'max:39',
             'father_surname' => 'required|min:4|max:39',
             'password' => 'min:8|max:19|confirmed',
             'email' => [

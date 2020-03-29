@@ -17,6 +17,7 @@ class CustomersController extends Controller
 
     public function __construct(CustomerRepository $user)
     {
+        $this->authorizeResource(User::class, 'cliente');
         $this->user = $user;
     }
 
@@ -26,21 +27,19 @@ class CustomersController extends Controller
         return new UserCollection($customer);
     }
 
-    public function show($id)
+    public function show(User $cliente)
     {
-        $cliente = User::findOrFail($id);
-
         UserResource::withoutWrapping();
         return new UserResource($cliente);
     }
 
-    public function update(CustomerRequest $request, $id)
+    public function update(CustomerRequest $request, User $cliente)
     {
-        return response(null, $this->user->updateCustomer($request, $id));
+        return response(null, $this->user->updateCustomer($request, $cliente));
     }
 
-    public function destroy($id)
+    public function destroy(User $cliente)
     {
-        return response(null, $this->user->deleteCustomer($id));
+        return response(null, $this->user->deleteCustomer($cliente));
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CustomerRequest extends FormRequest
+class PerfilRequest extends FormRequest
 {
     public function authorize()
     {
@@ -20,7 +20,7 @@ class CustomerRequest extends FormRequest
     {
         return [
             'permission_id' => 'required|exists:App\Models\Permission,id',
-            'type' => 'in:cliente',
+            'type' => 'in:administrador,staff',
             'name' => 'required|min:3|max:49',
             'mother_surname' => 'max:39',
             'father_surname' => 'required|min:4|max:39',
@@ -31,7 +31,7 @@ class CustomerRequest extends FormRequest
                 'max:69',
                 'email',
                 'string',
-                Rule::unique('users', 'email')->ignore($this->cliente)
+                Rule::unique('users', 'email')->ignore($this->perfil)
             ],
             'status' => 'boolean'
         ];

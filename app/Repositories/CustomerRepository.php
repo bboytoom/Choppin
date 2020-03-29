@@ -8,45 +8,40 @@ use App\User;
 
 class CustomerRepository
 {
-    public function updateCustomer(Request $request, $id)
+    public function updateCustomer(Request $request, $cliente)
     {
-        $data = $request->except(['password_confirmation']);
-        $user = User::find($id);
-
-        if(is_null($user)) {
-            return 422;
-        }
-
         try {
-            User::where('id', $user->id)->update([
-                'name' => e(strtolower($data['name'])),
-                'mother_surname' => empty($data['mother_surname']) ? '' : e(strtolower($data['mother_surname'])),
-                'father_surname' => e(strtolower($data['father_surname'])),
-                'email' => e(strtolower($data['email'])),
-                'password' => empty($data['password']) ? $user->password : \Hash::make($data['password']),
-                'status' => $data['status']
+            $customer = User::where('id', $cliente->id)->update([
+                'name' => e(strtolower($request->name)),
+                'mother_surname' => empty($request->mother_surname) ? '' : e(strtolower($request->mother_surname)),
+                'father_surname' => e(strtolower($request->father_surname)),
+                'email' => e(strtolower($request->email)),
+                'password' => empty($request->password) ? $cliente->password : \Hash::make($request->password),
+                'status' => $request->status
             ]);
 
-            Log::notice('El cliente ' . $data['email'] . ' se actualizo correctamente');
+            if ($customer) {
+                Log::notice('El cliente ' . $request->name . ' se actualizo correctamente');
+                return 200;
+            }
 
-            return 200;
+            Log::warning('El cliente ' . $request->name . ' no se actualizo');
+            return 400;
         } catch (\Exception $e) {
-            Log::error('Error al actualizar el cliente ' . $data['email'] . ', ya que muestra la siguiente Exception ' . $e);
+            Log::error('Error al actualizar el cliente ' . $request->name . ', ya que muestra la siguiente Exception ' . $ee->getMessage());
         }
     }
 
-    public function deleteCustomer($id)
+    public function deleteCustomer($customer)
     {
-        $user = User::find($id);
-
-        if(is_null($user)) {
-            return 422;
-        }
-
-        $user->delete();
+        $cus = $customer->delete();
         
-        Log::notice('El cliente ' . $user->email . ' se elimino correctamente');
-
-        return 204;
+        if ($cus) {
+            Log::notice('El cliente ' . $customer->email . ' se elimino correctamente');
+            return 204;
+        }
+        
+        Log::warning('El cliente ' . $customer->email . ' no se eliminox');
+        return 400;
     }
 }

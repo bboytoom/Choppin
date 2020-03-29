@@ -17,6 +17,7 @@ class AdministratorController extends Controller
 
     public function __construct(AdministratorRepository $user)
     {
+        $this->authorizeResource(User::class, 'administration');
         $this->user = $user;
     }
 
@@ -31,21 +32,19 @@ class AdministratorController extends Controller
         return response(null, $this->user->createAdministrator($request));
     }
 
-    public function show($id)
+    public function show(User $administration)
     {
-        $admin = User::findOrFail($id);
-
         UserResource::withoutWrapping();
-        return new UserResource($admin);
+        return new UserResource($administration);
     }
 
-    public function update(AdministratorRequest $request, $id)
+    public function update(AdministratorRequest $request, User $administration)
     {
-        return response(null, $this->user->updateAdministrator($request, $id));
+        return response(null, $this->user->updateAdministrator($request, $administration));
     }
 
-    public function destroy($id)
+    public function destroy(User $administration)
     {
-        return response(null, $this->user->deleteAdministrator($id));
+        return response(null, $this->user->deleteAdministrator($administration));
     }
 }
