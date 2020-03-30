@@ -20,7 +20,8 @@ class StoreLoginRequest extends FormRequest
     {
         return [
             'email' => 'required|string|email|min:8|max:69',
-            'password'  => 'required|string|min:8|max:19'
+            'password'  => 'required|string|min:8|max:19',
+            'remember' => 'boolean'
         ];
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLoginRequest;
+use App\Http\Resources\Store\AuthResource;
 use App\Repositories\AuthRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -49,7 +50,8 @@ class AuthUserController extends Controller
 
     public function getUser()
     {
-        return response()->json(auth()->user());
+        AuthResource::withoutWrapping();
+        return new AuthResource(auth()->user());
     }
 
     public function refreshToken()
@@ -59,6 +61,9 @@ class AuthUserController extends Controller
 
     public function logOut()
     {
+        $user = auth()->user();
+        User::where('id', $user->id)->update(['remember' => 0]);
+
         auth()->logout();
         return response()->json(['message' => 'Salió correctamente']);
     }

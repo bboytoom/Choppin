@@ -46,18 +46,6 @@ npm run dev
 ```
 
 
-## Pruebas
-
-[Pruebas de Back end](https://github.com/bboytoom/Choppin/wiki/Pruebas-de-Back-end)
-[Pruebas de Front end](https://github.com/bboytoom/Choppin/wiki/Pruebas-de-Front-end)
-
-
-## Datos de prueba
-```
-php artisan db:seed
-```
-
-
 ## Documentación
 [Wiki](https://github.com/bboytoom/Choppin/wiki)
 
