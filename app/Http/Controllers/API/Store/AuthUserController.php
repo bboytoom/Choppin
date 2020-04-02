@@ -28,9 +28,23 @@ class AuthUserController extends Controller
 
     public function logIn(StoreLoginRequest $request)
     {
+        $myUser = User::where('email', e(strtolower($request->email)))->where('status', 1)->first();
+
+        if(is_null($myUser)) {
+            return response(null, 204);
+        }
+
+        if ($myUser->cicle == 3) {
+            User::where('id', $myUser->id)->update(['status' => 0, 'cicle' => 0 ]);
+            Log::warning('El usuario ' . $request->email . ' Fue bloqueado permanentemente por el sistema');
+                
+            return response(null, 423);
+        }
+
         if (method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
-            Log::alert('El usuario ' . $request->email . ' Fue bloqueado por el sistema');
+            User::where('id', $myUser->id)->update(['cicle' => $myUser->cicle + 1 ]);
+            Log::alert('El usuario ' . $request->email . ' Fue bloqueado temporalmente por el sistema');
 
             return $this->sendLockoutResponse($request);
         }
@@ -43,6 +57,7 @@ class AuthUserController extends Controller
         }
 
         $this->clearLoginAttempts($request);
+        User::where('id', $myUser->id)->update(['cicle' => 0 ]);
         Log::notice('El usuario ' . $request->email . ' Ingreso correctamente');
 
         return $this->auth->autenticacion($request);
