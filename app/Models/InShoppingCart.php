@@ -10,6 +10,7 @@ class InShoppingCart extends Model
 
     protected $fillable = [
         'shopping_cart_id',
-        'product_id'
+        'product_id',
+        'qty'
     ];
 }

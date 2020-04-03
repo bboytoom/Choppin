@@ -11,7 +11,7 @@ class AuthHeader
         $header = $request->header('x-api-key');
         
         if($header !== config('app.key')) {
-            return abort(401);
+            return response(null, 401);
         }
 
         return $next($request);

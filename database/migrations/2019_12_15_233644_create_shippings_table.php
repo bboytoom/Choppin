@@ -14,6 +14,7 @@ class CreateShippingsTable extends Migration
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
+            $table->string('name', 100);
             $table->string('street_one', 100);
             $table->string('street_two', 100)->nullable();
             $table->string('addres', 200);

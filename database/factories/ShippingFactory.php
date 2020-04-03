@@ -5,6 +5,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Shipping::class, function (Faker $faker) {
     return [
+        'name' => 'home',
         'street_one' => $faker->streetAddress,
         'street_two' => $faker->streetAddress,
         'addres' => $faker->address,

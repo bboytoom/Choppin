@@ -2,7 +2,7 @@ import { find, filter } from 'lodash'
 import generateHash from 'random-hash'
 
 const state = {
-  identity: generateHash({ length: 16 }),
+  identity: generateHash({ length: 64 }),
   cart: []
 }
 

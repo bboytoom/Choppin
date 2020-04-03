@@ -14,22 +14,29 @@ class ShoppingCarts extends Model
         'status'
     ];
 
-    public static function findOrCreateShoppingCart($indentity) 
+    public static function findOrCreateShoppingCart($indentity, $email, $qty) 
     {
         $cart = ShoppingCarts::where('indentity', $indentity)->first();
 
         if(is_null($cart)) {
-            return ShoppingCarts:: createWithoutIdentity($indentity);
+            return ShoppingCarts::createWithoutIdentity($indentity, $email, $qty);
         } else {
             return $cart;
         }
     }
 
-    public static function createWithoutIdentity($indentity) 
+    public static function createWithoutIdentity($indentity, $email, $qty) 
     {
-        return ShoppingCarts::create([
-            'indentity' => $indentity,
-            'status' => 0
-        ]);
+        try {
+            return ShoppingCarts::create([
+                'indentity' => $indentity,
+                'email' => $email,
+                'status' => 0
+            ]);
+
+            Log::notice('Se guardo el carrito ' . $indentity . ' correctamente');
+        } catch (\Exception $e) {
+            Log::error('Error al ingresar al carrito ' . $indentity . ', ya que muestra la siguiente Exception ' . $e->getMessage());
+        }
     }
 }

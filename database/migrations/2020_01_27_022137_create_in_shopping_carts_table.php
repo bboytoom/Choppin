@@ -18,6 +18,7 @@ class CreateInShoppingCartsTable extends Migration
             $table->foreign('product_id')
                 ->references('id')->on('products')
                 ->onDelete('cascade');
+            $table->integer('qty')->default(1);
             $table->timestamps();
         });
     }

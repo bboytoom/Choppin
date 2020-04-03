@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\API\Store;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\Store\IndexCollection;
 use App\Http\Resources\Store\StoreProductResource;
 use App\Models\Product;
@@ -32,13 +33,27 @@ class IndexController extends Controller
     public function store(Request $request)
     {
         $shoppingcart = $request->shopping_cart;
-            
-        InShoppingCart::create([
-            'shopping_cart_id' => $shoppingcart->id,
-            'product_id' => $request->product_id
-        ]);
 
-        return response(null, 200);
+        try {
+            foreach($request->cart as $products) {
+                $inshop = InShoppingCart::create([
+                    'shopping_cart_id' => $shoppingcart->id,
+                    'product_id' => $products['id'],
+                    'qty' => $products['qty']
+                ]);
+
+                if (!$inshop) {
+                    Log::warning('No se guardo la compra del producto ' . $products['id'] . ' ' . $shoppingcart->id);
+                    return response(null, 400);
+                }
+
+                Log::notice('Se guardo la compra del producto ' . $products['id'] . ' ' . $shoppingcart->id . ' correctamente');
+            }
+
+            return response(null, 200);
+        } catch (\Exception $e) {
+            Log::error('Error al generar la compra del siguiente producto ' . $products['id'] . ' ' . $shoppingcart->id . ', ya que muestra la siguiente Exception ' . $e->getMessage());
+        }
     }
 
     public function show(Product $store)
