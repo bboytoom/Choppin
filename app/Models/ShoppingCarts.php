@@ -14,6 +14,11 @@ class ShoppingCarts extends Model
         'status'
     ];
 
+    public function products()
+    {
+        return $this->belongsToMany('App\Models\Product', 'in_shopping_carts', 'shopping_cart_id'); 
+    }
+
     public static function findOrCreateShoppingCart($indentity, $email, $qty) 
     {
         $cart = ShoppingCarts::where('indentity', $indentity)->first();

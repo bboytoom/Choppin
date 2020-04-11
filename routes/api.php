@@ -21,6 +21,8 @@ Route::group([
     'middleware' => ['authheader']
 ], function () {
     Route::apiResource('store', 'IndexController')->except('update', 'destroy');
+    
+    //Rutas para el modulo de autenticacion
     Route::post('login', 'AuthUserController@logIn');
     Route::post('logout', 'AuthUserController@logOut');
     Route::post('myuser', 'AuthUserController@getUser');
@@ -32,8 +34,10 @@ Route::group([
     'namespace' => 'API\User',
     'middleware' => ['auth.token']
 ], function () {
-    Route::apiResource('user', 'AdminController')->only('index');
+    Route::apiResource('user', 'AdminController')->only('index', 'store');
 });
+
+Route::get('/v1/user/payment', 'API\User\AdminController@buy')->name('user.payment');
 
 Route::group([
     'prefix' => 'v1',
