@@ -49,6 +49,7 @@ class ConfigurationRequest extends FormRequest
                 'max:14',
                 Rule::unique('configurations', 'phone')->ignore($this->configuration)
             ],
+            'cost_shipping' => 'required|max:6',
             'logo' => 'min:6|max:49',
             'type' => 'min:8|max:11',
             'base' => 'min:100',

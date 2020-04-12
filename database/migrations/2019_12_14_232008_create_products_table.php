@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('extract', 100);
             $table->text('description', 400);
             $table->decimal('price', 5, 2);
+            $table->Integer('stock');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

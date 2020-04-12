@@ -19,7 +19,7 @@ class ShippingRepository
                 'suburb' => e(strtolower($request->suburb)),
                 'town' => e(strtolower($request->town)),
                 'state' => e(strtolower($request->state)),
-                'country' => e(strtolower($request->country)),
+                'country_code' => e(strtoupper($request->country)),
                 'postal_code' => e(strtolower($request->postal_code)),
                 'status' => 1
             ]);
@@ -46,7 +46,7 @@ class ShippingRepository
                 'suburb' => e(strtolower($request->suburb)),
                 'town' => e(strtolower($request->town)),
                 'state' => e(strtolower($request->state)),
-                'country' => e(strtolower($request->country)),
+                'country_code' => e(strtoupper($request->country)),
                 'postal_code' => e(strtolower($request->postal_code)),
                 'status' => $request->status
             ]);

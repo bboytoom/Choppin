@@ -25,7 +25,7 @@ class ShippingRequest extends FormRequest
             'suburb' => 'required|min:4|max:79',
             'town' => 'required|min:4|max:79',
             'state' => 'required|min:4|max:39',
-            'country' => 'required|min:4|max:19',
+            'country_code' => 'required|size:2',
             'postal_code' => 'required|min:5|max:6',
             'status' => 'boolean'
         ];

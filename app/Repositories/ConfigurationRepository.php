@@ -23,6 +23,7 @@ class ConfigurationRepository
                 'slogan' => empty($request->slogan) ? '' : e(strtolower($request->slogan)),
                 'email' => e(strtolower($request->email)),
                 'phone' => e(strtolower($request->phone)),
+                'cost_shipping' => $request->cost_shipping,
                 'status' => 1
             ]);
 

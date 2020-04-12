@@ -17,6 +17,7 @@ class ProductRepository
                 'slug' => \Str::slug($request->name, '-'),
                 'extract' => e(strtolower($request->extract)),
                 'description' => e(strtolower($request->description)),
+                'stock' => $request->stock,
                 'price' => $request->price,
                 'status' => 1
             ]);

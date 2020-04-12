@@ -16,6 +16,7 @@ class Configuration extends Model
         'slogan',
         'email',
         'phone',
+        'cost_shipping',
         'status'
     ];
 

@@ -12,8 +12,8 @@ $factory->define(Shipping::class, function (Faker $faker) {
         'suburb' => $faker->citySuffix,
         'town' => $faker->city,
         'state' => $faker->state,
-        'country' => 'mexico',
-        'postal_code' => $faker->numerify('0 ####'),
+        'country_code' => 'MX',
+        'postal_code' => $faker->numerify('0####'),
         'status' => 1
     ];
 });

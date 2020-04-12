@@ -13,6 +13,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'extract' => $this->faker->text($maxNbChars = 50),
         'description' => $this->faker->text($maxNbChars = 250),
         'price' => $this->faker->numerify('###'),
+        'stock' => 2,
         'status' => 1
     ];
 });

@@ -21,7 +21,7 @@ class CreateShippingsTable extends Migration
             $table->string('suburb', 80);
             $table->string('town', 80);
             $table->string('state', 40);
-            $table->string('country', 20);
+            $table->string('country_code', 2);
             $table->string('postal_code', 7);
             $table->boolean('status')->default(true);
             $table->timestamps();

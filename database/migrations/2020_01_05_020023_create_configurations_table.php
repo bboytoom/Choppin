@@ -17,6 +17,7 @@ class CreateConfigurationsTable extends Migration
             $table->string('logo', 50)->nullable();
             $table->string('email', 70)->unique();
             $table->string('phone', 15)->unique();
+            $table->decimal('cost_shipping', 5, 2)->default(0.0);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

@@ -17,7 +17,7 @@ class Shipping extends Model
         'suburb',
         'town',
         'state',
-        'country',
+        'country_code',
         'postal_code',
         'status'
     ];

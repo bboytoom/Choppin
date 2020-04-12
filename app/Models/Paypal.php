@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
+use App\User;
+use App\Models\Configuration;
 use App\Models\ShoppingCarts;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Api\ShippingAddress;
 use PayPal\Api\ItemList;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
@@ -20,19 +24,38 @@ class Paypal extends Model
 {
     private $_api_context;
     private $_shoppingcart;
+    private $_shipping_id;
 
-    public function __construct($shoppingcart)
+    public function __construct($shoppingcart, $shipping_id)
     {
         $paypal_conf = \Config::get('Paypal');
+
         $this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_conf['client_id'], $paypal_conf['secret']));
         $this->_api_context->setConfig($paypal_conf['settings']);
         $this->_shoppingcart = $shoppingcart;
+        $this->_shipping_id = $shipping_id;
     }
 
     public function payer()
     {
         $payer = new Payer();
         return $payer->setPaymentMethod('paypal');
+    }
+
+    public function address()
+    {
+        $address = new ShippingAddress();
+
+        $shippings = User::firstWhere('email', $this->_shoppingcart->email)->shipping();
+        $find_addres = $shippings->find($this->_shipping_id);
+
+        return $address->setLine1($find_addres->addres)
+            ->setLine2($find_addres->street_one)
+            ->setCity($find_addres->town)
+            ->setState($find_addres->state)
+            ->setCountryCode($find_addres->country_code)
+            ->setPostalCode($find_addres->postal_code)
+            ->setRecipientName($find_addres->name);
     }
 
     public function items()
@@ -50,15 +73,16 @@ class Paypal extends Model
         }
 
         $item_list = new ItemList();
-        return $item_list->setItems($items);
+        return $item_list->setItems($items)
+            ->setShippingAddress($this->address());
     }
 
     public function details()
     {
         $subtotal = 0;
-        $shipping = 0;
+        $shipping = Configuration::where('domain', $_SERVER['HTTP_HOST'])->first();
         $products = $this->_shoppingcart->products()->get();
-        
+
         $details = new Details();
 
         foreach ($products as $product) {
@@ -67,8 +91,8 @@ class Paypal extends Model
         }
 
         return [
-            'total' => $subtotal + $shipping,
-            'detail' => $details->setSubtotal($subtotal)->setShipping($shipping)
+            'total' => $subtotal + $shipping->cost_shipping,
+            'detail' => $details->setSubtotal($subtotal)->setShipping($shipping->cost_shipping)
         ];
     }
 
@@ -104,22 +128,26 @@ class Paypal extends Model
 
     public function generate()
     {
-        $payment = new Payment();
-        $payment->setIntent('sale')
-            ->setPayer($this->payer())
-            ->setTransactions([$this->transaction()])
-            ->setRedirectUrls($this->redirectURLs());
+        try {
+            $payment = new Payment();
+            $payment->setIntent('sale')
+                ->setPayer($this->payer())
+                ->setTransactions([$this->transaction()])
+                ->setRedirectUrls($this->redirectURLs());
 
-        try
-        {
-            $payment->create($this->_api_context);
-        }
-        catch(PayPalConnectionException $ex)
-        {
-            dd($ex->getData());
-        }
+            try
+            {
+                $payment->create($this->_api_context);
+            }
+            catch(PayPalConnectionException $ex)
+            {
+                dd($ex->getData());
+            }
 
-        return $payment;
+            return $payment;
+        } catch (\Exception $e) {
+            Log::error('Error al crear la compra, ya que muestra la siguiente Exception ' . $e->getMessage());
+        }
     }
 
     public function execute($paymentId, $payerId)

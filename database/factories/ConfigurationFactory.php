@@ -12,6 +12,7 @@ $factory->define(Configuration::class, function (Faker $faker) {
         'logo' => '20200110000446_logo_default.png',
         'email' => $faker->email,
         'phone' => $faker->tollFreePhoneNumber,
+        'cost_shipping' => 100.00,
         'status' => 1
     ];
 });

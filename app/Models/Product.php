@@ -16,6 +16,7 @@ class Product extends Model
         'extract',
         'description',
         'price',
+        'stock',
         'status',
     ];
 
