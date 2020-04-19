@@ -81,16 +81,25 @@ class Paypal extends Model
     {
         $subtotal = 0;
         $shipping = Configuration::where('domain', $_SERVER['HTTP_HOST'])->first();
-        $products = $this->_shoppingcart->products()->get();
-
         $details = new Details();
+        
+        if (is_null($shipping)) {
+            return [
+                'answer' => 'error',
+                'total' => 0,
+                'detail' => $details->setSubtotal(0)
+            ];
+        }
 
+        $products = $this->_shoppingcart->products()->get();
+        
         foreach ($products as $product) {
             $quantity = $product->quantity()->first();
             $subtotal += $product->price *  $quantity->qty;
         }
 
         return [
+            'answer' => 'ok',
             'total' => $subtotal + $shipping->cost_shipping,
             'detail' => $details->setSubtotal($subtotal)->setShipping($shipping->cost_shipping)
         ];
@@ -103,19 +112,26 @@ class Paypal extends Model
         $amount = new Amount();
         $paypal_conf = \Config::get('Paypal');
 
-        return $amount->setCurrency($paypal_conf['currency'])
-			->setTotal($details['total'])
-            ->setDetails($details['detail']);
+        return [
+            'answer' => $details['answer'],
+            'amount' => $amount->setCurrency($paypal_conf['currency'])
+                ->setTotal($details['total'])
+                ->setDetails($details['detail'])
+        ];
     }
 
     public function transaction()
     {
+        $amount = $this->amount();
         $transaction = new Transaction();
 
-        return $transaction->setItemList($this->items())
-            ->setAmount($this->amount())
-            ->setDescription('Compra en shoppin')
-            ->setInvoiceNumber(uniqid());
+        return [
+            'answer' => $amount['answer'],
+            'transaction' => $transaction->setItemList($this->items())
+                ->setAmount($amount['amount'])
+                ->setDescription('Compra en shoppin')
+                ->setInvoiceNumber(uniqid())
+        ];
     }
 
     public function redirectURLs()
@@ -123,24 +139,28 @@ class Paypal extends Model
         $redirect_urls = new RedirectUrls();
         $baseURL = url('/');
 
-        return $redirect_urls->setReturnUrl("$baseURL/api/v1/user/payment")->setCancelUrl("$baseURL/api/v1/store");
+        return $redirect_urls->setReturnUrl("$baseURL/api/v1/user/payment")
+            ->setCancelUrl("$baseURL/api/v1/store");
     }
 
     public function generate()
     {
+        $transaction = $this->transaction();
+
+        if ($transaction['answer'] == 'error') {
+            return null;
+        }
+
         try {
             $payment = new Payment();
             $payment->setIntent('sale')
                 ->setPayer($this->payer())
-                ->setTransactions([$this->transaction()])
+                ->setTransactions($transaction['transaction'])
                 ->setRedirectUrls($this->redirectURLs());
 
-            try
-            {
+            try {
                 $payment->create($this->_api_context);
-            }
-            catch(PayPalConnectionException $ex)
-            {
+            } catch (PayPalConnectionException $ex) {
                 dd($ex->getData());
             }
 
@@ -153,10 +173,9 @@ class Paypal extends Model
     public function execute($paymentId, $payerId)
     {
         $payment = Payment::get($paymentId, $this->_api_context);
-
         $execution = new PaymentExecution();
         $execution->setPayerId($payerId);
-        
+
         return $payment->execute($execution, $this->_api_context);
     }
 }

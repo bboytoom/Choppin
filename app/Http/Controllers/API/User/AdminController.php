@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ShoppingCarts;
 use App\Models\Paypal;
 use App\User;
 
@@ -26,6 +27,10 @@ class AdminController extends Controller
         $payment = new Paypal($shoppingcart, $request->shippins);
         $response = $payment->generate();
 
+        if (is_null($response)) {
+            return response(null, 500);
+        }
+
         return response([
             'url' => $response->getApprovalLink()
         ], 202);
@@ -33,15 +38,13 @@ class AdminController extends Controller
 
     public function buy(Request $request)
     {
-        $shoppingcart = $request->shopping_cart;
-
-        $payment = new Paypal($shoppingcart, 0);
+        $payment = new Paypal(null, 0);
         $response = $payment->execute($request->paymentId, $request->PayerID);
 
-        if($response->state == 'approved') {
-            dd($response);
+        if ($response->state != 'approved') {
+            return response(null, 406);
         }
 
-        return response(null, 500);
+        return response(null, 202);
     }
 }
