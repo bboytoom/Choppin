@@ -35,6 +35,7 @@ Route::group([
     'middleware' => ['auth.token']
 ], function () {
     Route::apiResource('user', 'AdminController')->only('index', 'store');
+    Route::apiResource('order', 'OrderController');
 });
 
 Route::get('/v1/user/payment', 'API\User\AdminController@buy')->name('user.payment');

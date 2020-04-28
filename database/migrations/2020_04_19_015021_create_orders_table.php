@@ -10,10 +10,6 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
-            $table->foreign('user_id')
-                ->references('id')->on('users')
-                ->onDelete('cascade');
             $table->unsignedInteger('paypal_id');
             $table->foreign('paypal_id')
                 ->references('id')->on('paypal_payments')
@@ -22,8 +18,8 @@ class CreateOrdersTable extends Migration
             $table->foreign('shopping_cart_id')
                 ->references('id')->on('shopping_carts')
                 ->onDelete('cascade');
-            $table->string('shipping_address', 100);
-            $table->boolean('status')->default(true);
+            $table->integer('shipping_address_id');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

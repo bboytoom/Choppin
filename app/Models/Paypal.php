@@ -82,7 +82,7 @@ class Paypal extends Model
         $subtotal = 0;
         $shipping = Configuration::where('domain', $_SERVER['HTTP_HOST'])->first();
         $details = new Details();
-        
+
         if (is_null($shipping)) {
             return [
                 'answer' => 'error',
@@ -92,7 +92,7 @@ class Paypal extends Model
         }
 
         $products = $this->_shoppingcart->products()->get();
-        
+
         foreach ($products as $product) {
             $quantity = $product->quantity()->first();
             $subtotal += $product->price *  $quantity->qty;
@@ -139,7 +139,7 @@ class Paypal extends Model
         $redirect_urls = new RedirectUrls();
         $baseURL = url('/');
 
-        return $redirect_urls->setReturnUrl("$baseURL/api/v1/user/payment")
+        return $redirect_urls->setReturnUrl("$baseURL/api/v1/user/payment?shoppingCart=".$this->_shoppingcart->indentity."&shippingCart=".$this->_shipping_id)
             ->setCancelUrl("$baseURL/api/v1/store");
     }
 
@@ -155,7 +155,7 @@ class Paypal extends Model
             $payment = new Payment();
             $payment->setIntent('sale')
                 ->setPayer($this->payer())
-                ->setTransactions($transaction['transaction'])
+                ->setTransactions([$transaction['transaction']])
                 ->setRedirectUrls($this->redirectURLs());
 
             try {

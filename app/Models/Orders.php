@@ -9,10 +9,9 @@ class Orders extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'user_id',
         'paypal_id',
         'shopping_cart_id',
-        'shipping_address',
+        'shipping_address_id',
         'status'
     ];
 

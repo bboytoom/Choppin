@@ -10,7 +10,7 @@ class CreateShoppingCartsTable extends Migration
     {
         Schema::create('shopping_carts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('indentity', 150);
+            $table->string('indentity', 45);
             $table->string('email', 70)->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();

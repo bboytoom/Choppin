@@ -12,7 +12,7 @@ class SetShoppingCart
     {
         if (Auth::check()) {
             $user = Auth::user();
-          
+
             $shopping_cart = ShoppingCarts::findOrCreateShoppingCart($request->identity, $user->email, $request->qty);
             $request->shopping_cart = $shopping_cart;
 

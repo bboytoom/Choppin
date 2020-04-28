@@ -5,7 +5,7 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(Category::class, function (Faker $faker) {
-    $category = $this->faker->unique()->sentence($nbWords = 2, $variableNbWords = true);
+    $category = $this->faker->unique()->sentence($nbWords = 1, $variableNbWords = true);
 
     return [
         'name' => $category,
