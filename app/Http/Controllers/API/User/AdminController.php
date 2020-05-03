@@ -51,7 +51,7 @@ class AdminController extends Controller
         $cart = ShoppingCarts::firstWhere('indentity', $request->shoppingCart);
 
         if (is_null($cart)) {
-            return response(null, 500);
+            return response(null, 204);
         }
 
         $cart->status = 1;

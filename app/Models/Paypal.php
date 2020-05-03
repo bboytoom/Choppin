@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Models\Configuration;
-use App\Models\ShoppingCarts;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\ShippingAddress;

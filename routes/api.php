@@ -21,7 +21,7 @@ Route::group([
     'middleware' => ['authheader']
 ], function () {
     Route::apiResource('store', 'IndexController')->except('update', 'destroy');
-    
+
     //Rutas para el modulo de autenticacion
     Route::post('login', 'AuthUserController@logIn');
     Route::post('logout', 'AuthUserController@logOut');
@@ -35,7 +35,7 @@ Route::group([
     'middleware' => ['auth.token']
 ], function () {
     Route::apiResource('user', 'AdminController')->only('index', 'store');
-    Route::apiResource('order', 'OrderController');
+    Route::apiResource('user/order', 'OrderController')->only('index', 'show');
 });
 
 Route::get('/v1/user/payment', 'API\User\AdminController@buy')->name('user.payment');
@@ -48,7 +48,7 @@ Route::group([
     // Rutas del modulo para permisos
     Route::apiResource('permissions', 'PermissionController');
 
-    
+
     // Rutas del modulo de administradores
     Route::apiResource('administration', 'AdministratorController');
 
@@ -85,4 +85,8 @@ Route::group([
     Route::apiResource('products/photos', 'PhotoController')->except('index');
     Route::apiResource('products/characteristics', 'CharacteristicController')->except('index');
     Route::get('/products/characteristics/all/{id}', 'CharacteristicController@index')->name('characteristics.index');
+
+
+    // Rutas del modulo de ordenes
+    Route::apiResource('order', 'OrderController')->except('store', 'destroy');
 });

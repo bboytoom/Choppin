@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
                 ->onDelete('cascade');
             $table->integer('shipping_address_id');
             $table->boolean('status')->default(false);
+            $table->boolean('cancelled')->default(false);
             $table->timestamps();
         });
     }

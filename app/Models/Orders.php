@@ -15,11 +15,6 @@ class Orders extends Model
         'status'
     ];
 
-    public function user()
-    {
-        return $this->belongsTo('App\User', 'user_id');
-    }
-
     public function paypal_payment()
     {
         return $this->belongsTo('App\Models\PaypalPayments', 'paypal_id');
