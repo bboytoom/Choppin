@@ -25,6 +25,8 @@ class OrderController extends Controller
 
     public function update(Request $request, Orders $order)
     {
-        //
+        Orders::where('id', $order->id)->update([
+            'sttus' => $request->status
+        ]);
     }
 }

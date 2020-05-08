@@ -10,71 +10,6 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false">
-    <testsuites>
-        <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature</directory>
-        </testsuite>
-
-        <testsuite name="Unit">
-            <directory suffix="Test.php">./tests/Unit</directory>
-        </testsuite>
-
-        <testsuite name="Admins">
-            <directory suffix="Test.php">./tests/Unit/Admins</directory>
-        </testsuite>
-
-        <testsuite name="Categories">
-            <directory suffix="Test.php">./tests/Unit/Categories</directory>
-        </testsuite>
-
-        <testsuite name="Characteristics">
-            <directory suffix="Test.php">./tests/Unit/Characteristics</directory>
-        </testsuite>
-
-        <testsuite name="Metas">
-            <directory suffix="Test.php">./tests/Unit/Metas</directory>
-        </testsuite>
-
-        <testsuite name="Configurations">
-            <directory suffix="Test.php">./tests/Unit/Configurations</directory>
-        </testsuite>
-
-        <testsuite name="Perfil">
-            <directory suffix="Test.php">./tests/Unit/Perfil</directory>
-        </testsuite>
-
-        <testsuite name="Photos">
-            <directory suffix="Test.php">./tests/Unit/Photos</directory>
-        </testsuite>
-
-        <testsuite name="PhotosGalleries">
-            <directory suffix="Test.php">./tests/Unit/PhotosGalleries</directory>
-        </testsuite>
-
-        <testsuite name="PhotosSlides">
-            <directory suffix="Test.php">./tests/Unit/PhotosSlides</directory>
-        </testsuite>
-
-        <testsuite name="Products">
-            <directory suffix="Test.php">./tests/Unit/Products</directory>
-        </testsuite>
-
-        <testsuite name="Shippings">
-            <directory suffix="Test.php">./tests/Unit/Shippings</directory>
-        </testsuite>
-
-        <testsuite name="SubCategory">
-            <directory suffix="Test.php">./tests/Unit/SubCategory</directory>
-        </testsuite>
-
-        <testsuite name="Customers">
-            <directory suffix="Test.php">./tests/Unit/Customers</directory>
-        </testsuite>
-
-        <testsuite name="Administrator">
-            <directory suffix="Test.php">./tests/Unit/Administrator</directory>
-        </testsuite>
-    </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./app</directory>
@@ -87,6 +22,5 @@
         <server name="MAIL_DRIVER" value="array"/>
         <server name="QUEUE_CONNECTION" value="sync"/>
         <server name="SESSION_DRIVER" value="array"/>
-        <env name="DB_CONNECTION" value="sqlite_testing"/>
     </php>
 </phpunit>
