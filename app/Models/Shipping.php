@@ -26,4 +26,9 @@ class Shipping extends Model
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+
+    public function order()
+    {
+        return $this->hasMany('App\Models\Orders', 'shipping_address_id');
+    }
 }

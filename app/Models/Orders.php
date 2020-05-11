@@ -24,4 +24,9 @@ class Orders extends Model
     {
         return $this->belongsTo('App\Models\ShoppingCarts', 'shopping_cart_id');
     }
+
+    public function shipping_user()
+    {
+        return $this->belongsTo('App\Models\Shipping', 'shipping_address_id');
+    }
 }

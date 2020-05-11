@@ -10,6 +10,10 @@ class CreateConfigurationsTable extends Migration
     {
         Schema::create('configurations', function (Blueprint $table) {
             $table->increments('id');
+            $table->increments('id');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
             $table->string('domain', 80)->unique();
             $table->string('name', 100)->unique();
             $table->string('business_name', 150);

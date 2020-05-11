@@ -15,7 +15,7 @@ class CreateCharacteristicsTable extends Migration
                 ->references('id')->on('products')
                 ->onDelete('cascade');
             $table->string('name', 50)->unique();
-            $table->text('description', 400);
+            $table->text('description', 255);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

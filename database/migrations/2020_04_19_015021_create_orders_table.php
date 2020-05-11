@@ -18,7 +18,10 @@ class CreateOrdersTable extends Migration
             $table->foreign('shopping_cart_id')
                 ->references('id')->on('shopping_carts')
                 ->onDelete('cascade');
-            $table->integer('shipping_address_id');
+            $table->unsignedInteger('shipping_address_id');
+            $table->foreign('shipping_address_id')
+                ->references('id')->on('shippings')
+                ->onDelete('cascade');
             $table->boolean('status')->default(false);
             $table->boolean('cancelled')->default(false);
             $table->timestamps();

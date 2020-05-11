@@ -16,7 +16,7 @@ class CreatePhotoSlidesTable extends Migration
                 ->onDelete('cascade');
             $table->string('name', 100)->unique();
             $table->string('image', 50);
-            $table->text('description');
+            $table->text('description', 255);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

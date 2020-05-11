@@ -9,6 +9,7 @@ class Configuration extends Model
     protected $table = 'configurations';
 
     protected $fillable = [
+        'user_id',
         'domain',
         'logo',
         'name',
@@ -19,6 +20,11 @@ class Configuration extends Model
         'cost_shipping',
         'status'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
 
     public function photoconfiguration()
     {

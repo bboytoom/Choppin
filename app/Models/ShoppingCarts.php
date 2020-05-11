@@ -9,10 +9,16 @@ class ShoppingCarts extends Model
     protected $table = 'shopping_carts';
 
     protected $fillable = [
+        'coupon_id',
         'indentity',
         'email',
         'status'
     ];
+
+    public function coupon()
+    {
+        return $this->belongsTo('App\Models\Coupon', 'coupon_id');
+    }
 
     public function products()
     {
