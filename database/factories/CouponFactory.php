@@ -1,11 +1,9 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-
-use App\Model;
+use App\Models\Coupon;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(Coupon::class, function (Faker $faker) {
     return [
         'name' => 'NoCoupon',
         'value' => 0,

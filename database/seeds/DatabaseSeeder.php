@@ -10,10 +10,18 @@ class DatabaseSeeder extends Seeder
             'name' => 'root',
             'permission' => json_encode(array('root-permission'))
         ])->each(function ($permission) {
-            $permission->user()->save(factory(\App\User::class)->make([
+            $config = $permission->user()->save(factory(\App\User::class)->make([
                 'type' => 'administrador',
                 'email' => 'admin@correo.com'
             ]));
+
+            $config->each(function ($configuration) {
+                $complement = $configuration->configuration()->saveMany(factory(\App\Models\Configuration::class, 1)->make());
+                $complement->each(function ($comp) {
+                    $comp->metaconfiguration()->createMany(factory(\App\Models\Metas::class, 1)->make()->toArray());
+                    $comp->photoconfiguration()->createMany(factory(\App\Models\PhotoSlide::class, 4)->make()->toArray());
+                });
+            });
         });
 
         factory(\App\Models\Permission::class, 1)->create([
@@ -39,15 +47,9 @@ class DatabaseSeeder extends Seeder
             });
         });
 
-        factory(\App\Models\Configuration::class, 1)->create()->each(function ($configuration) {
-            $configuration->metaconfiguration()->createMany(factory(\App\Models\Metas::class, 1)->make()->toArray());
-            $configuration->photoconfiguration()->createMany(factory(\App\Models\PhotoSlide::class, 4)->make()->toArray());
-        });
-
         factory(\App\Models\Category::class, 3)->create()->each(function ($category) {	
             $subcategoria = $category->subcategory()->saveMany(factory(\App\Models\SubCategory::class, 5)->make());	
-            
-            
+
             $subcategoria->each(function ($subcat) {	
                 $product = $subcat->product()->saveMany(factory(\App\Models\Product::class, 10)->make());	
                 $product->each(function ($prod) {	
@@ -57,6 +59,6 @@ class DatabaseSeeder extends Seeder
             });	
         });
 
-        factory(App\Models\Coupon::class, 1)->make();
+        factory(\App\Models\Coupon::class, 1)->make();
     }
 }

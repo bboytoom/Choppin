@@ -23,3 +23,4 @@ class CreateCouponsTable extends Migration
         Schema::dropIfExists('coupons');
     }
 }
+    
