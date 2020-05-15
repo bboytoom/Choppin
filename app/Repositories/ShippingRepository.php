@@ -24,13 +24,12 @@ class ShippingRepository
                 'status' => 1
             ]);
 
-            if ($envio) {
-                Log::notice('La direccion de envio ' . $request->street_one . ' se creo correctamente');
-                return 201;
+            if (!$envio) {
+                Log::warning('La direccion de envio ' . $request->street_one . ' no se creo');
+                return 400;
             }
 
-            Log::warning('La direccion de envio ' . $request->street_one . ' no se creo');
-            return 400;
+            return 201;
         } catch (\Exception $e) {
             Log::error('Error al crear la direccion de envio ' . $request->street_one . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
@@ -51,13 +50,12 @@ class ShippingRepository
                 'status' => $request->status
             ]);
 
-            if ($envio) {
-                Log::notice('La direccion de envio ' . $request->street_one . ' se actualizo correctamente');
-                return 200;
+            if (!$envio) {
+                Log::warning('La direccion de envio ' . $request->street_one . ' no se actualizo');
+                return 400;
             }
 
-            Log::warning('La direccion de envio ' . $request->street_one . ' no se actualizo');
-            return 400;
+            return 200;
         } catch (\Exception $e) {
             Log::error('Error al actualizar la direccion de envio ' . $request->street_one . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
@@ -66,13 +64,12 @@ class ShippingRepository
     public function deleteShipping($shipping)
     {
         $envio = $shipping->delete();
-        
-        if ($envio) {
-            Log::notice('La direccion de envio ' . $shipping->street_one . ' se elimino correctamente');
-            return 204;
+
+        if (!$envio) {
+            Log::warning('La direccion de envio ' . $shipping->street_one . ' no se elimino');
+            return 400;
         }
 
-        Log::warning('La direccion de envio ' . $shipping->street_one . ' no se elimino');
-        return 400;
+        return 204;
     }
 }

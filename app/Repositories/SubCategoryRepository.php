@@ -19,13 +19,12 @@ class SubCategoryRepository
                 'status' => 1
             ]);
 
-            if ($subcat) {
-                Log::notice('La subcategoria ' . $request->name . ' se creo correctamente');
-                return 201;
+            if (!$subcat) {
+                Log::warning('La subcategoria ' . $request->name . ' no se creo');
+                return 400;
             }
 
-            Log::warning('La subcategoria ' . $request->name . ' no se creo');
-            return 400;
+            return 201;
         } catch (\Exception $e) {
             Log::error('Error al crear la subcategoria ' . $request->name . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
@@ -42,13 +41,12 @@ class SubCategoryRepository
                 'status' => $request->status
             ]);
 
-            if ($subcat) {
-                Log::notice('La subcategoria ' . $request->name . ' se actualizo correctamente');
-                return 200;
+            if (!$subcat) {
+                Log::warning('La subcategoria ' . $request->name . ' no se actualizo');
+                return 400;
             }
 
-            Log::warning('La subcategoria ' . $request->name . ' no se actualizo');
-            return 400;
+            return 200;
         } catch (\Exception $e) {
             Log::error('Error al actualizar la subcategoria ' . $request->name . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
@@ -57,13 +55,12 @@ class SubCategoryRepository
     public function deleteSubCategory($subcategory)
     {
         $subcat = $subcategory->delete();
-        
-        if ($subcat) {
-            Log::notice('La subcategoria ' . $subcategory->name . ' se elimino correctamente');
-            return 204;
+
+        if (!$subcat) {
+            Log::warning('La subcategoria ' . $subcategory->name . ' no se elimino');
+            return 400;
         }
 
-        Log::warning('La subcategoria ' . $subcategory->name . ' no se elimino');
-        return 400;
+        return 204;
     }
 }

@@ -17,13 +17,12 @@ class PermissionRepository
                 'status' => 1
             ]);
 
-            if ($permi) {
-                Log::notice('El permiso ' . $request->name . ' se creo correctamente');
-                return 201;
+            if (!$permi) {
+                Log::warning('El permiso ' . $request->name . ' no se creo');
+                return 400;
             }
 
-            Log::warning('El permiso ' . $request->name . ' no se creo');
-            return 400;
+            return 201;
         } catch (\Exception $e) {
             Log::error('Error al crear el permiso ' . $request->name . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
@@ -38,13 +37,12 @@ class PermissionRepository
                 'status' => $request->status
             ]);
 
-            if ($permi) {
-                Log::notice('El permiso ' . $request->name . ' se actualizo correctamente');
-                return 200;
+            if (!$permi) {
+                Log::warning('El permiso ' . $request->name . ' no se actualizo');
+                return 400;
             }
 
-            Log::warning('El permiso ' . $request->name . ' no se actualizo');
-            return 400;
+            return 200;
         } catch (\Exception $e) {
             Log::error('Error al actualizar el permiso ' . $request->name . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
@@ -54,12 +52,11 @@ class PermissionRepository
     {
         $permi = $permission->delete();
 
-        if ($permi) {
-            Log::notice('El permiso ' . $permission->name . ' se elimino correctamente');
-            return 204;
+        if (!$permi) {
+            Log::warning('El permiso ' . $permission->name . ' no se elimino');
+            return 400;
         }
 
-        Log::warning('El permiso ' . $permission->name . ' no se elimino');
-        return 400;
+        return 204;
     }
 }

@@ -19,6 +19,7 @@ class ShippingRequest extends FormRequest
     {
         return [
             'user_id' => 'required|exists:App\User,id',
+            'name' => 'required|min:4|max:20',
             'street_one' => 'required|min:4|max:99',
             'street_two' => 'max:99',
             'addres' => 'required|min:4|max:199',

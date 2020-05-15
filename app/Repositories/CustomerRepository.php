@@ -20,13 +20,12 @@ class CustomerRepository
                 'status' => $request->status
             ]);
 
-            if ($customer) {
-                Log::notice('El cliente ' . $request->name . ' se actualizo correctamente');
-                return 200;
+            if (!$customer) {
+                Log::warning('El cliente ' . $request->name . ' no se actualizo');
+                return 400;
             }
 
-            Log::warning('El cliente ' . $request->name . ' no se actualizo');
-            return 400;
+            return 200;
         } catch (\Exception $e) {
             Log::error('Error al actualizar el cliente ' . $request->name . ', ya que muestra la siguiente Exception ' . $ee->getMessage());
         }
@@ -36,12 +35,11 @@ class CustomerRepository
     {
         $cus = $customer->delete();
         
-        if ($cus) {
-            Log::notice('El cliente ' . $customer->email . ' se elimino correctamente');
-            return 204;
+        if (!$cus) {
+            Log::warning('El cliente ' . $customer->email . ' no se eliminox');
+            return 400;
         }
-        
-        Log::warning('El cliente ' . $customer->email . ' no se eliminox');
-        return 400;
+
+        return 204;
     }
 }

@@ -25,8 +25,6 @@ class PhotoSlideRepository
             if (!is_null($request->base)) {
                 event(new PhotoSlideUpdate($photoslide->id, $photoslide->image, $request->base, $request->type));
             }
-            
-            Log::notice('La imagen del slide principal ' . $data['image'] . ' se creo correctamente');
 
             return 201;
         } catch (\Exception $e) {
@@ -39,7 +37,7 @@ class PhotoSlideRepository
         $data = $request->except(['type', 'base']);
         $slide = PhotoSlide::find($id);
     
-        if(is_null($slide)) {
+        if (is_null($slide)) {
             return 422;
         }
 
@@ -54,8 +52,6 @@ class PhotoSlideRepository
                 'status' => $data['status']
             ]);
 
-            Log::notice('La imagen del slide principal ' . $data['image'] . ' se actualizo correctamente');
-
             return 200;
         } catch (\Exception $e) {
             Log::error('Error al actualizar la imagen del slide principal ' . $data['image'] . ', ya que muestra la siguiente Exception ' . $e);
@@ -66,14 +62,11 @@ class PhotoSlideRepository
     {
         $slide = PhotoSlide::find($id);
 
-        if(is_null($slide)) {
+        if (is_null($slide)) {
             return 422;
         }
 
         $slide->delete();
-
-        Log::notice('La imagendel producto ' . $slide->image . ' se elimino correctamente');
-
         return 204;
     }
 }

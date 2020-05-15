@@ -30,7 +30,7 @@ class AuthUserController extends Controller
     {
         $myUser = User::where('email', e(strtolower($request->email)))->where('status', 1)->first();
 
-        if(is_null($myUser)) {
+        if (is_null($myUser)) {
             return response(null, 204);
         }
 
@@ -58,7 +58,6 @@ class AuthUserController extends Controller
 
         $this->clearLoginAttempts($request);
         User::where('id', $myUser->id)->update(['cicle' => 0 ]);
-        Log::notice('El usuario ' . $request->email . ' Ingreso correctamente');
 
         return $this->auth->autenticacion($request);
     }

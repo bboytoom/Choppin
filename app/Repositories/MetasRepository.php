@@ -16,13 +16,12 @@ class MetasRepository
                 'description' => e(strtolower($request->description))
             ]);
 
-            if ($metaEdit) {
-                Log::notice('El metadato se actualizo correctamente');
-                return 200;
+            if (!$metaEdit) {
+                Log::warning('El metadato se actualizo correctamente');
+                return 400;
             }
 
-            Log::warning('El metadato se actualizo correctamente');
-            return 400;
+            return 200;
         } catch (\Exception $e) {
             Log::error('Error al actualizar el metadato, ya que muestra la siguiente Exception ' . $e->getMessage());
         }

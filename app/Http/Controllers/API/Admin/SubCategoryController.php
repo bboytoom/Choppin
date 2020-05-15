@@ -24,7 +24,7 @@ class SubCategoryController extends Controller
     public function index()
     {
         $subCategories = SubCategory::whereHas('category', function ($subCategoriesEstatus) {
-            $subCategoriesEstatus->where('status', 1); 
+            $subCategoriesEstatus->where('status', 1);
         })->paginate($this->pages);
 
         return new SubCategoryCollection($subCategories);

@@ -25,8 +25,6 @@ class PhotoRepository
             if (!is_null($request->base)) {
                 event(new PhotoImageUpdated($photo->id, $photo->image, $request->base, $request->type));
             }
-            
-            Log::notice('La imagen del producto ' . $data['image'] . ' se creo correctamente');
 
             return 201;
         } catch (\Exception $e) {
@@ -39,7 +37,7 @@ class PhotoRepository
         $data = $request->except(['type', 'base']);
         $photo = Photo::find($id);
     
-        if(is_null($photo)) {
+        if (is_null($photo)) {
             return 422;
         }
 
@@ -55,8 +53,6 @@ class PhotoRepository
                 'status' => $data['status']
             ]);
 
-            Log::notice('La imagen del producto ' . $data['image'] . ' se actualizo correctamente');
-
             return 200;
         } catch (\Exception $e) {
             Log::error('Error al actualizar la imagen del producto ' . $data['image'] . ', ya que muestra la siguiente Exception ' . $e);
@@ -67,14 +63,11 @@ class PhotoRepository
     {
         $photo = Photo::find($id);
 
-        if(is_null($photo)) {
+        if (is_null($photo)) {
             return 422;
         }
 
         $photo->delete();
-        
-        Log::notice('La imagendel producto ' . $photo->image . ' se elimino correctamente');
-
         return 204;
     }
 }

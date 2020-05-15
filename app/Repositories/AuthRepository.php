@@ -12,7 +12,7 @@ class AuthRepository
     {
         $remember = 0;
 
-        if (! $token = Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {         
+        if (! $token = Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {
             return false;
         }
 

@@ -20,13 +20,12 @@ class PerfilRepository
                 'status' => 1
             ]);
 
-            if ($per) {
-                Log::notice('El perfil del usuario ' . $request->email . ' se actualizo correctamente');
-                return 200;
+            if (!$per) {
+                Log::warning('El perfil del usuario ' . $request->email . ' no se actualizo');
+                return 400;
             }
 
-            Log::warning('El perfil del usuario ' . $request->email . ' no se actualizo');
-            return 400;
+            return 200;
         } catch (\Exception $e) {
             Log::error('Error al actualizar el perfil del usuario' . $request->email . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }

@@ -18,13 +18,12 @@ class CategoryRepository
                 'status' => 1
             ]);
 
-            if ($categ) {
-                Log::notice('La categoria ' . $request->name . ' se creo correctamente');
-                return 201;
+            if (!$categ) {
+                Log::warning('La categoria ' . $request->name . ' no se creo');
+                return 400;
             }
 
-            Log::warning('La categoria ' . $request->name . ' no se creo');
-            return 400;
+            return 201;
         } catch (\Exception $e) {
             Log::error('Error al crear una categoria ' . $request->name . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
@@ -40,13 +39,12 @@ class CategoryRepository
                 'status' => e(strtolower($request->status))
             ]);
 
-            if ($categ) {
-                Log::notice('La categoria ' . $request->name . ' se actualizo correctamente');
-                return 200;
+            if (!$categ) {
+                Log::warning('La categoria ' . $request->name . ' no se actualizo');
+                return 400;
             }
 
-            Log::warning('La categoria ' . $request->name . ' no se actualizo');
-            return 400;
+            return 200;
         } catch (\Exception $e) {
             Log::error('Error al actualizar una categoria ' . $request->name . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
@@ -56,12 +54,11 @@ class CategoryRepository
     {
         $categ = $category->delete();
 
-        if ($categ) {
-            Log::notice('La categoria ' . $category->name . ' se elimino correctamente');
-            return 204;
+        if (!$categ) {
+            Log::warning('La categoria ' . $category->name . ' no se elimino');
+            return 400;
         }
 
-        Log::warning('La categoria ' . $category->name . ' no se elimino');
-        return 400;
+        return 204;
     }
 }

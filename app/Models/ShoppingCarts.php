@@ -44,8 +44,6 @@ class ShoppingCarts extends Model
                 'email' => $email,
                 'status' => 0
             ]);
-
-            Log::notice('Se guardo el carrito ' . $indentity . ' correctamente');
         } catch (\Exception $e) {
             Log::error('Error al ingresar al carrito ' . $indentity . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }

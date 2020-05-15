@@ -22,13 +22,12 @@ class ProductRepository
                 'status' => 1
             ]);
 
-            if ($product) {
-                Log::notice('El producto ' . $request->name . ' se creo correctamente');
-                return 201;
+            if (!$product) {
+                Log::warning('El producto ' . $request->name . ' no se creo');
+                return 400;
             }
 
-            Log::warning('El producto ' . $request->name . ' no se creo');
-            return 400;
+            return 201;
         } catch (\Exception $e) {
             Log::error('Error al crear el producto ' . $request->name . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
@@ -47,13 +46,12 @@ class ProductRepository
                 'status' => $request->status
             ]);
 
-            if ($productEdit) {
-                Log::notice('El producto ' . $request->name . ' se actualizo correctamente');
-                return 200;
+            if (!$productEdit) {
+                Log::warning('El producto ' . $request->name . ' no se actualizo');
+                return 400;
             }
 
-            Log::warning('El producto ' . $request->name . ' no se actualizo');
-            return 400;
+            return 200;
         } catch (\Exception $e) {
             Log::error('Error al actualizar el producto ' . $request->name . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
@@ -61,14 +59,13 @@ class ProductRepository
 
     public function deleteProduct($product)
     {
-        $productDelete = $product->delete();   
-        
-        if ($productDelete) {
-            Log::notice('El producto ' . $product->name . ' se elimino correctamente');
-            return 204;
+        $productDelete = $product->delete();
+
+        if (!$productDelete) {
+            Log::warning('El producto ' . $request->name . ' no se elimino');
+            return 400;
         }
-        
-        Log::warning('El producto ' . $request->name . ' no se elimino');
-        return 400;
+
+        return 204;
     }
 }

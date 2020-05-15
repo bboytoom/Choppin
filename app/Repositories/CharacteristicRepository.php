@@ -18,13 +18,12 @@ class CharacteristicRepository
                 'status' => 1
             ]);
 
-            if ($charact) {
-                Log::notice('La caracteristica ' . $request->name . ' se creo correctamente');
-                return 201;
+            if (!$charact) {
+                Log::warning('La caracteristica ' . $request->name . ' no se creo');
+                return 400;
             }
 
-            Log::warning('La caracteristica ' . $request->name . ' no se creo');
-            return 400;
+            return 201;
         } catch (\Exception $e) {
             Log::error('Error al crear la caracteristica ' . $request->name . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
@@ -40,13 +39,12 @@ class CharacteristicRepository
                 'status' => $request->status
             ]);
 
-            if ($charact) {
-                Log::notice('La caracteristica ' . $request->name . ' se actualizo correctamente');
-                return 200;
+            if (!$charact) {
+                Log::warning('La caracteristica ' . $request->name . ' no se actualizo');
+                return 400;
             }
 
-            Log::warning('La caracteristica ' . $request->name . ' no se actualizo');
-            return 400;
+            return 200;
         } catch (\Exception $e) {
             Log::error('Error al actualizar la caracteristica ' . $request->name . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
@@ -56,12 +54,11 @@ class CharacteristicRepository
     {
         $charact = $characteristic->delete();
 
-        if ($charact) {
-            Log::notice('La caracteristica ' . $characteristic->name . ' se elimino correctamente');
-            return 204;
+        if (!$charact) {
+            Log::warning('La caracteristica ' . $characteristic->name . ' no se elimino');
+            return 400;
         }
 
-        Log::warning('La caracteristica ' . $characteristic->name . ' no se elimino');
-        return 400;
+        return 204;
     }
 }

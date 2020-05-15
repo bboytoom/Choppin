@@ -24,7 +24,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::whereHas('subcategory', function ($productsEstatus) {
-            $productsEstatus->where('status', 1); 
+            $productsEstatus->where('status', 1);
         })->paginate($this->pages);
 
         return new ProductCollection($products);

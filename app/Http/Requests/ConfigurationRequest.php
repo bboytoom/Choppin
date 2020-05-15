@@ -19,6 +19,7 @@ class ConfigurationRequest extends FormRequest
     public function rules()
     {
         return [
+            'permission_id' => 'required|exists:App\User,id',
             'domain' => [
                 'required',
                 'min:8',

@@ -16,7 +16,7 @@ class AdministratorRepository
 
         try {
             $admin = User::create([
-                'permission_id' => $request->permission_id, 
+                'permission_id' => $request->permission_id,
                 'type' => $request->type,
                 'name' => e(strtolower($request->name)),
                 'mother_surname' => empty($request->mother_surname) ? '' : e(strtolower($request->mother_surname)),
@@ -26,13 +26,12 @@ class AdministratorRepository
                 'status' => 1
             ]);
 
-            if ($admin) {
-                Log::notice('El usuario ' . $request->email . ' se creo correctamente');
-                return 201;
+            if (!$admin) {
+                Log::warning('El usuario ' . $request->email . ' no se creo');
+                return 400;
             }
 
-            Log::warning('El usuario ' . $request->email . ' no se creo');
-            return 400;
+            return 201;
         } catch (\Exception $e) {
             Log::error('Error al crear el usuario ' . $request->email . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
@@ -50,13 +49,12 @@ class AdministratorRepository
                 'status' => ($administration->type == 'administrador') ? 1 : $request->status
             ]);
 
-            if ($admin) {
-                Log::notice('El usuario ' . $request->email . ' se actualizo correctamente');
-                return 200;
+            if (!$admin) {
+                Log::warning('El usuario ' . $request->email . ' no se actualizo');
+                return 400;
             }
 
-            Log::warning('El usuario ' . $request->email . ' no se actualizo');
-            return 400;
+            return 200;
         } catch (\Exception $e) {
             Log::error('Error al actualizar el usuario ' . $request->email . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
@@ -66,12 +64,11 @@ class AdministratorRepository
     {
         $admin = $administration->delete();
 
-        if ($admin) {
-            Log::notice('El usuario ' . $administration->email . ' se elimino correctamente');
-            return 204;
+        if (!$admin) {
+            Log::warning('El usuario ' . $administration->email . ' no se elimino');
+            return 400;
         }
 
-        Log::notice('El usuario ' . $administration->email . ' no se elimino');
-        return 400;
+        return 204;
     }
 }

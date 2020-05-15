@@ -24,7 +24,7 @@ class ShippingController extends Controller
     public function index($id)
     {
         $shippings = Shipping::whereHas('user', function ($shippingsEstatus) {
-            $shippingsEstatus->where('status', 1); 
+            $shippingsEstatus->where('status', 1);
         })->where('user_id', $id)->paginate($this->pages);
 
         return new ShippingCollection($shippings);
@@ -47,7 +47,7 @@ class ShippingController extends Controller
     }
 
     public function destroy(Shipping $envio)
-    {   
+    {
         return response(null, $this->shippin->deleteShipping($envio));
     }
 }

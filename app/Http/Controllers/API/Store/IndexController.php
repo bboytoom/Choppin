@@ -35,7 +35,7 @@ class IndexController extends Controller
         $shoppingcart = $request->shopping_cart;
 
         try {
-            foreach($request->cart as $products) {
+            foreach ($request->cart as $products) {
                 $inshop = InShoppingCart::create([
                     'shopping_cart_id' => $shoppingcart->id,
                     'product_id' => $products['id'],
@@ -46,8 +46,6 @@ class IndexController extends Controller
                     Log::warning('No se guardo la compra del producto ' . $products['id'] . ' ' . $shoppingcart->id);
                     return response(null, 400);
                 }
-
-                Log::notice('Se guardo la compra del producto ' . $products['id'] . ' ' . $shoppingcart->id . ' correctamente');
             }
 
             return response(null, 200);

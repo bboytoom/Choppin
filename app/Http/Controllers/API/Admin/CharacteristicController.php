@@ -24,7 +24,7 @@ class CharacteristicController extends Controller
     public function index($id)
     {
         $characteristics = Characteristic::whereHas('product', function ($characteristicsEstatus) {
-            $characteristicsEstatus->where('status', 1); 
+            $characteristicsEstatus->where('status', 1);
         })->where('product_id', $id)->paginate($this->pages);
 
         return new CharacteristicCollection($characteristics);
@@ -32,7 +32,7 @@ class CharacteristicController extends Controller
 
     public function store(CharacteristicRequest $request)
     {
-        return response(null,  $this->charac->createCharacteristic($request));
+        return response(null, $this->charac->createCharacteristic($request));
     }
 
     public function show(Characteristic $characteristic)

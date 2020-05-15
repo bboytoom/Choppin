@@ -27,13 +27,12 @@ class ConfigurationRepository
                 'status' => 1
             ]);
 
-            if ($conf) {
-                Log::notice('El configuracion se actualizo correctamente');
-                return 200;
+            if (!$conf) {
+                Log::warning('El configuracion no se actualizo');
+                return 400;
             }
 
-            Log::warning('El configuracion no se actualizo');
-            return 400;
+            return 200;
         } catch (\Exception $e) {
             Log::error('Error al actualizar la configuracion, ya que muestra la siguiente Exception ' . $e->getMessage());
         }
