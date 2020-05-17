@@ -8,6 +8,7 @@ $factory->define(Coupon::class, function (Faker $faker) {
         'name' => 'NoCoupon',
         'value' => 0,
         'status' => true,
-        'expiration' => '2050-07-29 23:59:59',
+        'expiration_start' => '2020-01-01 00:00:00',
+        'expiration_finish' => '2050-07-29 23:59:59',
     ];
 });

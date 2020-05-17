@@ -12,6 +12,12 @@ class Coupon extends Model
         'name',
         'value',
         'status',
-        'expiration'
+        'expiration_start',
+        'expiration_finish'
     ];
+
+    public function couponAssigned()
+    {
+        return $this->hasMany('App\Models\CouponAssigned', 'coupon_id');
+    }
 }

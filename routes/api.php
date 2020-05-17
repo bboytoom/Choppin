@@ -89,4 +89,8 @@ Route::group([
 
     // Rutas del modulo de ordenes
     Route::apiResource('order', 'OrderController')->except('store', 'destroy');
+
+
+    // Rutas del modulo de cupones
+    Route::apiResource('coupon', 'CouponController');
 });

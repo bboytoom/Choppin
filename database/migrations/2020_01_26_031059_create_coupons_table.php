@@ -13,7 +13,8 @@ class CreateCouponsTable extends Migration
             $table->string('name', 40)->unique();
             $table->unsignedInteger('value');
             $table->boolean('status')->default(true);
-            $table->dateTime('expiration', 0);
+            $table->dateTime('expiration_start', 0);
+            $table->dateTime('expiration_finish', 0);
             $table->timestamps();
         });
     }
@@ -23,4 +24,3 @@ class CreateCouponsTable extends Migration
         Schema::dropIfExists('coupons');
     }
 }
-    
