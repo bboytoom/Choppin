@@ -18,7 +18,7 @@ class OrderController extends Controller
     {
         $carts = array();
         $user = Auth::user();
-        $shopping_cart = ShoppingCarts::where('email', 'hola')->get();
+        $shopping_cart = ShoppingCarts::where('id', $user->id)->get();
 
         if ($shopping_cart) {
             return response(null, 204);

@@ -9,9 +9,9 @@ class ShoppingCarts extends Model
     protected $table = 'shopping_carts';
 
     protected $fillable = [
+        'user_id',
         'coupon_id',
         'indentity',
-        'email',
         'status'
     ];
 
@@ -22,26 +22,27 @@ class ShoppingCarts extends Model
 
     public function products()
     {
-        return $this->belongsToMany('App\Models\Product', 'in_shopping_carts', 'shopping_cart_id'); 
+        return $this->belongsToMany('App\Models\Product', 'in_shopping_carts', 'shopping_cart_id');
     }
 
-    public static function findOrCreateShoppingCart($indentity, $email, $qty) 
+    public static function findOrCreateShoppingCart($indentity, $user_id, $coupon_id)
     {
         $cart = ShoppingCarts::where('indentity', $indentity)->first();
 
-        if(is_null($cart)) {
-            return ShoppingCarts::createWithoutIdentity($indentity, $email, $qty);
+        if (is_null($cart)) {
+            return ShoppingCarts::createWithoutIdentity($indentity, $user_id, $coupon_id);
         } else {
             return $cart;
         }
     }
 
-    public static function createWithoutIdentity($indentity, $email, $qty) 
+    public static function createWithoutIdentity($indentity, $user_id, $coupon_id)
     {
         try {
             return ShoppingCarts::create([
+                'coupon_id' => $coupon_id,
+                'user_id' => $user_id,
                 'indentity' => $indentity,
-                'email' => $email,
                 'status' => 0
             ]);
         } catch (\Exception $e) {
