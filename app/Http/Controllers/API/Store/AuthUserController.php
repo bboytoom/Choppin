@@ -79,7 +79,7 @@ class AuthUserController extends Controller
         User::where('id', $user->id)->update(['remember' => 0]);
 
         auth()->logout();
-        return response()->json(['message' => 'Salió correctamente']);
+        return response(['message' => trans('services.logout_message')], 401);
     }
 
     public function username()
