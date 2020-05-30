@@ -27,6 +27,7 @@ class CouponRequest extends FormRequest
                 Rule::unique('coupons', 'name')->ignore($this->coupon)
             ],
             'value' => 'required|numeric',
+            'type' => 'required|in:amount,percent',
             'expiration_start' => 'required|date_format:"Y-m-d H:i:s"',
             'expiration_finish' => 'required|date_format:"Y-m-d H:i:s"'
         ];

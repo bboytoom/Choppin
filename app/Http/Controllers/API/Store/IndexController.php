@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\API\Store;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Store\IndexCollection;
-use App\Http\Resources\Store\StoreProductResource;
 use App\Models\Product;
+use App\Models\ShoppingCarts;
 use App\Models\InShoppingCart;
+use App\Models\Coupon;
+use App\Models\CouponAssigned;
 
 class IndexController extends Controller
 {
@@ -17,17 +19,6 @@ class IndexController extends Controller
     public function __construct()
     {
         $this->middleware('shoppingcart')->only('store');
-    }
-
-    public function index()
-    {
-        $products = Product::all()->where('status', 1);
-
-        if ($products->count() > 6) {
-            return new IndexCollection($products->random($this->pages));
-        }
-
-        return new IndexCollection($products);
     }
 
     public function store(Request $request)
@@ -48,15 +39,47 @@ class IndexController extends Controller
                 }
             }
 
+            if (!is_null($request->coupon)) {
+                $this->addCoupon($request->coupon, $shoppingcart->id);
+            }
+
             return response(null, 200);
         } catch (\Exception $e) {
             Log::error('Error al generar la compra del siguiente producto ' . $products['id'] . ' ' . $shoppingcart->id . ', ya que muestra la siguiente Exception ' . $e->getMessage());
         }
     }
 
-    public function show(Product $store)
+    private function addCoupon($coupon, $shoppingCart_id)
     {
-        StoreProductResource::withoutWrapping();
-        return new StoreProductResource($store);
+        $user_id = Auth::id();
+        $today = today();
+
+        $findCoupon = Coupon::firstWhere('name', $coupon);
+
+        if (is_null($findCoupon) || $findCoupon->expiration_finish < $today || $findCoupon->expiration_start > $today) {
+            return response(null, 422);
+        }
+
+        $couponAssigned = CouponAssigned::create([
+            'user_id' => $user_id,
+            'coupon_id' => $findCoupon->id
+        ]);
+
+        if (!$couponAssigned) {
+            Log::warning('No se agrego la asignacion del cupon ' . $findCoupon->id . ' con el usuario ' . $user_id);
+            return response(null, 400);
+        }
+
+        try {
+            $shopingCoupon = ShoppingCarts::find($shoppingCart_id);
+            $shopingCoupon->coupon_id = $findCoupon->id;
+
+            if (!$shopingCoupon->save()) {
+                Log::warning('No se agrego el cupon ' . $findCoupon->id . ' al carrito ' . $shoppingCart_id);
+                return response(null, 400);
+            }
+        } catch (\Exception $e) {
+            Log::error('Error al ingresar el cupon ' . $e->getMessage());
+        }
     }
 }

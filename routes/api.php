@@ -20,7 +20,7 @@ Route::group([
     'namespace' => 'API\Store',
     'middleware' => ['authheader']
 ], function () {
-    Route::apiResource('store', 'IndexController')->except('update', 'destroy');
+    Route::apiResource('store', 'IndexController')->only('store');
 
     Route::post('login', 'AuthUserController@logIn');
     Route::post('logout', 'AuthUserController@logOut');

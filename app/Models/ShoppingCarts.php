@@ -25,22 +25,22 @@ class ShoppingCarts extends Model
         return $this->belongsToMany('App\Models\Product', 'in_shopping_carts', 'shopping_cart_id');
     }
 
-    public static function findOrCreateShoppingCart($indentity, $user_id, $coupon_id)
+    public static function findOrCreateShoppingCart($indentity, $user_id)
     {
         $cart = ShoppingCarts::where('indentity', $indentity)->first();
 
         if (is_null($cart)) {
-            return ShoppingCarts::createWithoutIdentity($indentity, $user_id, $coupon_id);
+            return ShoppingCarts::createWithoutIdentity($indentity, $user_id);
         } else {
             return $cart;
         }
     }
 
-    public static function createWithoutIdentity($indentity, $user_id, $coupon_id)
+    public static function createWithoutIdentity($indentity, $user_id)
     {
         try {
             return ShoppingCarts::create([
-                'coupon_id' => $coupon_id,
+                'coupon_id' => 1,
                 'user_id' => $user_id,
                 'indentity' => $indentity,
                 'status' => 0

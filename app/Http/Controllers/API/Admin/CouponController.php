@@ -24,6 +24,7 @@ class CouponController extends Controller
         $coupon = Coupon::create([
             'name' => e(strtolower($request->name)),
             'value' =>  $request->value,
+            'type' =>  $request->type,
             'expiration_start' => $request->expiration_start,
             'expiration_finish' => $request->expiration_finish
         ]);
@@ -47,6 +48,7 @@ class CouponController extends Controller
         $coupon = Coupon::where('id', $coupon->id)->update([
             'name' => e(strtolower($request->name)),
             'value' =>  $request->value,
+            'type' =>  $request->type,
             'expiration_start' => $request->expiration_start,
             'expiration_finish' => $request->expiration_finish,
             'status' => $request->status

@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Models\Configuration;
+use App\Models\Coupon;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\ShippingAddress;
+use PayPal\Api\Item;
 use PayPal\Api\ItemList;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
@@ -45,7 +47,7 @@ class Paypal extends Model
     {
         $address = new ShippingAddress();
 
-        $shippings = User::firstWhere('email', $this->_shoppingcart->email)->shipping();
+        $shippings = User::find($this->_shoppingcart->user_id)->shipping();
         $find_addres = $shippings->find($this->_shipping_id);
 
         return $address->setLine1($find_addres->addres)

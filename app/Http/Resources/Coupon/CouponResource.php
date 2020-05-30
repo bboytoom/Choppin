@@ -14,6 +14,7 @@ class CouponResource extends JsonResource
             'attributes' => [
                 'name' => $this->name,
                 'value' => $this->value,
+                'type' => $this->type,
                 'status' => $this->status,
                 'expiration_start' =>  $this->expiration_start,
                 'expiration_finish' =>  $this->expiration_finish

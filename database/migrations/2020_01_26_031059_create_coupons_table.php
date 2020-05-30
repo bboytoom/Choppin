@@ -13,6 +13,7 @@ class CreateCouponsTable extends Migration
             $table->string('name', 40)->unique();
             $table->unsignedInteger('value');
             $table->boolean('status')->default(true);
+            $table->enum('type', ['amount', 'percent'])->default('percent');
             $table->dateTime('expiration_start', 0);
             $table->dateTime('expiration_finish', 0);
             $table->timestamps();
