@@ -40,7 +40,6 @@ class ShoppingCarts extends Model
     {
         try {
             return ShoppingCarts::create([
-                'coupon_id' => 1,
                 'user_id' => $user_id,
                 'indentity' => $indentity,
                 'status' => 0

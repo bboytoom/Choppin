@@ -58,7 +58,5 @@ class DatabaseSeeder extends Seeder
                 });	
             });	
         });
-
-        factory(\App\Models\Coupon::class, 1)->create();
     }
 }

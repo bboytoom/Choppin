@@ -26,24 +26,25 @@ class Paypal extends Model
     private $_api_context;
     private $_shoppingcart;
     private $_shipping_id;
+    private $_paypal_conf;
 
     public function __construct($shoppingcart, $shipping_id)
     {
-        $paypal_conf = \Config::get('Paypal');
+        $this->_paypal_conf = \Config::get('Paypal');
 
-        $this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_conf['client_id'], $paypal_conf['secret']));
-        $this->_api_context->setConfig($paypal_conf['settings']);
+        $this->_api_context = new ApiContext(new OAuthTokenCredential($this->_paypal_conf['client_id'], $this->_paypal_conf['secret']));
+        $this->_api_context->setConfig($this->_paypal_conf['settings']);
         $this->_shoppingcart = $shoppingcart;
         $this->_shipping_id = $shipping_id;
     }
 
-    public function payer()
+    private function payer()
     {
         $payer = new Payer();
         return $payer->setPaymentMethod('paypal');
     }
 
-    public function address()
+    private function address()
     {
         $address = new ShippingAddress();
 
@@ -59,28 +60,51 @@ class Paypal extends Model
             ->setRecipientName($find_addres->name);
     }
 
-    public function items()
+    private function items()
     {
+        $subtotal = 0;
         $items = [];
         $products = $this->_shoppingcart->products()->get();
 
         foreach ($products as $product) {
-            array_push(
-                $items,
-                $product->paypalItem(
-                    $product->quantity()->first()
-                )
-            );
+            $quantity = $product->quantity()->first();
+            $subtotal += $product->price *  $quantity->qty;
+
+            array_push($items, $product->paypalItem($quantity));
+        }
+
+        if (!is_null($this->_shoppingcart->coupon_id)) {
+            $itemDescount = new Item();
+            $itemDescount->setName('descount')
+                ->setPrice(-$this->descount($subtotal))
+                ->setQuantity(1)
+                ->setCurrency($this->_paypal_conf['currency']);
+
+            array_push($items, $itemDescount);
         }
 
         $item_list = new ItemList();
-        return $item_list->setItems($items)
-            ->setShippingAddress($this->address());
+        return $item_list->setItems($items)->setShippingAddress($this->address());
     }
 
-    public function details()
+    private function descount($subtotal)
+    {
+        $descount = 0;
+        $couponDescount = Coupon::find($this->_shoppingcart->coupon_id);
+
+        if ($couponDescount->type == 'percent') {
+            $descount = (abs($couponDescount->value) * $subtotal)/100;
+        } else {
+            $descount = $couponDescount->value;
+        }
+
+        return $descount;
+    }
+
+    private function details()
     {
         $subtotal = 0;
+        $descount = 0;
         $shipping = Configuration::where('domain', $_SERVER['HTTP_HOST'])->first();
         $details = new Details();
 
@@ -99,29 +123,31 @@ class Paypal extends Model
             $subtotal += $product->price *  $quantity->qty;
         }
 
+        if (!is_null($this->_shoppingcart->coupon_id)) {
+            $descount = $this->descount($subtotal);
+        }
+ 
         return [
             'answer' => 'ok',
-            'total' => $subtotal + $shipping->cost_shipping,
-            'detail' => $details->setSubtotal($subtotal)->setShipping($shipping->cost_shipping)
+            'total' => ($subtotal - $descount) + $shipping->cost_shipping,
+            'detail' => $details->setSubtotal($subtotal - $descount)->setShipping($shipping->cost_shipping)
         ];
     }
 
-    public function amount()
+    private function amount()
     {
         $details = $this->details();
-
         $amount = new Amount();
-        $paypal_conf = \Config::get('Paypal');
 
         return [
             'answer' => $details['answer'],
-            'amount' => $amount->setCurrency($paypal_conf['currency'])
+            'amount' => $amount->setCurrency($this->_paypal_conf['currency'])
                 ->setTotal($details['total'])
                 ->setDetails($details['detail'])
         ];
     }
 
-    public function transaction()
+    private function transaction()
     {
         $amount = $this->amount();
         $transaction = new Transaction();
@@ -135,7 +161,7 @@ class Paypal extends Model
         ];
     }
 
-    public function redirectURLs()
+    private function redirectURLs()
     {
         $redirect_urls = new RedirectUrls();
         $baseURL = url('/');
@@ -163,6 +189,7 @@ class Paypal extends Model
                 $payment->create($this->_api_context);
             } catch (PayPalConnectionException $ex) {
                 dd($ex->getData());
+                Log::error('Error en paypal, ya que muestra la siguiente Exception ' . $ex->getData());
             }
 
             return $payment;
