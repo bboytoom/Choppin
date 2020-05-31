@@ -27,13 +27,13 @@ class ShoppingCarts extends Model
 
     public static function findOrCreateShoppingCart($indentity, $user_id)
     {
-        $cart = ShoppingCarts::where('indentity', $indentity)->first();
+        $cart = ShoppingCarts::where('indentity', $indentity)->where('status', 0)->first();
 
         if (is_null($cart)) {
             return ShoppingCarts::createWithoutIdentity($indentity, $user_id);
-        } else {
-            return $cart;
         }
+
+        return $cart;
     }
 
     public static function createWithoutIdentity($indentity, $user_id)
