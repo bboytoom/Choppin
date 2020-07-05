@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Providers\TelescopeServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\UserObserver;
 use App\User;

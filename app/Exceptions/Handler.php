@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use Exception;
+use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Arr;
@@ -28,26 +28,23 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-    /**
-     * Report or log an exception.
-     *
-     * @param  \Exception  $exception
-     * @return void
-     */
-    public function report(Exception $exception)
+    public function report(Throwable $exception)
     {
-        parent::report($exception);
+	parent::report($exception);
     }
 
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
-     */
-    public function render($request, Exception $exception)
+    public function shouldReport(Throwable $exception)
     {
-        return parent::render($request, $exception);
+	dd($exception);
+    }
+
+    public function render($request, Throwable $exception)
+    {
+	return parent::render($request, $exception);
+    }
+
+    public function renderForConsole($output, Throwable $exception)
+    {
+	dd($exception);
     }
 }

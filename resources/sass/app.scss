@@ -1,58 +1,8 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
-@import 'validation';
+// Variables
+@import 'variables';
 
-.lower--mdf {
-    text-transform: lowercase;
-}
-.vfa-demo .file-preview-wrapper::before {
-    background: transparent;
-}
-
-.vfa-demo .file-row {
-    position: relative;
-    z-index: 15;
-    line-height: 24px;
-    text-align: left;
-    background: #EEE;
-    padding: 2px 5px;
-}
-
-.vfa-demo .remove {
-    float: right;
-    margin-top: -3px;
-}
-
-.vfa-demo .drop-help-text {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: 2px;
-    background: rgba(255, 255, 255, 0.75);
-    z-index: 1200;
-    font-size: 32px;
-    font-weight: bold;
-    color: #888;
-    align-items: center;
-    justify-content: center;
-    display: none;
-}
-
-.vfa-demo .is-drag-over .drop-help-text {
-    display: flex;
-}
-
-.vfa-demo .upload-block {
-    border: 2px dashed transparent;
-    padding-top: 0;
-}
-
-.vfa-demo .is-drag-over.upload-block {
-    border-color: #AAA;
-}
-
-.vfa-demo .vue-file-agent {
-    border: 0 !important;
-    box-shadow: none !important;
-}
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
